@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="id"><head><%- include('../partials/head') %></head><body class="antialiased"><%- include('../partials/navbar') %>
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <div class="text-center max-w-2xl mx-auto">
+    <span class="text-xs font-bold tracking-[0.2em] text-terracotta-600">PAKET & HARGA</span>
+    <h1 class="font-display text-4xl font-bold mt-1">Investasi untuk dirimu</h1>
+    <p class="text-stone-warm mt-2">Pilih ritme yang pas. Bisa upgrade/downgrade kapan saja. Kelas gratis pertama untuk semua paket.</p>
+    <div class="flex items-center justify-center gap-3 mt-6">
+      <span class="text-sm font-medium">Bulanan</span>
+      <label class="relative inline-flex items-center cursor-pointer">
+        <input type="checkbox" id="pricingToggle" class="sr-only peer">
+        <div class="w-12 h-7 bg-sage-200 rounded-full peer peer-checked:bg-sage-700 transition"></div>
+        <div class="absolute left-1 top-1 w-5 h-5 bg-white rounded-full transition peer-checked:translate-x-5"></div>
+      </label>
+      <span class="text-sm font-medium">Tahunan <span class="text-terracotta-600 text-xs font-bold">HEMAT 20%</span></span>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-6 mt-10 max-w-5xl mx-auto">
+    <% pricing.forEach(p=>{ %>
+      <div class="rounded-[24px] p-7 border flex flex-col <%= p.popular ? 'bg-sage-700 text-white border-sage-700 shadow-xl scale-[1.02]' : 'bg-white border-sage-100' %>">
+        <% if(p.popular){ %><span class="self-start bg-terracotta-500 text-white text-[10px] font-bold tracking-widest px-3 py-1 rounded-full">PALING POPULER</span><% } %>
+        <h3 class="font-display text-2xl font-bold mt-3"><%= p.name %></h3>
+        <p class="text-sm mt-1 <%= p.popular?'text-sage-200':'text-stone-warm' %>"><%= p.desc %></p>
+        <div class="mt-5"><span class="text-3xl font-bold">Rp <span data-price data-monthly="<%= p.price %>" data-yearly="<%= (parseInt(p.price.replace('K',''))*10) %>K"><%= p.price %></span></span><span data-period class="text-sm <%= p.popular?'text-sage-200':'text-stone-warm' %>"><%= p.period %></span></div>
+        <ul class="mt-5 space-y-2 text-sm flex-1 <%= p.popular?'text-sage-100':'text-stone-warm' %>"><% p.features.forEach(f=>{ %><li class="flex gap-2"><span>✓</span> <%= f %></li><% }) %></ul>
+        <button onclick="openBooking('Paket <%= p.name %>')" class="w-full mt-6 py-3 rounded-full font-semibold text-sm <%= p.popular?'bg-white text-sage-700':'bg-sage-700 text-white hover:bg-sage-600' %>"><%= p.cta %></button>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- FAQ -->
+  <div class="max-w-3xl mx-auto mt-16">
+    <h2 class="font-display text-2xl font-bold text-center">Pertanyaan Sering Diajukan</h2>
+    <div class="mt-6 space-y-3">
+      <% faqs.forEach(f=>{ %>
+        <div class="bg-white border border-sage-100 rounded-2xl overflow-hidden">
+          <button data-faq class="w-full text-left px-5 py-4 font-semibold text-sm flex justify-between items-center"><%= f.q %> <span>+</span></button>
+          <div class="hidden px-5 pb-4 text-sm text-stone-warm leading-relaxed"><%= f.a %></div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<%- include('../partials/footer') %><script src="/js/main.js"></script></body></html>

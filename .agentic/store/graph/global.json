@@ -1,0 +1,258 @@
+{
+  "key": "global",
+  "data": [
+    {
+      "source": "package.json",
+      "target": "setup-project",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802726200
+      }
+    },
+    {
+      "source": "server.js",
+      "target": "setup-project",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802726200
+      }
+    },
+    {
+      "source": "data/yogaData.js",
+      "target": "setup-project",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802726201
+      }
+    },
+    {
+      "source": "public/css/input.css",
+      "target": "setup-project",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802726201
+      }
+    },
+    {
+      "source": "public/css/output.css",
+      "target": "setup-project",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802726201
+      }
+    },
+    {
+      "source": "views/partials/head.ejs",
+      "target": "layout-system",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802728310
+      }
+    },
+    {
+      "source": "views/partials/navbar.ejs",
+      "target": "layout-system",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802728310
+      }
+    },
+    {
+      "source": "views/partials/footer.ejs",
+      "target": "layout-system",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802728310
+      }
+    },
+    {
+      "source": "views/layout.ejs",
+      "target": "layout-system",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802728310
+      }
+    },
+    {
+      "source": "public/js/main.js",
+      "target": "layout-system",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802728310
+      }
+    },
+    {
+      "source": "public/css/input.css",
+      "target": "design-system",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802729825
+      }
+    },
+    {
+      "source": "public/css/output.css",
+      "target": "design-system",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802729825
+      }
+    },
+    {
+      "source": "views/pages/home.ejs",
+      "target": "pages-home",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802731623
+      }
+    },
+    {
+      "source": "views/pages/classes.ejs",
+      "target": "pages-classes",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802733261
+      }
+    },
+    {
+      "source": "views/pages/class-detail.ejs",
+      "target": "pages-classes",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802733261
+      }
+    },
+    {
+      "source": "views/pages/schedule.ejs",
+      "target": "pages-schedule-pricing",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802735071
+      }
+    },
+    {
+      "source": "views/pages/pricing.ejs",
+      "target": "pages-schedule-pricing",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802735071
+      }
+    },
+    {
+      "source": "views/pages/instructors.ejs",
+      "target": "pages-instructors-blog-gallery",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802736834
+      }
+    },
+    {
+      "source": "views/pages/blog.ejs",
+      "target": "pages-instructors-blog-gallery",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802736834
+      }
+    },
+    {
+      "source": "views/pages/blog-detail.ejs",
+      "target": "pages-instructors-blog-gallery",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802736834
+      }
+    },
+    {
+      "source": "views/pages/gallery.ejs",
+      "target": "pages-instructors-blog-gallery",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802736834
+      }
+    },
+    {
+      "source": "views/pages/contact.ejs",
+      "target": "pages-instructors-blog-gallery",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802736834
+      }
+    },
+    {
+      "source": "server.js",
+      "target": "backend-data",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802738477
+      }
+    },
+    {
+      "source": "data/yogaData.js",
+      "target": "backend-data",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802738477
+      }
+    },
+    {
+      "source": "llm",
+      "target": "opencode/muse-spark-1.2-contributor-free",
+      "relation": "cost",
+      "metadata": {
+        "costUsd": 0,
+        "timestamp": 1787802781992
+      }
+    },
+    {
+      "source": "public/js/main.js",
+      "target": "polish",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802785543
+      }
+    },
+    {
+      "source": "README.md",
+      "target": "polish",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802785543
+      }
+    },
+    {
+      "source": ".gitignore",
+      "target": "polish",
+      "relation": "modified_by",
+      "metadata": {
+        "event": "step.completed",
+        "timestamp": 1787802785543
+      }
+    }
+  ],
+  "updatedAt": "2026-08-27T03:53:05.543Z"
+}

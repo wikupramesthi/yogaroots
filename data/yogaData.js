@@ -1,0 +1,117 @@
+export const yogaData = {
+  site: {
+    name: 'Serene',
+    tagline: 'Temukan Keseimbangan',
+    description: 'Studio yoga & mindfulness di jantung kota. Sejak 2018 membantu 12.000+ jiwa menemukan kedamaian.',
+    phone: '+62 812-3456-7890',
+    email: 'halo@serene.yoga',
+    address: 'Jl. Senopati No.42, Jakarta Selatan',
+    instagram: 'serene.yoga',
+    year: new Date().getFullYear()
+  },
+  nav: [
+    { label: 'Beranda', href: '/' },
+    { label: 'Kelas', href: '/classes' },
+    { label: 'Jadwal', href: '/schedule' },
+    { label: 'Harga', href: '/pricing' },
+    { label: 'Instruktur', href: '/instructors' },
+    { label: 'Jurnal', href: '/blog' },
+    { label: 'Galeri', href: '/gallery' },
+    { label: 'Kontak', href: '/contact' }
+  ],
+  hero: {
+    eyebrow: 'Studio Yoga No.1 di Jakarta • 4.9★ dari 2.400+ ulasan',
+    title: 'Temukan Keseimbangan dalam Setiap Napas',
+    subtitle: 'Lebih dari sekadar gerakan — yoga adalah perjalanan pulang ke diri. Bergabunglah dengan komunitas yang hangat, instruktur bersertifikat internasional, dan ruang yang dirancang untuk kedamaianmu.',
+    ctaPrimary: 'Mulai Kelas Gratis',
+    ctaSecondary: 'Lihat Jadwal',
+    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&auto=format&fit=crop&q=60',
+    floating: [
+      { label: '500+ Kelas / bulan', icon: '🧘' },
+      { label: '12K+ Member Bahagia', icon: '💫' }
+    ]
+  },
+  stats: [
+    { value: '12K+', label: 'Member Aktif' },
+    { value: '18', label: 'Instruktur Certified' },
+    { value: '500+', label: 'Kelas per Bulan' },
+    { value: '4.9★', label: 'Rating Google' }
+  ],
+  features: [
+    { icon: '🌿', title: 'Ruang Holistik', desc: 'Studio dengan kayu alami, aromaterapi, dan cahaya lembut yang menenangkan sistem saraf.' },
+    { icon: '🪷', title: 'Semua Level', desc: 'Dari pemula yang belum pernah menyentuh matras hingga praktisi advance — ada kelas untukmu.' },
+    { icon: '🤲', title: 'Komunitas Hangat', desc: 'Bukan kompetisi, tapi kebersamaan. Temukan sahabat perjalanan yang saling mendukung.' },
+    { icon: '🎓', title: 'Instruktur Bersertifikat', desc: 'RYT-500 & E-RYT dari Yoga Alliance, dengan spesialisasi terapi & mindfulness.' }
+  ],
+  categories: [
+    { slug: 'all', label: 'Semua Kelas' },
+    { slug: 'hatha', label: 'Hatha' },
+    { slug: 'vinyasa', label: 'Vinyasa' },
+    { slug: 'yin', label: 'Yin & Restoratif' },
+    { slug: 'meditation', label: 'Meditasi' }
+  ],
+  classes: [
+    { slug: 'hatha-morning', name: 'Hatha Morning Flow', category: 'hatha', level: 'Pemula', duration: '60 menit', time: '07:00 • Setiap Hari', instructor: 'Maya Sari', price: 'Rp 85K', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=60', desc: 'Bangun tubuh perlahan, selaraskan napas dan gerakan. Sempurna untuk memulai hari dengan jernih.' },
+    { slug: 'vinyasa-power', name: 'Vinyasa Power', category: 'vinyasa', level: 'Menengah', duration: '75 menit', time: '18:30 • Sen & Kam', instructor: 'Rio Aditya', price: 'Rp 120K', image: 'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=600&auto=format&fit=crop&q=60', desc: 'Aliran dinamis yang membangun kekuatan, fleksibilitas, dan fokus. Berkeringat dengan tujuan.' },
+    { slug: 'yin-restorative', name: 'Yin Restorative', category: 'yin', level: 'Semua Level', duration: '90 menit', time: '19:30 • Sel & Jum', instructor: 'Dewi Lestari', price: 'Rp 110K', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&auto=format&fit=crop&q=60', desc: 'Tahan pose lebih lama, lepaskan ketegangan fascia. Penyembuhan mendalam untuk tubuh & pikiran.' },
+    { slug: 'ashtanga-primary', name: 'Ashtanga Primary', category: 'vinyasa', level: 'Advance', duration: '90 menit', time: '06:00 • Sen-Sab', instructor: 'Krishna Patel', price: 'Rp 135K', image: 'https://images.unsplash.com/photo-1588286840104-8957b019727f?w=600&auto=format&fit=crop&q=60', desc: 'Seri tradisional yang disiplin, membangun tapas dan konsentrasi melalui urutan tetap.' },
+    { slug: 'kundalini-awaken', name: 'Kundalini Awaken', category: 'meditation', level: 'Menengah', duration: '60 menit', time: '20:00 • Rabu', instructor: 'Ayu Nadira', price: 'Rp 100K', image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&auto=format&fit=crop&q=60', desc: 'Mantra, pranayama, dan gerakan untuk membangkitkan energi vital dari dalam.' },
+    { slug: 'prenatal-gentle', name: 'Prenatal Gentle', category: 'hatha', level: 'Pemula', duration: '60 menit', time: '10:00 • Sel & Kam', instructor: 'Maya Sari', price: 'Rp 95K', image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&auto=format&fit=crop&q=60', desc: 'Kelas aman & lembut untuk ibu hamil, fokus pada napas, panggul, dan koneksi dengan buah hati.' },
+    { slug: 'meditation-sound', name: 'Sound Healing & Meditation', category: 'meditation', level: 'Semua Level', duration: '45 menit', time: '21:00 • Jumat', instructor: 'Dewi Lestari', price: 'Rp 75K', image: 'https://images.unsplash.com/photo-1528715471578-94eba0bff339?w=600&auto=format&fit=crop&q=60', desc: 'Meditasi dipandu dengan singing bowl & frekuensi penyembuhan. Tidur lebih nyenyak.' },
+    { slug: 'yin-yang-fusion', name: 'Yin Yang Fusion', category: 'yin', level: 'Menengah', duration: '75 menit', time: '17:00 • Sabtu', instructor: 'Rio Aditya', price: 'Rp 110K', image: 'https://images.unsplash.com/photo-1552196561-4e4dc4f2471a?w=600&auto=format&fit=crop&q=60', desc: 'Kombinasi kekuatan Yang dan kelembutan Yin — keseimbangan sempurna dalam satu sesi.' }
+  ],
+  schedule: [
+    { time: '06:00', mon: 'Ashtanga', tue: 'Hatha', wed: 'Ashtanga', thu: 'Vinyasa', fri: 'Ashtanga', sat: 'Vinyasa', sun: '—' },
+    { time: '07:00', mon: 'Hatha Flow', tue: 'Hatha Flow', wed: 'Hatha Flow', thu: 'Hatha Flow', fri: 'Hatha Flow', sat: 'Hatha Flow', sun: 'Hatha Flow' },
+    { time: '10:00', mon: '—', tue: 'Prenatal', wed: 'Prenatal', thu: '—', fri: 'Yin', sat: 'Workshop', sun: 'Meditasi' },
+    { time: '17:00', mon: 'Vinyasa', tue: 'Yin', wed: 'Kundalini', thu: 'Vinyasa', fri: 'Yin', sat: 'Yin Yang', sun: '—' },
+    { time: '18:30', mon: 'Power Vinyasa', tue: 'Hatha', wed: 'Power Vinyasa', thu: 'Restorative', fri: 'Sound Healing', sat: '—', sun: '—' },
+    { time: '19:30', mon: 'Yin', tue: 'Yin', wed: 'Meditasi', thu: 'Yin', fri: 'Yin', sat: '—', sun: '—' }
+  ],
+  pricing: [
+    { name: 'Bloom', price: '299K', period: '/bulan', popular: false, desc: 'Untuk pemula yang ingin mencoba konsisten', features: ['4x kelas / bulan', 'Akses semua level pemula', 'Komunitas WhatsApp', 'Free matras'], cta: 'Pilih Bloom' },
+    { name: 'Harmony', price: '549K', period: '/bulan', popular: true, desc: 'Paling populer — fleksibel & lengkap', features: ['12x kelas / bulan', 'Semua kelas & level', '1x private check-in', 'Workshop bulanan gratis', 'Akses video on-demand'], cta: 'Pilih Harmony' },
+    { name: 'Retreat', price: '899K', period: '/bulan', popular: false, desc: 'Transformasi mendalam', features: ['Unlimited kelas', '2x private session', 'Retreat quarterly', 'Konsultasi nutrisi', 'Prioritas booking'], cta: 'Pilih Retreat' }
+  ],
+  faqs: [
+    { q: 'Apakah saya perlu membawa matras sendiri?', a: 'Tidak perlu. Kami menyediakan matras Manduka premium yang dibersihkan setiap sesi. Kamu juga boleh bawa matras pribadi jika nyaman.' },
+    { q: 'Saya belum pernah yoga sama sekali, bisa ikut?', a: 'Sangat bisa! Kelas Hatha Morning & Yin kami dirancang untuk pemula absolut. Instruktur akan memandu modifikasi pose.' },
+    { q: 'Bagaimana jika saya terlambat?', a: 'Kami tutup pintu 10 menit setelah kelas mulai untuk menjaga ketenangan. Silakan datang 15 menit lebih awal.' },
+    { q: 'Apakah ada kelas online?', a: 'Ya, semua member Harmony & Retreat mendapat akses live-stream + rekaman 7 hari. Paket Bloom bisa upgrade +99K.' }
+  ],
+  instructors: [
+    { name: 'Maya Sari', role: 'Lead Hatha & Prenatal • E-RYT 500', exp: '12 tahun', image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&auto=format&fit=crop&q=60', bio: 'Maya menemukan yoga saat pemulihan cedera tari. Kini ia mengkhususkan diri pada alignment terapeutik dan prenatal.', quote: 'Yoga bukan tentang menyentuh jari kaki, tapi tentang apa yang kamu pelajari dalam perjalanan ke sana.' },
+    { name: 'Rio Aditya', role: 'Vinyasa & Strength • RYT 500', exp: '9 tahun', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=60', bio: 'Mantan atlet yang membawa energi dinamis ke matras. Kelasnya menantang tapi penuh humor.', quote: 'Keringatmu adalah doa tubuhmu.' },
+    { name: 'Dewi Lestari', role: 'Yin, Restorative & Sound Healing', exp: '15 tahun', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&fit=crop&q=60', bio: 'Guru meditasi bersertifikat, Dewi memadukan tradisi Tibet dengan neuroscience modern.', quote: 'Dalam diam, kita mendengar kebijaksanaan.' },
+    { name: 'Krishna Patel', role: 'Ashtanga • KPJAYI Mysore', exp: '18 tahun', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=60', bio: 'Belajar langsung di Mysore, India. Krishna mengajarkan disiplin dengan kasih.', quote: 'Praktik dan semua akan datang.' },
+    { name: 'Ayu Nadira', role: 'Kundalini & Breathwork', exp: '7 tahun', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=60', bio: 'Facilitator breathwork yang membantu rilis emosi melalui napas dan mantra.', quote: 'Napasmu adalah jangkar di badai.' },
+    { name: 'Seno Wijaya', role: 'Meditasi & Mindfulness', exp: '10 tahun', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60', bio: 'Psikolog yang mengintegrasikan mindfulness dalam terapi trauma.', quote: 'Kehadiran adalah hadiah terbesar.' }
+  ],
+  testimonials: [
+    { name: 'Anindya', role: 'Member sejak 2021', text: 'Serene mengubah hidupku. Dari cemas berlebihan jadi bisa tidur nyenyak. Instrukturnya tulus, bukan sekadar mengajar — mereka menyembuhkan.', rating: 5, image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=60' },
+    { name: 'Baskara', role: 'Harmony Member', text: 'Sebagai pekerja kantoran, Yin class Jumat malam adalah penyelamat punggung dan pikiranku. Studio paling estetik di Jakarta!', rating: 5, image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=60' },
+    { name: 'Clara', role: 'Prenatal Member', text: 'Kelas prenatal Maya bikin kehamilanku nyaman banget. Komunitas ibu-ibunya suportif pol!', rating: 5, image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&auto=format&fit=crop&q=60' }
+  ],
+  posts: [
+    { slug: 'napas-sebagai-jangkar', title: 'Napas Sebagai Jangkar: 3 Teknik Pranayama untuk Cemas', excerpt: 'Saat pikiran berlari, napas adalah tombol pause. Pelajari Nadi Shodhana, Box Breathing, dan 4-7-8.', category: 'Mindfulness', date: '18 Agu 2026', read: '5 menit', image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&auto=format&fit=crop&q=60' },
+    { slug: 'yin-vs-yang', title: 'Yin vs Yang: Kapan Tubuh Butuh Dilembutkan?', excerpt: 'Tidak semua hari butuh power. Kenali sinyal tubuhmu kapan saatnya Yin.', category: 'Yoga 101', date: '10 Agu 2026', read: '4 menit', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&auto=format&fit=crop&q=60' },
+    { slug: 'alignment-hatha', title: '5 Kesalahan Alignment di Hatha yang Bikin Cedera', excerpt: 'Downdog yang salah bisa bebani bahu. Koreksi kecil, dampak besar.', category: 'Anatomi', date: '02 Agu 2026', read: '6 menit', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=60' },
+    { slug: 'meditasi-pemula', title: 'Meditasi 5 Menit untuk Pemula yang Selalu Gelisah', excerpt: 'Tidak perlu duduk lama. Mulai dari 5 menit dengan panduan audio kami.', category: 'Meditasi', date: '28 Jul 2026', read: '3 menit', image: 'https://images.unsplash.com/photo-1528715471578-94eba0bff339?w=600&auto=format&fit=crop&q=60' },
+    { slug: 'nutrisi-yogi', title: 'Makan Seperti Yogi: Bukan Diet, Tapi Kesadaran', excerpt: 'Sattvic food, puasa intermiten, dan hubungan emosional dengan makanan.', category: 'Wellness', date: '15 Jul 2026', read: '7 menit', image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&auto=format&fit=crop&q=60' },
+    { slug: 'cerita-member', title: 'Cerita Member: Dari Burnout ke Matras', excerpt: 'Testimoni jujur 3 member yang menemukan kembali diri lewat yoga.', category: 'Komunitas', date: '01 Jul 2026', read: '8 menit', image: 'https://images.unsplash.com/photo-1593811167562-9cef47bfc4d7?w=600&auto=format&fit=crop&q=60' }
+  ],
+  gallery: [
+    'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&auto=format&fit=crop&q=60',
+    'https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=800&auto=format&fit=crop&q=60',
+    'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&auto=format&fit=crop&q=60',
+    'https://images.unsplash.com/photo-1588286840104-8957b019727f?w=800&auto=format&fit=crop&q=60',
+    'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&auto=format&fit=crop&q=60',
+    'https://images.unsplash.com/photo-1552196561-4e4dc4f2471a?w=800&auto=format&fit=crop&q=60',
+    'https://images.unsplash.com/photo-1528715471578-94eba0bff339?w=800&auto=format&fit=crop&q=60',
+    'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&auto=format&fit=crop&q=60'
+  ],
+  contact: {
+    hours: 'Buka setiap hari 06:00 — 21:00 WIB',
+    mapEmbed: 'https://maps.google.com/maps?q=Senopati%20Jakarta&t=&z=15&ie=UTF8&iwloc=&output=embed'
+  }
+};

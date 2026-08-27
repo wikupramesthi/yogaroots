@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="id"><head><%- include('../partials/head') %></head><body class="antialiased"><%- include('../partials/navbar') %>
+<article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <a href="/blog" class="text-sm text-sage-700 font-medium">← Kembali ke Jurnal</a>
+  <img src="<%= post.image %>" class="w-full h-[360px] object-cover rounded-[24px] mt-6">
+  <div class="flex gap-2 mt-4 text-xs"><span class="bg-sage-700 text-white px-3 py-1 rounded-full font-semibold"><%= post.category %></span><span class="text-stone-warm"><%= post.date %> • <%= post.read %></span></div>
+  <h1 class="font-display text-3xl font-bold mt-3 leading-tight"><%= post.title %></h1>
+  <p class="text-stone-warm mt-3 leading-relaxed"><%= post.excerpt %> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praktik mindfulness bukan tentang mengosongkan pikiran, tapi tentang hadir sepenuhnya. Di artikel ini kita akan mengeksplorasi bagaimana napas menghubungkan tubuh dan pikiran, dan beberapa latihan yang bisa kamu coba malam ini sebelum tidur.</p>
+  <div class="prose prose-sm max-w-none mt-6 text-stone-warm leading-relaxed">
+    <h3 class="font-semibold text-ink">1. Kenali Pola Napasmu</h3><p>Duduklah dengan nyaman, letakkan tangan di perut, dan perhatikan napas tanpa mengubahnya selama 1 menit. Apakah dangkal? Cepat? Itu informasi berharga.</p>
+    <h3 class="font-semibold text-ink">2. Praktik 3 Menit</h3><p>Coba Box Breathing: tarik 4 hitungan, tahan 4, buang 4, tahan 4. Ulangi 5 siklus. Rasakan sistem sarafmu melambat.</p>
+    <blockquote class="border-l-4 border-sage-300 pl-4 italic">“Napas adalah jembatan antara tubuh dan pikiran.” — T.K.V. Desikachar</blockquote>
+  </div>
+  <div class="bg-cream border border-sage-100 rounded-2xl p-6 mt-8 flex justify-between items-center">
+    <div><h4 class="font-semibold">Suka artikel ini?</h4><p class="text-sm text-stone-warm">Dapatkan jurnal mingguan di email.</p></div>
+    <button onclick="document.getElementById('newsletterForm')?.scrollIntoView({behavior:'smooth'})" class="bg-sage-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold">Subscribe →</button>
+  </div>
+</article>
+<%- include('../partials/footer') %><script src="/js/main.js"></script></body></html>

@@ -1,0 +1,67 @@
+<footer class="bg-sage-900 text-sage-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid md:grid-cols-4 gap-10">
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <span class="w-8 h-8 rounded-lg bg-white/10 grid place-items-center">🪷</span>
+          <span class="font-display font-bold text-lg">Serene</span>
+        </div>
+        <p class="text-sm leading-relaxed text-sage-200"><%= site.description %></p>
+        <div class="flex gap-2 mt-4">
+          <span class="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-xs">IG</span>
+          <span class="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-xs">YT</span>
+          <span class="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-xs">TK</span>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3">Jelajahi</h4>
+        <ul class="space-y-2 text-sm text-sage-200">
+          <% nav.slice(1,5).forEach(n=>{ %><li><a href="<%= n.href %>" class="hover:text-white"><%= n.label %></a></li><% }) %>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3">Kontak</h4>
+        <ul class="space-y-2 text-sm text-sage-200">
+          <li><%= site.address %></li>
+          <li><%= site.phone %></li>
+          <li><%= site.email %></li>
+          <li class="text-xs"><%= site.hours || 'Buka 06:00 — 21:00 WIB' %></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-3">Newsletter</h4>
+        <p class="text-sm text-sage-200 mb-3">Dapatkna tips mindfulness & jadwal retreat.</p>
+        <form id="newsletterForm" class="flex gap-2">
+          <input name="email" type="email" placeholder="Email kamu" class="flex-1 px-4 py-2.5 rounded-full bg-white/10 border border-white/10 placeholder:text-sage-300 text-sm outline-none">
+          <button class="px-5 py-2.5 rounded-full bg-terracotta-500 hover:bg-terracotta-400 text-white text-sm font-semibold">Join</button>
+        </form>
+        <p id="newsletterMsg" class="text-xs mt-2 hidden"></p>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row justify-between gap-2 text-xs text-sage-300">
+      <span>© <%= site.year %> Serene Yoga Studio. Dibuat dengan 🪷 di Jakarta.</span>
+      <span>Kebijakan Privasi • Syarat Layanan</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Booking Modal -->
+<div id="bookingModal" class="fixed inset-0 z-[60] hidden">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeBooking()"></div>
+  <div class="relative max-w-md mx-auto mt-[10vh] bg-white rounded-[24px] p-6 shadow-2xl m-4">
+    <button onclick="closeBooking()" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-sage-50 grid place-items-center">✕</button>
+    <h3 class="font-display text-2xl font-bold">Book Kelas Yoga</h3>
+    <p class="text-sm text-stone-warm mt-1">Isi data, kami konfirmasi via WhatsApp dalam 5 menit.</p>
+    <form id="bookingForm" class="mt-5 space-y-3">
+      <input name="name" placeholder="Nama lengkap" required class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400">
+      <input name="email" type="email" placeholder="Email" required class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400">
+      <select name="kelas" class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none">
+        <option value="">Pilih kelas</option>
+        <option>Hatha Morning Flow</option><option>Vinyasa Power</option><option>Yin Restorative</option><option>Sound Healing</option>
+      </select>
+      <input name="date" type="date" class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none">
+      <button class="w-full py-3 rounded-full bg-sage-700 hover:bg-sage-600 text-white font-semibold">Konfirmasi Booking →</button>
+    </form>
+    <p id="bookingMsg" class="text-sm mt-3 hidden p-3 rounded-xl"></p>
+  </div>
+</div>

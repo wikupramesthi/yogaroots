@@ -1,0 +1,55 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Serene Yoga Design Tokens */
+@theme {
+  --color-sage-50: #f6f7f4;
+  --color-sage-100: #e8ebe3;
+  --color-sage-200: #d1d7c7;
+  --color-sage-300: #b3be9f;
+  --color-sage-400: #8da074;
+  --color-sage-500: #7a8f5a;
+  --color-sage-600: #5f7246;
+  --color-sage-700: #4b5a38;
+  --color-sage-800: #3d4a2f;
+  --color-sage-900: #343e29;
+
+  --color-terracotta-400: #e49a7a;
+  --color-terracotta-500: #d67e5a;
+  --color-terracotta-600: #c86a46;
+  --color-clay-50: #fdf8f4;
+  --color-cream: #fdfbf7;
+  --color-ink: #1a1d1a;
+  --color-stone-warm: #8c8578;
+
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Base */
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--color-cream); color: var(--color-ink); }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: var(--color-sage-300); border-radius: 999px; }
+
+/* Glass effect */
+.glass { backdrop-filter: blur(16px); background: rgba(253,251,247,0.8); }
+.dark .glass { background: rgba(26,29,26,0.8); border-color: rgba(255,255,255,0.08) !important; }
+
+/* Dark mode overrides */
+.dark body { background: #121412; color: #f0ede6; }
+.dark .bg-cream { background-color: #121412 !important; }
+.dark .bg-white { background-color: #1e211e !important; }
+.dark .bg-sage-50 { background-color: #1e2520 !important; }
+.dark .bg-sage-100 { background-color: #242e24 !important; }
+.dark .border-sage-100 { border-color: rgba(255,255,255,0.08) !important; }
+.dark .border-sage-200 { border-color: rgba(255,255,255,0.12) !important; }
+.dark .text-ink { color: #f0ede6 !important; }
+.dark .text-stone-warm { color: #a8a29a !important; }
+.dark .text-sage-700 { color: #b3be9f !important; }
+
+/* Hide scrollbar for schedule */
+.no-scrollbar::-webkit-scrollbar { display: none; }

@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="id"><head><%- include('../partials/head') %></head><body class="antialiased"><%- include('../partials/navbar') %>
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <h1 class="font-display text-4xl font-bold">Jadwal Mingguan</h1>
+  <p class="text-stone-warm mt-2">Buka setiap hari 06:00 — 21:00. Datang 15 menit lebih awal. <button onclick="openBooking()" class="text-sage-700 font-semibold underline">Book sekarang →</button></p>
+
+  <!-- Desktop table -->
+  <div class="hidden lg:block mt-8 overflow-hidden rounded-[24px] border border-sage-200 bg-white">
+    <div class="overflow-auto no-scrollbar">
+      <table class="w-full text-sm">
+        <thead><tr class="bg-sage-700 text-white">
+          <th class="p-4 text-left">Jam</th>
+          <% days.forEach(d=>{ %><th class="p-4 text-center min-w-[130px]"><%= d %></th><% }) %>
+        </tr></thead>
+        <tbody>
+          <% schedule.forEach(row=>{ %>
+            <tr class="border-t border-sage-100 hover:bg-sage-50/50">
+              <td class="p-4 font-bold bg-sage-50"><%= row.time %></td>
+              <td class="p-3 text-center"><span class="px-3 py-1 rounded-full bg-white border border-sage-100 text-xs font-medium"><%= row.mon %></span></td>
+              <td class="p-3 text-center"><span class="px-3 py-1 rounded-full bg-white border border-sage-100 text-xs font-medium"><%= row.tue %></span></td>
+              <td class="p-3 text-center"><span class="px-3 py-1 rounded-full bg-white border border-sage-100 text-xs font-medium"><%= row.wed %></span></td>
+              <td class="p-3 text-center"><span class="px-3 py-1 rounded-full bg-white border border-sage-100 text-xs font-medium"><%= row.thu %></span></td>
+              <td class="p-3 text-center"><span class="px-3 py-1 rounded-full bg-white border border-sage-100 text-xs font-medium"><%= row.fri %></span></td>
+              <td class="p-3 text-center"><span class="px-3 py-1 rounded-full bg-terracotta-500 text-white text-xs font-medium"><%= row.sat %></span></td>
+              <td class="p-3 text-center"><span class="px-3 py-1 rounded-full bg-sage-100 text-xs font-medium"><%= row.sun %></span></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Mobile cards -->
+  <div class="lg:hidden mt-6 space-y-3">
+    <% schedule.forEach(row=>{ %>
+      <div class="bg-white border border-sage-100 rounded-2xl p-4">
+        <div class="font-bold text-sage-700"><%= row.time %> WIB</div>
+        <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+          <div>Sen: <strong><%= row.mon %></strong></div><div>Sel: <strong><%= row.tue %></strong></div>
+          <div>Rab: <strong><%= row.wed %></strong></div><div>Kam: <strong><%= row.thu %></strong></div>
+          <div>Jum: <strong><%= row.fri %></strong></div><div>Sab: <strong><%= row.sat %></strong></div>
+          <div class="col-span-2">Min: <strong><%= row.sun %></strong></div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="bg-sage-700 text-white rounded-[24px] p-6 mt-8 flex flex-col lg:flex-row justify-between gap-4 items-start lg:items-center">
+    <div><h3 class="font-semibold">Butuh bantuan memilih jadwal?</h3><p class="text-sm text-sage-200">Chat tim kami, kami bantu carikan kelas yang pas dengan energimu minggu ini.</p></div>
+    <a href="/contact" class="bg-white text-sage-700 px-6 py-3 rounded-full text-sm font-semibold shrink-0">Hubungi Tim →</a>
+  </div>
+</section>
+<%- include('../partials/footer') %><script src="/js/main.js"></script></body></html>

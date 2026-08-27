@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="id"><head><%- include('../partials/head') %></head><body class="antialiased"><%- include('../partials/navbar') %>
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <h1 class="font-display text-4xl font-bold">Galeri Serene</h1>
+  <p class="text-stone-warm mt-2">Intip ruang, cahaya, dan energi studio kami. Klik untuk memperbesar.</p>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+    <% gallery.forEach((img,i)=>{ %>
+      <img data-gallery src="<%= img %>" onclick="openLightbox('<%= img %>', <%= i %>)" class="h-[200px] w-full object-cover rounded-[20px] cursor-pointer hover:opacity-90 transition">
+    <% }) %>
+  </div>
+</section>
+
+<div id="lightbox" class="fixed inset-0 z-[70] hidden bg-black/80 backdrop-blur-sm grid place-items-center p-4">
+  <button onclick="closeLightbox()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/20 text-white grid place-items-center text-xl">✕</button>
+  <button onclick="lightboxNav(-1)" class="absolute left-6 w-10 h-10 rounded-full bg-white grid place-items-center">‹</button>
+  <img src="" class="max-h-[80vh] max-w-[90vw] rounded-2xl object-contain">
+  <button onclick="lightboxNav(1)" class="absolute right-6 w-10 h-10 rounded-full bg-white grid place-items-center">›</button>
+</div>
+
+<%- include('../partials/footer') %><script src="/js/main.js"></script></body></html>

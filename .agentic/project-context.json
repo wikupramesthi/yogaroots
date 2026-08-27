@@ -1,0 +1,12 @@
+{
+  "cachedAt": "2026-08-27T03:48:59.402Z",
+  "configSnapshots": {},
+  "context": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "testPatterns": [],
+    "entryPoints": [],
+    "ambiguity": "HIGH"
+  }
+}
