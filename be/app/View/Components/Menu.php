@@ -1,0 +1,34 @@
+<?php
+
+namespace App\View\Components;
+
+use Closure;
+use Illuminate\Contracts\View\View;
+use Illuminate\View\Component;
+use App\Models\ManagementAccess\MenuGroup;
+
+class Menu extends Component
+{
+    /**
+     * Create a new component instance.
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Get the view / contents that represent the component.
+     */
+    public function render() : View|Closure|string
+    {
+        $menus = MenuGroup::query()
+            ->with('items', function ($query) {
+                return $query->where('status', true)->orderBy('position');
+            })
+            ->where('status', true)
+            ->orderBy('position')
+            ->get();
+        return view('components.web.sidebar', compact('menus'));
+    }
+}
