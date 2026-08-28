@@ -6,9 +6,33 @@ use App\Http\Controllers\Controller;
 use App\Models\Kontak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class ContactController extends Controller
 {
+    public function captcha()
+    {
+        $a = rand(1, 9);
+        $b = rand(1, 9);
+
+        $captchaId = Str::uuid()->toString();
+
+        Cache::put(
+            'contact_captcha_' . $captchaId,
+            $a + $b,
+            now()->addMinutes(10)
+        );
+
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'captcha_id' => $captchaId,
+                'question' => "Berapa hasil dari {$a} + {$b}?"
+            ]
+        ]);
+    }
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -16,17 +40,41 @@ class ContactController extends Controller
             'email' => 'required|email|max:255',
             'no_telp' => 'required|string|max:20',
             'isi' => 'required|string',
-            'recaptcha_token' => 'required|string',
+            'captcha_id' => 'required|string',
+            'captcha_answer' => 'required|integer',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'status' => 'error',
-                'message' => 'Validasi gagal',
-                'errors' => $validator->errors()
+                'success' => false,
+                'message' => 'Validasi gagal.',
+                'errors' => $validator->errors(),
             ], 422);
         }
 
+        // Ambil jawaban CAPTCHA dari cache
+        $cacheKey = 'contact_captcha_' . $request->captcha_id;
+        $correctAnswer = Cache::get($cacheKey);
+
+        if ($correctAnswer === null) {
+            return response()->json([
+                'success' => false,
+                'message' => 'CAPTCHA sudah kedaluwarsa. Silakan muat ulang halaman.',
+            ], 422);
+        }
+
+        // Cek jawaban
+        if ((int) $request->captcha_answer !== (int) $correctAnswer) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Jawaban CAPTCHA salah.',
+            ], 422);
+        }
+
+        // CAPTCHA benar → hapus supaya tidak bisa dipakai ulang
+        Cache::forget($cacheKey);
+
+        // Simpan ke database
         $contact = Kontak::create([
             'nama' => $request->nama,
             'email' => $request->email,
@@ -35,9 +83,9 @@ class ContactController extends Controller
         ]);
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'Pesan berhasil dikirim',
-            'data' => $contact
+            'success' => true,
+            'message' => 'Pesan berhasil dikirim. Kami akan segera menghubungi Anda.',
+            'data' => $contact,
         ], 201);
     }
 }

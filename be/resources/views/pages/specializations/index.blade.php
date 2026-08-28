@@ -1,19 +1,30 @@
 @extends('layouts.app')
-@section('title', 'Semua Kategori')
+@section('title', 'Kategori Spesialisasi')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Kategori" page="Kategori" active="Semua Kategori" route="{{ route('categories.index') }}" />
+<x-breadcrumb title="Spesialisasi" page="Spesialisasi" active="Kategori Spesialisasi" route="{{ route('specializations.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
+
+    <div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show position-relative" role="alert">
+        <div class="d-flex">
+            <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
+            <div class="text-white mt-2">
+                Kelola <strong>Spesialisasi</strong> yang tersedia di sistem.<br>
+                Tambahkan, perbarui, atau nonaktifkan spesialisasi untuk mendukung pengelolaan instruktur dan kelas.
+            </div>
+        </div>
+    </div>
+
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Semua Kategori</h4>
-                @can('categories.store')
+                <h4 class="fw-normal mb-0 text-body">Kategori Spesialiasi</h4>
+                @can('specializations.store')
                 <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
-                    data-bs-target="#modal-form-add-categories">
+                    data-bs-target="#modal-form-add-specializations">
                     <i class="bi bi-plus-lg"></i>
                     Tambah Baru
                 </button>
@@ -27,38 +38,40 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Nama Kategori</th>
+                            <th>Kategori Spesialiasi</th>
                             <th>Deskripsi</th>
-                            <th>Total Publikasi</th>
+                            <th>Total Kelas</th>
                             <th>Edit</th>
                             <th>Hapus</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $item)
+                        @foreach ($specializations as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->name }}</td>
-                            <td>{{ $item->description  }}</td>
-                            <td>{{ $item->articles_count  }}</td>
+                            <td>{{ $item->description }}</td>
+                            <td>{{ $item->specializations_count }}</td>
+
                             <td>
-                                @can('categories.update')
-                                <a data-bs-toggle="modal" data-bs-target="#modal-form-edit-categories-{{  $item->uuid }}"
+                                @can('specializations.update')
+                                <a data-bs-toggle="modal"
+                                    data-bs-target="#modal-form-edit-specializations-{{ $item->uuid }}"
                                     class="btn btn-icon btn-success text-white">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
-                                @include('pages.categories.modal-edit')
+                                @include('pages.specializations.modal-edit')
                                 @endcan
                             </td>
 
                             <td>
-                                @can('categories.destroy')
-                                <a onclick="showSweetAlert('{{  $item->uuid }}')" title="Delete"
+                                @can('specializations.destroy')
+                                <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
                                     class="btn btn-icon btn-danger text-white">
                                     <i class="bi bi-x-square"></i> Hapus
                                 </a>
-                                <form id="deleteForm_{{  $item->uuid }}" action="{{ route('categories.destroy',  $item->uuid) }}"
-                                    method="POST">
+                                <form id="deleteForm_{{ $item->uuid }}"
+                                    action="{{ route('specializations.destroy', $item->uuid) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
                                 </form>
@@ -76,7 +89,7 @@
 <!-- / Content -->
 
 <!--/ Basic Bootstrap Table -->
-@include('pages.categories.modal-create')
+@include('pages.specializations.modal-create')
 
 <script>
     function showSweetAlert(getId) {

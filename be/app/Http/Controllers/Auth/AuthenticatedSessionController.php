@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Faq;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -16,7 +17,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        $faqs = Faq::where('status', 'active')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return view('auth.login', compact('faqs'));
     }
 
     /**
@@ -46,6 +51,6 @@ class AuthenticatedSessionController extends Controller
             return redirect('auth/login');
         }
 
-        return redirect('https://slbpatriotkotabekasi.sch.id/');
+        return redirect('auth/login');
     }
 }

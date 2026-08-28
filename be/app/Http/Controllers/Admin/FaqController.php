@@ -135,24 +135,20 @@ class FaqController extends Controller
         return view('pages.kontak.index', compact('kontaks'));
     }
 
-   public function forceDelete($uuid)
-{
-    DB::beginTransaction();
+    public function forceDelete($uuid)
+    {
+        try {
+            $item = Kontak::where('uuid', $uuid)->firstOrFail();
 
-    try {
-        $item = Kontak::withTrashed()
-            ->where('uuid', $uuid)
-            ->firstOrFail();
+            $item->delete();
 
-        $item->forceDelete();
-
-        DB::commit();
-
-        return redirect()->back()->with('success', 'Pesan masuk berhasil dihapus permanen.');
-    } catch (\Throwable $th) {
-        DB::rollBack();
-
-        return redirect()->back()->with('error', $th->getMessage());
+            return redirect()
+                ->back()
+                ->with('success', 'Pesan masuk berhasil dihapus permanen.');
+        } catch (\Throwable $th) {
+            return redirect()
+                ->back()
+                ->with('error', 'Gagal menghapus pesan masuk.');
+        }
     }
-}
 }

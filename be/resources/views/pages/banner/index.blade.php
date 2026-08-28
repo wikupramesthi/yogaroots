@@ -3,7 +3,7 @@
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Media Pustaka" page="Media Pustaka" active="Banner & Slider" route="{{ route('banner.index') }}" />
+<x-breadcrumb title="Media Pustaka" page="Media Pustaka" active="Semua Media" route="{{ route('banner.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
@@ -18,7 +18,7 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Banner & Slider</h4>
+                <h4 class="fw-normal mb-0 text-body">Semua Media</h4>
                 @can('banner.store')
                 <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
                     data-bs-target="#modal-form-add-banner">

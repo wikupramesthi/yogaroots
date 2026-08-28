@@ -23,13 +23,28 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        $year = $request->get('year', date('Y'));
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
 
-        $articles = Article::whereYear('created_at', $year)
+        $articles = Article::query();
+
+        if ($start_date) {
+            $articles->whereDate('created_at', '>=', $start_date);
+        }
+
+        if ($end_date) {
+            $articles->whereDate('created_at', '<=', $end_date);
+        }
+
+        $articles = $articles
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('pages.articles.index', compact('articles', 'year'));
+        return view('pages.articles.index', compact(
+            'articles',
+            'start_date',
+            'end_date'
+        ));
     }
 
     /**

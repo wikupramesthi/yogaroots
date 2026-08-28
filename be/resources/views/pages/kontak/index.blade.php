@@ -3,17 +3,17 @@
 @section('content')
 
 @section('breadcrumb')
-    <x-breadcrumb title="Pesan Masuk" page="Layanan" active="Pesan Masuk" route="{{ route('layanan.kontak') }}" />
+<x-breadcrumb title="Pesan Masuk" page="Layanan" active="Pesan Masuk" route="{{ route('layanan.kontak') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
-            <span class="alert-text text-white"> {{ session('success') }}</span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
+        <span class="alert-text text-white"> {{ session('success') }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     @endif
     <div class="card">
         <div class="card-header">
@@ -37,28 +37,29 @@
                     </thead>
                     <tbody>
                         @foreach ($kontaks as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->no_telp }}</td>
-                                <td style="white-space: normal; word-break: break-word; max-width: 500px;">
-                                    {{ $item->isi }}
-                                </td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->email }}</td>
+                            <td>{{ $item->no_telp }}</td>
+                            <td style="white-space: normal; word-break: break-word; max-width: 500px;">
+                                {{ $item->isi }}
+                            </td>
 
-                                <td>{{ $item->created_at }}</td>
-                                <td>
-                                    <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
-                                        class="btn btn-icon btn-danger text-white">
-                                        <i class="bi bi-x-square"> Hapus</i>
-                                    </a>
-                                    <form id="deleteForm_{{ $item->uuid }}"
-                                        action="{{ route('kontak.destroy', $item->uuid) }}" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                    </form>
-                                </td>
-                            </tr>
+                            <td>{{ $item->created_at }}</td>
+                            <td>
+                                <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
+                                    class="btn btn-icon btn-danger text-white">
+                                    <i class="bi bi-x-square"> Hapus</i>
+                                </a>
+                                <form id="deleteForm_{{ $item->uuid }}"
+                                    action="{{ route('kontak.destroy', $item->uuid) }}"
+                                    method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                </form>
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>

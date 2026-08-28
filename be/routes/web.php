@@ -19,7 +19,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\DisabilityController;
+use App\Http\Controllers\Admin\SpecializatyController;
 use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\FileDownloadController;
 use App\Http\Controllers\Admin\PegawaiController;
@@ -30,8 +30,6 @@ use App\Http\Controllers\Admin\ServicesController;
 use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\MinifyHtml;
-use App\Models\Disability;
-use App\Models\Service;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -70,17 +68,20 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::resource('company', TentangPerusahaanController::class);
     Route::resource('banner', BannerController::class);
     Route::resource('categories', CategoryController::class);
-    Route::resource('disabilities', DisabilityController::class);
+    Route::resource('specializations', SpecializatyController::class);
     Route::resource('articles', ArticleController::class);
     Route::resource('account', AccountController::class);
     Route::get('/get-kelurahan/{kecamatan_id}', [AccountController::class, 'getKelurahan']);
     Route::resource('poll', PollController::class);
     Route::resource('pages', PagesController::class);
-     Route::resource('services', ServicesController::class);
+    Route::resource('services', ServicesController::class);
     Route::resource('program', ProgramController::class);
     Route::resource('filedownload', FileDownloadController::class);
     Route::get('kontak', [FaqController::class, 'kontak'])->name('layanan.kontak');
-    Route::delete('/kontak/{uuid}', [FaqController::class, 'forceDelete'])->name('kontak.destroy');
+    Route::delete(
+        '/kontak/{uuid}',
+        [FaqController::class, 'forceDelete']
+    )->name('kontak.destroy');
     Route::resource('pegawai', PegawaiController::class);
     Route::post('pegawai/restore', [PegawaiController::class, 'restore'])->name('pegawai.restore');
     Route::post('program/upload', [ProgramController::class, 'upload'])->name('program.upload');

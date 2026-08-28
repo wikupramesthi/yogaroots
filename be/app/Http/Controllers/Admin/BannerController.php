@@ -36,14 +36,14 @@ class BannerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-   public function store(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'nama'   => 'required|string|max:255',
             'deskripsi' => 'nullable',
             'link'   => 'nullable',
             'gambar' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'posisi' => 'required|in:slider,pengumuman,infografis,prestasi,popup,mitra,sarpras,lainnya',
+            'posisi' => 'required|in:slider,pengumuman,infografis,galeri,popup,mitra,lainnya',
             'status' => 'required|in:active,inactive',
         ]);
 
@@ -88,14 +88,14 @@ class BannerController extends Controller
     /**
      * Update the specified resource in storage.
      */
-     public function update(Request $request, $uuid)
+    public function update(Request $request, $uuid)
     {
         $request->validate([
             'nama'   => 'required|string|max:255',
             'deskripsi' => 'nullable',
             'link'   => 'nullable',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'posisi' => 'required|in:slider,pengumuman,infografis,prestasi,popup,mitra,sarpras,lainnya',
+            'posisi' => 'required|in:slider,pengumuman,infografis,galeri,popup,mitra,lainnya',
             'status' => 'required|in:active,inactive',
         ]);
 
@@ -131,7 +131,7 @@ class BannerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-     public function destroy($uuid)
+    public function destroy($uuid)
     {
         DB::beginTransaction();
         try {

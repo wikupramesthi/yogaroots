@@ -1,7 +1,12 @@
-import express from 'express';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { yogaData } from './data/yogaData.js';
+import "dotenv/config";
+console.log("API_URL =", process.env.API_URL);
+import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+import { yogaData } from "./data/yogaData.js";
+import { getArticles, getArticle } from "./services/articleService.js";
+import { getBanners } from "./services/bannerService.js";
+import { getContactCaptcha, sendContact } from "./services/contactServices.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -10,11 +15,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // View engine
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 
 // Middleware
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -27,120 +32,240 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.get('/', (req, res) => {
-  res.render('pages/home', {
-    title: 'Serene — Temukan Keseimbangan dalam Setiap Napas',
-    hero: yogaData.hero,
-    stats: yogaData.stats,
-    features: yogaData.features,
-    classes: yogaData.classes.slice(0, 6),
-    instructors: yogaData.instructors.slice(0, 3),
-    testimonials: yogaData.testimonials,
-    pricing: yogaData.pricing
-  });
+app.get("/", async (req, res) => {
+  try {
+    const posts = await getArticles();
+
+    res.render("pages/home", {
+      title: "Yogaroots — Temukan Keseimbangan dalam Setiap Napas",
+      hero: yogaData.hero,
+      stats: yogaData.stats,
+      features: yogaData.features,
+      classes: yogaData.classes.slice(0, 6),
+      testimonials: yogaData.testimonials,
+      pricing: yogaData.pricing,
+
+      posts: posts.slice(0, 3),
+    });
+  } catch (error) {
+    console.error("Gagal mengambil artikel:", error);
+
+    res.render("pages/home", {
+      title: "Yogaroots — Temukan Keseimbangan dalam Setiap Napas",
+      hero: yogaData.hero,
+      stats: yogaData.stats,
+      features: yogaData.features,
+      classes: yogaData.classes.slice(0, 6),
+      testimonials: yogaData.testimonials,
+      pricing: yogaData.pricing,
+
+      posts: [],
+    });
+  }
 });
 
-app.get('/classes', (req, res) => {
-  const category = req.query.category || 'all';
+app.get("/classes", (req, res) => {
+  const category = req.query.category || "all";
   let classes = yogaData.classes;
-  if (category !== 'all') classes = classes.filter(c => c.category === category);
-  res.render('pages/classes', {
-    title: 'Kelas Yoga — Temukan Aliranmu',
+  if (category !== "all")
+    classes = classes.filter((c) => c.category === category);
+  res.render("pages/classes", {
+    title: "Kelas Yoga — Temukan Aliranmu",
     classes,
     categories: yogaData.categories,
-    activeCategory: category
+    activeCategory: category,
   });
 });
 
-app.get('/classes/:slug', (req, res) => {
-  const cls = yogaData.classes.find(c => c.slug === req.params.slug);
-  if (!cls) return res.status(404).render('pages/404', { title: 'Kelas Tidak Ditemukan' });
-  res.render('pages/class-detail', { title: cls.name, cls });
+app.get("/classes/:slug", (req, res) => {
+  const cls = yogaData.classes.find((c) => c.slug === req.params.slug);
+  if (!cls)
+    return res
+      .status(404)
+      .render("pages/404", { title: "Kelas Tidak Ditemukan" });
+  res.render("pages/class-detail", { title: cls.name, cls });
 });
 
-app.get('/schedule', (req, res) => {
-  res.render('pages/schedule', {
-    title: 'Jadwal Mingguan',
+app.get("/schedule", (req, res) => {
+  res.render("pages/schedule", {
+    title: "Jadwal Mingguan",
     schedule: yogaData.schedule,
-    days: ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu']
+    days: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
   });
 });
 
-app.get('/pricing', (req, res) => {
-  res.render('pages/pricing', {
-    title: 'Paket & Harga',
+app.get("/pricing", (req, res) => {
+  res.render("pages/pricing", {
+    title: "Paket & Harga",
     pricing: yogaData.pricing,
-    faqs: yogaData.faqs
+    faqs: yogaData.faqs,
   });
 });
 
-app.get('/instructors', (req, res) => {
-  res.render('pages/instructors', {
-    title: 'Instruktur Kami',
-    instructors: yogaData.instructors
+app.get("/instructors", (req, res) => {
+  res.render("pages/instructors", {
+    title: "Instruktur Kami",
+    instructors: yogaData.instructors,
   });
 });
 
-app.get('/blog', (req, res) => {
-  res.render('pages/blog', {
-    title: 'Jurnal Mindfulness',
-    posts: yogaData.posts
-  });
+//blog
+app.get("/blog", async (req, res) => {
+  try {
+    const posts = await getArticles();
+
+    res.render("pages/blog", {
+      title: "Artikel & Tips Yoga",
+      posts: posts.slice(0, 9),
+      totalPosts: posts.length,
+    });
+  } catch (error) {
+    console.error("Gagal mengambil artikel:", error);
+
+    res.status(500).render("pages/blog", {
+      title: "Artikel & Tips Yoga",
+      posts: [],
+      totalPosts: 0,
+    });
+  }
 });
 
-app.get('/blog/:slug', (req, res) => {
-  const post = yogaData.posts.find(p => p.slug === req.params.slug);
-  if (!post) return res.status(404).render('pages/404', { title: 'Artikel Tidak Ditemukan' });
-  res.render('pages/blog-detail', { title: post.title, post });
+app.get("/blog/:slug", async (req, res) => {
+  try {
+    const post = await getArticle(req.params.slug);
+
+    if (!post) {
+      return res.status(404).render("pages/404", {
+        title: "Artikel Tidak Ditemukan",
+      });
+    }
+
+    res.render("pages/blog-detail", {
+      title: post.title,
+      post,
+    });
+  } catch (error) {
+    console.error("Gagal mengambil detail artikel:", error);
+
+    res.status(500).render("pages/404", {
+      title: "Artikel Tidak Ditemukan",
+    });
+  }
 });
 
-app.get('/gallery', (req, res) => {
-  res.render('pages/gallery', {
-    title: 'Galeri Serene',
-    gallery: yogaData.gallery
-  });
+// end blog
+
+//gallery
+app.get("/gallery", async (req, res) => {
+  try {
+    const gallery = await getBanners("galeri");
+
+    console.log("GALLERY:", gallery);
+
+    res.render("pages/gallery", {
+      title: "Galeri Kami",
+      gallery,
+    });
+  } catch (error) {
+    console.error("Gagal mengambil galeri:", error);
+
+    res.render("pages/gallery", {
+      title: "Galeri Kami",
+      gallery: [],
+    });
+  }
 });
 
-app.get('/contact', (req, res) => {
-  res.render('pages/contact', {
-    title: 'Hubungi Kami',
-    contact: yogaData.contact
-  });
+// end gallery
+
+app.get("/contact", async (req, res) => {
+  try {
+    const captcha = await getContactCaptcha();
+
+    console.log("CAPTCHA:", captcha);
+
+    res.render("pages/contact", {
+      title: "Hubungi Kami",
+      contact: yogaData.contact,
+      captcha,
+    });
+  } catch (error) {
+    console.error("CONTACT ERROR:", error);
+
+    res.render("pages/contact", {
+      title: "Hubungi Kami",
+      contact: yogaData.contact,
+      captcha: null,
+    });
+  }
 });
 
 // API
-app.get('/api/classes', (req, res) => res.json(yogaData.classes));
-app.get('/api/schedule', (req, res) => res.json(yogaData.schedule));
+app.get("/api/classes", (req, res) => res.json(yogaData.classes));
+app.get("/api/schedule", (req, res) => res.json(yogaData.schedule));
 
-app.post('/api/booking', (req, res) => {
+app.post("/api/booking", (req, res) => {
   const { name, email, kelas, date } = req.body;
   if (!name || !email || !kelas) {
-    return res.status(400).json({ success: false, message: 'Nama, email, dan kelas wajib diisi' });
+    return res
+      .status(400)
+      .json({ success: false, message: "Nama, email, dan kelas wajib diisi" });
   }
-  console.log('[BOOKING]', { name, email, kelas, date, at: new Date().toISOString() });
-  res.json({ success: true, message: `Terima kasih ${name}! Booking kelas ${kelas} berhasil. Kami kirim konfirmasi ke ${email}.` });
+  console.log("[BOOKING]", {
+    name,
+    email,
+    kelas,
+    date,
+    at: new Date().toISOString(),
+  });
+  res.json({
+    success: true,
+    message: `Terima kasih ${name}! Booking kelas ${kelas} berhasil. Kami kirim konfirmasi ke ${email}.`,
+  });
 });
 
-app.post('/api/contact', (req, res) => {
-  const { name, email, message } = req.body;
-  if (!name || !email || !message) {
-    return res.status(400).json({ success: false, message: 'Semua field wajib diisi' });
+app.post("/api/contact", async (req, res) => {
+  try {
+    console.log("[CONTACT REQUEST]", req.body);
+
+    const result = await sendContact(req.body);
+
+    console.log("[CONTACT RESPONSE]", result);
+
+    return res.status(200).json({
+      success: true,
+      message: result.message || "Pesan berhasil dikirim.",
+    });
+  } catch (error) {
+    console.error("[CONTACT ERROR]", error);
+
+    return res.status(error.status || 500).json({
+      success: false,
+      message: error.message || "Gagal mengirim pesan.",
+      errors: error.errors || null,
+    });
   }
-  console.log('[CONTACT]', { name, email, message });
-  res.json({ success: true, message: 'Pesan terkirim! Kami akan membalas dalam 24 jam.' });
 });
 
-app.post('/api/newsletter', (req, res) => {
+app.post("/api/newsletter", (req, res) => {
   const { email } = req.body;
-  if (!email || !email.includes('@')) return res.status(400).json({ success:false, message:'Email tidak valid'});
-  res.json({ success:true, message:'Selamat! Kamu terdaftar di newsletter Serene.'});
+  if (!email || !email.includes("@"))
+    return res
+      .status(400)
+      .json({ success: false, message: "Email tidak valid" });
+  res.json({
+    success: true,
+    message: "Selamat! Kamu terdaftar di newsletter kami.",
+  });
 });
 
 // 404
 app.use((req, res) => {
-  res.status(404).render('pages/404', { title: 'Halaman Tidak Ditemukan — 404' });
+  res
+    .status(404)
+    .render("pages/404", { title: "Halaman Tidak Ditemukan — 404" });
 });
 
 app.listen(PORT, () => {
-  console.log(`🧘 Serene Yoga running at http://localhost:${PORT}`);
+  console.log(`🧘 Yogaroots running at http://localhost:${PORT}`);
 });

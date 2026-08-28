@@ -12,8 +12,8 @@
         </div>
         <div class="modal-body">
           <div class="form-group mb-3">
-            <label for="nama" class="mb-2">Nama Banner <span class="text-danger">*</span></label>
-            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Banner" name="nama" value="{{ old('nama') }}" required>
+            <label for="nama" class="mb-2">Nama Media <span class="text-danger">*</span></label>
+            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Media" name="nama" value="{{ old('nama') }}" required>
             @error('nama')
             <div class="invalid-feedback">
               {{ $message }}
@@ -28,10 +28,9 @@
               <option value="slider" {{ old('posisi') == 'slider' ? 'selected' : '' }}>Banner / Slider</option>
               <option value="pengumuman" {{ old('posisi') == 'pengumuman' ? 'selected' : '' }}>Pengumuman</option>
               <option value="infografis" {{ old('posisi') == 'infografis' ? 'selected' : '' }}>Infografis</option>
-              <option value="prestasi" {{ old('posisi') == 'prestasi' ? 'selected' : '' }}>Prestasi</option>
+              <option value="galeri" {{ old('posisi') == 'galeri' ? 'selected' : '' }}>Galeri Foto</option>
               <option value="popup" {{ old('posisi') == 'popup' ? 'selected' : '' }}>Popup</option>
               <option value="mitra" {{ old('posisi') == 'mitra' ? 'selected' : '' }}>Mitra</option>
-              <option value="sarpras" {{ old('posisi') == 'sarpras' ? 'selected' : '' }}>Sarana Prasarana</option>
               <option value="lainnya" {{ old('posisi') == 'lainnya' ? 'selected' : '' }}>Lainnya</option>
             </select>
             @error('posisi')
@@ -43,7 +42,7 @@
 
           <div class="form-group mb-3">
             <label for="deskripsi" class="mb-2">Deskripsi</label>
-            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi Banner" name="deskripsi" value="{{ old('deskripsi') }}" rows="3"></textarea>
+            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" name="deskripsi" value="{{ old('deskripsi') }}" rows="3"></textarea>
             @error('deskripsi')
             <div class="invalid-feedback">
               {{ $message }}

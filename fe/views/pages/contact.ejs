@@ -1,39 +1,183 @@
-<!DOCTYPE html><html lang="id"><head><%- include('../partials/head') %></head><body class="antialiased"><%- include('../partials/navbar') %>
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-  <div class="grid lg:grid-cols-2 gap-10">
-    <div>
-      <h1 class="font-display text-4xl font-bold">Hubungi Kami</h1>
-      <p class="text-stone-warm mt-2">Ada pertanyaan? Tim Serene siap membantu — balas dalam 24 jam.</p>
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <%- include('../partials/head') %>
+  </head>
 
-      <div class="mt-6 space-y-4">
-        <div class="flex gap-3 bg-cream border border-sage-100 rounded-2xl p-4"><span class="w-10 h-10 rounded-xl bg-white border border-sage-100 grid place-items-center">📍</span><div><div class="font-semibold text-sm">Alamat Studio</div><div class="text-sm text-stone-warm"><%= contact.address || site.address %><br><%= contact.hours %></div></div></div>
-        <div class="flex gap-3 bg-cream border border-sage-100 rounded-2xl p-4"><span class="w-10 h-10 rounded-xl bg-white border border-sage-100 grid place-items-center">📞</span><div><div class="font-semibold text-sm">Telepon & WhatsApp</div><div class="text-sm text-stone-warm"><%= site.phone %> • <%= site.email %></div></div></div>
-      </div>
+  <body class="antialiased">
+    <%- include('../partials/navbar') %>
 
-      <form id="contactForm" class="mt-6 bg-white border border-sage-100 rounded-[24px] p-6 space-y-3">
-        <h3 class="font-semibold">Kirim Pesan</h3>
-        <input name="name" placeholder="Nama lengkap" required class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400">
-        <input name="email" type="email" placeholder="Email" required class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400">
-        <textarea name="message" rows="4" placeholder="Ceritakan kebutuhanmu..." required class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"></textarea>
-        <button class="w-full py-3 rounded-full bg-sage-700 text-white font-semibold hover:bg-sage-600">Kirim Pesan →</button>
-        <p id="contactMsg" class="hidden text-sm p-3 rounded-xl"></p>
-      </form>
-    </div>
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div class="grid lg:grid-cols-2 gap-10">
+        <!-- LEFT -->
+        <div>
+          <h1 class="font-display text-4xl font-bold">Hubungi Kami</h1>
 
-    <div class="space-y-4">
-      <div class="rounded-[24px] overflow-hidden border border-sage-100 h-[360px] bg-sage-50">
-        <iframe src="<%= contact.mapEmbed %>" class="w-full h-full border-0" loading="lazy"></iframe>
+          <p class="text-stone-warm mt-2">
+            Ada pertanyaan? Tim kami siap membantu memberikan informasi yang
+            Anda butuhkan.
+          </p>
+
+          <!-- CONTACT INFO -->
+          <div class="mt-6 space-y-4">
+            <div
+              class="flex gap-3 bg-cream border border-sage-100 rounded-2xl p-4"
+            >
+              <span
+                class="w-10 h-10 rounded-xl bg-white border border-sage-100 grid place-items-center"
+              >
+                📍
+              </span>
+
+              <div>
+                <div class="font-semibold text-sm">Alamat Studio</div>
+
+                <div class="text-sm text-stone-warm">
+                  <%= contact.address || site.address %>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="flex gap-3 bg-cream border border-sage-100 rounded-2xl p-4"
+            >
+              <span
+                class="w-10 h-10 rounded-xl bg-white border border-sage-100 grid place-items-center"
+              >
+                📞
+              </span>
+
+              <div>
+                <div class="font-semibold text-sm">Telepon & WhatsApp</div>
+
+                <div class="text-sm text-stone-warm">
+                  <%= site.phone %> • <%= site.email %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONTACT FORM -->
+          <form
+            action=""
+            id="contactForm"
+            class="mt-6 bg-white border border-sage-100 rounded-[24px] p-6 space-y-3"
+          >
+            <h3 class="font-semibold">Kirim Pesan</h3>
+
+            <!-- NAMA -->
+            <input
+              name="nama"
+              placeholder="Nama lengkap"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
+            />
+
+            <!-- EMAIL -->
+            <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
+            />
+
+            <!-- TELEPON -->
+            <input
+              name="no_telp"
+              type="tel"
+              inputmode="numeric"
+              pattern="[0-9]+"
+              placeholder="Nomor Whatsapp Aktif"
+              required
+              class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
+            />
+
+            <!-- PESAN -->
+            <textarea
+              name="isi"
+              rows="4"
+              placeholder="Ceritakan kebutuhanmu..."
+              required
+              class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
+            ></textarea>
+
+            <!-- CAPTCHA -->
+            <div>
+              <label class="block text-sm font-medium mb-2">
+                Verifikasi: <%= captcha?.question || "Verifikasi tidak tersedia"
+                %>
+              </label>
+
+              <input
+                name="captcha_answer"
+                id="captchaAnswer"
+                type="number"
+                placeholder="Masukkan jawaban"
+                required
+                class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
+              />
+
+              <!-- CAPTCHA ID -->
+              <input
+                type="hidden"
+                name="captcha_id"
+                value="<%= captcha?.captcha_id || '' %>"
+              />
+            </div>
+
+            <!-- BUTTON -->
+            <button
+              type="submit"
+              class="w-full py-3 rounded-full bg-sage-700 text-white font-semibold hover:bg-sage-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Kirim Pesan →
+            </button>
+
+            <!-- MESSAGE -->
+            <p id="contactMsg" class="hidden text-sm p-3 rounded-xl"></p>
+          </form>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="space-y-4">
+          <!-- MAP -->
+          <div
+            class="rounded-[24px] overflow-hidden border border-sage-100 h-[360px] bg-sage-50"
+          >
+            <iframe
+              src="<%= contact.mapEmbed %>"
+              class="w-full h-full border-0"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+
+          <!-- OPERATIONAL HOURS -->
+          <div class="bg-sage-700 text-white rounded-[24px] p-6">
+            <h3 class="font-semibold">Jam Operasional</h3>
+
+            <ul class="text-sm text-sage-200 mt-2 space-y-1">
+              <li>Senin — Jumat: 06:00 — 21:00</li>
+
+              <li>Sabtu — Minggu: 07:00 — 20:00</li>
+
+              <li>Lihat Instagram: @<%= site.instagram %></li>
+            </ul>
+
+            <button
+              onclick="openBooking()"
+              class="mt-4 bg-white text-sage-700 px-5 py-2.5 rounded-full text-sm font-semibold"
+            >
+              Pilih Kelas →
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="bg-sage-700 text-white rounded-[24px] p-6">
-        <h3 class="font-semibold">Jam Operasional</h3>
-        <ul class="text-sm text-sage-200 mt-2 space-y-1">
-          <li>Senin — Jumat: 06:00 — 21:00</li>
-          <li>Sabtu — Minggu: 07:00 — 20:00</li>
-          <li>Workshop khusus: lihat Instagram @<%= site.instagram %></li>
-        </ul>
-        <button onclick="openBooking()" class="mt-4 bg-white text-sage-700 px-5 py-2.5 rounded-full text-sm font-semibold">Book Trial Gratis →</button>
-      </div>
-    </div>
-  </div>
-</section>
-<%- include('../partials/footer') %><script src="/js/main.js"></script></body></html>
+    </section>
+
+    <%- include('../partials/footer') %>
+
+    <script src="/js/main.js"></script>
+  </body>
+</html>

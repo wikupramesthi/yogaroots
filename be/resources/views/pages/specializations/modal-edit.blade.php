@@ -1,14 +1,14 @@
 <!-- Modals add menu -->
-<div id="modal-form-edit-disabilities-{{ $item->uuid }}" class="modal fade modal-form-disabilities-edit" tabindex="-1"
-    aria-labelledby="modal-form-edit-disabilities-{{ $item->uuid }}-label" aria-hidden="true" style="display: none;">
+<div id="modal-form-edit-specializations-{{ $item->uuid }}" class="modal fade modal-form-specializations-edit" tabindex="-1"
+    aria-labelledby="modal-form-edit-specializations-{{ $item->uuid }}-label" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form action="{{ route('disabilities.update', $item->uuid) }}" method="post">
+            <form action="{{ route('specializations.update', $item->uuid) }}" method="post">
                 @csrf
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-form-edit-disabilities-{{ $item->uuid }}-label">Edit Kategori
+                    <h5 class="modal-title" id="modal-form-edit-specializations-{{ $item->uuid }}-label">Edit Kategori
                         ({{ $item->name }})
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
@@ -16,12 +16,12 @@
                 <div class="modal-body">
 
                     <div class="form-group mb-3">
-                        <label for="name" class="mb-2">Kategori Disabilitas <span
+                        <label for="name" class="mb-2">Kategori Spesialisasi <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                             name="name" placeholder="Nama Kategori" value="{{ old('name', $item->name) }}" required>
                         @error('name')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -30,7 +30,7 @@
                         <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
                             rows="3" placeholder="Tulis deskripsi kategori...">{{ old('description', $item->description) }}</textarea>
                         @error('description')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 

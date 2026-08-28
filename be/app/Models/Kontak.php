@@ -12,10 +12,18 @@ class Kontak extends Model
     use HasFactory;
 
     protected $table = 'kontak';
-    protected $fillable = ['nama', 'email', 'no_telp', 'isi'];
 
-    public $incrementing = false; 
+    protected $primaryKey = 'uuid';
+
+    public $incrementing = false;
     protected $keyType = 'string';
+
+    protected $fillable = [
+        'nama',
+        'email',
+        'no_telp',
+        'isi',
+    ];
 
     protected static function boot()
     {

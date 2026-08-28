@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Disability;
+use App\Models\Specializaty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
-class DisabilityController extends Controller
+class SpecializatyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $disabilities = Disability::withCount('programs')->get();
-        $disabilityCounts = $disabilities;
+        $specializations = Specializaty::withCount('programs')->get();
+        $specializatyCounts = $specializations;
 
-        return view('pages.disabilities.index', compact('disabilities', 'disabilityCounts'));
+        return view('pages.specializations.index', compact('specializations', 'specializatyCounts'));
     }
 
     /**
@@ -27,13 +27,13 @@ class DisabilityController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:disabilities,name',
+            'name' => 'required|unique:specializations,name',
             'description' => 'nullable|string',
         ]);
 
         DB::beginTransaction();
         try {
-            Disability::create([
+            Specializaty::create([
                 'uuid' => (string) Str::uuid(),
                 'name' => $request->name,
                 'slug' => Str::slug($request->name),
@@ -41,7 +41,7 @@ class DisabilityController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Kategori disabilitas berhasil ditambahkan.');
+            return redirect()->back()->with('success', 'Kategori spesialisasi berhasil ditambahkan.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -54,13 +54,13 @@ class DisabilityController extends Controller
     public function update($uuid, Request $request)
     {
         $request->validate([
-            'name' => 'required|unique:disabilities,name,' . $uuid . ',uuid',
+            'name' => 'required|unique:specializations,name,' . $uuid . ',uuid',
             'description' => 'nullable|string',
         ]);
 
         DB::beginTransaction();
         try {
-            $item = Disability::where('uuid', $uuid)->firstOrFail();
+            $item = Specializaty::where('uuid', $uuid)->firstOrFail();
 
             $item->update([
                 'name' => $request->name,
@@ -69,7 +69,7 @@ class DisabilityController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Kategori disabilitas berhasil diperbarui.');
+            return redirect()->back()->with('success', 'Kategori spesialisasi berhasil diperbarui.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -83,11 +83,11 @@ class DisabilityController extends Controller
     {
         DB::beginTransaction();
         try {
-            $item = Disability::where('uuid', $uuid)->firstOrFail();
+            $item = specializaty::where('uuid', $uuid)->firstOrFail();
             $item->delete();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Kategori disabilitas berhasil dihapus.');
+            return redirect()->back()->with('success', 'Kategori spesialisasi berhasil dihapus.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());

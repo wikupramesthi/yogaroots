@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 
-class Disability extends Model
+class Specializaty extends Model
 {
     use HasFactory;
+
+    protected $table = 'specializations';
 
     protected $primaryKey = 'uuid';
     public $incrementing = false;
@@ -24,7 +26,7 @@ class Disability extends Model
 
     public function programs()
     {
-        return $this->hasMany(Program::class, 'disability_uuid', 'uuid');
+        return $this->hasMany(Program::class, 'specializaty_uuid', 'uuid');
     }
 
 

@@ -1,11 +1,19 @@
 <!DOCTYPE html><html lang="id"><head><%- include('../partials/head') %></head><body class="antialiased"><%- include('../partials/navbar') %>
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-  <h1 class="font-display text-4xl font-bold">Galeri Serene</h1>
-  <p class="text-stone-warm mt-2">Intip ruang, cahaya, dan energi studio kami. Klik untuk memperbesar.</p>
+  <h1 class="font-display text-4xl font-bold">Galeri Kami</h1>
+  <p class="text-stone-warm mt-2">Jelajahi suasana ruang yang dirancang untuk kenyamanan dan ketenangan. Klik untuk memperbesar.</p>
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
-    <% gallery.forEach((img,i)=>{ %>
-      <img data-gallery src="<%= img %>" onclick="openLightbox('<%= img %>', <%= i %>)" class="h-[200px] w-full object-cover rounded-[20px] cursor-pointer hover:opacity-90 transition">
-    <% }) %>
+  <% gallery.forEach((img, i) => { %>
+
+  <img
+    data-gallery
+    src="<%= img.gambar %>"
+    alt="<%= img.nama || 'Galeri Kami' %>"
+    onclick="openLightbox('<%= img.gambar %>', <%= i %>)"
+    class="h-[200px] w-full object-cover rounded-[20px] cursor-pointer hover:opacity-90 transition"
+  >
+
+<% }) %>
   </div>
 </section>
 

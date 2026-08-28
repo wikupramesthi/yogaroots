@@ -17,14 +17,18 @@ class KontakController extends Controller
         ]);
     }
 
-    public function update()
+    public function destroy($uuid)
     {
-        $data = request()->all();
-        $kontak = Kontak::first();
-        if ($kontak)
-            $kontak->update($data);
-        else
-            Kontak::create($data);
-        return redirect()->back()->with('success', 'Kontak berhasil disimpan.');
+        DB::beginTransaction();
+        try {
+            $item = Kontak::where('uuid', $uuid)->firstOrFail();
+            $item->delete();
+
+            DB::commit();
+            return redirect()->back()->with('success', 'Pesan masuk berhasil dihapus.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
     }
 }

@@ -11,17 +11,25 @@
     "watch:css": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --watch",
     "dev:all": "concurrently \"npm run watch:css\" \"node --watch server.js\""
   },
-  "keywords": ["yoga", "tailwind", "ejs", "express", "wellness", "theme"],
+  "keywords": [
+    "yoga",
+    "tailwind",
+    "ejs",
+    "express",
+    "wellness",
+    "theme"
+  ],
   "author": "Serene Yoga",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.19.2",
+    "dotenv": "^17.4.2",
     "ejs": "^3.1.10",
-    "ejs-mate": "^4.0.0"
+    "ejs-mate": "^4.0.0",
+    "express": "^4.19.2"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.0",
-    "tailwindcss": "^4.1.0",
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "tailwindcss": "^4.1.0"
   }
 }

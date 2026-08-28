@@ -3,7 +3,7 @@
 @section('content')
 
 @section('breadcrumb')
-    <x-breadcrumb title="Pusat Informasi" page="Pusat Informasi" active="Faq & Answer" route="{{ route('faq.index') }}" />
+<x-breadcrumb title="Pusat Informasi" page="Pusat Informasi" active="Faq & Answer" route="{{ route('faq.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
@@ -21,21 +21,21 @@
     </div>
 
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
-            <span class="alert-text text-white"> {{ session('success') }}</span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
+        <span class="alert-text text-white"> {{ session('success') }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     @endif
 
     @if (session('error'))
-        <div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show" role="alert">
-            <span class="alert-text text-white"> {{ session('error') }}</span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show" role="alert">
+        <span class="alert-text text-white"> {{ session('error') }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     @endif
     <div class="card">
         <div class="card-header">
@@ -63,51 +63,51 @@
                     </thead>
                     <tbody>
                         @foreach ($items as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->pertanyaan }}</td>
-                                <td>{{ $item->urutan }}</td>
-                                <td>
-                                    <span class="badge {{ $item->status === 'active' ? 'bg-info' : 'bg-danger' }}">
-                                        {{ $item->status === 'active' ? 'Aktif' : 'Tidak Aktif' }}
-                                    </span>
-                                </td>
-                                 <td>
-                                    @can('faq.update')
-                                        <a data-bs-toggle="modal"
-                                            data-bs-target="#modal-form-view-faq-{{ $item->uuid }}"
-                                            class="btn btn-icon btn-primary text-white">
-                                            Lihat Detail
-                                        </a>
-                                        @include('pages.faq.modal-view')
-                                    @endcan
-                                </td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->pertanyaan }}</td>
+                            <td>{{ $item->urutan }}</td>
+                            <td>
+                                <span class="badge {{ $item->status === 'active' ? 'bg-info' : 'bg-danger' }}">
+                                    {{ $item->status === 'active' ? 'Aktif' : 'Tidak Aktif' }}
+                                </span>
+                            </td>
+                            <td>
+                                @can('faq.update')
+                                <a data-bs-toggle="modal"
+                                    data-bs-target="#modal-form-view-faq-{{ $item->uuid }}"
+                                    class="btn btn-icon btn-primary text-white">
+                                    Detail
+                                </a>
+                                @include('pages.faq.modal-view')
+                                @endcan
+                            </td>
 
-                                <td>
-                                    @can('faq.update')
-                                        <a data-bs-toggle="modal" data-bs-target="#modal-form-edit-faq-{{ $item->uuid }}"
-                                            class="btn btn-icon btn-success text-white">
-                                            <i class="bi bi-pencil-square"></i> Edit
-                                        </a>
-                                        @include('pages.faq.modal-edit')
-                                    @endcan
-                                </td>
+                            <td>
+                                @can('faq.update')
+                                <a data-bs-toggle="modal" data-bs-target="#modal-form-edit-faq-{{ $item->uuid }}"
+                                    class="btn btn-icon btn-success text-white">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                                @include('pages.faq.modal-edit')
+                                @endcan
+                            </td>
 
-                                <td>
-                                    @can('faq.destroy')
-                                        <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
-                                            class="btn btn-icon btn-danger text-white">
-                                            <i class="bi bi-x-square"></i> Hapus
-                                        </a>
-                                        <form id="deleteForm_{{ $item->uuid }}"
-                                            action="{{ route('faq.destroy', $item->uuid) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                        </form>
-                                    @endcan
-                                </td>
+                            <td>
+                                @can('faq.destroy')
+                                <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
+                                    class="btn btn-icon btn-danger text-white">
+                                    <i class="bi bi-x-square"></i> Hapus
+                                </a>
+                                <form id="deleteForm_{{ $item->uuid }}"
+                                    action="{{ route('faq.destroy', $item->uuid) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                </form>
+                                @endcan
+                            </td>
 
-                            </tr>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>

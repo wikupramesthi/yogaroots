@@ -5,8 +5,8 @@
           <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
               <a href="{{ route('dashboard.index') }}">
-                <img id="logo-light" src="{{ asset('img/logo-slb.png') }}" alt="Logo" class="d-block" />
-                <img id="logo-dark" src="{{ asset('img/logo-slb.png') }}" alt="Logo" class="d-none" />
+                <img id="logo-light" src="{{ asset('img/logo-yogaroots.png') }}" alt="Logo" class="d-block" />
+                <img id="logo-dark" src="{{ asset('img/logo-yogaroots.png') }}" alt="Logo" class="d-none" />
               </a>
             </div>
 
@@ -69,7 +69,7 @@
                 Panduan <i class="icon-mid bi bi-info-circle me-2"></i></a>
             </li>
             @endcan
- 
+
             <li class="sidebar-item  ">
               <a class='sidebar-link' href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

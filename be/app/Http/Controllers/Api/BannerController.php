@@ -14,13 +14,13 @@ class BannerController extends Controller
     /**
      * Display a listing of the resource.
      */
-      public function index(Request $request): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         try {
             // Hanya ambil banner yang aktif
             $query = Banner::where('status', 'active');
 
-            $allowedKategori = ['slider', 'pengumuman', 'infografis', 'prestasi', 'popup', 'mitra','sarpras', 'lainnya'];
+            $allowedKategori = ['slider', 'pengumuman', 'infografis', 'galeri', 'popup', 'mitra', 'lainnya'];
 
             if ($request->has('kategori') && in_array($request->kategori, $allowedKategori)) {
                 $query->where('posisi', $request->kategori);
@@ -33,7 +33,6 @@ class BannerController extends Controller
                 'message' => 'Daftar banner berhasil diambil',
                 'data' => BannerResource::collection($banners)
             ], 200);
-
         } catch (\Exception $e) {
             Log::error('Banner fetch error: ' . $e->getMessage());
             return response()->json([
