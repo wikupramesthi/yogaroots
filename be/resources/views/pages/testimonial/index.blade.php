@@ -1,29 +1,29 @@
 @extends('layouts.app')
-@section('title', 'Layanan')
+@section('title', 'Pusat Informasi')
 @section('content')
 
 @section('breadcrumb')
-    <x-breadcrumb title="Layanan" page="Layanan" active="Testimonial" route="{{ route('testimonial.index') }}" />
+<x-breadcrumb title="Pusat Informasi" page="Pusat Informasi" active="Testimonial" route="{{ route('testimonial.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
 
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
-            <span class="alert-text text-white"> {{ session('success') }}</span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
+        <span class="alert-text text-white"> {{ session('success') }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     @endif
 
     @if (session('error'))
-        <div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show" role="alert">
-            <span class="alert-text text-white"> {{ session('error') }}</span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show" role="alert">
+        <span class="alert-text text-white"> {{ session('error') }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     @endif
     <div class="card">
         <div class="card-header">
@@ -43,7 +43,7 @@
                             <th>No.</th>
                             <th>Foto</th>
                             <th>Nama</th>
-                            <th>Jabatan</th>
+                            <th>Mulai Bergabung</th>
                             <th>Isi Testimoni</th>
                             <th>Urutan</th>
                             <th>Status</th>
@@ -53,51 +53,51 @@
                     </thead>
                     <tbody>
                         @foreach ($items as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    @if ($item->foto)
-                                        <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto {{ $item->name }}"
-                                            width="60" class="img-thumbnail">
-                                    @else
-                                        <span class="text-muted">-</span>
-                                    @endif
-                                </td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->jabatan }}</td>
-                                <td>{{ $item->isi_testimoni }}</td>
-                                <td>{{ $item->urutan }}</td>
-                                <td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                @if ($item->foto)
+                                <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto {{ $item->name }}"
+                                    width="60" class="img-thumbnail">
+                                @else
+                                <span class="text-muted">-</span>
+                                @endif
+                            </td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->jabatan }}</td>
+                            <td>{{ $item->isi_testimoni }}</td>
+                            <td>{{ $item->urutan }}</td>
+                            <td>
                                 <span class="badge {{ $item->is_active === 'active' ? 'bg-info' : 'bg-danger' }}">
                                     {{ $item->is_active === 'active' ? 'Aktif' : 'Tidak Aktif' }}
                                 </span>
-                                </td>
-                                <td>
-                                    @can('testimonial.update')
-                                        <a data-bs-toggle="modal"
-                                            data-bs-target="#modal-form-edit-testimonial-{{ $item->uuid }}"
-                                            class="btn btn-icon btn-success text-white">
-                                            <i class="bi bi-pencil-square"></i> Edit
-                                        </a>
-                                        @include('pages.testimonial.modal-edit')
-                                    @endcan
-                                </td>
+                            </td>
+                            <td>
+                                @can('testimonial.update')
+                                <a data-bs-toggle="modal"
+                                    data-bs-target="#modal-form-edit-testimonial-{{ $item->uuid }}"
+                                    class="btn btn-icon btn-success text-white">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                                @include('pages.testimonial.modal-edit')
+                                @endcan
+                            </td>
 
-                                <td>
-                                    @can('testimonial.destroy')
-                                        <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
-                                            class="btn btn-icon btn-danger text-white">
-                                            <i class="bi bi-x-square"></i> Hapus
-                                        </a>
-                                        <form id="deleteForm_{{ $item->uuid }}"
-                                            action="{{ route('testimonial.destroy', $item->uuid) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                        </form>
-                                    @endcan
-                                </td>
+                            <td>
+                                @can('testimonial.destroy')
+                                <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
+                                    class="btn btn-icon btn-danger text-white">
+                                    <i class="bi bi-x-square"></i> Hapus
+                                </a>
+                                <form id="deleteForm_{{ $item->uuid }}"
+                                    action="{{ route('testimonial.destroy', $item->uuid) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                </form>
+                                @endcan
+                            </td>
 
-                            </tr>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>

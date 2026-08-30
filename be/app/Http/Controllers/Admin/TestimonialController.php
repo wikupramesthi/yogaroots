@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+
 
 class TestimonialController extends Controller
 {
@@ -100,28 +102,47 @@ class TestimonialController extends Controller
             'jabatan'       => 'nullable|string|max:255',
             'isi_testimoni' => 'required|string',
             'foto'          => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'urutan'        => 'required|integer|min:1|unique:testimonials,urutan',
+            'urutan'        => [
+                'required',
+                'integer',
+                'min:1',
+                Rule::unique('testimonials', 'urutan')->ignore($item->id),
+            ],
             'is_active'     => 'required|in:active,inactive',
         ]);
 
         DB::beginTransaction();
+
         try {
-            $data = $request->only(['nama', 'jabatan', 'isi_testimoni', 'urutan', 'is_active']);
+            $data = $request->only([
+                'nama',
+                'jabatan',
+                'isi_testimoni',
+                'urutan',
+                'is_active',
+            ]);
 
             if ($request->hasFile('foto')) {
                 if ($item->foto && Storage::disk('public')->exists($item->foto)) {
                     Storage::disk('public')->delete($item->foto);
                 }
+
                 $data['foto'] = $request->file('foto')->store('testimoni', 'public');
             }
 
             $item->update($data);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Testimonial berhasil diperbarui.');
+
+            return redirect()
+                ->back()
+                ->with('success', 'Testimonial berhasil diperbarui.');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->back()->with('error', $th->getMessage());
+
+            return redirect()
+                ->back()
+                ->with('error', $th->getMessage());
         }
     }
 

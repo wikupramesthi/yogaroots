@@ -15,9 +15,9 @@
                         <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto"
                             placeholder="foto" name="foto" value="{{ old('foto') }}" accept="image/*" required>
                         @error('foto')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
@@ -26,21 +26,21 @@
                         <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
                             placeholder="Nama Lengkap" name="nama" value="{{ old('nama') }}" required>
                         @error('nama')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="jabatan" class="mb-2">Jabatan / Pekerjaan <span
+                        <label for="jabatan" class="mb-2">Mulai Bergabung <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('jabatan') is-invalid @enderror" id="jabatan"
-                            placeholder="Jabatan / Pekerjaan" name="jabatan" value="{{ old('jabatan') }}" required>
+                            placeholder="Mulai Bergabung" name="jabatan" value="{{ old('jabatan') }}" required>
                         @error('jabatan')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
@@ -50,9 +50,9 @@
                         <textarea class="form-control @error('isi_testimoni') is-invalid @enderror" id="isi_testimoni"
                             placeholder="Isi Testimoni" name="isi_testimoni" required>{{ old('isi_testimoni') }}</textarea>
                         @error('isi_testimoni')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
@@ -62,9 +62,9 @@
                         <input type="number" class="form-control @error('urutan') is-invalid @enderror" id="urutan"
                             placeholder="Urutan" name="urutan" value="{{ old('urutan') }}">
                         @error('urutan')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
@@ -82,9 +82,9 @@
                             </option>
                         </select>
                         @error('is_active')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
