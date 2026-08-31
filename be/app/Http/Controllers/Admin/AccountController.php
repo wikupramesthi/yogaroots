@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Account;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
+use App\Models\Specializaty;
 use Illuminate\View\View;
 
 class AccountController extends Controller
@@ -20,10 +21,16 @@ class AccountController extends Controller
      */
     public function index(Request $request): View
     {
+        $specializations = Specializaty::where('is_active', 'active')
+            ->orderBy('name')
+            ->get();
+
         $kecamatans = Kecamatan::all();
+
         return view('profile.update', [
             'user' => $request->user(),
             'kecamatans' => $kecamatans,
+            'specializations' => $specializations,
         ]);
     }
 
@@ -87,19 +94,15 @@ class AccountController extends Controller
             'no_hp'         => 'required|unique:users,no_hp,' . $user->uuid . ',uuid',
             'tempat_lahir'  => 'nullable|string|max:100',
             'tanggal_lahir' => 'nullable|date',
-            'nuptk'         => 'nullable|string|max:20',
-            'nik'           => 'required|string|max:20|unique:users,nik,' . $user->uuid . ',uuid',
             'jenis_kelamin' => 'nullable|in:L,P',
             'agama'         => 'nullable|string|max:50',
             'alamat'        => 'nullable|string',
-            'kecamatan_id'  => 'nullable|exists:kecamatans,id',
-            'kelurahan_id'  => 'nullable|exists:kelurahans,id',
-            'file_pendukung' => 'nullable|file|mimes:pdf|max:2048',
             'facebook'      => 'nullable|string|max:255',
             'instagram'     => 'nullable|string|max:255',
             'twitter'       => 'nullable|string|max:255',
             'tiktok'        => 'nullable|string|max:255',
             'youtube'       => 'nullable|string|max:255',
+            'pengalaman'    => 'nullable|string',
             'biografi'      => 'nullable|string',
         ]);
 
@@ -113,15 +116,6 @@ class AccountController extends Controller
             }
             $user->update([
                 'avatar' => $request->file('avatar')->store('avatars', 'public')
-            ]);
-        }
-
-        if ($request->hasFile('file_pendukung')) {
-            if ($user->file_pendukung && Storage::disk('public')->exists($user->file_pendukung)) {
-                Storage::disk('public')->delete($user->file_pendukung);
-            }
-            $user->update([
-                'file_pendukung' => $request->file('file_pendukung')->store('files/pegawai', 'public')
             ]);
         }
 

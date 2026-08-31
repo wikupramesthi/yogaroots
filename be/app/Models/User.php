@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
+use App\Models\Specializaty;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
@@ -114,5 +116,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function programs()
     {
         return $this->hasMany(Program::class, 'user_uuid', 'uuid');
+    }
+
+    public function specializations()
+    {
+        return $this->belongsToMany(
+            Specializaty::class,
+            'user_specialization',
+            'user_uuid',
+            'specialization_uuid',
+            'uuid',
+            'uuid'
+        );
     }
 }

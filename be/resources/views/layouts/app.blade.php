@@ -56,7 +56,7 @@
                         <p>
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script>  &copy; SLB Patriot Kota Bekasi
+                            </script> &copy; Yoga Roots. all rights reserved
                         </p>
                     </div>
                 </div>
@@ -115,46 +115,47 @@
         });
     </script>
 
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-      new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-  });
-</script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.forEach(function(tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
 
-<script>
-$(document).on("click", ".mark-as-read", function(e) {
-    e.preventDefault();
+    <script>
+        $(document).on("click", ".mark-as-read", function(e) {
+            e.preventDefault();
 
-    let id = $(this).data("id");
-    let $item = $(this).closest(".notification-item");
+            let id = $(this).data("id");
+            let $item = $(this).closest(".notification-item");
 
-    $.ajax({
-        url: "{{ url('/notifications') }}/" + id + "/read",
-        type: "POST",
-        data: {
-            _token: "{{ csrf_token() }}"
-        },
-        success: function(res) {
-            if (res.success) {
-                // hapus highlight bg-light
-                $item.removeClass("bg-light");
+            $.ajax({
+                url: "{{ url('/notifications') }}/" + id + "/read",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(res) {
+                    if (res.success) {
+                        // hapus highlight bg-light
+                        $item.removeClass("bg-light");
 
-                // update badge count
-                let count = parseInt($("#notif-count").text()) - 1;
-                if (count > 0) {
-                    $("#notif-count").text(count);
-                } else {
-                    $("#notif-count").remove();
+                        // update badge count
+                        let count = parseInt($("#notif-count").text()) - 1;
+                        if (count > 0) {
+                            $("#notif-count").text(count);
+                        } else {
+                            $("#notif-count").remove();
+                        }
+                    }
                 }
-            }
-        }
-    });
-});
-</script>
+            });
+        });
+    </script>
 
 
 </body>
+
 </html>
