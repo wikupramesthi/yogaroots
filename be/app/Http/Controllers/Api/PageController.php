@@ -40,10 +40,12 @@ class PageController extends Controller
         }
     }
 
-    public function show(string $uuid): JsonResponse
+    public function show(string $slug): JsonResponse
     {
         try {
-            $page = Page::where('uuid', $uuid)->firstOrFail();
+            $page = Page::where('slug', $slug)
+                ->where('is_published', true)
+                ->firstOrFail();
 
             return response()->json([
                 'status' => 'success',
@@ -51,12 +53,14 @@ class PageController extends Controller
                 'data' => new PageResource($page)
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'Halaman tidak ditemukan',
                 'data' => null
             ], 404);
         } catch (\Throwable $e) {
+
             Log::error('Page show error: ' . $e->getMessage());
 
             return response()->json([

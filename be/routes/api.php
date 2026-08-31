@@ -53,4 +53,4 @@ Route::prefix('pegawai')->group(function () {
 
 // halaman statis
 Route::get('/pages', [PageController::class, 'index']);
-Route::get('/pages/{uuid}', [PageController::class, 'show']);
+Route::get('/pages/{slug}', [PageController::class, 'show']);

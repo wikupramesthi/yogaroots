@@ -137,7 +137,7 @@
                 <a href="#">Lupa kata sandi?</a>
             </div>
 
-            <button type="submit" class="btn-primary" id="lanjutBtn">Lanjutkan</button>
+            <button type="submit" class="btn-primary block" id="lanjutBtn">Lanjutkan</button>
 
             <div class="divider">atau masuk dengan</div>
 

@@ -26,7 +26,7 @@ use App\Http\Controllers\Admin\PegawaiController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PollController;
 use App\Http\Controllers\Admin\TestimonialController;
-use App\Http\Controllers\Admin\ServicesController;
+use App\Http\Controllers\Admin\EventsController;
 use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\MinifyHtml;
@@ -74,7 +74,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::get('/get-kelurahan/{kecamatan_id}', [AccountController::class, 'getKelurahan']);
     Route::resource('poll', PollController::class);
     Route::resource('pages', PagesController::class);
-    Route::resource('services', ServicesController::class);
+    Route::resource('events', EventsController::class);
     Route::resource('program', ProgramController::class);
     Route::resource('filedownload', FileDownloadController::class);
     Route::get('kontak', [FaqController::class, 'kontak'])->name('layanan.kontak');

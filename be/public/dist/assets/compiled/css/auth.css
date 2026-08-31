@@ -38,6 +38,9 @@ body {
     position: relative;
     overflow-x: hidden;
 }
+.block {
+    display: block !important;
+}
 .bg-leaf {
     position: absolute;
     pointer-events: none;
