@@ -1,6 +1,6 @@
 {
-  "name": "serene-yoga-theme",
-  "version": "1.0.0",
+  "name": "yogaroots-theme",
+  "version": "1.10",
   "description": "Tema Yoga lengkap — Tailwind CSS v4 + EJS + Express. Fitur lengkap siap pakai untuk studio yoga, wellness & meditation.",
   "type": "module",
   "main": "server.js",
