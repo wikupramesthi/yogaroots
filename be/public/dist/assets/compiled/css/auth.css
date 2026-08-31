@@ -597,3 +597,309 @@ h3,
         font-size: 32px;
     }
 }
+
+< > :root {
+    --forest: #2b3d2f;
+    --forest-deep: #1c2a20;
+    --clay: #b96a4b;
+    --clay-deep: #a05639;
+    --sage: #8a9a7e;
+    --cream: #f6f1e7;
+    --cream-deep: #efe7d8;
+    --ink: #2e2b25;
+    --muted: #7c7568;
+    --line: #e4dcc9;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: "Jost", sans-serif;
+    background: var(--cream);
+    background-image:
+        radial-gradient(
+            700px 500px at 88% 8%,
+            rgba(185, 106, 75, 0.09) 0%,
+            transparent 60%
+        ),
+        radial-gradient(
+            650px 450px at 6% 90%,
+            rgba(138, 154, 126, 0.14) 0%,
+            transparent 60%
+        ),
+        radial-gradient(
+            500px 350px at 45% 40%,
+            rgba(43, 61, 47, 0.03) 0%,
+            transparent 65%
+        );
+    min-height: 100vh;
+    color: var(--ink);
+    position: relative;
+    overflow-x: hidden;
+}
+h1,
+h2,
+.logo-text {
+    font-family: "Fraunces", serif;
+}
+
+.bg-leaf {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.5;
+}
+.bg-leaf.one {
+    top: 50px;
+    left: -45px;
+    width: 150px;
+    transform: rotate(-15deg);
+}
+.bg-leaf.two {
+    bottom: 30px;
+    right: -35px;
+    width: 190px;
+    transform: rotate(160deg);
+}
+
+.logo-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    padding: 38px 0 0;
+}
+.logo-mark {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.logo-text {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--forest);
+    letter-spacing: 0.5px;
+}
+.logo-text .roots {
+    color: var(--clay);
+}
+
+.stage {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 50px 32px 110px;
+    text-align: center;
+    position: relative;
+}
+
+/* Wandering path illustration */
+.path-illustration {
+    width: 100%;
+    max-width: 420px;
+    margin: 10px auto 6px;
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--clay-deep);
+    margin: 8px 0 22px;
+}
+.eyebrow .dash {
+    width: 24px;
+    height: 1.5px;
+    background: var(--clay);
+}
+
+.stage h1 {
+    font-size: 100px;
+    font-weight: 500;
+    line-height: 1;
+    margin: 0 0 6px;
+    color: var(--forest-deep);
+    letter-spacing: -2px;
+}
+.stage h1 em {
+    font-style: italic;
+    color: var(--clay-deep);
+    font-weight: 400;
+}
+.stage h2 {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 16px;
+    color: var(--forest-deep);
+}
+.stage p.lead {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--muted);
+    max-width: 420px;
+    margin: 0 auto 38px;
+}
+
+.action-row {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 52px;
+}
+.btn-primary {
+    padding: 14px 30px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--clay) 0%, var(--clay-deep) 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14.5px;
+    font-family: "Jost", sans-serif;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 14px 26px -8px rgba(160, 86, 57, 0.55);
+    transition: transform 0.15s;
+}
+.btn-primary:hover {
+    transform: translateY(-1px);
+}
+.btn-secondary {
+    padding: 14px 30px;
+    border-radius: 11px;
+    background: #fffdf9;
+    border: 1.5px solid var(--line);
+    color: var(--forest-deep);
+    font-weight: 600;
+    font-size: 14.5px;
+    font-family: "Jost", sans-serif;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition:
+        border-color 0.15s,
+        background 0.15s,
+        transform 0.15s;
+}
+.btn-secondary:hover {
+    border-color: var(--sage);
+    background: #faf8f2;
+    transform: translateY(-1px);
+}
+
+.helpful-links {
+    background: #fffdf9;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 26px 30px;
+    box-shadow: 0 20px 44px -26px rgba(43, 61, 47, 0.25);
+    text-align: left;
+}
+.helpful-links h3 {
+    font-family: "Fraunces", serif;
+    font-size: 15.5px;
+    font-weight: 500;
+    color: var(--forest-deep);
+    margin: 0 0 14px;
+}
+.helpful-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+}
+.helpful-links li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13.5px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 5px 0;
+    transition: color 0.15s;
+}
+.helpful-links li a:hover {
+    color: var(--clay-deep);
+}
+.helpful-links li a svg {
+    flex-shrink: 0;
+    color: var(--sage);
+}
+
+.breath-note {
+    margin-top: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+}
+.breath-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1.5px solid var(--clay);
+    flex-shrink: 0;
+    position: relative;
+}
+.breath-circle::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border-radius: 50%;
+    background: var(--clay);
+    opacity: 0.35;
+    animation: breathe 4.5s ease-in-out infinite;
+}
+@keyframes breathe {
+    0%,
+    100% {
+        transform: scale(0.55);
+        opacity: 0.25;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 0.55;
+    }
+}
+.breath-note span {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+    font-style: italic;
+    text-align: left;
+}
+
+@media (max-width: 520px) {
+    .stage h1 {
+        font-size: 76px;
+    }
+    .helpful-links ul {
+        grid-template-columns: 1fr;
+    }
+}
+
+.action-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+.action-row .btn-primary,
+.action-row .btn-secondary {
+    width: 100%;
+    justify-content: center;
+}
+@media (max-width: 480px) {
+    .action-row {
+        grid-template-columns: 1fr;
+    }
+}
