@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Support\Str;
 use App\Models\Specializaty;
+use Illuminate\Database\Eloquent\Relations\Pivot;
+
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -29,7 +31,6 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'uuid',
         'avatar',
-        'nik',
         'name',
         'password',
         'email_verified_at',
@@ -39,20 +40,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'tanggal_lahir',
         'jenis_kelamin',
         'agama',
-        'jabatan',
-        'kepegawaian',
+        'pengalaman',
         'is_active',
         'alamat',
-        'kecamatan_id',
-        'kelurahan_id',
-        'nuptk',
         'facebook',
         'instagram',
         'twitter',
         'tiktok',
         'youtube',
         'biografi',
-        'file_pendukung',
     ];
 
     /**
@@ -127,6 +123,6 @@ class User extends Authenticatable implements MustVerifyEmail
             'specialization_uuid',
             'uuid',
             'uuid'
-        );
+        )->using(UserSpecialization::class);
     }
 }

@@ -22,6 +22,12 @@
     <link rel="stylesheet" href="{{ asset('dist/assets/compiled/css/app-dark.css') }}" />
     <link rel="stylesheet" href="{{ asset('dist/assets/compiled/css/iconly.css') }}" />
 
+    <link
+        href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+        rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
     @stack('after-style')
     <!-- /Style -->
 
@@ -92,6 +98,18 @@
             $('#deskripsi').summernote();
             $('#latar_belakang').summernote();
             $('#hasil').summernote();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#specializations').select2({
+                placeholder: 'Pilih specialization',
+                width: '100%',
+                closeOnSelect: false
+            });
         });
     </script>
 

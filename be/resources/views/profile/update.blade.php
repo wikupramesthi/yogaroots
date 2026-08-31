@@ -75,7 +75,7 @@
 
                         <div class="mb-3">
                             <label for="specializations" class="small mb-1">
-                                Specialization <span class="text-danger">*</span>
+                                -- Pilih Spesialisasi -- <span class="text-danger">*</span>
                             </label>
 
                             @php
@@ -86,11 +86,10 @@
                             @endphp
 
                             <select
-                                class="form-select"
+                                class="form-control"
                                 id="specializations"
                                 name="specializations[]"
                                 multiple
-                                size="5"
                                 required>
                                 @foreach ($specializations as $specialization)
                                 <option
@@ -100,10 +99,6 @@
                                 </option>
                                 @endforeach
                             </select>
-
-                            <small class="text-muted">
-                                Gunakan Ctrl (Windows) atau Command (Mac) untuk memilih beberapa specialization.
-                            </small>
 
                             @error('specializations')
                             <div class="text-danger small mt-1">
@@ -159,6 +154,7 @@
                                     </option>
                                 </select>
                             </div>
+
                             <div class="col-md-6">
                                 <label for="nik" class="small mb-1">Agama <span
                                         class="text-danger">*</span></label>
@@ -172,6 +168,33 @@
                                     </option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="alamat" class="small mb-1">Alamat Domisili <span
+                                    class="text-danger">*</span></label>
+                            <input class="form-control" id="alamat" type="text" name="alamat"
+                                value="{{ old('alamat', $user->alamat) }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="pengalaman" class="small mb-1">Pengalaman <span
+                                    class="text-danger">*contoh: 10 tahun</span></label>
+                            <input class="form-control" id="alamat" type="text" name="pengalaman"
+                                value="{{ old('pengalaman', $user->pengalaman) }}" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="file_pendukung" class="small mb-1">Bografi
+                                <span class="text-danger"> *Pengenalan diri Anda</span>
+                            </label>
+                            <div class="input-group">
+                                <textarea name="biografi" id="biografi" rows="4"
+                                    class="form-control @error('biografi') is-invalid @enderror">{{ old('biografi', $user->biografi) }}</textarea>
+                                @error('biografi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -201,33 +224,6 @@
                             </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="alamat" class="small mb-1">Alamat Domisili <span
-                                    class="text-danger">*</span></label>
-                            <input class="form-control" id="alamat" type="text" name="alamat"
-                                value="{{ old('alamat', $user->alamat) }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="pengalaman" class="small mb-1">Pengalaman <span
-                                    class="text-danger">*contoh: sudah 10 tahun</span></label>
-                            <input class="form-control" id="alamat" type="text" name="pengalaman"
-                                value="{{ old('pengalaman', $user->pengalaman) }}" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="file_pendukung" class="small mb-1">Bografi
-                                <span class="text-danger"> *Pengenalan diri Anda</span>
-                            </label>
-                            <div class="input-group">
-                                <textarea name="biografi" id="biografi" rows="4"
-                                    class="form-control @error('biografi') is-invalid @enderror">{{ old('biografi', $user->biografi) }}</textarea>
-                                @error('biografi')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="text-end mt-5">
                             <button class="btn btn-primary" type="submit">Simpan Data</button>
                         </div>
@@ -246,60 +242,6 @@
 
 @push('before-script')
 
-<!-- Select2 CSS -->
-<link
-    href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-    rel="stylesheet" />
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-<!-- Select2 JS -->
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#specializations').select2({
-            placeholder: 'Pilih specialization',
-            width: '100%',
-            closeOnSelect: false
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
-        $('#kecamatan').on('change', function() {
-            var kecamatanId = $(this).val();
-            var $kelurahan = $('#kelurahan');
-
-            // Kosongkan opsi kelurahan
-            $kelurahan.empty().append('<option value="">-- Pilih Kelurahan --</option>');
-
-            if (kecamatanId) {
-                $.ajax({
-                    url: '/backend/get-kelurahan/' +
-                        kecamatanId, // ← di sini harus ada koma setelahnya!
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        // Tampilkan hasil ke console (debug)
-                        console.log("Kelurahan:", data);
-
-                        $.each(data, function(id, nama) {
-                            $kelurahan.append('<option value="' + id + '">' + nama +
-                                '</option>');
-                        });
-                    },
-                    error: function(xhr) {
-                        console.error("Gagal:", xhr.responseText);
-                        alert('Gagal mengambil data kelurahan');
-                    }
-                });
-            }
-        });
-    });
-</script>
 @endpush
 
 @endsection
