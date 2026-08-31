@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\TestimonialController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\BannerController;
-use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\PageController;
 
 
@@ -35,8 +35,6 @@ Route::get('/categories', [ArticleController::class, 'category']);
 Route::get('/contact/captcha', [ContactController::class, 'captcha']);
 Route::post('/contact', [ContactController::class, 'store']);
 Route::get('/banners', [BannerController::class, 'index']);
-Route::get('/services', [ServiceController::class, 'index']);
-
 
 // Artikel
 Route::prefix('articles')->group(function () {
@@ -54,3 +52,7 @@ Route::prefix('pegawai')->group(function () {
 // halaman statis
 Route::get('/pages', [PageController::class, 'index']);
 Route::get('/pages/{slug}', [PageController::class, 'show']);
+
+// halaman event
+Route::get('/events', [EventController::class, 'index']);
+Route::get('/events/{slug}', [EventController::class, 'show']);
