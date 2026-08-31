@@ -3,18 +3,18 @@
 @section('content')
 
 @section('breadcrumb')
-    <x-breadcrumb title="Data Pegawai" page="Data Pegawai" active="Semua Pegawai" route="{{ route('pegawai.index') }}" />
+<x-breadcrumb title="Data Pegawai" page="Data Pegawai" active="Semua Pegawai" route="{{ route('pegawai.index') }}" />
 @endsection
 
 <!-- Content -->
 
-<div class="alert alert-info alert-dismissible mb-3 mt-3 fade show position-relative" role="alert">
+<div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show position-relative" role="alert">
     <div class="d-flex">
         <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
         <div class="text-white mt-2">
-            <strong>Halaman Pegawai Sekolah</strong>
+            <strong>Manajemen Data Instruktur</strong>
             <br>
-            Pada halaman ini Anda dapat melihat dan mengelola data pegawai sekolah.
+            Pada halaman ini Anda dapat melihat, mengelola, dan memperbarui data instruktur.
         </div>
     </div>
 </div>
@@ -83,19 +83,19 @@
 
                 <div class="d-flex gap-2">
                     @can('pegawai.store')
-                        <a href="{{ route('pegawai.create') }}" class="btn btn-primary btn-md">
-                            <i class="bi bi-plus-lg"></i> Tambah Pegawai
-                        </a>
+                    <a href="{{ route('pegawai.create') }}" class="btn btn-primary btn-md">
+                        <i class="bi bi-plus-lg"></i> Tambah Instruktur
+                    </a>
                     @endcan
 
                     @can('pegawai.store')
-                        <form action="{{ route('pegawai.restore') }}" method="POST"
-                            onsubmit="return confirm('Yakin ingin merestore semua pegawai yang terhapus?')">
-                            @csrf
-                            <button type="submit" class="btn btn-warning text-white btn-md">
-                                <i class="bi bi-arrow-counterclockwise"></i> Restore Semua
-                            </button>
-                        </form>
+                    <form action="{{ route('pegawai.restore') }}" method="POST"
+                        onsubmit="return confirm('Yakin ingin merestore semua pegawai yang terhapus?')">
+                        @csrf
+                        <button type="submit" class="btn btn-warning text-white btn-md">
+                            <i class="bi bi-arrow-counterclockwise"></i> Restore Semua
+                        </button>
+                    </form>
                     @endcan
                 </div>
             </div>
@@ -115,8 +115,7 @@
                             <th>Tempat, Tgl Lahir</th>
                             <th>Email</th>
                             <th>No. Handphone</th>
-                            <th>Jabatan</th>
-                            <th>Status Kepegawaian</th>
+                            <th>Pengalaman</th>
                             <th>Detail</th>
                             <th>Edit</th>
                             <th>Hapus</th>
@@ -124,60 +123,59 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
                         @foreach ($users as $user)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    @if ($user->avatar)
-                                        <img src="{{ asset('storage/' . $user->avatar) }}"
-                                            alt="Foto {{ $user->name }}" width="60" class="img-thumbnail">
-                                    @else
-                                        <span class="text-muted">-</span>
-                                    @endif
-                                </td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->nik }}</td>
-                                <td>{{ $user->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
-                                <td>
-                                    {{ $user->tempat_lahir }},
-                                    {{ $user->tanggal_lahir ? \Carbon\Carbon::parse($user->tanggal_lahir)->translatedFormat('d F Y') : '-' }}
-                                </td>
-                                <td>{{ $user->email }}</td>
-                                <td>{{ $user->no_hp ?? '-' }}</td>
-                                <td>{{ $user->jabatan }}</td>
-                                <td>{{ ucfirst($user->kepegawaian) ?? '-' }}</td>
-                                <td>
-                                    @can('pegawai.update')
-                                        <a data-bs-toggle="modal" data-bs-target="#modal-form-view-faq-{{ $user->uuid }}"
-                                            class="btn btn-icon btn-info text-white">
-                                            <i class="bi bi-eye"></i>
-                                        </a>
-                                        @include('pages.pegawai.modal-view')
-                                    @endcan
-                                </td>
-                                <td>
-                                    @can('pegawai.update')
-                                        <a href="{{ route('pegawai.edit', $user->uuid) }}" title="Edit"
-                                            class="btn btn-icon btn-success text-white">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                    @endcan
-                                </td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                @if ($user->avatar)
+                                <img src="{{ asset('storage/' . $user->avatar) }}"
+                                    alt="Foto {{ $user->name }}" width="60" class="img-thumbnail">
+                                @else
+                                <span class="text-muted">-</span>
+                                @endif
+                            </td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->nik }}</td>
+                            <td>{{ $user->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                            <td>
+                                {{ $user->tempat_lahir }},
+                                {{ $user->tanggal_lahir ? \Carbon\Carbon::parse($user->tanggal_lahir)->translatedFormat('d F Y') : '-' }}
+                            </td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->no_hp ?? '-' }}</td>
+                            <td>{{ $user->pengalaman }}</td>
+                            <td>
+                                @can('pegawai.update')
+                                <a data-bs-toggle="modal" data-bs-target="#modal-form-view-faq-{{ $user->uuid }}"
+                                    class="btn btn-icon btn-info text-white">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                @include('pages.pegawai.modal-view')
+                                @endcan
+                            </td>
+                            <td>
+                                @can('pegawai.update')
+                                <a href="{{ route('pegawai.edit', $user->uuid) }}" title="Edit"
+                                    class="btn btn-icon btn-success text-white">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                @endcan
+                            </td>
 
-                                <td>
-                                    @can('pegawai.destroy')
-                                        <a onclick="showSweetAlert('{{ $user->uuid }}')" title="Delete"
-                                            class="btn btn-icon btn-danger text-white">
-                                            <i class="bi bi-x-square"></i>
-                                        </a>
-                                        <form id="deleteForm_{{ $user->uuid }}"
-                                            action="{{ route('pegawai.destroy', $user->uuid) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                        </form>
-                                    @endcan
-                                </td>
+                            <td>
+                                @can('pegawai.destroy')
+                                <a onclick="showSweetAlert('{{ $user->uuid }}')" title="Delete"
+                                    class="btn btn-icon btn-danger text-white">
+                                    <i class="bi bi-x-square"></i>
+                                </a>
+                                <form id="deleteForm_{{ $user->uuid }}"
+                                    action="{{ route('pegawai.destroy', $user->uuid) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                </form>
+                                @endcan
+                            </td>
 
-                            </tr>
+                        </tr>
                         @endforeach
 
                     </tbody>
