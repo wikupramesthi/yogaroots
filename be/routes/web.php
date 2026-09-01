@@ -22,7 +22,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SpecializatyController;
 use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\FileDownloadController;
-use App\Http\Controllers\Admin\PegawaiController;
+use App\Http\Controllers\Admin\InstrukturController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PollController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -82,8 +82,8 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
         '/kontak/{uuid}',
         [FaqController::class, 'forceDelete']
     )->name('kontak.destroy');
-    Route::resource('pegawai', PegawaiController::class);
-    Route::post('pegawai/restore', [PegawaiController::class, 'restore'])->name('pegawai.restore');
+    Route::resource('instruktur', InstrukturController::class);
+    Route::post('instruktur/restore', [InstrukturController::class, 'restore'])->name('instruktur.restore');
     Route::post('program/upload', [ProgramController::class, 'upload'])->name('program.upload');
     Route::get('/program/{id}/edit/{uuid}', [ProgramController::class, 'edit'])->name('program.edit');
     Route::patch('/program/update/{id}/{uuid}', [ProgramController::class, 'update'])->name('program.update');

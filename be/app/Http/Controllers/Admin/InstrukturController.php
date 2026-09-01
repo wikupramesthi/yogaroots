@@ -4,38 +4,50 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Specializaty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class PegawaiController extends Controller
+class InstrukturController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index(Request $request)
     {
         $users = User::whereHas('roles', function ($query) {
-            $query->whereIn('name', ['guru']);
+            $query->where('name', 'instruktur');
         })
-            ->when($request->filled('start_date') && $request->filled('end_date'), function ($query) use ($request) {
-                $query->whereBetween('created_at', [
-                    $request->start_date . ' 00:00:00',
-                    $request->end_date . ' 23:59:59'
-                ]);
+            ->when($request->filled('start_date'), function ($query) use ($request) {
+                $query->whereDate('created_at', '>=', $request->start_date);
+            })
+            ->when($request->filled('end_date'), function ($query) use ($request) {
+                $query->whereDate('created_at', '<=', $request->end_date);
             })
             ->when($request->filled('jenis_kelamin'), function ($query) use ($request) {
                 $query->where('jenis_kelamin', $request->jenis_kelamin);
             })
-            ->when($request->filled('kepegawaian'), function ($query) use ($request) {
-                $query->where('kepegawaian', $request->kepegawaian);
+            ->when($request->filled('specialization'), function ($query) use ($request) {
+                $query->whereHas('specializations', function ($q) use ($request) {
+                    $q->where('specializations.uuid', $request->specialization);
+                });
             })
+            ->with('specializations')
             ->latest()
             ->get();
 
-        return view('pages.pegawai.index', compact('users'));
+        $specializations = Specializaty::where('is_active', 'active')
+            ->orderBy('name')
+            ->get();
+
+        return view('pages.instruktur.index', compact(
+            'users',
+            'specializations'
+        ));
     }
 
     /**
@@ -43,7 +55,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        return view('pages.pegawai.create');
+        return view('pages.instruktur.create');
     }
 
     /**
@@ -53,7 +65,6 @@ class PegawaiController extends Controller
     {
         $request->validate([
             'avatar'         => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'nik'            => 'nullable|string|max:20|unique:users,nik',
             'name'           => 'required|string|max:255',
             'email'          => 'required|email|unique:users,email',
             'no_hp'          => 'nullable|unique:users,no_hp',
@@ -61,10 +72,8 @@ class PegawaiController extends Controller
             'tanggal_lahir'  => 'nullable|date',
             'jenis_kelamin'  => 'nullable|in:L,P',
             'agama'          => 'nullable|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu,Lainnya',
-            'jabatan'        => 'required|string|max:255',
-            'kepegawaian'    => 'nullable|in:asn,honorer,magang,lainnya',
+            'pengalaman'     => 'required|string|max:255',
             'is_active'      => 'nullable|date',
-            'file_pendukung' => 'nullable|mimes:pdf|max:4096',
             'facebook'       => 'nullable|string|max:255',
             'instagram'      => 'nullable|string|max:255',
             'twitter'        => 'nullable|string|max:255',
@@ -76,14 +85,10 @@ class PegawaiController extends Controller
         DB::beginTransaction();
         try {
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
-            $filePendukungPath = $request->hasFile('file_pendukung')
-                ? $request->file('file_pendukung')->store('files/pegawai', 'public')
-                : null;
 
             $user = User::create([
                 'uuid'             => Str::uuid(),
                 'avatar'           => $avatarPath,
-                'nik'              => $request->nik,
                 'name'             => $request->name,
                 'email'            => $request->email,
                 'password'         => Hash::make('password'),
@@ -93,10 +98,8 @@ class PegawaiController extends Controller
                 'tanggal_lahir'    => $request->tanggal_lahir,
                 'jenis_kelamin'    => $request->jenis_kelamin,
                 'agama'            => $request->agama,
-                'jabatan'          => $request->jabatan,
-                'kepegawaian'      => $request->kepegawaian,
+                'pengalaman'          => $request->pengalaman,
                 'is_active'        => $request->is_active,
-                'file_pendukung'   => $filePendukungPath,
                 'facebook'         => $request->facebook,
                 'instagram'        => $request->instagram,
                 'twitter'          => $request->twitter,
@@ -108,7 +111,7 @@ class PegawaiController extends Controller
             $user->assignRole('guru');
 
             DB::commit();
-            return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil disimpan.');
+            return redirect()->route('instruktur.index')->with('success', 'Data instruktur berhasil disimpan.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -126,41 +129,38 @@ class PegawaiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $pegawai)
+    public function edit(User $instruktur)
     {
         $authUser = auth()->user();
 
         if ($authUser->hasRole(['admin', 'super-admin'])) {
-            return view('pages.pegawai.edit', compact('pegawai'));
+            return view('pages.instruktur.edit', compact('instruktur'));
         }
 
-        if ($authUser->uuid !== $pegawai->uuid) {
+        if ($authUser->uuid !== $instruktur->uuid) {
             abort(403, 'Anda tidak memiliki akses ke data ini.');
         }
 
-        return view('pages.pegawai.edit', compact('pegawai'));
+        return view('pages.instruktur.edit', compact('instruktur'));
     }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $pegawai)
+    public function update(Request $request, User $instruktur)
     {
         $request->validate([
             'avatar'         => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'nik'            => 'nullable|string|max:20|unique:users,nik,' . $pegawai->uuid . ',uuid',
             'name'           => 'required|string|max:255',
-            'email'          => 'required|email|unique:users,email,' . $pegawai->uuid . ',uuid',
-            'no_hp'          => 'nullable|unique:users,no_hp,' . $pegawai->uuid . ',uuid',
+            'email'          => 'required|email|unique:users,email,' . $instruktur->uuid . ',uuid',
+            'no_hp'          => 'nullable|unique:users,no_hp,' . $instruktur->uuid . ',uuid',
             'tempat_lahir'   => 'nullable|string|max:100',
             'tanggal_lahir'  => 'nullable|date',
             'jenis_kelamin'  => 'nullable|in:L,P',
             'agama'          => 'nullable|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu,Lainnya',
-            'jabatan'        => 'required|string|max:255',
-            'kepegawaian'    => 'nullable|in:asn,honorer,magang,lainnya',
+            'pengalaman'     => 'required|string|max:255',
             'is_active'      => 'nullable|date',
-            'file_pendukung' => 'nullable|mimes:pdf|max:4096',
             'facebook'       => 'nullable|string|max:255',
             'instagram'      => 'nullable|string|max:255',
             'twitter'        => 'nullable|string|max:255',
@@ -172,7 +172,6 @@ class PegawaiController extends Controller
         DB::beginTransaction();
         try {
             $data = $request->only([
-                'nik',
                 'name',
                 'email',
                 'no_hp',
@@ -180,8 +179,7 @@ class PegawaiController extends Controller
                 'tanggal_lahir',
                 'jenis_kelamin',
                 'agama',
-                'jabatan',
-                'kepegawaian',
+                'pengalaman',
                 'is_active',
                 'facebook',
                 'instagram',
@@ -192,23 +190,17 @@ class PegawaiController extends Controller
             ]);
 
             if ($request->hasFile('avatar')) {
-                if ($pegawai->avatar && Storage::disk('public')->exists($pegawai->avatar)) {
-                    Storage::disk('public')->delete($pegawai->avatar);
+                if ($instruktur->avatar && Storage::disk('public')->exists($instruktur->avatar)) {
+                    Storage::disk('public')->delete($instruktur->avatar);
                 }
                 $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
             }
 
-            if ($request->hasFile('file_pendukung')) {
-                if ($pegawai->file_pendukung && Storage::disk('public')->exists($pegawai->file_pendukung)) {
-                    Storage::disk('public')->delete($pegawai->file_pendukung);
-                }
-                $data['file_pendukung'] = $request->file('file_pendukung')->store('files/pegawai', 'public');
-            }
 
-            $pegawai->update($data);
+            $instruktur->update($data);
 
             DB::commit();
-            return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil diperbarui.');
+            return redirect()->route('instruktur.index')->with('success', 'Data instruktur berhasil diperbarui.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -219,16 +211,16 @@ class PegawaiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $pegawai)
+    public function destroy(User $instruktur)
     {
         try {
-            $pegawai->delete();
+            $instruktur->delete();
             return redirect()
-                ->route('pegawai.index')
-                ->with('success', 'Data pegawai berhasil dihapus (soft delete).');
+                ->route('instruktur.index')
+                ->with('success', 'Data instruktur berhasil dihapus (soft delete).');
         } catch (\Throwable $th) {
             return redirect()
-                ->route('pegawai.index')
+                ->route('instruktur.index')
                 ->with('error', 'Gagal menghapus data: ' . $th->getMessage());
         }
     }
@@ -237,9 +229,9 @@ class PegawaiController extends Controller
     {
         try {
             User::onlyTrashed()->restore();
-            return redirect()->route('pegawai.index')->with('success', 'Semua pegawai berhasil direstore.');
+            return redirect()->route('instruktur.index')->with('success', 'Semua instruktur berhasil direstore.');
         } catch (\Throwable $th) {
-            return redirect()->route('pegawai.index')->with('error', 'Gagal restore data: ' . $th->getMessage());
+            return redirect()->route('instruktur.index')->with('error', 'Gagal restore data: ' . $th->getMessage());
         }
     }
 }

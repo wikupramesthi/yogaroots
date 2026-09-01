@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Data Pegawai')
+@section('title', 'Data Instruktur')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Data Pegawai" page="Data Pegawai" active="Semua Pegawai" route="{{ route('pegawai.index') }}" />
+<x-breadcrumb title="Data Intruktur" page="Data Intruktur" active="Semua Intruktur" route="{{ route('instruktur.index') }}" />
 @endsection
 
 <!-- Content -->
@@ -24,7 +24,7 @@
         <div class="card-header">
 
             <div class="d-flex justify-content-between align-items-center">
-                <form action="{{ route('pegawai.index') }}" method="GET" class="row g-2 align-items-center">
+                <form action="{{ route('instruktur.index') }}" method="GET" class="row g-2 align-items-center">
                     <div class="col-md-auto col-12">
                         <div class="input-group input-group-sm">
                             <span class="input-group-text">Aktif Kerja</span>
@@ -56,17 +56,18 @@
 
                     <div class="col-md-auto col-12">
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text">Kepegawaian</span>
-                            <select name="kepegawaian" class="form-select">
+                            <span class="input-group-text">Spesialisasi</span>
+
+                            <select name="specialization" class="form-select">
                                 <option value="">-- Semua --</option>
-                                <option value="asn" {{ request('kepegawaian') == 'asn' ? 'selected' : '' }}>ASN
+
+                                @foreach ($specializations as $specialization)
+                                <option
+                                    value="{{ $specialization->uuid }}"
+                                    {{ request('specialization') == $specialization->uuid ? 'selected' : '' }}>
+                                    {{ $specialization->name }}
                                 </option>
-                                <option value="honorer" {{ request('kepegawaian') == 'honorer' ? 'selected' : '' }}>
-                                    Honorer</option>
-                                <option value="magang" {{ request('kepegawaian') == 'magang' ? 'selected' : '' }}>Magang
-                                </option>
-                                <option value="lainnya" {{ request('kepegawaian') == 'lainnya' ? 'selected' : '' }}>
-                                    Lainnya</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -75,22 +76,22 @@
                         <button class="btn btn-sm btn-success" type="submit">
                             <i class="bi bi-funnel"></i> Filter
                         </button>
-                        <a href="{{ route('pegawai.index') }}" class="btn btn-sm btn-secondary">
+                        <a href="{{ route('instruktur.index') }}" class="btn btn-sm btn-secondary">
                             Reset
                         </a>
                     </div>
                 </form>
 
                 <div class="d-flex gap-2">
-                    @can('pegawai.store')
-                    <a href="{{ route('pegawai.create') }}" class="btn btn-primary btn-md">
+                    @can('instruktur.store')
+                    <a href="{{ route('instruktur.create') }}" class="btn btn-primary btn-md">
                         <i class="bi bi-plus-lg"></i> Tambah Instruktur
                     </a>
                     @endcan
 
-                    @can('pegawai.store')
-                    <form action="{{ route('pegawai.restore') }}" method="POST"
-                        onsubmit="return confirm('Yakin ingin merestore semua pegawai yang terhapus?')">
+                    @can('instruktur.store')
+                    <form action="{{ route('instruktur.restore') }}" method="POST"
+                        onsubmit="return confirm('Yakin ingin merestore semua instruktur yang terhapus?')">
                         @csrf
                         <button type="submit" class="btn btn-warning text-white btn-md">
                             <i class="bi bi-arrow-counterclockwise"></i> Restore Semua
@@ -110,9 +111,8 @@
                             <th>No.</th>
                             <th>Foto</th>
                             <th>Nama Lengkap</th>
-                            <th>NIP/NIK</th>
+                            <th>Spesialisasi</th>
                             <th>Jenis Kelamin</th>
-                            <th>Tempat, Tgl Lahir</th>
                             <th>Email</th>
                             <th>No. Handphone</th>
                             <th>Pengalaman</th>
@@ -134,27 +134,33 @@
                                 @endif
                             </td>
                             <td>{{ $user->name }}</td>
-                            <td>{{ $user->nik }}</td>
-                            <td>{{ $user->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                             <td>
-                                {{ $user->tempat_lahir }},
-                                {{ $user->tanggal_lahir ? \Carbon\Carbon::parse($user->tanggal_lahir)->translatedFormat('d F Y') : '-' }}
+                                <div class="d-flex flex-wrap gap-1">
+                                    @forelse ($user->specializations as $specialization)
+                                    <span class="badge bg-primary">
+                                        {{ $specialization->name }}
+                                    </span>
+                                    @empty
+                                    <span class="text-muted">-</span>
+                                    @endforelse
+                                </div>
                             </td>
+                            <td>{{ $user->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->no_hp ?? '-' }}</td>
                             <td>{{ $user->pengalaman }}</td>
                             <td>
-                                @can('pegawai.update')
+                                @can('instruktur.update')
                                 <a data-bs-toggle="modal" data-bs-target="#modal-form-view-faq-{{ $user->uuid }}"
                                     class="btn btn-icon btn-info text-white">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                @include('pages.pegawai.modal-view')
+                                @include('pages.instruktur.modal-view')
                                 @endcan
                             </td>
                             <td>
-                                @can('pegawai.update')
-                                <a href="{{ route('pegawai.edit', $user->uuid) }}" title="Edit"
+                                @can('instruktur.update')
+                                <a href="{{ route('instruktur.edit', $user->uuid) }}" title="Edit"
                                     class="btn btn-icon btn-success text-white">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
@@ -162,13 +168,13 @@
                             </td>
 
                             <td>
-                                @can('pegawai.destroy')
+                                @can('instruktur.destroy')
                                 <a onclick="showSweetAlert('{{ $user->uuid }}')" title="Delete"
                                     class="btn btn-icon btn-danger text-white">
                                     <i class="bi bi-x-square"></i>
                                 </a>
                                 <form id="deleteForm_{{ $user->uuid }}"
-                                    action="{{ route('pegawai.destroy', $user->uuid) }}" method="POST">
+                                    action="{{ route('instruktur.destroy', $user->uuid) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
                                 </form>
