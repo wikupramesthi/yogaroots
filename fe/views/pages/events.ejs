@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <%- include('../partials/head') %>
+</head>
+
+<body class="antialiased bg-[#fafaf8]">
+
+  <%- include('../partials/navbar') %>
+
+  <main>
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-7">
+
+      <div class="max-w-3xl">
+
+        <div class="flex items-center gap-3 mb-3">
+
+          <span class="w-7 h-px bg-terracotta-500"></span>
+
+          <span class="text-[11px] font-bold tracking-[0.2em] text-terracotta-600">
+            EVENT & WORKSHOP
+          </span>
+
+        </div>
+
+       <h1 class="font-display text-4xl sm:text-5xl font-bold text-stone-800">
+  Ada pengalaman baru menantimu
+</h1>
+
+<p class="mt-3 text-sm sm:text-base text-stone-500 leading-relaxed">
+  Jelajahi berbagai kelas, workshop, dan event pilihan.
+  Temukan ruang untuk belajar, bergerak, dan menikmati momen bersama.
+</p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FILTER
+    ====================================================== -->
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <form
+        action="/event"
+        method="GET"
+        class="bg-white border border-stone-200 rounded-2xl p-3 shadow-sm"
+      >
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+
+          <!-- SEARCH -->
+
+          <div class="md:col-span-5 relative">
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                d="m21 21-4.5-4.5m2.5-5.5a8 8 0 1 1-16 0 8 8 0 0 1 16 0z"
+              />
+            </svg>
+
+            <input
+              type="text"
+              name="search"
+              value="<%= typeof search !== 'undefined' ? search : '' %>"
+              placeholder="Cari event, workshop, atau kelas..."
+              class="w-full h-11 pl-10 pr-4 rounded-xl bg-stone-50
+                     border border-transparent text-sm text-stone-700
+                     placeholder:text-stone-400 outline-none
+                     focus:bg-white focus:border-terracotta-200 transition"
+            >
+
+          </div>
+
+
+          <!-- DATE FROM -->
+
+          <div class="md:col-span-2">
+
+            <input
+              type="date"
+              name="date_from"
+              value="<%= typeof date_from !== 'undefined' ? date_from : '' %>"
+              class="w-full h-11 px-3 rounded-xl bg-stone-50
+                     border border-stone-100 text-sm text-stone-600
+                     outline-none focus:bg-white
+                     focus:border-terracotta-200 transition"
+            >
+
+          </div>
+
+
+          <!-- DATE TO -->
+
+          <div class="md:col-span-2">
+
+            <input
+              type="date"
+              name="date_to"
+              value="<%= typeof date_to !== 'undefined' ? date_to : '' %>"
+              class="w-full h-11 px-3 rounded-xl bg-stone-50
+                     border border-stone-100 text-sm text-stone-600
+                     outline-none focus:bg-white
+                     focus:border-terracotta-200 transition"
+            >
+
+          </div>
+
+
+          <!-- BUTTON -->
+
+          <div class="md:col-span-3 flex gap-2">
+
+            <button
+              type="submit"
+              class="flex-1 h-11 rounded-xl bg-stone-800
+                     text-white text-sm font-semibold
+                     hover:bg-stone-700 transition"
+            >
+              Cari Event
+            </button>
+
+            <%
+              const hasFilter =
+                (typeof search !== 'undefined' && search) ||
+                (typeof date_from !== 'undefined' && date_from) ||
+                (typeof date_to !== 'undefined' && date_to) ||
+                (typeof filter !== 'undefined' && filter);
+            %>
+
+            <% if (hasFilter) { %>
+
+              <a
+                href="/event"
+                class="w-11 h-11 rounded-xl bg-stone-100
+                       flex items-center justify-center
+                       text-stone-500 hover:bg-stone-200 transition"
+              >
+                ×
+              </a>
+
+            <% } %>
+
+          </div>
+
+        </div>
+
+      </form>
+
+
+
+      <!-- QUICK FILTER -->
+
+      <div class="flex flex-wrap items-center gap-2 mt-4">
+
+        <span class="text-xs text-stone-400 mr-1">
+          Pilih waktu:
+        </span>
+
+
+        <a
+          href="/event"
+          class="px-4 py-2 rounded-full text-xs font-semibold transition
+          <%= !filter
+            ? 'bg-stone-800 text-white'
+            : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
+          %>"
+        >
+          Semua
+        </a>
+
+
+        <a
+          href="/event?filter=today"
+          class="px-4 py-2 rounded-full text-xs font-semibold transition
+          <%= filter === 'today'
+            ? 'bg-stone-800 text-white'
+            : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
+          %>"
+        >
+          Hari Ini
+        </a>
+
+
+        <a
+          href="/event?filter=week"
+          class="px-4 py-2 rounded-full text-xs font-semibold transition
+          <%= filter === 'week'
+            ? 'bg-stone-800 text-white'
+            : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
+          %>"
+        >
+          Minggu Ini
+        </a>
+
+
+        <a
+          href="/event?filter=month"
+          class="px-4 py-2 rounded-full text-xs font-semibold transition
+          <%= filter === 'month'
+            ? 'bg-stone-800 text-white'
+            : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
+          %>"
+        >
+          Bulan Ini
+        </a>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         EVENT LIST
+    ====================================================== -->
+
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+
+      <!-- LIST HEADER -->
+
+      <div class="flex items-center justify-between mb-4">
+
+        <div>
+
+          <h2 class="font-display text-2xl font-bold text-stone-800">
+            Event & Workshop
+          </h2>
+
+          <p class="text-xs text-stone-400 mt-1">
+            <%= typeof totalEvents !== 'undefined' ? totalEvents : events.length %>
+            event tersedia
+          </p>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- ERROR -->
+
+      <% if (typeof error !== 'undefined' && error) { %>
+
+        <div class="mb-5 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+          <%= error %>
+        </div>
+
+      <% } %>
+
+
+
+      <% if (events && events.length > 0) { %>
+
+
+        <!-- EVENT ROWS -->
+
+        <div class="bg-white border border-stone-200 rounded-2xl overflow-hidden">
+
+
+          <% events.forEach((event, index) => { %>
+
+<article
+  class="group
+         p-4 sm:p-5
+         <%= index !== events.length - 1
+           ? 'border-b border-stone-100'
+           : ''
+         %>
+         hover:bg-stone-50/50
+         transition-colors duration-300"
+>
+  <div class="flex flex-col sm:flex-row gap-5">
+
+    <!-- IMAGE -->
+    <div
+      class="relative
+             w-full
+             sm:w-[220px]
+             lg:w-[190px]
+             h-[150px]
+             flex-shrink-0
+             rounded-xl
+             overflow-hidden
+             bg-stone-100"
+    >
+
+      <img
+        src="<%= event.gambar %>"
+        alt="<%= event.judul %>"
+        class="w-full h-full object-cover
+               transition-transform duration-500
+               group-hover:scale-105"
+      >
+
+      <!-- BADGE -->
+      <span
+        class="absolute
+               top-3 left-3
+               px-2.5 py-1
+               rounded-full
+               bg-white/90
+               backdrop-blur-sm
+               text-[9px]
+               font-bold
+               tracking-wider
+               text-stone-700"
+      >
+        EVENT
+      </span>
+
+    </div>
+
+
+    <!-- CONTENT -->
+    <div class="flex-1 min-w-0">
+
+      <!-- TITLE -->
+      <h3
+        class="font-display
+               text-xl
+               font-bold
+               leading-snug
+               text-stone-800"
+      >
+        <%= event.judul %>
+      </h3>
+
+
+      <!-- FULL DESCRIPTION -->
+      <% if (event.deskripsi) { %>
+
+        <div
+          class="mt-2
+                 text-sm
+                 leading-relaxed
+                 text-stone-500
+                 max-w-4xl
+                 [&_p]:m-0
+                 [&_p]:p-0
+                 [&_span]:!font-inherit
+                 [&_span]:!text-inherit
+                 [&_span]:!font-normal
+                 [&_strong]:!font-semibold
+                 [&_br]:leading-relaxed"
+        >
+          <%- event.deskripsi %>
+        </div>
+
+      <% } %>
+
+
+      <!-- EVENT INFORMATION -->
+    <div
+  class="grid
+         grid-cols-1
+         sm:grid-cols-2
+         lg:grid-cols-4
+         gap-x-6
+         gap-y-4
+         mt-5
+         pt-4
+         border-t
+         border-stone-100"
+>
+
+        <!-- DATE -->
+        <% if (event.tanggal) { %>
+
+          <div class="flex items-start gap-2.5">
+
+            <div
+              class="w-8 h-8
+                     rounded-lg
+                     bg-[#f5f1eb]
+                     flex
+                     items-center
+                     justify-center
+                     shrink-0"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-terracotta-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.7"
+                  d="M8 3v4m8-4v4M4 9h16M6 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p
+                class="text-[10px]
+                       uppercase
+                       tracking-wider
+                       text-stone-400"
+              >
+                Tanggal
+              </p>
+
+              <p
+                class="text-sm
+                       font-semibold
+                       text-stone-700
+                       mt-0.5"
+              >
+                <%= event.tanggal %>
+              </p>
+            </div>
+
+          </div>
+
+        <% } %>
+
+
+        <!-- TIME -->
+        <% if (event.waktu_mulai) { %>
+
+          <div class="flex items-start gap-2.5">
+
+            <div
+              class="w-8 h-8
+                     rounded-lg
+                     bg-[#f5f1eb]
+                     flex
+                     items-center
+                     justify-center
+                     shrink-0"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-terracotta-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"
+                  stroke-width="1.7"
+                />
+
+                <path
+                  stroke-linecap="round"
+                  stroke-width="1.7"
+                  d="M12 7v5l3 2"
+                />
+              </svg>
+            </div>
+
+            <div>
+              <p
+                class="text-[10px]
+                       uppercase
+                       tracking-wider
+                       text-stone-400"
+              >
+                Waktu
+              </p>
+
+              <p
+                class="text-sm
+                       font-semibold
+                       text-stone-700
+                       mt-0.5"
+              >
+                <%= event.waktu_mulai.substring(0, 5) %>
+
+                <% if (event.waktu_selesai) { %>
+                  – <%= event.waktu_selesai.substring(0, 5) %>
+                <% } %>
+              </p>
+            </div>
+
+          </div>
+
+        <% } %>
+
+
+        <!-- LOCATION -->
+        <% if (event.lokasi) { %>
+
+          <div class="flex items-start gap-2.5">
+
+            <div
+              class="w-8 h-8
+                     rounded-lg
+                     bg-[#f5f1eb]
+                     flex
+                     items-center
+                     justify-center
+                     shrink-0"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-terracotta-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.7"
+                  d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11z"
+                />
+
+                <circle
+                  cx="12"
+                  cy="10"
+                  r="2"
+                  stroke-width="1.7"
+                />
+              </svg>
+            </div>
+
+            <div class="min-w-0">
+
+              <p
+                class="text-[10px]
+                       uppercase
+                       tracking-wider
+                       text-stone-400"
+              >
+                Lokasi
+              </p>
+
+              <p
+                class="text-sm
+                       font-semibold
+                       text-stone-700
+                       mt-0.5
+                       leading-relaxed"
+              >
+                <%= event.lokasi %>
+              </p>
+
+            </div>
+
+          </div>
+
+        <% } %>
+
+
+        <!-- CAPACITY -->
+        <% if (event.kapasitas) { %>
+
+          <div class="flex items-start gap-2.5">
+
+            <div
+              class="w-8 h-8
+                     rounded-lg
+                     bg-[#f5f1eb]
+                     flex
+                     items-center
+                     justify-center
+                     shrink-0"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4 text-terracotta-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.7"
+                  d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                />
+
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                  stroke-width="1.7"
+                />
+
+                <path
+                  stroke-linecap="round"
+                  stroke-width="1.7"
+                  d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+            </div>
+
+            <div>
+
+              <p
+                class="text-[10px]
+                       uppercase
+                       tracking-wider
+                       text-stone-400"
+              >
+                Kapasitas
+              </p>
+
+              <p
+                class="text-sm
+                       font-semibold
+                       text-stone-700
+                       mt-0.5"
+              >
+                <%= event.kapasitas %> peserta
+              </p>
+
+            </div>
+
+          </div>
+
+        <% } %>
+
+      </div>
+
+    </div>
+
+  </div>
+</article>
+
+          <% }) %>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             PAGINATION
+        ================================================== -->
+
+        <% if (
+          typeof totalPages !== 'undefined' &&
+          totalPages > 1
+        ) { %>
+
+          <div class="flex items-center justify-center gap-2 mt-8">
+
+            <% if (currentPage > 1) { %>
+
+              <a
+                href="/event?page=<%= currentPage - 1 %>&search=<%= encodeURIComponent(search || '') %>&filter=<%= encodeURIComponent(filter || '') %>&date_from=<%= encodeURIComponent(date_from || '') %>&date_to=<%= encodeURIComponent(date_to || '') %>"
+                class="w-10 h-10 rounded-xl bg-white
+                       border border-stone-200
+                       flex items-center justify-center
+                       text-stone-500 hover:border-stone-300"
+              >
+                ←
+              </a>
+
+            <% } %>
+
+
+            <% for (let i = 1; i <= totalPages; i++) { %>
+
+              <a
+                href="/event?page=<%= i %>&search=<%= encodeURIComponent(search || '') %>&filter=<%= encodeURIComponent(filter || '') %>&date_from=<%= encodeURIComponent(date_from || '') %>&date_to=<%= encodeURIComponent(date_to || '') %>"
+                class="w-10 h-10 rounded-xl
+                       flex items-center justify-center
+                       text-xs font-semibold
+                       <%= currentPage === i
+                         ? 'bg-stone-800 text-white'
+                         : 'bg-white text-stone-500 border border-stone-200 hover:border-stone-300'
+                       %>"
+              >
+                <%= i %>
+              </a>
+
+            <% } %>
+
+
+            <% if (currentPage < totalPages) { %>
+
+              <a
+                href="/event?page=<%= currentPage + 1 %>&search=<%= encodeURIComponent(search || '') %>&filter=<%= encodeURIComponent(filter || '') %>&date_from=<%= encodeURIComponent(date_from || '') %>&date_to=<%= encodeURIComponent(date_to || '') %>"
+                class="w-10 h-10 rounded-xl bg-white
+                       border border-stone-200
+                       flex items-center justify-center
+                       text-stone-500 hover:border-stone-300"
+              >
+                →
+              </a>
+
+            <% } %>
+
+          </div>
+
+        <% } %>
+
+
+      <% } else { %>
+
+
+        <!-- =================================================
+             EMPTY
+        ================================================== -->
+
+        <div
+          class="bg-white
+                 border border-stone-200
+                 rounded-2xl
+                 px-6
+                 py-20
+                 text-center"
+        >
+
+          <div
+            class="w-14 h-14
+                   mx-auto
+                   rounded-full
+                   bg-stone-100
+                   flex items-center justify-center"
+          >
+            🧘
+          </div>
+
+          <h3
+            class="font-display
+                   text-2xl
+                   font-bold
+                   text-stone-800
+                   mt-5"
+          >
+            Event belum tersedia
+          </h3>
+
+          <p class="text-sm text-stone-400 mt-2">
+            Coba ubah pencarian atau tanggal yang kamu pilih.
+          </p>
+
+          <a
+            href="/event"
+            class="inline-flex
+                   mt-6
+                   px-5
+                   py-2.5
+                   rounded-full
+                   bg-stone-800
+                   text-white
+                   text-sm
+                   font-semibold"
+          >
+            Lihat Semua Event
+          </a>
+
+        </div>
+
+      <% } %>
+
+    </section>
+
+  </main>
+
+
+  <%- include('../partials/footer') %>
+
+  <script src="/js/main.js"></script>
+
+</body>
+</html>

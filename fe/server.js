@@ -9,6 +9,7 @@ import { getBanners } from "./services/bannerService.js";
 import { getContactCaptcha, sendContact } from "./services/contactServices.js";
 import { getTestimonials } from "./services/testimonialService.js";
 import { getPage } from "./services/pageService.js";
+import { getEvents } from "./services/eventService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -111,7 +112,6 @@ app.get("/pages/:slug", async (req, res, next) => {
   }
 });
 
-
 app.get("/schedule", (req, res) => {
   res.render("pages/schedule", {
     title: "Jadwal Mingguan",
@@ -180,6 +180,90 @@ app.get("/blog/:slug", async (req, res) => {
 });
 
 // end blog
+
+// events
+app.get("/event", async (req, res) => {
+    try {
+
+        const params = {
+            search: req.query.search || "",
+            filter: req.query.filter || "",
+            date_from: req.query.date_from || "",
+            date_to: req.query.date_to || "",
+        };
+
+
+        console.log("FILTER REQUEST:", params);
+
+
+        const response = await getEvents(params);
+
+
+        const events = Array.isArray(response)
+            ? response
+            : Array.isArray(response?.data)
+                ? response.data
+                : [];
+
+
+        console.log("EVENT RESULT:", events);
+
+
+        res.render("pages/events", {
+
+            title: "Event & Workshop",
+
+            events: events,
+
+            search: params.search,
+
+            filter: params.filter,
+
+            date_from: params.date_from,
+
+            date_to: params.date_to,
+
+            totalEvents: events.length,
+
+            totalPages: 1,
+
+            currentPage: 1,
+
+            error: null,
+        });
+
+
+    } catch (error) {
+
+        console.error("Gagal mengambil data event:", error);
+
+
+        res.status(500).render("pages/events", {
+
+            title: "Event & Workshop",
+
+            events: [],
+
+            search: req.query.search || "",
+
+            filter: req.query.filter || "",
+
+            date_from: req.query.date_from || "",
+
+            date_to: req.query.date_to || "",
+
+            totalEvents: 0,
+
+            totalPages: 1,
+
+            currentPage: 1,
+
+            error: "Gagal mengambil data event.",
+        });
+    }
+});
+
+// end events
 
 //gallery
 app.get("/gallery", async (req, res) => {
