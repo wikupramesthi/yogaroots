@@ -7,6 +7,8 @@ import { yogaData } from "./data/yogaData.js";
 import { getArticles, getArticle } from "./services/articleService.js";
 import { getBanners } from "./services/bannerService.js";
 import { getContactCaptcha, sendContact } from "./services/contactServices.js";
+import { getTestimonials } from "./services/testimonialService.js";
+import { getPage } from "./services/pageService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -35,6 +37,7 @@ app.use((req, res, next) => {
 app.get("/", async (req, res) => {
   try {
     const posts = await getArticles();
+    const testimonials = await getTestimonials();
 
     res.render("pages/home", {
       title: "Yogaroots — Temukan Keseimbangan dalam Setiap Napas",
@@ -42,13 +45,14 @@ app.get("/", async (req, res) => {
       stats: yogaData.stats,
       features: yogaData.features,
       classes: yogaData.classes.slice(0, 6),
-      testimonials: yogaData.testimonials,
       pricing: yogaData.pricing,
 
+      testimonials: testimonials.slice(0, 3),
       posts: posts.slice(0, 3),
+
     });
   } catch (error) {
-    console.error("Gagal mengambil artikel:", error);
+    console.error("Gagal mengambil data api dari backend:", error);
 
     res.render("pages/home", {
       title: "Yogaroots — Temukan Keseimbangan dalam Setiap Napas",
@@ -56,9 +60,9 @@ app.get("/", async (req, res) => {
       stats: yogaData.stats,
       features: yogaData.features,
       classes: yogaData.classes.slice(0, 6),
-      testimonials: yogaData.testimonials,
       pricing: yogaData.pricing,
-
+      
+      testimonials: [],
       posts: [],
     });
   }
@@ -85,6 +89,28 @@ app.get("/classes/:slug", (req, res) => {
       .render("pages/404", { title: "Kelas Tidak Ditemukan" });
   res.render("pages/class-detail", { title: cls.name, cls });
 });
+
+//pages
+
+app.get("/pages/:slug", async (req, res, next) => {
+  try {
+    const page = await getPage(req.params.slug);
+
+    res.render("pages/page-detail", {
+      title: page.title,
+      page,
+    });
+  } catch (error) {
+    console.error("PAGE ERROR:", error);
+
+    if (error.status === 404) {
+      return next();
+    }
+
+    next(error);
+  }
+});
+
 
 app.get("/schedule", (req, res) => {
   res.render("pages/schedule", {

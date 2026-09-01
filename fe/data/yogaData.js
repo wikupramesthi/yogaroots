@@ -359,32 +359,6 @@ export const yogaData = {
       quote: "Kehadiran adalah hadiah terbesar.",
     },
   ],
-  testimonials: [
-    {
-      name: "Anindya",
-      role: "Member sejak 2021",
-      text: "Serene mengubah hidupku. Dari cemas berlebihan jadi bisa tidur nyenyak. Instrukturnya tulus, bukan sekadar mengajar — mereka menyembuhkan.",
-      rating: 5,
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&auto=format&fit=crop&q=60",
-    },
-    {
-      name: "Baskara",
-      role: "Harmony Member",
-      text: "Sebagai pekerja kantoran, Yin class Jumat malam adalah penyelamat punggung dan pikiranku. Studio paling estetik di Jakarta!",
-      rating: 5,
-      image:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&auto=format&fit=crop&q=60",
-    },
-    {
-      name: "Clara",
-      role: "Prenatal Member",
-      text: "Kelas prenatal Maya bikin kehamilanku nyaman banget. Komunitas ibu-ibunya suportif pol!",
-      rating: 5,
-      image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&auto=format&fit=crop&q=60",
-    },
-  ],
   contact: {
     mapEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.1610802006066!2d106.8327788!3d-6.2087284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f591a35191c3%3A0x255c635679625e83!2sYoga%20Roots!5e1!3m2!1sen!2sid!4v1787872983524!5m2!1sen!2sid",
