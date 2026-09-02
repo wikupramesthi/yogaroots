@@ -11,6 +11,12 @@ use Illuminate\Support\Str;
 use App\Models\Specializaty;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
+// payment
+use App\Models\Package\Package;
+use App\Models\Class\ClassModel;
+use App\Models\Class\ClassBooking;
+use App\Models\Payment\Order;
+
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -49,6 +55,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'tiktok',
         'youtube',
         'biografi',
+
+        // Membership
+        'package_uuid',
+        'membership_start_date',
+        'membership_end_date',
+        'total_quota',
+        'remaining_quota',
+        'membership_status',
     ];
 
     /**
@@ -76,6 +90,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+
+            'membership_start_date' => 'date',
+            'membership_end_date' => 'date',
+            'total_quota' => 'integer',
+            'remaining_quota' => 'integer',
         ];
     }
 
@@ -124,5 +143,41 @@ class User extends Authenticatable implements MustVerifyEmail
             'uuid',
             'uuid'
         )->using(UserSpecialization::class);
+    }
+
+    public function package()
+    {
+        return $this->belongsTo(
+            Package::class,
+            'package_uuid',
+            'uuid'
+        );
+    }
+
+    public function classes()
+    {
+        return $this->hasMany(
+            ClassModel::class,
+            'instructor_uuid',
+            'uuid'
+        );
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(
+            Order::class,
+            'user_uuid',
+            'uuid'
+        );
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(
+            ClassBooking::class,
+            'user_uuid',
+            'uuid'
+        );
     }
 }

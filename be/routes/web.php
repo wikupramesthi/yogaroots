@@ -27,6 +27,15 @@ use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PollController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\EventsController;
+
+// payment
+use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\ClassController;
+use App\Http\Controllers\Admin\ClassScheduleController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\ClassBookingController;
+
 use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\MinifyHtml;
@@ -77,6 +86,19 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::resource('events', EventsController::class);
     Route::resource('program', ProgramController::class);
     Route::resource('filedownload', FileDownloadController::class);
+
+    //payment
+    Route::resource('packages', PackageController::class);
+    Route::resource('classes', ClassController::class);
+    Route::resource('class-schedules', ClassScheduleController::class);
+    Route::resource('orders', OrderController::class)
+            ->only(['index', 'show']);
+    Route::resource('payments', PaymentController::class)
+            ->only(['index', 'show']);
+    Route::resource('class-bookings', ClassBookingController::class)
+            ->only(['index', 'show', 'update']);
+    // end payment
+
     Route::get('kontak', [FaqController::class, 'kontak'])->name('layanan.kontak');
     Route::delete(
         '/kontak/{uuid}',

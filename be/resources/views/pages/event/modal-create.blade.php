@@ -148,26 +148,26 @@
                         @enderror
                     </div>
 
-                    {{-- Deskripsi --}}
-                    <div class="form-group mb-3">
-                        <label for="deskripsi" class="mb-2">
-                            Deskripsi
-                        </label>
+                    <!-- DESKRIPSI -->
+<div class="form-group mb-3">
+    <label for="deskripsi" class="mb-2">
+        Deskripsi <span class="text-danger">*</span>
+    </label>
 
-                        <textarea
-                            class="form-control @error('deskripsi') is-invalid @enderror"
-                            id="deskripsi"
-                            name="deskripsi"
-                            rows="10"
-                            placeholder="Deskripsi lengkap event">{{ old('deskripsi') }}</textarea>
+    <textarea
+        name="deskripsi"
+        id="deskripsi"
+        rows="10"
+        class="form-control @error('deskripsi') is-invalid @enderror"
+        placeholder="Deskripsi lengkap event"
+    >{{ old('deskripsi') }}</textarea>
 
-                        @error('deskripsi')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
+    @error('deskripsi')
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+    @enderror
+</div>
                     <div class="row">
 
                         {{-- Gambar --}}
