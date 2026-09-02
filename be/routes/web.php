@@ -88,15 +88,20 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::resource('filedownload', FileDownloadController::class);
 
     //payment
+    Route::get(
+        '/packages/members',
+        [PackageController::class, 'members']
+    )->name('packages.member');
     Route::resource('packages', PackageController::class);
+
     Route::resource('classes', ClassController::class);
     Route::resource('class-schedules', ClassScheduleController::class);
     Route::resource('orders', OrderController::class)
-            ->only(['index', 'show']);
+        ->only(['index', 'show']);
     Route::resource('payments', PaymentController::class)
-            ->only(['index', 'show']);
+        ->only(['index', 'show']);
     Route::resource('class-bookings', ClassBookingController::class)
-            ->only(['index', 'show', 'update']);
+        ->only(['index', 'show', 'update']);
     // end payment
 
     Route::get('kontak', [FaqController::class, 'kontak'])->name('layanan.kontak');

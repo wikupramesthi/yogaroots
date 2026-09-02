@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Package\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -15,43 +16,43 @@ class PackageController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
-    $query = Package::with('features');
+    {
+        $query = Package::with('features');
 
-    // Filter status
-    if ($request->filled('is_active')) {
-        $query->where('is_active', $request->is_active);
-    }
-
-    // Filter popular
-    if ($request->filled('is_popular')) {
-        $query->where('is_popular', $request->is_popular);
-    }
-
-    // Filter quota
-    if ($request->filled('quota_type')) {
-        if ($request->quota_type === 'unlimited') {
-            $query->whereNull('quota');
+        // Filter status
+        if ($request->filled('is_active')) {
+            $query->where('is_active', $request->is_active);
         }
 
-        if ($request->quota_type === 'limited') {
-            $query->whereNotNull('quota');
+        // Filter popular
+        if ($request->filled('is_popular')) {
+            $query->where('is_popular', $request->is_popular);
         }
+
+        // Filter quota
+        if ($request->filled('quota_type')) {
+            if ($request->quota_type === 'unlimited') {
+                $query->whereNull('quota');
+            }
+
+            if ($request->quota_type === 'limited') {
+                $query->whereNotNull('quota');
+            }
+        }
+
+        $packages = $query
+            ->latest()
+            ->get();
+
+        return view('pages.package.index', compact('packages'));
     }
-
-    $packages = $query
-        ->latest()
-        ->get();
-
-    return view('pages.package.index', compact('packages'));
-}
 
     /**
      * Show the form for creating a new resource.
      */
-     public function create()
+    public function create()
     {
-        return view('pages.package.create');
+        //
     }
 
     /**
@@ -63,6 +64,7 @@ class PackageController extends Controller
             'name' => 'required|string|max:255|unique:packages,name',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
+            'discount_price' => 'nullable|numeric|min:0|lt:price',
             'quota' => 'nullable|integer|min:1',
             'duration' => 'required|integer|min:1',
             'duration_unit' => 'required|in:day,week,month,year',
@@ -82,6 +84,7 @@ class PackageController extends Controller
                 'slug' => Str::slug($request->name),
                 'description' => $request->description,
                 'price' => $request->price,
+                'discount_price' => $request->discount_price,
                 'quota' => $request->quota,
                 'duration' => $request->duration,
                 'duration_unit' => $request->duration_unit,
@@ -114,9 +117,8 @@ class PackageController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('admin.packages.index')
+                ->route('packages.index')
                 ->with('success', 'Package berhasil ditambahkan.');
-
         } catch (\Throwable $th) {
 
             DB::rollBack();
@@ -145,11 +147,7 @@ class PackageController extends Controller
      */
     public function edit(string $uuid)
     {
-        $package = Package::with('features')
-            ->where('uuid', $uuid)
-            ->firstOrFail();
-
-        return view('pages.package.edit', compact('package'));
+        //
     }
 
     /**
@@ -161,6 +159,7 @@ class PackageController extends Controller
             'name' => 'required|string|max:255|unique:packages,name,' . $uuid . ',uuid',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
+            'discount_price' => 'nullable|numeric|min:0|lt:price',
             'quota' => 'nullable|integer|min:1',
             'duration' => 'required|integer|min:1',
             'duration_unit' => 'required|in:day,week,month,year',
@@ -181,6 +180,7 @@ class PackageController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'price' => $request->price,
+                'discount_price' => $request->discount_price,
                 'quota' => $request->quota,
                 'duration' => $request->duration,
                 'duration_unit' => $request->duration_unit,
@@ -215,9 +215,8 @@ class PackageController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('admin.packages.index')
+                ->route('packages.index')
                 ->with('success', 'Package berhasil diperbarui.');
-
         } catch (\Throwable $th) {
 
             DB::rollBack();
@@ -233,7 +232,7 @@ class PackageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-   public function destroy($uuid)
+    public function destroy($uuid)
     {
         DB::beginTransaction();
 
@@ -247,9 +246,8 @@ class PackageController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('admin.packages.index')
+                ->route('packages.index')
                 ->with('success', 'Package berhasil dihapus.');
-
         } catch (\Throwable $th) {
 
             DB::rollBack();
@@ -258,5 +256,19 @@ class PackageController extends Controller
                 ->back()
                 ->with('error', $th->getMessage());
         }
+    }
+
+    public function members(Request $request)
+    {
+        $packages = Package::with('features')
+            ->where('is_active', 'active')
+            ->orderByDesc('is_popular')
+            ->orderBy('price')
+            ->get();
+
+        return view(
+            'pages.package.member',
+            compact('packages')
+        );
     }
 }

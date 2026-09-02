@@ -23,6 +23,7 @@ class Package extends Model
         'slug',
         'description',
         'price',
+        'discount_price',
         'quota',
         'duration',
         'duration_unit',
