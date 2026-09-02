@@ -135,11 +135,7 @@ class PackageController extends Controller
      */
     public function show(string $uuid)
     {
-        $package = Package::with('features')
-            ->where('uuid', $uuid)
-            ->firstOrFail();
-
-        return view('pages.package.show', compact('package'));
+        //
     }
 
     /**

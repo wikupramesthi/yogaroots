@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2026 at 05:28 AM
+-- Generation Time: Sep 03, 2026 at 12:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -53,7 +53,7 @@ CREATE TABLE `articles` (
 --
 
 INSERT INTO `articles` (`uuid`, `user_uuid`, `category_uuid`, `title`, `slug`, `excerpt`, `content`, `featured_image`, `scheduled_at`, `views`, `tagging`, `status`, `search_engine`, `link`, `video`, `created_at`, `updated_at`, `deleted_at`) VALUES
-('63829ea9-8a32-4f82-94e1-7299120f822c', '787b72ea-59d0-4d54-848b-c200bddafdd2', '2162d145-9ef3-4e2f-8c55-81971a015bc5', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'pilates-vs-yoga-apa-bedanya-dan-mana-yang-cocok-untuk-anda', 'Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.', '<p><strong>Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?</strong></p>\r\n\r\n<p>Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.</p>\r\n\r\n<p>Namun, <strong>Pilates dan yoga memiliki beberapa perbedaan</strong>, mulai dari tujuan latihan, teknik gerakan, fokus tubuh, hingga pendekatan terhadap pernapasan. Lalu, mana yang lebih cocok untuk Anda?</p>\r\n\r\n<p>Berikut pembahasan lengkap mengenai perbedaan Pilates dan yoga agar Anda dapat menentukan jenis latihan yang sesuai dengan kebutuhan dan tujuan kebugaran Anda.</p>\r\n\r\n<p><strong>Apa Itu Yoga?</strong></p>\r\n\r\n<p>Yoga adalah latihan yang menggabungkan gerakan tubuh, pengaturan pernapasan, konsentrasi, dan relaksasi. Yoga memiliki berbagai jenis dan tingkat intensitas, mulai dari latihan yang lembut hingga latihan yang cukup dinamis.</p>\r\n\r\n<p>Selain membantu menjaga kebugaran tubuh, yoga dapat membantu meningkatkan fleksibilitas, keseimbangan, mobilitas, serta membantu tubuh menjadi lebih rileks.</p>\r\n\r\n<p>Beberapa jenis yoga yang populer antara lain:</p>\r\n\r\n<ul>\r\n    <li><strong>Hatha Yoga</strong>, dengan gerakan yang relatif terstruktur dan cocok untuk mengenal dasar-dasar yoga.</li>\r\n    <li><strong>Vinyasa Yoga</strong>, yang menghubungkan gerakan dengan ritme pernapasan secara lebih dinamis.</li>\r\n    <li><strong>Yin Yoga</strong>, yang menggunakan posisi tertentu dalam durasi lebih lama untuk melatih fleksibilitas.</li>\r\n    <li><strong>Restorative Yoga</strong>, yang berfokus pada relaksasi dengan gerakan yang lebih lembut.</li>\r\n</ul>\r\n\r\n<p><strong>Apa Itu Pilates?</strong></p>\r\n\r\n<p>Pilates merupakan latihan yang berfokus pada kontrol gerakan, stabilitas tubuh, kekuatan otot inti atau <strong>core</strong>, serta postur.</p>\r\n\r\n<p>Gerakan Pilates biasanya dilakukan secara terkontrol dan membutuhkan konsentrasi terhadap posisi tubuh serta teknik pernapasan.</p>\r\n\r\n<p>Pilates dapat dilakukan menggunakan matras maupun peralatan tertentu. Mat Pilates, misalnya, dapat dilakukan tanpa peralatan besar sehingga relatif mudah dimasukkan ke dalam rutinitas olahraga.</p>\r\n\r\n<p>Latihan Pilates banyak menekankan penggunaan otot core sehingga dapat membantu membangun kesadaran terhadap postur dan kontrol tubuh.</p>\r\n\r\n<p><strong>Perbedaan Yoga dan Pilates</strong></p>\r\n\r\n<p>Meskipun terlihat mirip, yoga dan Pilates memiliki fokus latihan yang berbeda. Berikut beberapa perbedaan utamanya.</p>\r\n\r\n<p><strong>1. Fokus Latihan</strong></p>\r\n\r\n<p>Yoga memiliki pendekatan yang lebih luas dengan menggabungkan latihan fisik, pernapasan, konsentrasi, relaksasi, dan kesadaran tubuh.</p>\r\n\r\n<p>Sementara itu, Pilates lebih menitikberatkan pada kontrol gerakan, stabilitas, kekuatan core, dan postur tubuh.</p>\r\n\r\n<p><strong>2. Fleksibilitas</strong></p>\r\n\r\n<p>Yoga umumnya sangat erat kaitannya dengan latihan fleksibilitas. Berbagai posisi yoga dapat membantu tubuh bergerak melalui rentang gerak yang lebih luas secara bertahap.</p>\r\n\r\n<p>Pilates juga melibatkan gerakan yang dapat membantu mobilitas dan fleksibilitas, tetapi fokus utamanya bukan hanya pada kelenturan tubuh.</p>\r\n\r\n<p><strong>3. Kekuatan Core</strong></p>\r\n\r\n<p>Pilates sangat dikenal dengan latihan yang melibatkan otot core. Banyak gerakannya membutuhkan stabilisasi bagian tengah tubuh agar gerakan dapat dilakukan dengan tepat.</p>\r\n\r\n<p>Yoga juga melatih core, terutama pada berbagai pose yang membutuhkan keseimbangan dan stabilitas. Namun, fokusnya dapat berbeda tergantung jenis yoga yang dilakukan.</p>\r\n\r\n<p><strong>4. Pernapasan</strong></p>\r\n\r\n<p>Pernapasan merupakan bagian penting dalam yoga. Pengaturan napas digunakan untuk membantu konsentrasi, mengontrol gerakan, dan menciptakan kondisi tubuh yang lebih rileks.</p>\r\n\r\n<p>Dalam Pilates, pernapasan juga penting dan digunakan untuk membantu kontrol serta koordinasi gerakan.</p>\r\n\r\n<p><strong>5. Relaksasi</strong></p>\r\n\r\n<p>Yoga umumnya memberikan perhatian lebih besar terhadap relaksasi, meditasi, dan kesadaran tubuh.</p>\r\n\r\n<p>Pilates lebih berorientasi pada latihan fisik dan kontrol gerakan, meskipun latihan yang dilakukan dengan fokus dan teratur juga dapat membantu tubuh terasa lebih rileks setelah berolahraga.</p>\r\n\r\n<p><strong>Pilates vs Yoga: Mana yang Lebih Baik?</strong></p>\r\n\r\n<p>Tidak ada jawaban bahwa Pilates selalu lebih baik daripada yoga, atau sebaliknya. Pilihan terbaik bergantung pada tujuan, preferensi, dan kebutuhan masing-masing orang.</p>\r\n\r\n<p>Jika Anda ingin meningkatkan fleksibilitas, melatih keseimbangan, sekaligus mendapatkan latihan yang menggabungkan gerakan dan relaksasi, <strong>yoga dapat menjadi pilihan yang menarik</strong>.</p>\r\n\r\n<p>Jika tujuan utama Anda adalah meningkatkan kekuatan core, kontrol tubuh, dan kesadaran terhadap postur, <strong>Pilates dapat menjadi pilihan yang sesuai</strong>.</p>\r\n\r\n<p>Namun, keduanya juga dapat dikombinasikan. Yoga dan Pilates memiliki karakteristik latihan yang berbeda sehingga dapat saling melengkapi dalam rutinitas kebugaran.</p>\r\n\r\n<p><strong>Yoga Cocok untuk Siapa?</strong></p>\r\n\r\n<p>Yoga dapat menjadi pilihan bagi Anda yang ingin:</p>\r\n\r\n<ul>\r\n    <li>Meningkatkan fleksibilitas tubuh.</li>\r\n    <li>Melatih keseimbangan dan mobilitas.</li>\r\n    <li>Meningkatkan kesadaran terhadap tubuh dan pernapasan.</li>\r\n    <li>Melakukan aktivitas fisik dengan intensitas yang dapat disesuaikan.</li>\r\n    <li>Menambahkan latihan relaksasi dalam rutinitas harian.</li>\r\n    <li>Memulai aktivitas olahraga secara bertahap.</li>\r\n</ul>\r\n\r\n<p><strong>Pilates Cocok untuk Siapa?</strong></p>\r\n\r\n<p>Pilates dapat menjadi pilihan bagi Anda yang ingin:</p>\r\n\r\n<ul>\r\n    <li>Melatih kekuatan otot core.</li>\r\n    <li>Meningkatkan kontrol gerakan.</li>\r\n    <li>Meningkatkan kesadaran terhadap postur tubuh.</li>\r\n    <li>Melatih stabilitas dan koordinasi.</li>\r\n    <li>Melakukan latihan dengan gerakan yang terkontrol.</li>\r\n</ul>\r\n\r\n<p><strong>Apakah Yoga dan Pilates Bisa Dilakukan Bersamaan?</strong></p>\r\n\r\n<p>Tentu saja. Yoga dan Pilates dapat menjadi kombinasi latihan yang menarik.</p>\r\n\r\n<p>Pilates dapat membantu melatih kekuatan dan stabilitas tubuh, sedangkan yoga dapat memberikan latihan fleksibilitas, keseimbangan, mobilitas, serta relaksasi.</p>\r\n\r\n<p>Anda dapat melakukan Pilates pada beberapa hari dalam seminggu dan menambahkan sesi yoga pada hari lainnya. Frekuensi dan intensitas latihan sebaiknya disesuaikan dengan kemampuan tubuh dan rutinitas masing-masing.</p>\r\n\r\n<p><strong>Tips Memilih Yoga atau Pilates</strong></p>\r\n\r\n<p>Sebelum memilih, coba tentukan tujuan utama Anda.</p>\r\n\r\n<p><strong>Pilih yoga jika Anda lebih tertarik pada:</strong></p>\r\n\r\n<ul>\r\n    <li>Fleksibilitas.</li>\r\n    <li>Keseimbangan.</li>\r\n    <li>Mobilitas.</li>\r\n    <li>Pernapasan.</li>\r\n    <li>Relaksasi dan mindfulness.</li>\r\n</ul>\r\n\r\n<p><strong>Pertimbangkan Pilates jika Anda lebih tertarik pada:</strong></p>\r\n\r\n<ul>\r\n    <li>Kekuatan core.</li>\r\n    <li>Stabilitas tubuh.</li>\r\n    <li>Kontrol gerakan.</li>\r\n    <li>Postur.</li>\r\n    <li>Latihan fisik yang terstruktur.</li>\r\n</ul>\r\n\r\n<p>Jika masih bingung, tidak ada salahnya mencoba keduanya. Pengalaman langsung dapat membantu Anda mengetahui latihan mana yang paling nyaman dan sesuai dengan kebutuhan Anda.</p>\r\n\r\n<p><strong>Kesimpulan</strong></p>\r\n\r\n<p>Jadi, <strong>apa perbedaan Pilates dan yoga?</strong> Secara sederhana, yoga memiliki pendekatan yang lebih luas dengan menggabungkan gerakan, pernapasan, keseimbangan, fleksibilitas, dan relaksasi. Sementara itu, Pilates lebih berfokus pada kontrol gerakan, stabilitas, kekuatan core, dan postur.</p>\r\n\r\n<p>Keduanya sama-sama dapat menjadi bagian dari gaya hidup aktif. Yang terpenting adalah memilih latihan yang sesuai dengan tujuan dan dapat dilakukan secara konsisten.</p>\r\n\r\n<p>Jika Anda ingin mencoba yoga, mulailah dari kelas yang sesuai dengan tingkat kemampuan Anda. Dengan instruktur yang tepat, Anda dapat mempelajari teknik dasar dengan lebih nyaman dan membangun kebiasaan latihan secara bertahap.</p>\r\n\r\n<p><strong>Siap Mencoba Yoga?</strong></p>\r\n\r\n<p>Temukan kelas yoga yang sesuai dengan kebutuhan dan tingkat kemampuan Anda. Mulai perjalanan menuju tubuh yang lebih aktif, fleksibel, dan seimbang bersama kelas yoga yang tepat.</p>', 'images/3MeMVIEBB3e5NU9Tm1Ijda7s7iDDcrmdWakjl1C7.jpg', '2026-08-26 17:00:00', 34, 'yoga, tips yogaaa', 'published', 'index', NULL, NULL, '2026-08-27 04:59:46', '2026-08-30 19:19:08', NULL);
+('63829ea9-8a32-4f82-94e1-7299120f822c', '787b72ea-59d0-4d54-848b-c200bddafdd2', '2162d145-9ef3-4e2f-8c55-81971a015bc5', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'pilates-vs-yoga-apa-bedanya-dan-mana-yang-cocok-untuk-anda', 'Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.', '<p><strong>Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?</strong></p>\r\n\r\n<p>Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.</p>\r\n\r\n<p>Namun, <strong>Pilates dan yoga memiliki beberapa perbedaan</strong>, mulai dari tujuan latihan, teknik gerakan, fokus tubuh, hingga pendekatan terhadap pernapasan. Lalu, mana yang lebih cocok untuk Anda?</p>\r\n\r\n<p>Berikut pembahasan lengkap mengenai perbedaan Pilates dan yoga agar Anda dapat menentukan jenis latihan yang sesuai dengan kebutuhan dan tujuan kebugaran Anda.</p>\r\n\r\n<p><strong>Apa Itu Yoga?</strong></p>\r\n\r\n<p>Yoga adalah latihan yang menggabungkan gerakan tubuh, pengaturan pernapasan, konsentrasi, dan relaksasi. Yoga memiliki berbagai jenis dan tingkat intensitas, mulai dari latihan yang lembut hingga latihan yang cukup dinamis.</p>\r\n\r\n<p>Selain membantu menjaga kebugaran tubuh, yoga dapat membantu meningkatkan fleksibilitas, keseimbangan, mobilitas, serta membantu tubuh menjadi lebih rileks.</p>\r\n\r\n<p>Beberapa jenis yoga yang populer antara lain:</p>\r\n\r\n<ul>\r\n    <li><strong>Hatha Yoga</strong>, dengan gerakan yang relatif terstruktur dan cocok untuk mengenal dasar-dasar yoga.</li>\r\n    <li><strong>Vinyasa Yoga</strong>, yang menghubungkan gerakan dengan ritme pernapasan secara lebih dinamis.</li>\r\n    <li><strong>Yin Yoga</strong>, yang menggunakan posisi tertentu dalam durasi lebih lama untuk melatih fleksibilitas.</li>\r\n    <li><strong>Restorative Yoga</strong>, yang berfokus pada relaksasi dengan gerakan yang lebih lembut.</li>\r\n</ul>\r\n\r\n<p><strong>Apa Itu Pilates?</strong></p>\r\n\r\n<p>Pilates merupakan latihan yang berfokus pada kontrol gerakan, stabilitas tubuh, kekuatan otot inti atau <strong>core</strong>, serta postur.</p>\r\n\r\n<p>Gerakan Pilates biasanya dilakukan secara terkontrol dan membutuhkan konsentrasi terhadap posisi tubuh serta teknik pernapasan.</p>\r\n\r\n<p>Pilates dapat dilakukan menggunakan matras maupun peralatan tertentu. Mat Pilates, misalnya, dapat dilakukan tanpa peralatan besar sehingga relatif mudah dimasukkan ke dalam rutinitas olahraga.</p>\r\n\r\n<p>Latihan Pilates banyak menekankan penggunaan otot core sehingga dapat membantu membangun kesadaran terhadap postur dan kontrol tubuh.</p>\r\n\r\n<p><strong>Perbedaan Yoga dan Pilates</strong></p>\r\n\r\n<p>Meskipun terlihat mirip, yoga dan Pilates memiliki fokus latihan yang berbeda. Berikut beberapa perbedaan utamanya.</p>\r\n\r\n<p><strong>1. Fokus Latihan</strong></p>\r\n\r\n<p>Yoga memiliki pendekatan yang lebih luas dengan menggabungkan latihan fisik, pernapasan, konsentrasi, relaksasi, dan kesadaran tubuh.</p>\r\n\r\n<p>Sementara itu, Pilates lebih menitikberatkan pada kontrol gerakan, stabilitas, kekuatan core, dan postur tubuh.</p>\r\n\r\n<p><strong>2. Fleksibilitas</strong></p>\r\n\r\n<p>Yoga umumnya sangat erat kaitannya dengan latihan fleksibilitas. Berbagai posisi yoga dapat membantu tubuh bergerak melalui rentang gerak yang lebih luas secara bertahap.</p>\r\n\r\n<p>Pilates juga melibatkan gerakan yang dapat membantu mobilitas dan fleksibilitas, tetapi fokus utamanya bukan hanya pada kelenturan tubuh.</p>\r\n\r\n<p><strong>3. Kekuatan Core</strong></p>\r\n\r\n<p>Pilates sangat dikenal dengan latihan yang melibatkan otot core. Banyak gerakannya membutuhkan stabilisasi bagian tengah tubuh agar gerakan dapat dilakukan dengan tepat.</p>\r\n\r\n<p>Yoga juga melatih core, terutama pada berbagai pose yang membutuhkan keseimbangan dan stabilitas. Namun, fokusnya dapat berbeda tergantung jenis yoga yang dilakukan.</p>\r\n\r\n<p><strong>4. Pernapasan</strong></p>\r\n\r\n<p>Pernapasan merupakan bagian penting dalam yoga. Pengaturan napas digunakan untuk membantu konsentrasi, mengontrol gerakan, dan menciptakan kondisi tubuh yang lebih rileks.</p>\r\n\r\n<p>Dalam Pilates, pernapasan juga penting dan digunakan untuk membantu kontrol serta koordinasi gerakan.</p>\r\n\r\n<p><strong>5. Relaksasi</strong></p>\r\n\r\n<p>Yoga umumnya memberikan perhatian lebih besar terhadap relaksasi, meditasi, dan kesadaran tubuh.</p>\r\n\r\n<p>Pilates lebih berorientasi pada latihan fisik dan kontrol gerakan, meskipun latihan yang dilakukan dengan fokus dan teratur juga dapat membantu tubuh terasa lebih rileks setelah berolahraga.</p>\r\n\r\n<p><strong>Pilates vs Yoga: Mana yang Lebih Baik?</strong></p>\r\n\r\n<p>Tidak ada jawaban bahwa Pilates selalu lebih baik daripada yoga, atau sebaliknya. Pilihan terbaik bergantung pada tujuan, preferensi, dan kebutuhan masing-masing orang.</p>\r\n\r\n<p>Jika Anda ingin meningkatkan fleksibilitas, melatih keseimbangan, sekaligus mendapatkan latihan yang menggabungkan gerakan dan relaksasi, <strong>yoga dapat menjadi pilihan yang menarik</strong>.</p>\r\n\r\n<p>Jika tujuan utama Anda adalah meningkatkan kekuatan core, kontrol tubuh, dan kesadaran terhadap postur, <strong>Pilates dapat menjadi pilihan yang sesuai</strong>.</p>\r\n\r\n<p>Namun, keduanya juga dapat dikombinasikan. Yoga dan Pilates memiliki karakteristik latihan yang berbeda sehingga dapat saling melengkapi dalam rutinitas kebugaran.</p>\r\n\r\n<p><strong>Yoga Cocok untuk Siapa?</strong></p>\r\n\r\n<p>Yoga dapat menjadi pilihan bagi Anda yang ingin:</p>\r\n\r\n<ul>\r\n    <li>Meningkatkan fleksibilitas tubuh.</li>\r\n    <li>Melatih keseimbangan dan mobilitas.</li>\r\n    <li>Meningkatkan kesadaran terhadap tubuh dan pernapasan.</li>\r\n    <li>Melakukan aktivitas fisik dengan intensitas yang dapat disesuaikan.</li>\r\n    <li>Menambahkan latihan relaksasi dalam rutinitas harian.</li>\r\n    <li>Memulai aktivitas olahraga secara bertahap.</li>\r\n</ul>\r\n\r\n<p><strong>Pilates Cocok untuk Siapa?</strong></p>\r\n\r\n<p>Pilates dapat menjadi pilihan bagi Anda yang ingin:</p>\r\n\r\n<ul>\r\n    <li>Melatih kekuatan otot core.</li>\r\n    <li>Meningkatkan kontrol gerakan.</li>\r\n    <li>Meningkatkan kesadaran terhadap postur tubuh.</li>\r\n    <li>Melatih stabilitas dan koordinasi.</li>\r\n    <li>Melakukan latihan dengan gerakan yang terkontrol.</li>\r\n</ul>\r\n\r\n<p><strong>Apakah Yoga dan Pilates Bisa Dilakukan Bersamaan?</strong></p>\r\n\r\n<p>Tentu saja. Yoga dan Pilates dapat menjadi kombinasi latihan yang menarik.</p>\r\n\r\n<p>Pilates dapat membantu melatih kekuatan dan stabilitas tubuh, sedangkan yoga dapat memberikan latihan fleksibilitas, keseimbangan, mobilitas, serta relaksasi.</p>\r\n\r\n<p>Anda dapat melakukan Pilates pada beberapa hari dalam seminggu dan menambahkan sesi yoga pada hari lainnya. Frekuensi dan intensitas latihan sebaiknya disesuaikan dengan kemampuan tubuh dan rutinitas masing-masing.</p>\r\n\r\n<p><strong>Tips Memilih Yoga atau Pilates</strong></p>\r\n\r\n<p>Sebelum memilih, coba tentukan tujuan utama Anda.</p>\r\n\r\n<p><strong>Pilih yoga jika Anda lebih tertarik pada:</strong></p>\r\n\r\n<ul>\r\n    <li>Fleksibilitas.</li>\r\n    <li>Keseimbangan.</li>\r\n    <li>Mobilitas.</li>\r\n    <li>Pernapasan.</li>\r\n    <li>Relaksasi dan mindfulness.</li>\r\n</ul>\r\n\r\n<p><strong>Pertimbangkan Pilates jika Anda lebih tertarik pada:</strong></p>\r\n\r\n<ul>\r\n    <li>Kekuatan core.</li>\r\n    <li>Stabilitas tubuh.</li>\r\n    <li>Kontrol gerakan.</li>\r\n    <li>Postur.</li>\r\n    <li>Latihan fisik yang terstruktur.</li>\r\n</ul>\r\n\r\n<p>Jika masih bingung, tidak ada salahnya mencoba keduanya. Pengalaman langsung dapat membantu Anda mengetahui latihan mana yang paling nyaman dan sesuai dengan kebutuhan Anda.</p>\r\n\r\n<p><strong>Kesimpulan</strong></p>\r\n\r\n<p>Jadi, <strong>apa perbedaan Pilates dan yoga?</strong> Secara sederhana, yoga memiliki pendekatan yang lebih luas dengan menggabungkan gerakan, pernapasan, keseimbangan, fleksibilitas, dan relaksasi. Sementara itu, Pilates lebih berfokus pada kontrol gerakan, stabilitas, kekuatan core, dan postur.</p>\r\n\r\n<p>Keduanya sama-sama dapat menjadi bagian dari gaya hidup aktif. Yang terpenting adalah memilih latihan yang sesuai dengan tujuan dan dapat dilakukan secara konsisten.</p>\r\n\r\n<p>Jika Anda ingin mencoba yoga, mulailah dari kelas yang sesuai dengan tingkat kemampuan Anda. Dengan instruktur yang tepat, Anda dapat mempelajari teknik dasar dengan lebih nyaman dan membangun kebiasaan latihan secara bertahap.</p>\r\n\r\n<p><strong>Siap Mencoba Yoga?</strong></p>\r\n\r\n<p>Temukan kelas yoga yang sesuai dengan kebutuhan dan tingkat kemampuan Anda. Mulai perjalanan menuju tubuh yang lebih aktif, fleksibel, dan seimbang bersama kelas yoga yang tepat.</p>', 'images/Q21BSTPfei8FVhkubCnpiCxQYWcL7P6XigMY6gBq.jpg', '2026-08-26 17:00:00', 34, 'yoga, tips yogaaa', 'published', 'index', NULL, NULL, '2026-08-27 04:59:46', '2026-09-01 03:03:46', NULL);
 
 -- --------------------------------------------------------
 
@@ -127,6 +127,7 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('contact_captcha_7ab7ed39-99df-47c1-897c-ab3f89577d15', 'i:14;', 1787907703),
 ('contact_captcha_7bcee500-576f-4118-8b79-a66ee23e068f', 'i:13;', 1787906907),
 ('contact_captcha_852ee308-ccff-4696-b0d8-936f9326dafd', 'i:13;', 1787906072),
+('contact_captcha_858feebf-3da6-4e32-95d7-84011683c296', 'i:9;', 1788257525),
 ('contact_captcha_88e4616e-556f-486e-9fc5-3ec5773d51ad', 'i:7;', 1787908052),
 ('contact_captcha_92714f45-4908-4178-9201-46fa62fb5f23', 'i:15;', 1787906680),
 ('contact_captcha_963d9a6e-c61c-45a7-bcdb-27c9c5de3e7a', 'i:18;', 1787907074),
@@ -152,7 +153,7 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 ('contact_captcha_f479c0f5-45ba-46da-9e41-3b84468ea0f3', 'i:9;', 1788233777),
 ('contact_captcha_f9ab098a-db6c-4013-a9fe-c228b880d5ac', 'i:4;', 1787905818),
 ('contact_captcha_fb670dbb-7ed4-4313-a201-72cc2e278545', 'i:5;', 1788231829),
-('spatie.permission.cache', 'a:3:{s:5:\"alias\";a:4:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:87:{i:0;a:4:{s:1:\"a\";i:1;s:1:\"b\";s:14:\"menu.main-menu\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:1;a:4:{s:1:\"a\";i:2;s:1:\"b\";s:20:\"menu.role-permission\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:2;a:4:{s:1:\"a\";i:3;s:1:\"b\";s:22:\"menu.access-management\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:3;a:4:{s:1:\"a\";i:4;s:1:\"b\";s:15:\"dashboard.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:4;a:4:{s:1:\"a\";i:5;s:1:\"b\";s:10:\"user.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:4:{s:1:\"a\";i:6;s:1:\"b\";s:10:\"user.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:6;a:4:{s:1:\"a\";i:7;s:1:\"b\";s:11:\"user.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:7;a:4:{s:1:\"a\";i:8;s:1:\"b\";s:12:\"user.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:8;a:4:{s:1:\"a\";i:9;s:1:\"b\";s:16:\"menu-group.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:9;a:4:{s:1:\"a\";i:10;s:1:\"b\";s:16:\"menu-group.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:10;a:4:{s:1:\"a\";i:11;s:1:\"b\";s:17:\"menu-group.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:11;a:4:{s:1:\"a\";i:12;s:1:\"b\";s:18:\"menu-group.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:12;a:4:{s:1:\"a\";i:13;s:1:\"b\";s:15:\"menu-item.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:13;a:4:{s:1:\"a\";i:14;s:1:\"b\";s:15:\"menu-item.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:14;a:4:{s:1:\"a\";i:15;s:1:\"b\";s:16:\"menu-item.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:15;a:4:{s:1:\"a\";i:16;s:1:\"b\";s:17:\"menu-item.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:16;a:4:{s:1:\"a\";i:17;s:1:\"b\";s:11:\"route.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:17;a:4:{s:1:\"a\";i:18;s:1:\"b\";s:11:\"route.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:18;a:4:{s:1:\"a\";i:19;s:1:\"b\";s:12:\"route.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:19;a:4:{s:1:\"a\";i:20;s:1:\"b\";s:13:\"route.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:20;a:4:{s:1:\"a\";i:21;s:1:\"b\";s:10:\"role.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:21;a:4:{s:1:\"a\";i:22;s:1:\"b\";s:10:\"role.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:22;a:4:{s:1:\"a\";i:23;s:1:\"b\";s:11:\"role.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:23;a:4:{s:1:\"a\";i:24;s:1:\"b\";s:12:\"role.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:24;a:4:{s:1:\"a\";i:25;s:1:\"b\";s:16:\"permission.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:25;a:4:{s:1:\"a\";i:26;s:1:\"b\";s:16:\"permission.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:26;a:4:{s:1:\"a\";i:27;s:1:\"b\";s:17:\"permission.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:27;a:4:{s:1:\"a\";i:28;s:1:\"b\";s:18:\"permission.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:28;a:4:{s:1:\"a\";i:29;s:1:\"b\";s:11:\"faq.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:29;a:4:{s:1:\"a\";i:30;s:1:\"b\";s:9:\"faq.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:30;a:4:{s:1:\"a\";i:31;s:1:\"b\";s:9:\"faq.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:31;a:4:{s:1:\"a\";i:32;s:1:\"b\";s:10:\"faq.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:32;a:4:{s:1:\"a\";i:33;s:1:\"b\";s:20:\"menu.main-portofolio\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:33;a:4:{s:1:\"a\";i:35;s:1:\"b\";s:13:\"company.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:34;a:4:{s:1:\"a\";i:36;s:1:\"b\";s:13:\"company.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:35;a:4:{s:1:\"a\";i:37;s:1:\"b\";s:14:\"company.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:36;a:4:{s:1:\"a\";i:38;s:1:\"b\";s:18:\"categories.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:37;a:4:{s:1:\"a\";i:39;s:1:\"b\";s:16:\"categories.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:38;a:4:{s:1:\"a\";i:40;s:1:\"b\";s:16:\"categories.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:39;a:4:{s:1:\"a\";i:41;s:1:\"b\";s:17:\"categories.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:40;a:4:{s:1:\"a\";i:46;s:1:\"b\";s:14:\"banner.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:41;a:4:{s:1:\"a\";i:47;s:1:\"b\";s:12:\"banner.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:42;a:4:{s:1:\"a\";i:48;s:1:\"b\";s:12:\"banner.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:43;a:4:{s:1:\"a\";i:49;s:1:\"b\";s:13:\"banner.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:44;a:4:{s:1:\"a\";i:50;s:1:\"b\";s:16:\"articles.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:45;a:4:{s:1:\"a\";i:51;s:1:\"b\";s:15:\"articles.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:46;a:4:{s:1:\"a\";i:52;s:1:\"b\";s:14:\"articles.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:47;a:4:{s:1:\"a\";i:53;s:1:\"b\";s:14:\"articles.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:48;a:4:{s:1:\"a\";i:54;s:1:\"b\";s:15:\"articles.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:49;a:4:{s:1:\"a\";i:55;s:1:\"b\";s:14:\"dashboard.form\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:50;a:4:{s:1:\"a\";i:60;s:1:\"b\";s:12:\"poll.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:51;a:4:{s:1:\"a\";i:65;s:1:\"b\";s:10:\"poll.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:52;a:4:{s:1:\"a\";i:70;s:1:\"b\";s:10:\"poll.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:53;a:4:{s:1:\"a\";i:75;s:1:\"b\";s:11:\"poll.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:54;a:4:{s:1:\"a\";i:85;s:1:\"b\";s:13:\"account.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:55;a:4:{s:1:\"a\";i:90;s:1:\"b\";s:14:\"account.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:56;a:4:{s:1:\"a\";i:100;s:1:\"b\";s:15:\"program.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:57;a:4:{s:1:\"a\";i:105;s:1:\"b\";s:14:\"program.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:58;a:4:{s:1:\"a\";i:110;s:1:\"b\";s:13:\"program.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:59;a:4:{s:1:\"a\";i:115;s:1:\"b\";s:13:\"program.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:60;a:4:{s:1:\"a\";i:120;s:1:\"b\";s:14:\"program.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:61;a:4:{s:1:\"a\";i:125;s:1:\"b\";s:20:\"filedownload.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:62;a:4:{s:1:\"a\";i:130;s:1:\"b\";s:18:\"filedownload.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:63;a:4:{s:1:\"a\";i:135;s:1:\"b\";s:18:\"filedownload.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:64;a:4:{s:1:\"a\";i:140;s:1:\"b\";s:19:\"filedownload.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:65;a:4:{s:1:\"a\";i:145;s:1:\"b\";s:14:\"layanan.kontak\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:66;a:4:{s:1:\"a\";i:146;s:1:\"b\";s:13:\"pegawai.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:67;a:4:{s:1:\"a\";i:147;s:1:\"b\";s:12:\"pages.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:68;a:4:{s:1:\"a\";i:148;s:1:\"b\";s:13:\"pages.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:69;a:4:{s:1:\"a\";i:149;s:1:\"b\";s:11:\"pages.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:70;a:4:{s:1:\"a\";i:150;s:1:\"b\";s:11:\"pages.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:71;a:4:{s:1:\"a\";i:151;s:1:\"b\";s:12:\"pages.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:72;a:4:{s:1:\"a\";i:152;s:1:\"b\";s:15:\"pegawai.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:73;a:4:{s:1:\"a\";i:153;s:1:\"b\";s:13:\"pegawai.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:74;a:4:{s:1:\"a\";i:154;s:1:\"b\";s:14:\"pegawai.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:75;a:4:{s:1:\"a\";i:155;s:1:\"b\";s:19:\"testimonial.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:76;a:4:{s:1:\"a\";i:156;s:1:\"b\";s:17:\"testimonial.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:77;a:4:{s:1:\"a\";i:157;s:1:\"b\";s:18:\"testimonial.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:78;a:4:{s:1:\"a\";i:158;s:1:\"b\";s:17:\"testimonial.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:79;a:4:{s:1:\"a\";i:159;s:1:\"b\";s:12:\"events.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:80;a:4:{s:1:\"a\";i:160;s:1:\"b\";s:14:\"events.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:81;a:4:{s:1:\"a\";i:161;s:1:\"b\";s:12:\"events.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:82;a:4:{s:1:\"a\";i:162;s:1:\"b\";s:13:\"events.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:83;a:4:{s:1:\"a\";i:163;s:1:\"b\";s:21:\"specializations.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:84;a:4:{s:1:\"a\";i:164;s:1:\"b\";s:23:\"specializations.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:85;a:4:{s:1:\"a\";i:165;s:1:\"b\";s:22:\"specializations.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:86;a:4:{s:1:\"a\";i:166;s:1:\"b\";s:21:\"specializations.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}}s:5:\"roles\";a:4:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:11:\"super-admin\";s:1:\"c\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:3;s:1:\"b\";s:5:\"admin\";s:1:\"c\";s:3:\"web\";}i:2;a:3:{s:1:\"a\";i:2;s:1:\"b\";s:4:\"user\";s:1:\"c\";s:3:\"web\";}i:3;a:3:{s:1:\"a\";i:5;s:1:\"b\";s:4:\"guru\";s:1:\"c\";s:3:\"web\";}}}', 1788229824);
+('spatie.permission.cache', 'a:3:{s:5:\"alias\";a:4:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:96:{i:0;a:4:{s:1:\"a\";i:1;s:1:\"b\";s:14:\"menu.main-menu\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:1;a:4:{s:1:\"a\";i:2;s:1:\"b\";s:20:\"menu.role-permission\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:2;a:4:{s:1:\"a\";i:3;s:1:\"b\";s:22:\"menu.access-management\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:3;a:4:{s:1:\"a\";i:4;s:1:\"b\";s:15:\"dashboard.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:4;a:4:{s:1:\"a\";i:5;s:1:\"b\";s:10:\"user.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:4:{s:1:\"a\";i:6;s:1:\"b\";s:10:\"user.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:6;a:4:{s:1:\"a\";i:7;s:1:\"b\";s:11:\"user.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:7;a:4:{s:1:\"a\";i:8;s:1:\"b\";s:12:\"user.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:8;a:4:{s:1:\"a\";i:9;s:1:\"b\";s:16:\"menu-group.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:9;a:4:{s:1:\"a\";i:10;s:1:\"b\";s:16:\"menu-group.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:10;a:4:{s:1:\"a\";i:11;s:1:\"b\";s:17:\"menu-group.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:11;a:4:{s:1:\"a\";i:12;s:1:\"b\";s:18:\"menu-group.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:12;a:4:{s:1:\"a\";i:13;s:1:\"b\";s:15:\"menu-item.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:13;a:4:{s:1:\"a\";i:14;s:1:\"b\";s:15:\"menu-item.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:14;a:4:{s:1:\"a\";i:15;s:1:\"b\";s:16:\"menu-item.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:15;a:4:{s:1:\"a\";i:16;s:1:\"b\";s:17:\"menu-item.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:16;a:4:{s:1:\"a\";i:17;s:1:\"b\";s:11:\"route.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:17;a:4:{s:1:\"a\";i:18;s:1:\"b\";s:11:\"route.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:18;a:4:{s:1:\"a\";i:19;s:1:\"b\";s:12:\"route.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:19;a:4:{s:1:\"a\";i:20;s:1:\"b\";s:13:\"route.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:20;a:4:{s:1:\"a\";i:21;s:1:\"b\";s:10:\"role.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:21;a:4:{s:1:\"a\";i:22;s:1:\"b\";s:10:\"role.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:22;a:4:{s:1:\"a\";i:23;s:1:\"b\";s:11:\"role.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:23;a:4:{s:1:\"a\";i:24;s:1:\"b\";s:12:\"role.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:24;a:4:{s:1:\"a\";i:25;s:1:\"b\";s:16:\"permission.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:25;a:4:{s:1:\"a\";i:26;s:1:\"b\";s:16:\"permission.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:26;a:4:{s:1:\"a\";i:27;s:1:\"b\";s:17:\"permission.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:27;a:4:{s:1:\"a\";i:28;s:1:\"b\";s:18:\"permission.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:28;a:4:{s:1:\"a\";i:29;s:1:\"b\";s:11:\"faq.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:29;a:4:{s:1:\"a\";i:30;s:1:\"b\";s:9:\"faq.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:30;a:4:{s:1:\"a\";i:31;s:1:\"b\";s:9:\"faq.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:31;a:4:{s:1:\"a\";i:32;s:1:\"b\";s:10:\"faq.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:32;a:4:{s:1:\"a\";i:33;s:1:\"b\";s:20:\"menu.main-portofolio\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:33;a:4:{s:1:\"a\";i:35;s:1:\"b\";s:13:\"company.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:34;a:4:{s:1:\"a\";i:36;s:1:\"b\";s:13:\"company.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:35;a:4:{s:1:\"a\";i:37;s:1:\"b\";s:14:\"company.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:36;a:4:{s:1:\"a\";i:38;s:1:\"b\";s:18:\"categories.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:37;a:4:{s:1:\"a\";i:39;s:1:\"b\";s:16:\"categories.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:38;a:4:{s:1:\"a\";i:40;s:1:\"b\";s:16:\"categories.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:39;a:4:{s:1:\"a\";i:41;s:1:\"b\";s:17:\"categories.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:40;a:4:{s:1:\"a\";i:46;s:1:\"b\";s:14:\"banner.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:41;a:4:{s:1:\"a\";i:47;s:1:\"b\";s:12:\"banner.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:42;a:4:{s:1:\"a\";i:48;s:1:\"b\";s:12:\"banner.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:43;a:4:{s:1:\"a\";i:49;s:1:\"b\";s:13:\"banner.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:44;a:4:{s:1:\"a\";i:50;s:1:\"b\";s:16:\"articles.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:45;a:4:{s:1:\"a\";i:51;s:1:\"b\";s:15:\"articles.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:46;a:4:{s:1:\"a\";i:52;s:1:\"b\";s:14:\"articles.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:47;a:4:{s:1:\"a\";i:53;s:1:\"b\";s:14:\"articles.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:48;a:4:{s:1:\"a\";i:54;s:1:\"b\";s:15:\"articles.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:49;a:4:{s:1:\"a\";i:55;s:1:\"b\";s:14:\"dashboard.form\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:50;a:4:{s:1:\"a\";i:60;s:1:\"b\";s:12:\"poll.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:51;a:4:{s:1:\"a\";i:65;s:1:\"b\";s:10:\"poll.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:52;a:4:{s:1:\"a\";i:70;s:1:\"b\";s:10:\"poll.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:53;a:4:{s:1:\"a\";i:75;s:1:\"b\";s:11:\"poll.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:54;a:4:{s:1:\"a\";i:85;s:1:\"b\";s:13:\"account.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:55;a:4:{s:1:\"a\";i:90;s:1:\"b\";s:14:\"account.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:56;a:4:{s:1:\"a\";i:100;s:1:\"b\";s:15:\"program.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:57;a:4:{s:1:\"a\";i:105;s:1:\"b\";s:14:\"program.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:58;a:4:{s:1:\"a\";i:110;s:1:\"b\";s:13:\"program.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:59;a:4:{s:1:\"a\";i:115;s:1:\"b\";s:13:\"program.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:60;a:4:{s:1:\"a\";i:120;s:1:\"b\";s:14:\"program.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:61;a:4:{s:1:\"a\";i:125;s:1:\"b\";s:20:\"filedownload.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:62;a:4:{s:1:\"a\";i:130;s:1:\"b\";s:18:\"filedownload.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:63;a:4:{s:1:\"a\";i:135;s:1:\"b\";s:18:\"filedownload.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:64;a:4:{s:1:\"a\";i:140;s:1:\"b\";s:19:\"filedownload.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:65;a:4:{s:1:\"a\";i:145;s:1:\"b\";s:14:\"layanan.kontak\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:66;a:4:{s:1:\"a\";i:146;s:1:\"b\";s:16:\"instruktur.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:67;a:4:{s:1:\"a\";i:147;s:1:\"b\";s:12:\"pages.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:68;a:4:{s:1:\"a\";i:148;s:1:\"b\";s:13:\"pages.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:69;a:4:{s:1:\"a\";i:149;s:1:\"b\";s:11:\"pages.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:70;a:4:{s:1:\"a\";i:150;s:1:\"b\";s:11:\"pages.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:71;a:4:{s:1:\"a\";i:151;s:1:\"b\";s:12:\"pages.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:72;a:4:{s:1:\"a\";i:152;s:1:\"b\";s:18:\"instruktur.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:73;a:4:{s:1:\"a\";i:153;s:1:\"b\";s:16:\"instruktur.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:74;a:4:{s:1:\"a\";i:154;s:1:\"b\";s:17:\"instruktur.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:75;a:4:{s:1:\"a\";i:155;s:1:\"b\";s:19:\"testimonial.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:76;a:4:{s:1:\"a\";i:156;s:1:\"b\";s:17:\"testimonial.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:77;a:4:{s:1:\"a\";i:157;s:1:\"b\";s:18:\"testimonial.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:78;a:4:{s:1:\"a\";i:158;s:1:\"b\";s:17:\"testimonial.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:79;a:4:{s:1:\"a\";i:159;s:1:\"b\";s:12:\"events.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:80;a:4:{s:1:\"a\";i:160;s:1:\"b\";s:14:\"events.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:81;a:4:{s:1:\"a\";i:161;s:1:\"b\";s:12:\"events.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:82;a:4:{s:1:\"a\";i:162;s:1:\"b\";s:13:\"events.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:83;a:4:{s:1:\"a\";i:163;s:1:\"b\";s:21:\"specializations.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:84;a:4:{s:1:\"a\";i:164;s:1:\"b\";s:23:\"specializations.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:85;a:4:{s:1:\"a\";i:165;s:1:\"b\";s:22:\"specializations.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:86;a:4:{s:1:\"a\";i:166;s:1:\"b\";s:21:\"specializations.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:87;a:4:{s:1:\"a\";i:167;s:1:\"b\";s:15:\"package.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:88;a:4:{s:1:\"a\";i:168;s:1:\"b\";s:13:\"package.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:89;a:4:{s:1:\"a\";i:169;s:1:\"b\";s:14:\"package.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:90;a:4:{s:1:\"a\";i:170;s:1:\"b\";s:13:\"package.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:91;a:4:{s:1:\"a\";i:171;s:1:\"b\";s:14:\"package.member\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:92;a:4:{s:1:\"a\";i:172;s:1:\"b\";s:15:\"classes.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:93;a:4:{s:1:\"a\";i:173;s:1:\"b\";s:13:\"classes.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:94;a:4:{s:1:\"a\";i:174;s:1:\"b\";s:13:\"classes.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:95;a:4:{s:1:\"a\";i:175;s:1:\"b\";s:14:\"classes.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}}s:5:\"roles\";a:4:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:11:\"super-admin\";s:1:\"c\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:3;s:1:\"b\";s:5:\"admin\";s:1:\"c\";s:3:\"web\";}i:2;a:3:{s:1:\"a\";i:2;s:1:\"b\";s:4:\"user\";s:1:\"c\";s:3:\"web\";}i:3;a:3:{s:1:\"a\";i:5;s:1:\"b\";s:10:\"instruktur\";s:1:\"c\";s:3:\"web\";}}}', 1788471959);
 
 -- --------------------------------------------------------
 
@@ -192,6 +193,67 @@ INSERT INTO `categories` (`uuid`, `name`, `slug`, `description`, `icon`, `create
 ('72561291-cdcb-484b-a556-0400fbd53c3d', 'Mindfulness', 'mindfulness', 'Panduan meditasi, ketenangan pikiran, kesadaran diri, dan keseimbangan mental.', 'fa-brain', '2025-10-31 03:07:08', '2026-08-27 04:17:57'),
 ('a58f5ebc-c8ec-48da-b6f9-a80b05ca40a0', 'Kegiatan', 'kegiatan', 'Informasi event, workshop, retreat, dan berbagai kegiatan YogaRoots.', 'fa-calendar-days', '2026-06-20 12:47:44', '2026-08-27 04:18:24'),
 ('bb006a6e-36bc-48cb-a84f-2a562489bb54', 'Berita', 'berita', 'Informasi dan kabar terbaru seputar YogaRoots, kelas, program, dan studio.', 'fa-newspaper', '2025-09-16 01:03:27', '2026-08-27 04:19:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `classes`
+--
+
+CREATE TABLE `classes` (
+  `uuid` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `price` decimal(15,2) NOT NULL DEFAULT 0.00,
+  `quota_cost` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `instructor_uuid` char(36) DEFAULT NULL,
+  `image` varchar(255) NOT NULL,
+  `level` enum('pemula','menengah','advance','semua_level') NOT NULL,
+  `duration` varchar(255) DEFAULT NULL,
+  `is_active` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class_bookings`
+--
+
+CREATE TABLE `class_bookings` (
+  `uuid` char(36) NOT NULL,
+  `user_uuid` char(36) NOT NULL,
+  `class_schedule_uuid` char(36) NOT NULL,
+  `booking_type` enum('membership','direct') NOT NULL,
+  `quota_used` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `status` enum('booked','attended','cancelled','no_show') NOT NULL DEFAULT 'booked',
+  `booked_at` timestamp NULL DEFAULT NULL,
+  `attended_at` timestamp NULL DEFAULT NULL,
+  `package_uuid` char(36) DEFAULT NULL,
+  `order_uuid` char(36) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `class_schedules`
+--
+
+CREATE TABLE `class_schedules` (
+  `uuid` char(36) NOT NULL,
+  `class_uuid` char(36) NOT NULL,
+  `date` date NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time DEFAULT NULL,
+  `capacity` int(10) UNSIGNED NOT NULL DEFAULT 10,
+  `status` enum('scheduled','ongoing','completed','cancelled') NOT NULL DEFAULT 'scheduled',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -265,7 +327,7 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`uuid`, `judul`, `slug`, `deskripsi`, `gambar`, `tanggal`, `waktu_mulai`, `waktu_selesai`, `lokasi`, `kapasitas`, `status`, `created_at`, `updated_at`) VALUES
-('02471b9c-9346-409c-b9b0-5331d91456ed', 'Growing Together in Nature', 'growing-together-in-nature', '<p><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">A special morning created for mama-to-be.</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">Move gently, breathe deeply, connect with your little one, and enjoy a peaceful morning in nature. 🤍</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">📅 Sunday, 13 September 2026</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">⏰ 07.30–10.00 AM</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">📍 Kebun Raya Bogor – Taman Melchior</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">💗 150K / pax</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">Includes Prenatal Yoga, Pregnancy Talk, Mini MCU, Garden Picnic, Goodies &amp; Giveaways! ✨</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">🎟️ Register Now:</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">https://bit.ly/PrenatalGentleYogaatKebunRaya</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">Come grow, breathe &amp; connect with us. 🌿</span></p>', 'events/e3GIS6szkR3ntplGpdxa6kGANpFAFAH5p6hCTU8r.jpg', '2026-09-13', '07:30:00', '10:00:00', 'Kebun Raya Bogor – Taman Melchior', 35, 'published', '2026-08-31 18:39:08', '2026-08-31 18:39:08');
+('02471b9c-9346-409c-b9b0-5331d91456ed', 'Growing Together in Nature', 'growing-together-in-nature', '<p><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">A special morning created for mama-to-be.</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">Move gently, breathe deeply, connect with your little one, and enjoy a peaceful morning in nature. 🤍</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">📅 Sunday, 13 September 2026</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">⏰ 07.30–10.00 AM</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">📍 Kebun Raya Bogor – Taman Melchior</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">💗 150K / pax</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">Includes Prenatal Yoga, Pregnancy Talk, Mini MCU, Garden Picnic, Goodies &amp; Giveaways! ✨</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">🎟️ Register Now:</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">https://bit.ly/PrenatalGentleYogaatKebunRaya</span><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><br style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\"><span style=\"color: rgb(12, 16, 20); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, Helvetica, Arial, sans-serif; font-size: 14px; letter-spacing: normal;\">Come grow, breathe &amp; connect with us. 🌿</span></p>', 'events/NLg7WQHCoKb9lC1eYoe4r8Ca1tUW2sDfOdFrdj3l.jpg', '2026-09-13', '07:30:00', '10:00:00', 'Kebun Raya Bogor – Taman Melchior', 35, 'published', '2026-08-31 18:39:08', '2026-09-01 03:02:52');
 
 -- --------------------------------------------------------
 
@@ -511,13 +573,14 @@ CREATE TABLE `menu_groups` (
 INSERT INTO `menu_groups` (`id`, `name`, `status`, `permission_name`, `icon`, `position`, `created_at`, `updated_at`) VALUES
 (2, 'Role dan Akses', 1, 'menu.role-permission', 'bx-shield-quarter', 12, '2024-09-26 23:27:05', '2024-09-26 23:56:50'),
 (3, 'Pengaturan', 1, 'menu-item.index', 'bx-cog', 13, '2024-09-26 23:27:05', '2025-09-17 23:25:45'),
-(4, 'Pusat Informasi', 1, 'faq.index', 'bx-book', 6, '2024-09-26 23:35:30', '2025-09-16 01:52:59'),
-(7, 'Publikasi', 1, 'articles.index', 'bxs-file', 4, '2024-09-29 12:37:06', '2025-09-16 00:42:56'),
-(8, 'Media Pustaka', 1, 'banner.index', 'bx-camera', 5, '2024-10-13 22:33:06', '2025-09-11 17:59:03'),
-(9, 'Master Data', 1, 'testimonial.index', 'bx-folder-open', 7, '2025-07-21 17:56:19', '2026-08-30 19:07:27'),
-(10, 'Instruktur', 1, 'program.index', 'bx-user', 3, '2025-07-23 22:38:22', '2026-08-27 18:09:05'),
-(11, 'Kelola Event', 1, 'filedownload.index', 'bxs-calendar', 2, '2025-07-25 16:53:44', '2026-08-30 19:58:23'),
-(12, 'Data Pegawai', 1, 'pegawai.index', 'bx-user', 11, '2025-09-14 12:05:35', '2025-09-18 01:32:22');
+(4, 'Pusat Informasi', 1, 'faq.index', 'bx-book', 10, '2024-09-26 23:35:30', '2025-09-16 01:52:59'),
+(7, 'Publikasi', 1, 'articles.index', 'bxs-file', 8, '2024-09-29 12:37:06', '2025-09-16 00:42:56'),
+(8, 'Media Pustaka', 1, 'banner.index', 'bx-camera', 9, '2024-10-13 22:33:06', '2025-09-11 17:59:03'),
+(9, 'Master Data', 1, 'testimonial.index', 'bx-folder-open', 11, '2025-07-21 17:56:19', '2026-08-30 19:07:27'),
+(10, 'Instruktur', 1, 'instruktur.index', 'bx-user', 7, '2025-07-23 22:38:22', '2026-09-01 14:33:42'),
+(11, 'Kelola Event', 1, 'filedownload.index', 'bxs-calendar', 6, '2025-07-25 16:53:44', '2026-08-30 19:58:23'),
+(12, 'Membership', 1, 'package.member', 'bx-package', 4, '2025-09-14 12:05:35', '2026-09-02 05:51:45'),
+(22, 'Classes', 1, 'classes.index', 'bx-book', 5, '2026-09-02 15:16:09', '2026-09-02 15:16:57');
 
 -- --------------------------------------------------------
 
@@ -557,11 +620,13 @@ INSERT INTO `menu_items` (`id`, `name`, `icon`, `route`, `status`, `permission_n
 (13, 'Spesialisasi', NULL, 'specializations.index', 1, 'specializations.index', 10, 1, '2025-07-23 23:12:46', '2026-08-27 18:09:25'),
 (14, 'Daftar Event', NULL, 'events.index', 1, 'events.index', 11, 1, '2025-07-25 16:55:36', '2026-08-30 20:00:02'),
 (15, 'Poling Publik', NULL, 'poll.index', 1, 'poll.index', 4, 2, '2025-07-27 23:51:25', '2025-09-17 22:58:28'),
-(16, 'Semua Pegawai', NULL, 'pegawai.index', 1, 'pegawai.index', 12, 1, '2025-09-14 12:06:04', '2025-09-18 01:32:56'),
 (40, 'Halaman Statis', NULL, 'pages.index', 1, 'pages.index', 9, 3, '2025-10-21 03:46:02', '2026-08-30 19:08:10'),
-(41, 'Data Instruktur', NULL, 'program.index', 1, 'program.index', 10, 2, '2025-11-12 04:02:59', '2026-08-27 18:10:05'),
+(41, 'Data Instruktur', NULL, 'instruktur.index', 1, 'program.index', 10, 2, '2025-11-12 04:02:59', '2026-09-01 14:33:55'),
 (42, 'Testimoni', NULL, 'testimonial.index', 1, 'testimonial.index', 4, 3, '2026-08-27 23:58:27', '2026-08-27 23:58:27'),
-(43, 'Pesan Masuk', NULL, 'layanan.kontak', 1, 'layanan.kontak', 4, 4, '2026-08-27 23:59:06', '2026-08-27 23:59:06');
+(43, 'Pesan Masuk', NULL, 'layanan.kontak', 1, 'layanan.kontak', 4, 4, '2026-08-27 23:59:06', '2026-08-27 23:59:06'),
+(44, 'Packages', NULL, 'packages.index', 1, 'package.index', 12, 1, '2026-09-02 04:59:49', '2026-09-02 04:59:49'),
+(45, 'Our Packages', NULL, 'packages.member', 1, 'package.member', 12, 2, '2026-09-02 05:52:23', '2026-09-02 15:19:17'),
+(46, 'Class List', NULL, 'classes.index', 1, 'classes.index', 22, 1, '2026-09-02 15:18:03', '2026-09-02 15:18:03');
 
 -- --------------------------------------------------------
 
@@ -620,7 +685,15 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (38, '2025_11_11_070942_create_programs_table', 9),
 (39, '2026_08_28_033008_create_specializations_table', 10),
 (40, '2026_08_31_120827_create_events_table', 11),
-(41, '2026_08_31_125113_create_user_specialization_table', 12);
+(41, '2026_08_31_125113_create_user_specialization_table', 12),
+(42, '2026_09_02_073504_create_packages_table', 13),
+(43, '2026_09_02_073857_create_package_features_table', 13),
+(44, '2026_09_02_073943_create_classes_table', 13),
+(45, '2026_09_02_074219_create_class_schedules_table', 13),
+(46, '2026_09_02_074643_add_membership_fields_to_users_table', 13),
+(47, '2026_09_02_074803_create_orders_table', 13),
+(48, '2026_09_02_074832_create_payments_table', 13),
+(49, '2026_09_02_074849_create_class_bookings_table', 13);
 
 -- --------------------------------------------------------
 
@@ -711,9 +784,83 @@ CREATE TABLE `notifications` (
 
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
 ('32e1f1c5-9072-4825-83cd-1018cb73d62f', 'App\\Notifications\\ProgramStatusChanged', 'App\\Models\\User', 'b5a9eb64-a547-4464-a576-e261ede0d4db', '{\"program_id\":null,\"judul_kegiatan\":null,\"old_status\":\"pending\",\"new_status\":\"hadir\",\"message\":\"Status program \'\' berubah dari \'pending\' menjadi \'hadir\'.\"}', '2026-06-17 19:03:03', '2026-06-17 19:02:26', '2026-06-17 19:03:03'),
-('6f95fb80-2e8d-441d-850a-741dcdc7d1bc', 'App\\Notifications\\ProgramStatusChanged', 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '{\"program_id\":null,\"judul_kegiatan\":null,\"old_status\":\"pending\",\"new_status\":\"hadir\",\"message\":\"Status program \'\' berubah dari \'pending\' menjadi \'hadir\'.\"}', NULL, '2026-05-24 21:21:26', '2026-05-24 21:21:26'),
+('6f95fb80-2e8d-441d-850a-741dcdc7d1bc', 'App\\Notifications\\ProgramStatusChanged', 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '{\"program_id\":null,\"judul_kegiatan\":null,\"old_status\":\"pending\",\"new_status\":\"hadir\",\"message\":\"Status program \'\' berubah dari \'pending\' menjadi \'hadir\'.\"}', '2026-09-02 06:50:51', '2026-05-24 21:21:26', '2026-09-02 06:50:51'),
 ('ac5b2d37-85ab-4267-b572-70b998039556', 'App\\Notifications\\ProgramStatusChanged', 'App\\Models\\User', 'dfd391fa-c167-4547-ad17-27d52d9ffc28', '{\"program_id\":null,\"judul_kegiatan\":null,\"old_status\":\"pending\",\"new_status\":\"hadir\",\"message\":\"Status program \'\' berubah dari \'pending\' menjadi \'hadir\'.\"}', '2026-05-24 21:51:12', '2026-05-24 21:48:19', '2026-05-24 21:51:12'),
 ('f071f5b7-d4aa-44ba-9449-cbd36724f7c8', 'App\\Notifications\\ProgramStatusChanged', 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '{\"program_id\":null,\"judul_kegiatan\":null,\"old_status\":\"pending\",\"new_status\":\"hadir\",\"message\":\"Status program \'\' berubah dari \'pending\' menjadi \'hadir\'.\"}', '2026-05-25 20:36:48', '2026-05-24 21:41:40', '2026-05-25 20:36:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `uuid` char(36) NOT NULL,
+  `user_uuid` char(36) NOT NULL,
+  `order_number` varchar(255) NOT NULL,
+  `type` enum('package','class') NOT NULL,
+  `package_uuid` char(36) DEFAULT NULL,
+  `class_schedule_uuid` char(36) DEFAULT NULL,
+  `amount` decimal(15,2) NOT NULL,
+  `status` enum('pending','paid','failed','expired','cancelled') NOT NULL DEFAULT 'pending',
+  `expired_at` timestamp NULL DEFAULT NULL,
+  `paid_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `packages`
+--
+
+CREATE TABLE `packages` (
+  `uuid` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `price` decimal(15,2) NOT NULL,
+  `discount_price` decimal(15,2) DEFAULT NULL,
+  `final_price` decimal(15,2) NOT NULL,
+  `quota` int(10) UNSIGNED DEFAULT NULL,
+  `duration` int(10) UNSIGNED NOT NULL DEFAULT 1,
+  `duration_unit` enum('day','week','month','year') NOT NULL DEFAULT 'month',
+  `is_popular` tinyint(1) NOT NULL DEFAULT 0,
+  `is_active` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `packages`
+--
+
+INSERT INTO `packages` (`uuid`, `name`, `slug`, `description`, `price`, `discount_price`, `final_price`, `quota`, `duration`, `duration_unit`, `is_popular`, `is_active`, `created_at`, `updated_at`) VALUES
+('01a06234-aac1-722c-84d6-c46d4150e70f', 'Bloom', 'bloom', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since 1966, when designers at Letraset and James Mosley, the librarian at St Bride Printing Library in London, took a 1914 Cicero translation and scrambled it to', 500000.00, 200000.00, 0.00, NULL, 1, 'month', 0, 'active', '2026-09-02 06:00:13', '2026-09-02 06:37:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `package_features`
+--
+
+CREATE TABLE `package_features` (
+  `uuid` char(36) NOT NULL,
+  `package_uuid` char(36) NOT NULL,
+  `feature` varchar(255) NOT NULL,
+  `sort_order` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `package_features`
+--
+
+INSERT INTO `package_features` (`uuid`, `package_uuid`, `feature`, `sort_order`, `created_at`, `updated_at`) VALUES
+('01a06256-f170-716c-8d5e-b4a3d92e1767', '01a06234-aac1-722c-84d6-c46d4150e70f', 'matras', 0, '2026-09-02 06:37:40', '2026-09-02 06:37:40'),
+('01a06256-f171-72a2-9d0e-9bf7091cfd44', '01a06234-aac1-722c-84d6-c46d4150e70f', 'free cofee', 1, '2026-09-02 06:37:40', '2026-09-02 06:37:40');
 
 -- --------------------------------------------------------
 
@@ -741,7 +888,7 @@ CREATE TABLE `pages` (
 --
 
 INSERT INTO `pages` (`uuid`, `title`, `slug`, `excerpt`, `content`, `featured_image`, `is_published`, `published_at`, `user_uuid`, `has_sidebar`, `created_at`, `updated_at`) VALUES
-('5380a3e5-adfa-437c-a0fa-bc2193d55cb2', 'Kebijakan Privasi', 'kebijakan-privasi', 'Dengan menggunakan website dan layanan YogaRoots, Anda dianggap telah membaca dan memahami Kebijakan Privasi ini.', '<h2><strong style=\"color: rgb(71, 85, 105); font-size: 16px; letter-spacing: 0.1px;\">Terakhir Diperbarui:</strong><span style=\"color: rgb(71, 85, 105); font-size: 16px; font-weight: 400; letter-spacing: 0.1px;\"> 30 Agustus 2026</span></h2>\r\n\r\n<p>\r\n  Selamat datang di <strong>YogaRoots</strong>.\r\n</p>\r\n\r\n<p>\r\n  Kami menghargai kepercayaan Anda dan berkomitmen untuk menjaga privasi serta keamanan informasi pribadi yang Anda berikan kepada kami. Kebijakan Privasi ini menjelaskan bagaimana YogaRoots mengumpulkan, menggunakan, menyimpan, dan melindungi informasi Anda ketika Anda mengakses website, melakukan pendaftaran, menghubungi kami, atau menggunakan layanan YogaRoots.\r\n</p>\r\n\r\n<p>\r\n  Dengan menggunakan website dan layanan YogaRoots, Anda dianggap telah membaca dan memahami Kebijakan Privasi ini.\r\n</p>\r\n\r\n<h3>1. Informasi yang Kami Kumpulkan</h3>\r\n\r\n<p>\r\n  Kami dapat mengumpulkan informasi yang Anda berikan secara langsung ketika menggunakan website atau layanan YogaRoots, termasuk:\r\n</p>\r\n\r\n<ul>\r\n  <li>Nama lengkap</li>\r\n  <li>Alamat email</li>\r\n  <li>Nomor telepon</li>\r\n  <li>Informasi yang diberikan melalui formulir kontak</li>\r\n  <li>Informasi pendaftaran atau pemesanan kelas</li>\r\n  <li>Informasi akun apabila Anda menggunakan fitur login</li>\r\n  <li>Informasi lain yang Anda berikan secara sukarela kepada kami</li>\r\n</ul>\r\n\r\n<p>\r\n  Kami juga dapat memperoleh informasi teknis secara otomatis ketika Anda mengakses website, seperti jenis perangkat, browser, alamat IP, dan informasi terkait aktivitas penggunaan website.\r\n</p>\r\n\r\n<h3>2. Penggunaan Informasi</h3>\r\n\r\n<p>\r\n  Informasi yang kami kumpulkan dapat digunakan untuk:\r\n</p>\r\n\r\n<ul>\r\n  <li>Memproses pendaftaran dan pemesanan kelas</li>\r\n  <li>Mengelola akun dan membership</li>\r\n  <li>Menjawab pertanyaan atau permintaan yang Anda kirimkan</li>\r\n  <li>Memberikan informasi mengenai kelas, jadwal, program, dan layanan YogaRoots</li>\r\n  <li>Mengirimkan informasi penting terkait layanan yang Anda gunakan</li>\r\n  <li>Meningkatkan kualitas website dan pengalaman pengguna</li>\r\n  <li>Menjaga keamanan website dan mencegah penyalahgunaan</li>\r\n  <li>Memenuhi kewajiban hukum yang berlaku</li>\r\n</ul>\r\n\r\n<p>\r\n  Kami berusaha menggunakan informasi pribadi Anda hanya untuk tujuan yang relevan dengan layanan YogaRoots.\r\n</p>\r\n\r\n<h3>3. Perlindungan Informasi</h3>\r\n\r\n<p>\r\n  YogaRoots berupaya menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses, penggunaan, perubahan, atau pengungkapan yang tidak sah.\r\n</p>\r\n\r\n<p>\r\n  Meskipun demikian, tidak ada sistem penyimpanan maupun transmisi data melalui internet yang dapat dijamin sepenuhnya aman. Oleh karena itu, kami tidak dapat menjamin keamanan data secara mutlak.\r\n</p>\r\n\r\n<h3>4. Penggunaan oleh Pihak Ketiga</h3>\r\n\r\n<p>\r\n  Dalam menjalankan layanan, YogaRoots dapat menggunakan layanan dari pihak ketiga, seperti penyedia teknologi, layanan pembayaran, autentikasi, analitik, komunikasi, atau layanan pendukung lainnya.\r\n</p>\r\n\r\n<p>\r\n  Informasi hanya akan diberikan sejauh diperlukan untuk menjalankan layanan terkait.\r\n</p>\r\n\r\n<p>\r\n  Pihak ketiga tersebut dapat memiliki kebijakan privasi masing-masing. Kami menyarankan Anda untuk membaca kebijakan privasi dari layanan pihak ketiga yang Anda gunakan.\r\n</p>\r\n\r\n<h3>5. Cookie</h3>\r\n\r\n<p>\r\n  Website YogaRoots dapat menggunakan cookie dan teknologi serupa untuk membantu website bekerja dengan baik, mengingat preferensi pengguna, memahami penggunaan website, serta meningkatkan pengalaman Anda.\r\n</p>\r\n\r\n<p>\r\n  Anda dapat mengatur penggunaan cookie melalui pengaturan browser. Namun, menonaktifkan cookie tertentu dapat menyebabkan beberapa fitur website tidak berfungsi sebagaimana mestinya.\r\n</p>\r\n\r\n<h3>6. Informasi yang Anda Kirimkan kepada Kami</h3>\r\n\r\n<p>\r\n  Apabila Anda menghubungi YogaRoots melalui formulir kontak, email, WhatsApp, atau media komunikasi lainnya, informasi yang Anda berikan dapat kami gunakan untuk menanggapi permintaan dan memberikan bantuan yang Anda butuhkan.\r\n</p>\r\n\r\n<p>\r\n  Kami tidak menjual atau menyewakan informasi pribadi Anda kepada pihak lain.\r\n</p>\r\n\r\n<h3>7. Penyimpanan Data</h3>\r\n\r\n<p>\r\n  Informasi pribadi dapat disimpan selama diperlukan untuk memberikan layanan, memenuhi tujuan pengumpulan informasi, menyelesaikan transaksi, memenuhi kewajiban hukum, atau menyelesaikan kebutuhan administratif lainnya.\r\n</p>\r\n\r\n<p>\r\n  Setelah informasi tidak lagi diperlukan, kami dapat menghapus atau menganonimkan data tersebut sesuai dengan kebijakan dan ketentuan yang berlaku.\r\n</p>\r\n\r\n<h3>8. Hak Pengguna</h3>\r\n\r\n<p>\r\n  Anda dapat menghubungi YogaRoots apabila ingin:\r\n</p>\r\n\r\n<ul>\r\n  <li>Memperbarui informasi pribadi</li>\r\n  <li>Memperbaiki informasi yang tidak akurat</li>\r\n  <li>Menanyakan informasi pribadi yang kami simpan</li>\r\n  <li>Meminta penghapusan informasi tertentu, sepanjang tidak bertentangan dengan kewajiban hukum atau kebutuhan layanan</li>\r\n  <li>Menanyakan bagaimana informasi pribadi Anda digunakan</li>\r\n</ul>\r\n\r\n<p>\r\n  Setiap permintaan akan kami tinjau sesuai dengan kondisi dan ketentuan yang berlaku.\r\n</p>\r\n\r\n<h3>9. Privasi Anak</h3>\r\n\r\n<p>\r\n  YogaRoots menghormati privasi anak dan tidak bermaksud mengumpulkan informasi pribadi anak secara sengaja tanpa keterlibatan atau persetujuan orang tua atau wali yang sesuai.\r\n</p>\r\n\r\n<p>\r\n  Apabila Anda mengetahui adanya informasi anak yang diberikan kepada kami tanpa persetujuan yang semestinya, silakan menghubungi kami.\r\n</p>\r\n\r\n<h3>10. Perubahan Kebijakan Privasi</h3>\r\n\r\n<p>\r\n  YogaRoots dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu untuk menyesuaikan dengan perubahan layanan, teknologi, maupun ketentuan yang berlaku.\r\n</p>\r\n\r\n<p>\r\n  Setiap perubahan akan dipublikasikan pada halaman ini dan tanggal pembaruan akan disesuaikan.\r\n</p>\r\n\r\n<p>\r\n  Kami menyarankan Anda untuk memeriksa halaman ini secara berkala agar tetap mengetahui bagaimana kami melindungi informasi pribadi Anda.\r\n</p>\r\n\r\n<h3>11. Hubungi Kami</h3>\r\n\r\n<p>\r\n  Apabila Anda memiliki pertanyaan mengenai Kebijakan Privasi ini atau bagaimana YogaRoots menangani informasi pribadi Anda, silakan hubungi kami melalui:\r\n</p>\r\n\r\n<p>\r\n  <strong>YogaRoots</strong>\r\n</p>\r\n\r\n<p>\r\n  <strong>Email:</strong>&nbsp;</p>\r\n\r\n<p>\r\n  <strong>Telepon / WhatsApp:</strong> +62 813 2122 1270\r\n</p>\r\n\r\n<p>\r\n  <strong>Alamat:</strong> Roots Prasasta Building, Jl. Kawi Raya No.37, RT.6/RW.2, Guntur, Setiabudi, South Jakarta City, Jakarta 12980<br></p><p>\r\n</p>\r\n\r\n<p>\r\n  Kami akan berusaha membantu dan memberikan informasi yang Anda perlukan terkait privasi dan penggunaan data Anda.\r\n</p>', 'pages/KGpKHJFc1aFrX0OocaW7I9uDWxmWiRAc9XA3gCzQ.png', 1, '2026-08-30 17:00:00', '3099cb1c-6c37-4e5a-bbb5-d11615a1b0ff', 0, '2025-10-16 04:07:16', '2026-08-30 18:41:13');
+('5380a3e5-adfa-437c-a0fa-bc2193d55cb2', 'Kebijakan Privasi', 'kebijakan-privasi', 'Dengan menggunakan website dan layanan YogaRoots, Anda dianggap telah membaca dan memahami Kebijakan Privasi ini.', '<h2><strong style=\"color: rgb(71, 85, 105); font-size: 16px; letter-spacing: 0.1px;\">Terakhir Diperbarui:</strong><span style=\"color: rgb(71, 85, 105); font-size: 16px; font-weight: 400; letter-spacing: 0.1px;\"> 30 Agustus 2026</span></h2>\r\n\r\n<p>\r\n  Selamat datang di <strong>YogaRoots</strong>.\r\n</p>\r\n\r\n<p>\r\n  Kami menghargai kepercayaan Anda dan berkomitmen untuk menjaga privasi serta keamanan informasi pribadi yang Anda berikan kepada kami. Kebijakan Privasi ini menjelaskan bagaimana YogaRoots mengumpulkan, menggunakan, menyimpan, dan melindungi informasi Anda ketika Anda mengakses website, melakukan pendaftaran, menghubungi kami, atau menggunakan layanan YogaRoots.\r\n</p>\r\n\r\n<p>\r\n  Dengan menggunakan website dan layanan YogaRoots, Anda dianggap telah membaca dan memahami Kebijakan Privasi ini.\r\n</p>\r\n\r\n<h3>1. Informasi yang Kami Kumpulkan</h3>\r\n\r\n<p>\r\n  Kami dapat mengumpulkan informasi yang Anda berikan secara langsung ketika menggunakan website atau layanan YogaRoots, termasuk:\r\n</p>\r\n\r\n<ul>\r\n  <li>Nama lengkap</li>\r\n  <li>Alamat email</li>\r\n  <li>Nomor telepon</li>\r\n  <li>Informasi yang diberikan melalui formulir kontak</li>\r\n  <li>Informasi pendaftaran atau pemesanan kelas</li>\r\n  <li>Informasi akun apabila Anda menggunakan fitur login</li>\r\n  <li>Informasi lain yang Anda berikan secara sukarela kepada kami</li>\r\n</ul>\r\n\r\n<p>\r\n  Kami juga dapat memperoleh informasi teknis secara otomatis ketika Anda mengakses website, seperti jenis perangkat, browser, alamat IP, dan informasi terkait aktivitas penggunaan website.\r\n</p>\r\n\r\n<h3>2. Penggunaan Informasi</h3>\r\n\r\n<p>\r\n  Informasi yang kami kumpulkan dapat digunakan untuk:\r\n</p>\r\n\r\n<ul>\r\n  <li>Memproses pendaftaran dan pemesanan kelas</li>\r\n  <li>Mengelola akun dan membership</li>\r\n  <li>Menjawab pertanyaan atau permintaan yang Anda kirimkan</li>\r\n  <li>Memberikan informasi mengenai kelas, jadwal, program, dan layanan YogaRoots</li>\r\n  <li>Mengirimkan informasi penting terkait layanan yang Anda gunakan</li>\r\n  <li>Meningkatkan kualitas website dan pengalaman pengguna</li>\r\n  <li>Menjaga keamanan website dan mencegah penyalahgunaan</li>\r\n  <li>Memenuhi kewajiban hukum yang berlaku</li>\r\n</ul>\r\n\r\n<p>\r\n  Kami berusaha menggunakan informasi pribadi Anda hanya untuk tujuan yang relevan dengan layanan YogaRoots.\r\n</p>\r\n\r\n<h3>3. Perlindungan Informasi</h3>\r\n\r\n<p>\r\n  YogaRoots berupaya menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses, penggunaan, perubahan, atau pengungkapan yang tidak sah.\r\n</p>\r\n\r\n<p>\r\n  Meskipun demikian, tidak ada sistem penyimpanan maupun transmisi data melalui internet yang dapat dijamin sepenuhnya aman. Oleh karena itu, kami tidak dapat menjamin keamanan data secara mutlak.\r\n</p>\r\n\r\n<h3>4. Penggunaan oleh Pihak Ketiga</h3>\r\n\r\n<p>\r\n  Dalam menjalankan layanan, YogaRoots dapat menggunakan layanan dari pihak ketiga, seperti penyedia teknologi, layanan pembayaran, autentikasi, analitik, komunikasi, atau layanan pendukung lainnya.\r\n</p>\r\n\r\n<p>\r\n  Informasi hanya akan diberikan sejauh diperlukan untuk menjalankan layanan terkait.\r\n</p>\r\n\r\n<p>\r\n  Pihak ketiga tersebut dapat memiliki kebijakan privasi masing-masing. Kami menyarankan Anda untuk membaca kebijakan privasi dari layanan pihak ketiga yang Anda gunakan.\r\n</p>\r\n\r\n<h3>5. Cookie</h3>\r\n\r\n<p>\r\n  Website YogaRoots dapat menggunakan cookie dan teknologi serupa untuk membantu website bekerja dengan baik, mengingat preferensi pengguna, memahami penggunaan website, serta meningkatkan pengalaman Anda.\r\n</p>\r\n\r\n<p>\r\n  Anda dapat mengatur penggunaan cookie melalui pengaturan browser. Namun, menonaktifkan cookie tertentu dapat menyebabkan beberapa fitur website tidak berfungsi sebagaimana mestinya.\r\n</p>\r\n\r\n<h3>6. Informasi yang Anda Kirimkan kepada Kami</h3>\r\n\r\n<p>\r\n  Apabila Anda menghubungi YogaRoots melalui formulir kontak, email, WhatsApp, atau media komunikasi lainnya, informasi yang Anda berikan dapat kami gunakan untuk menanggapi permintaan dan memberikan bantuan yang Anda butuhkan.\r\n</p>\r\n\r\n<p>\r\n  Kami tidak menjual atau menyewakan informasi pribadi Anda kepada pihak lain.\r\n</p>\r\n\r\n<h3>7. Penyimpanan Data</h3>\r\n\r\n<p>\r\n  Informasi pribadi dapat disimpan selama diperlukan untuk memberikan layanan, memenuhi tujuan pengumpulan informasi, menyelesaikan transaksi, memenuhi kewajiban hukum, atau menyelesaikan kebutuhan administratif lainnya.\r\n</p>\r\n\r\n<p>\r\n  Setelah informasi tidak lagi diperlukan, kami dapat menghapus atau menganonimkan data tersebut sesuai dengan kebijakan dan ketentuan yang berlaku.\r\n</p>\r\n\r\n<h3>8. Hak Pengguna</h3>\r\n\r\n<p>\r\n  Anda dapat menghubungi YogaRoots apabila ingin:\r\n</p>\r\n\r\n<ul>\r\n  <li>Memperbarui informasi pribadi</li>\r\n  <li>Memperbaiki informasi yang tidak akurat</li>\r\n  <li>Menanyakan informasi pribadi yang kami simpan</li>\r\n  <li>Meminta penghapusan informasi tertentu, sepanjang tidak bertentangan dengan kewajiban hukum atau kebutuhan layanan</li>\r\n  <li>Menanyakan bagaimana informasi pribadi Anda digunakan</li>\r\n</ul>\r\n\r\n<p>\r\n  Setiap permintaan akan kami tinjau sesuai dengan kondisi dan ketentuan yang berlaku.\r\n</p>\r\n\r\n<h3>9. Privasi Anak</h3>\r\n\r\n<p>\r\n  YogaRoots menghormati privasi anak dan tidak bermaksud mengumpulkan informasi pribadi anak secara sengaja tanpa keterlibatan atau persetujuan orang tua atau wali yang sesuai.\r\n</p>\r\n\r\n<p>\r\n  Apabila Anda mengetahui adanya informasi anak yang diberikan kepada kami tanpa persetujuan yang semestinya, silakan menghubungi kami.\r\n</p>\r\n\r\n<h3>10. Perubahan Kebijakan Privasi</h3>\r\n\r\n<p>\r\n  YogaRoots dapat memperbarui Kebijakan Privasi ini dari waktu ke waktu untuk menyesuaikan dengan perubahan layanan, teknologi, maupun ketentuan yang berlaku.\r\n</p>\r\n\r\n<p>\r\n  Setiap perubahan akan dipublikasikan pada halaman ini dan tanggal pembaruan akan disesuaikan.\r\n</p>\r\n\r\n<p>\r\n  Kami menyarankan Anda untuk memeriksa halaman ini secara berkala agar tetap mengetahui bagaimana kami melindungi informasi pribadi Anda.\r\n</p>\r\n\r\n<h3>11. Hubungi Kami</h3>\r\n\r\n<p>\r\n  Apabila Anda memiliki pertanyaan mengenai Kebijakan Privasi ini atau bagaimana YogaRoots menangani informasi pribadi Anda, silakan hubungi kami melalui:\r\n</p>\r\n\r\n<p>\r\n  <strong>YogaRoots</strong>\r\n</p>\r\n\r\n<p>\r\n  <strong>Email:</strong>&nbsp;</p>\r\n\r\n<p>\r\n  <strong>Telepon / WhatsApp:</strong> +62 813 2122 1270\r\n</p>\r\n\r\n<p>\r\n  <strong>Alamat:</strong> Roots Prasasta Building, Jl. Kawi Raya No.37, RT.6/RW.2, Guntur, Setiabudi, South Jakarta City, Jakarta 12980<br></p><p>\r\n</p>\r\n\r\n<p>\r\n  Kami akan berusaha membantu dan memberikan informasi yang Anda perlukan terkait privasi dan penggunaan data Anda.\r\n</p>', 'pages/KGpKHJFc1aFrX0OocaW7I9uDWxmWiRAc9XA3gCzQ.png', 1, '2026-08-30 17:00:00', NULL, 0, '2025-10-16 04:07:16', '2026-08-30 18:41:13');
 
 -- --------------------------------------------------------
 
@@ -765,6 +912,26 @@ CREATE TABLE `password_reset_tokens` (
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `uuid` char(36) NOT NULL,
+  `order_uuid` char(36) NOT NULL,
+  `payment_gateway` varchar(255) NOT NULL DEFAULT 'midtrans',
+  `transaction_id` varchar(255) DEFAULT NULL,
+  `payment_type` varchar(255) DEFAULT NULL,
+  `gross_amount` decimal(15,2) NOT NULL,
+  `status` varchar(255) NOT NULL DEFAULT 'pending',
+  `paid_at` timestamp NULL DEFAULT NULL,
+  `raw_response` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`raw_response`)),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -852,15 +1019,15 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (135, 'filedownload.store', 'web', '2025-07-25 16:49:09', '2025-07-25 16:49:09'),
 (140, 'filedownload.update', 'web', '2025-07-25 16:49:23', '2025-07-25 16:49:23'),
 (145, 'layanan.kontak', 'web', '2025-07-27 23:46:01', '2025-07-27 23:46:01'),
-(146, 'pegawai.index', 'web', '2025-09-14 12:04:29', '2025-09-18 01:24:06'),
+(146, 'instruktur.index', 'web', '2025-09-14 12:04:29', '2026-09-01 14:30:03'),
 (147, 'pages.create', 'web', '2025-09-17 23:27:58', '2025-09-17 23:27:58'),
 (148, 'pages.destroy', 'web', '2025-09-17 23:28:08', '2025-09-17 23:28:08'),
 (149, 'pages.index', 'web', '2025-09-17 23:28:19', '2025-09-17 23:28:19'),
 (150, 'pages.store', 'web', '2025-09-17 23:28:28', '2025-09-17 23:28:28'),
 (151, 'pages.update', 'web', '2025-09-17 23:28:36', '2025-09-17 23:28:36'),
-(152, 'pegawai.destroy', 'web', '2025-09-18 01:25:31', '2025-09-18 01:25:31'),
-(153, 'pegawai.store', 'web', '2025-09-18 01:25:43', '2025-09-18 01:25:43'),
-(154, 'pegawai.update', 'web', '2025-09-18 01:29:03', '2025-09-18 01:29:03'),
+(152, 'instruktur.destroy', 'web', '2025-09-18 01:25:31', '2026-09-01 14:29:43'),
+(153, 'instruktur.store', 'web', '2025-09-18 01:25:43', '2026-09-01 14:30:14'),
+(154, 'instruktur.update', 'web', '2025-09-18 01:29:03', '2026-09-01 14:30:28'),
 (155, 'testimonial.destroy', 'web', '2025-09-21 21:43:09', '2025-09-21 21:43:09'),
 (156, 'testimonial.index', 'web', '2025-09-21 21:43:15', '2025-09-21 21:43:15'),
 (157, 'testimonial.update', 'web', '2025-09-21 21:43:32', '2025-09-21 21:43:32'),
@@ -872,7 +1039,16 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (163, 'specializations.index', 'web', '2025-11-11 03:38:59', '2026-08-27 17:28:55'),
 (164, 'specializations.destroy', 'web', '2025-11-11 03:39:23', '2026-08-27 17:28:42'),
 (165, 'specializations.update', 'web', '2025-11-11 03:39:36', '2026-08-27 17:29:13'),
-(166, 'specializations.store', 'web', '2025-11-11 03:39:47', '2026-08-27 17:29:05');
+(166, 'specializations.store', 'web', '2025-11-11 03:39:47', '2026-08-27 17:29:05'),
+(167, 'package.destroy', 'web', '2026-09-02 04:53:13', '2026-09-02 04:54:21'),
+(168, 'package.index', 'web', '2026-09-02 04:53:33', '2026-09-02 04:53:33'),
+(169, 'package.update', 'web', '2026-09-02 04:53:48', '2026-09-02 04:53:48'),
+(170, 'package.store', 'web', '2026-09-02 04:55:05', '2026-09-02 04:55:05'),
+(171, 'package.member', 'web', '2026-09-02 05:46:57', '2026-09-02 05:46:57'),
+(172, 'classes.destroy', 'web', '2026-09-02 14:45:03', '2026-09-02 14:45:03'),
+(173, 'classes.index', 'web', '2026-09-02 14:45:18', '2026-09-02 14:45:18'),
+(174, 'classes.store', 'web', '2026-09-02 14:45:44', '2026-09-02 14:45:44'),
+(175, 'classes.update', 'web', '2026-09-02 14:45:59', '2026-09-02 14:45:59');
 
 -- --------------------------------------------------------
 
@@ -978,7 +1154,7 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 (1, 'super-admin', 'web', '2024-09-26 23:27:05', '2024-09-26 23:27:05'),
 (2, 'user', 'web', '2024-09-26 23:27:05', '2024-09-26 23:27:05'),
 (3, 'admin', 'web', '2024-09-27 01:40:58', '2024-09-27 01:40:58'),
-(5, 'guru', 'web', '2025-07-21 13:29:16', '2026-08-27 19:36:54');
+(5, 'instruktur', 'web', '2025-07-21 13:29:16', '2026-09-01 14:24:16');
 
 -- --------------------------------------------------------
 
@@ -1167,7 +1343,30 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (165, 1),
 (165, 3),
 (166, 1),
-(166, 3);
+(166, 3),
+(167, 1),
+(167, 3),
+(168, 1),
+(168, 3),
+(169, 1),
+(169, 3),
+(170, 1),
+(170, 3),
+(171, 1),
+(171, 2),
+(171, 3),
+(172, 1),
+(172, 3),
+(172, 5),
+(173, 1),
+(173, 3),
+(173, 5),
+(174, 1),
+(174, 3),
+(174, 5),
+(175, 1),
+(175, 3),
+(175, 5);
 
 -- --------------------------------------------------------
 
@@ -1253,15 +1452,15 @@ INSERT INTO `routes` (`id`, `route`, `permission_name`, `status`, `description`,
 (135, 'filedownload.update', 'filedownload.update', 1, NULL, '2025-07-25 16:51:29', '2025-07-25 16:51:29'),
 (140, 'layanan.kontak', 'layanan.kontak', 1, NULL, '2025-07-27 23:47:08', '2025-07-27 23:47:08'),
 (145, 'banner.update', 'banner.update', 1, NULL, '2025-08-07 12:52:06', '2025-08-07 12:52:06'),
-(146, 'pegawai.destroy', 'pegawai.destroy', 1, NULL, '2025-09-14 12:04:52', '2025-09-18 01:27:31'),
+(146, 'instruktur.destroy', 'instruktur.destroy', 1, NULL, '2025-09-14 12:04:52', '2026-09-01 14:31:34'),
 (147, 'pages.create', 'pages.create', 1, NULL, '2025-09-17 23:29:27', '2025-09-17 23:29:27'),
 (148, 'pages.index', 'pages.index', 1, NULL, '2025-09-17 23:29:41', '2025-09-17 23:29:41'),
 (149, 'pages.store', 'pages.store', 1, NULL, '2025-09-17 23:29:59', '2025-09-17 23:29:59'),
 (150, 'pages.destroy', 'pages.destroy', 1, NULL, '2025-09-17 23:30:31', '2025-09-17 23:30:31'),
 (151, 'pages.update', 'pages.update', 1, NULL, '2025-09-17 23:30:45', '2025-09-17 23:30:45'),
-(152, 'pegawai.index', 'pegawai.index', 1, NULL, '2025-09-18 01:27:46', '2025-09-18 01:27:46'),
-(153, 'pegawai.store', 'pegawai.store', 1, NULL, '2025-09-18 01:27:59', '2025-09-18 01:27:59'),
-(154, 'pegawai.update', 'pegawai.update', 1, NULL, '2025-09-18 01:31:29', '2025-09-18 01:31:29'),
+(152, 'instruktur.index', 'instruktur.index', 1, NULL, '2025-09-18 01:27:46', '2026-09-01 14:32:00'),
+(153, 'instruktur.store', 'instruktur.store', 1, NULL, '2025-09-18 01:27:59', '2026-09-01 14:32:18'),
+(154, 'instruktur.update', 'instruktur.update', 1, NULL, '2025-09-18 01:31:29', '2026-09-01 14:32:46'),
 (155, 'testimonial.destroy', 'testimonial.destroy', 1, NULL, '2025-09-21 21:44:13', '2025-09-21 21:44:13'),
 (156, 'testimonial.index', 'testimonial.index', 1, NULL, '2025-09-21 21:44:25', '2025-09-21 21:44:25'),
 (157, 'testimonial.store', 'testimonial.store', 1, NULL, '2025-09-21 21:44:40', '2025-09-21 21:44:40'),
@@ -1273,7 +1472,16 @@ INSERT INTO `routes` (`id`, `route`, `permission_name`, `status`, `description`,
 (163, 'specializations.destroy', 'specializations.destroy', 1, NULL, '2025-11-11 03:40:24', '2026-08-27 17:32:06'),
 (164, 'specializations.index', 'specializations.index', 1, NULL, '2025-11-11 03:40:41', '2026-08-27 17:32:27'),
 (165, 'specializations.store', 'specializations.store', 1, NULL, '2025-11-11 03:40:58', '2026-08-27 17:32:51'),
-(166, 'specializations.update', 'specializations.update', 1, NULL, '2025-11-11 03:42:13', '2026-08-27 17:33:20');
+(166, 'specializations.update', 'specializations.update', 1, NULL, '2025-11-11 03:42:13', '2026-08-27 17:33:20'),
+(167, 'packages.destroy', 'package.destroy', 1, NULL, '2026-09-02 04:55:42', '2026-09-02 04:55:42'),
+(168, 'packages.index', 'package.index', 1, NULL, '2026-09-02 04:56:09', '2026-09-02 04:56:09'),
+(169, 'packages.store', 'package.store', 1, NULL, '2026-09-02 04:56:34', '2026-09-02 04:56:34'),
+(170, 'packages.update', 'package.update', 1, NULL, '2026-09-02 04:57:18', '2026-09-02 04:57:18'),
+(171, 'package.member', 'package.member', 1, NULL, '2026-09-02 05:47:34', '2026-09-02 05:47:34'),
+(172, 'classes.destroy', 'classes.destroy', 1, NULL, '2026-09-02 15:12:54', '2026-09-02 15:12:54'),
+(173, 'classes.index', 'classes.index', 1, NULL, '2026-09-02 15:13:08', '2026-09-02 15:13:08'),
+(174, 'classes.update', 'classes.update', 1, NULL, '2026-09-02 15:13:24', '2026-09-02 15:13:24'),
+(175, 'classes.store', 'classes.store', 1, NULL, '2026-09-02 15:13:40', '2026-09-02 15:13:40');
 
 -- --------------------------------------------------------
 
@@ -1359,7 +1567,8 @@ INSERT INTO `seo` (`id`, `description`, `title`, `image`, `author`, `robots`, `c
 (57, 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'images/QfojvfEegY7UFF07HkRp7xw9nsI4LZNVx92HxNfJ.jpg', 'super-admin', 'index', 'http://127.0.0.1:8000/backend/articles/pilates-vs-yoga-apa-bedanya-dan-mana-yang-cocok-untuk-anda', '2026-08-27 04:59:46', '2026-08-27 04:59:46', 'App\\Models\\Article', '63829ea9-8a32-4f82-94e1-7299120f822c'),
 (58, 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'images/QfojvfEegY7UFF07HkRp7xw9nsI4LZNVx92HxNfJ.jpg', 'super-admin', 'index', 'http://127.0.0.1:8000/backend/articles/pilates-vs-yoga-apa-bedanya-dan-mana-yang-cocok-untuk-anda', '2026-08-27 05:02:14', '2026-08-27 05:02:14', 'App\\Models\\Article', '63829ea9-8a32-4f82-94e1-7299120f822c'),
 (59, 'Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'images/QfojvfEegY7UFF07HkRp7xw9nsI4LZNVx92HxNfJ.jpg', 'super-admin', 'index', 'http://127.0.0.1:8000/backend/articles/pilates-vs-yoga-apa-bedanya-dan-mana-yang-cocok-untuk-anda', '2026-08-27 05:50:43', '2026-08-27 05:50:43', 'App\\Models\\Article', '63829ea9-8a32-4f82-94e1-7299120f822c'),
-(60, 'Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'images/3MeMVIEBB3e5NU9Tm1Ijda7s7iDDcrmdWakjl1C7.jpg', 'super-admin', 'index', 'http://127.0.0.1:8000/backend/articles/pilates-vs-yoga-apa-bedanya-dan-mana-yang-cocok-untuk-anda', '2026-08-30 18:12:39', '2026-08-30 18:12:39', 'App\\Models\\Article', '63829ea9-8a32-4f82-94e1-7299120f822c');
+(60, 'Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'images/3MeMVIEBB3e5NU9Tm1Ijda7s7iDDcrmdWakjl1C7.jpg', 'super-admin', 'index', 'http://127.0.0.1:8000/backend/articles/pilates-vs-yoga-apa-bedanya-dan-mana-yang-cocok-untuk-anda', '2026-08-30 18:12:39', '2026-08-30 18:12:39', 'App\\Models\\Article', '63829ea9-8a32-4f82-94e1-7299120f822c'),
+(61, 'Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'images/Q21BSTPfei8FVhkubCnpiCxQYWcL7P6XigMY6gBq.jpg', 'super-admin', 'index', 'http://127.0.0.1:8000/backend/articles/pilates-vs-yoga-apa-bedanya-dan-mana-yang-cocok-untuk-anda', '2026-09-01 03:03:46', '2026-09-01 03:03:46', 'App\\Models\\Article', '63829ea9-8a32-4f82-94e1-7299120f822c');
 
 -- --------------------------------------------------------
 
@@ -1381,9 +1590,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('jQ3VfXgIXm61oodKCZ8YYUHs336VVnYl2XRFBJYp', '787b72ea-59d0-4d54-848b-c200bddafdd2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiclVxY3QybWVjOWs3UVZIN3hBWWxaVDdRVk5sa2taZ0xwd0txWkxZVyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWNrZW5kL3BhZ2VzIjtzOjU6InJvdXRlIjtzOjExOiJwYWdlcy5pbmRleCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtzOjM2OiI3ODdiNzJlYS01OWQwLTRkNTQtODQ4Yi1jMjAwYmRkYWZkZDIiO30=', 1788165844),
-('YbVlvg59Ds2tDP70edhlODfVsSSpjAnNKoZ6uEuZ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.135.0 Chrome/148.0.7778.280 Electron/42.8.1 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiaU45YnVNRDBkQlBmajBja3UwWEZWd2w3TGJVOUMyZXdUM3NnSktadSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7czo0OiJob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1788226321),
-('ZTdGhsKKmmzpFWdRdlZpuBgQG8bGuCpRb2OU73ub', '787b72ea-59d0-4d54-848b-c200bddafdd2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiN2JnZ3RYZlBJSzdzMlh5VU85dXZLdHN0elQzY0JzS0FhOGlIaXh3ZCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWNrZW5kL2V2ZW50cyI7czo1OiJyb3V0ZSI7czoxMjoiZXZlbnRzLmluZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO3M6MzY6Ijc4N2I3MmVhLTU5ZDAtNGQ1NC04NDhiLWMyMDBiZGRhZmRkMiI7fQ==', 1788226756);
+('lZR9UZ9CUJocZHZ17mvDGsjfVRnhz1QGTmtQhQc3', '787b72ea-59d0-4d54-848b-c200bddafdd2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTkRDYkpra1RMbjBtcDhQNFB5djNJRUJtenExc2l4czVjOGpxUFhIeCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWNrZW5kL2NsYXNzZXMiO3M6NToicm91dGUiO3M6MTM6ImNsYXNzZXMuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7czozNjoiNzg3YjcyZWEtNTlkMC00ZDU0LTg0OGItYzIwMGJkZGFmZGQyIjt9', 1788388294);
 
 -- --------------------------------------------------------
 
@@ -1476,47 +1683,22 @@ CREATE TABLE `users` (
   `twitter` varchar(255) DEFAULT NULL,
   `tiktok` varchar(255) DEFAULT NULL,
   `youtube` varchar(255) DEFAULT NULL,
-  `biografi` text DEFAULT NULL
+  `biografi` text DEFAULT NULL,
+  `package_uuid` char(36) DEFAULT NULL,
+  `membership_start_date` date DEFAULT NULL,
+  `membership_end_date` date DEFAULT NULL,
+  `total_quota` int(10) UNSIGNED DEFAULT NULL,
+  `remaining_quota` int(10) UNSIGNED DEFAULT NULL,
+  `membership_status` enum('active','expired','cancelled') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`uuid`, `name`, `no_hp`, `alamat`, `kecamatan_id`, `kelurahan_id`, `avatar`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `google_id`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `pengalaman`, `is_active`, `deleted_at`, `facebook`, `instagram`, `twitter`, `tiktok`, `youtube`, `biografi`) VALUES
-('0dd616be-4e66-463c-9b42-6529b1c7cb4f', 'TSANIYAH NURUL HUSNA', '81808700767', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocKkffHP40Kz0VO11YR4fOmdTWUT6lBaNYlEKCkaJRwTZz4r9Q=s96-c', 'nurulhusnatsaniyah@gmail.com', '2026-05-12 10:16:31', '$2y$12$CDTMB4s0uqtA2m11giMqxuZiwpMfU.cF1bZ45NzgYjE7aYCLSB/dy', NULL, '2026-05-12 10:16:31', '2026-05-13 10:47:01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-05-13 10:47:01', NULL, NULL, NULL, NULL, NULL, NULL),
-('130214ce-3612-455f-ae39-f6f2a5c2b90d', 'Freschadella Adma', NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocKaKwDAA2z0WGCna1Li0tFDwx-nEkEiqVfZ7pFWJGUNT_IVAQ=s96-c', 'freschadella19@gmail.com', '2026-06-24 19:24:21', '$2y$12$xy7PDOQfXvPSzNIRJ.e4hOXhP4pe7hNdgXNGPI1mo9w0wucncClfu', NULL, '2026-06-24 19:24:21', '2026-06-24 19:24:21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('1c3ea59a-f83a-4bdf-aa70-f38ff66f49a2', 'RAHMAD NURZIKRIYANTO', '08235465798956', NULL, NULL, NULL, 'avatars/9Cj494U9d7yE29aWqJliBdvq2MhkLvkib4p9890H.png', 'rahmad@slbpatriotkotabekasi.sch.id', '2025-10-16 02:41:01', '$2y$12$CTk4x0WRAYyYKF9r/3oibe1HVZmvH5KAexF88XViHl0EKDwkKL6ve', NULL, '2025-10-16 02:41:01', '2025-10-16 08:27:52', NULL, NULL, 'JAKARTA', '2003-10-23', 'L', 'Islam', 'Guru', '2025-01-01', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto Hidup : Libertas Supra Omnia'),
-('2f040883-ec48-424e-872d-3691d7c1a714', 'DAHLIA, S.Pd', '08565423254456', NULL, NULL, NULL, 'avatars/1GlxxH2H9MLS04zh3WaOWoVSKAqisHoIJWyERaBk.png', 'dahlia@slbpatriotkotabekasi.sch.id', '2025-10-16 03:00:53', '$2y$12$zPPEWCqj9rUJ9yvFoQ6Gdufzb9YD5zxYdsJ9J06KLZF1u4oP/C2DO', NULL, '2025-10-16 03:00:53', '2025-10-16 08:26:35', NULL, NULL, 'Bekasi', '1995-12-08', 'P', 'Islam', 'Guru', '2025-01-01', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto hidup \" mewujudkan anak berkubutuhan khusus yang mandiri percaya diri dan berguna dalam kehidupan di masyarakat \"'),
-('3099cb1c-6c37-4e5a-bbb5-d11615a1b0ff', 'Admin Sekolah', NULL, NULL, NULL, NULL, 'sneat/assets/img/avatars/5.png', 'qodir.amd@gmail.com', '2026-05-13 10:44:21', '$2y$12$M3aj0Lu9zKBbYeYcAeJh6Ok1UNPG2vmuobesviHA3.AZvaHkUulTG', '61KMaqxo8dCUvExojInlhd7AF1AEmhfZLxPgIj11Kx3lTQ6valKYKRO7zXkJ', '2025-09-16 00:23:37', '2026-05-13 10:44:21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('33b681e2-efc3-4017-9415-e5d5d197f2fe', 'SURIPTO', '0821333333333', NULL, NULL, NULL, 'avatars/DqXHunD5Sf0OVzueYU7hDashmvPWK4cs8ekcuu2x.png', 'suripto@slbpatriotkotabekasi.sch.id', '2025-10-16 02:28:45', '$2y$12$RH11aaYptH35kbzgCHgn1O2oWkhO9EdXzVXm9glpwenEv5Tws8Ibu', NULL, '2025-10-16 02:28:45', '2025-10-16 08:28:20', NULL, NULL, 'Jakarta', '1970-05-02', 'L', 'Islam', 'Guru', '2025-01-01', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto Hidup : Hidup adalah  Perjuangan'),
-('370a8be5-8531-453a-a504-2a610ed8538f', 'Glenn Adhiyaksa', '18239124891248', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocL986_hK-TNh-riIGqx_QvJeJiP75sp-5g-PzbOfKB8Tf-rU1VB=s96-c', 'glenn.maulana@gmail.com', '2026-06-19 02:57:06', '$2y$12$TNiEzPIC/pYonWICt7g20um1Tv26MPiMh4rwI.phnciAtsjrrw5xO', NULL, '2026-06-19 02:57:06', '2026-06-19 02:57:31', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('3e354d68-8b35-410c-9fd1-827ec786b007', 'Andy Karbani', '85100710878', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocLy0utxqhesY2BV8U_H1nc2HnInm6hocN_D2DXB2vIh5J4SLctA=s96-c', 'andyaldyaldo@gmail.com', '2026-05-18 22:55:32', '$2y$12$5qzbwSQzWni5UuziLx.o5unIR.l5edu8PWwfrtE1ioCSthE6zSfZ2', NULL, '2026-05-18 22:55:32', '2026-05-18 22:55:52', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('44af87c7-cd3f-4f9d-af63-177da19727fb', 'Ainun Mutia Zalfina', NULL, NULL, NULL, NULL, NULL, 'ainun.mutia@gmail.com', '2025-11-11 07:45:35', '$2y$12$6pXTSirurcMf5wCmfZ1NJu5b1HHi6s6j2al08v3baSw2Xun5JSsoS', 'BljdLMyKuDRQLTCDT5Uu6Q0ZYhmNaiaAta6OHSm8rtVn3LnV5NAq7AwUrgCU', '2025-11-11 07:45:35', '2025-11-20 04:02:17', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('4c0ff420-34e5-4ecd-bb07-358862f9906a', 'JAYA', '0857465216548', NULL, NULL, NULL, 'avatars/hiJNFuQsVhYURsU2eKMAhxhVrlROj4KrHjGIu9PC.png', 'jaya@slbpatriotkotabekasi.sch.id', '2025-10-16 02:51:48', '$2y$12$.Nri6LMuD7GhI3OtUqJxWOHaodX7wRNp/O.E3FbLjCRj/TTg/goAq', NULL, '2025-10-16 02:51:48', '2025-10-16 08:27:12', NULL, NULL, 'Bekasi', '1968-06-10', 'L', 'Islam', 'Pegawai', '2025-01-01', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto hidup \" Keselamatan adalah prioritas dan keamanan jadi landasan utama\"'),
-('514d04e5-f79b-403a-95f4-2254784db0f0', 'R. SURYARSO, A.Md', '0818111111111', NULL, NULL, NULL, 'avatars/mKPb7zlqb2fkixNeSHtWKDjdKs7Iw37EtOadolnY.png', 'suryarso@slbpatriotkotabekasi.sch.id', '2025-10-16 01:56:05', '$2y$12$ui8aI7C8PlADTSJ8ruCno.EsO827oYzS9WsUXLIhb/jIPk4VaqpMq', NULL, '2025-10-16 01:56:05', '2025-10-16 08:28:56', NULL, NULL, 'SEMARANG', '1966-12-13', 'L', 'Islam', 'Pegawai', '2025-01-01', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto Hidup : Dijalanin ,di nikmati, di syukuri 😁'),
-('57f63489-134b-498c-ad05-78a3652cb916', 'Reni Anggraeni', NULL, NULL, NULL, NULL, NULL, 'areni675@gmail.com', '2025-11-27 08:56:29', '$2y$12$YLhTFvc8P09y35SHzyM3Ae78QhOFLKipvv7jjoKgXtrkblOa8Ue2y', NULL, '2025-11-27 08:56:29', '2025-11-27 08:56:29', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('5e21baa9-0ca0-4c94-9939-85068e363f57', 'Gesik', NULL, NULL, NULL, NULL, NULL, 'gesiky02@gmail.com', '2026-06-19 18:10:35', '$2y$12$5r4ZODvHfbIbQqIGKdmN8eCXAGMjGMlBZ1CbuCmhVYfWjV146MuLa', 'MpiPPuPAHJ1Hj9Qya63ApMyrATAeuB2dMMs1EgWMta9kbGuKRJiY7VqEIwHa', '2026-05-13 10:56:20', '2026-06-19 18:10:35', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('6bdf7417-66c8-407c-828b-77577006dda2', 'Intan sugianti', '85819000584', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocKviSz-w7KJ4V2rGXBbVLqx2NHd3j0Y07cIDqQeu9rMMg2-cQ=s96-c', 'intansugy17@gmail.com', '2026-04-21 16:46:01', '$2y$12$2UjfPcu2zmxkP4iFOPyUo.sdKbFfzy/SEAXJX9Lu7JhHp22vaveKe', NULL, '2026-04-21 16:46:01', '2026-04-21 16:46:16', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'Wiku Pramesthi Bagaswara', '85691333321', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocJyIWaZ6DTyCSRR_Updmep-Jj4suOOVAPP5K_9YRLlrcXZaHgwn=s96-c', 'wikupb@gmail.com', '2025-11-12 03:39:36', '$2y$12$WXO13gY21gOqgS1s7M743.Oe5UdAxQDykEbmTf0xJ2LnyNdPMzsj6', NULL, '2025-11-12 03:39:36', '2025-11-13 08:26:41', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', '085691333329', 'Jl. Gandaria', 4, 17, 'avatars/u5KMRU9jG95SYcdq0vhxnksQ0EFatee9WxrPxrtH.jpg', 'super@admin.com', '2025-09-16 00:23:37', '$2y$12$PRZJcd.nlREU6NRq3jvIVemYmlwxVPTb7En4URyNgyQSfKjWUzwDi', '6ONVGQ4cdNYuicYfXCLn1o8x0Bekz4MvOIsCCdKxm6xakGm0hnmpXCEtqjfr', '2025-09-16 00:23:37', '2026-08-31 18:33:47', NULL, NULL, 'dasda', '2025-09-24', 'P', 'Lainnya', '10 tahun', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'dsadasd'),
-('896ff4a7-ec81-4be5-ad12-ba4e3bb277de', 'WAHYU WIDODO, S.Pd', '0821222222222', NULL, NULL, NULL, 'avatars/1oChgRmwxlJAShXPU5AyKQgtB6BXEL96pdIGroFm.png', 'wahyu@slbpatriotkotabekasi.sch.id', '2025-10-16 02:19:47', '$2y$12$B2DafspoTRMgwHPfC/PMHOveXOx3uqceErUuuhLNOSwSvDcrjlsXC', NULL, '2025-10-16 02:19:47', '2025-10-16 08:28:41', NULL, NULL, 'Jakarta', '1990-11-06', 'L', 'Islam', 'Guru', '2025-01-02', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto Hidup : Gelap adalah teman setia, ilmu adalah kekuatan'),
-('897f6253-86e1-4866-9072-e3e10bb51e5e', 'FARI FAHRIZAL', '0899999999999', NULL, NULL, NULL, 'avatars/CqYJv9hSVU0x4UicjQeSEbROtXmImtMglLiARHPE.png', 'fahry@slbpatriotkotabekasi.sch.id', '2025-10-16 02:53:57', '$2y$12$7JR9nBhuPsL/LRBi.Pd/z.XJQGodk.GWjpiOT0xlwqHoHXaTyRtDq', NULL, '2025-10-16 02:53:57', '2025-10-16 08:27:01', NULL, NULL, 'JAKARTA', '1983-09-15', 'L', 'Islam', 'Pegawai', '2025-01-01', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto hidup \" Saya ingin melakukan apa yang ingin saya lakukan \"'),
-('950e18b7-9af4-468a-8468-edc338b7deec', 'MALIKI MULKAN S.Pd.I', '0856468975475', NULL, NULL, NULL, 'avatars/TTVUtjXWPd3V0AI11A1lSAPNpPRChmlar7NJFCi9.png', 'maliki@slbpatriotkotabekasi.sch.id', '2025-10-16 02:44:27', '$2y$12$CqMMDekZJfLVyCULlMGaFelik3nyL6gq.D0uB.GCIrLrg202sKDty', NULL, '2025-10-16 02:44:27', '2025-10-16 08:27:40', NULL, NULL, 'BANDUNG', '1986-02-28', 'L', 'Islam', 'Guru', '2025-01-02', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto Hidup : Berani berbuat, berani bertanggung jawab'),
-('95271004-d8a8-41a4-93eb-62a766c2758d', 'Viona Almahyra', '88219610302', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocJXFYnBFBa0WbdSxwztJirO1t1iY4Pfv3OdVztCWzWAyKWg6w=s96-c', 'almahyraviona6@gmail.com', '2026-06-08 19:55:09', '$2y$12$CUfLXGjjRX.yiy5Mi0llmusp77n88KHorllpbQUKEF.Pv1Ug.6nrS', NULL, '2026-06-08 19:55:09', '2026-06-08 19:55:29', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('a52ef0ee-6805-4b04-9f23-d6d6410829c5', 'Rekso Wardoyo, S.Pd', '08254456456415', NULL, NULL, NULL, 'avatars/9YktL5HqK3fkJqFh1jYHbG1LNpVmNwEmwVVoBCee.png', 'rekso@slbpatriotkotabekasi.sch.id', '2025-10-16 08:34:17', '$2y$12$jTwyksRsH.F.DeOOWhDmzuOCPiMBNmzgTMXuNGzxS5fhiOK3VzeiW', NULL, '2025-10-16 08:34:17', '2025-10-16 08:34:17', NULL, NULL, 'Talang Bunut', '1994-04-07', 'L', 'Islam', 'Guru', '2025-01-01', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto Hidup \"Masalah dan kesulitan bukan untuk dihindari, tapi untuk dihadapi dan ditaklukkan\"'),
-('a82db5a8-5d69-499b-a9a1-3d98ad0c47e4', 'Keysara Nurani', '8111108700', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocJbA2VAy13dxpCSKYuFZPo8d0RlcVdNMKRk2UfYg8z3QoS5I57K=s96-c', 'keysara30@gmail.com', '2026-01-20 02:13:48', '$2y$12$9DBwZOotvxSGqUyxkXFE0.fooZ0.iIMgilTVkP3GGWK5dU10RC3Dy', NULL, '2026-01-20 02:13:48', '2026-01-20 02:14:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('b5a9eb64-a547-4464-a576-e261ede0d4db', 'Rani Fadila', '81289821052', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocLoTXYw4X2n93ckM16ba8qo8FFKG6wDxT9vUEJSWegUqWLQCQ=s96-c', 'ranifadila97@gmail.com', '2026-06-17 18:54:54', '$2y$12$OcJiVsvlLzFWypqYKxPhsuq3oznd5Dho/zufnuVQyseWcCxzw9gwi', NULL, '2026-06-17 18:54:54', '2026-06-17 18:55:06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('bace7196-8ce8-4253-baa7-04901e31592e', 'AINUN MUTIA ZALFINA', '0857461454545', NULL, NULL, NULL, 'avatars/a0Vr4WrQvE1FOziUSiIXho3RWSzimzAYMNmS5auj.png', 'ainun@slbpatriokotabekasi.sch.id', '2025-10-16 03:05:08', '$2y$12$1g6TkNqjtrZPoMgVCQejd.zghkpLQpQrKVsRXjMNOrIIW8FvQoeYO', NULL, '2025-10-16 03:05:08', '2025-10-16 08:26:24', NULL, NULL, 'Jakarta', '1997-06-19', 'P', 'Islam', 'Guru', '1989-01-01', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto hidup \"95:4-6\"'),
-('c4536499-9979-4be5-a0ad-775fe9bec19d', 'Heri Riyanto', NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocKIBB3adgdcvKF7YrCLQrE262qMbehWc4pSsEXvpUvt33rCRw=s96-c', 'rheri856@gmail.com', '2026-06-05 01:20:28', '$2y$12$Z.8L5a8atIeveESuVhczfOJYXNWEj2SDo0k95rVp1bwaAl.Do44Bi', NULL, '2026-06-05 01:20:28', '2026-06-05 01:20:28', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('d405298f-5481-4038-8474-2ec0283b7608', 'RENI ANGGRAENI, S.Pd', '0825222222222', NULL, NULL, NULL, 'avatars/12PzDpVMFS1l67v1Mbt1iVhrU16buc21Jm7gu0P7.png', 'reni@slbpatriotkotabekasi.sch.id', '2025-10-16 02:37:18', '$2y$12$QIPFRpCwP8Hm1V2lsTVJCOBNee7fwEvNhab1RIBj2dg8/tFpgg/3e', NULL, '2025-10-16 02:37:18', '2025-10-16 08:28:07', NULL, NULL, 'Garut', '1995-09-04', 'P', 'Islam', 'Wakil Kepala Sekolah Kesiswaan', '2025-01-02', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto Hidup : Kekuatan  terbesar  lahir  dari  penerimaan tanpa syarat'),
-('d56cc48a-b1fa-4c03-9b72-c8f92766efb3', 'qodir qodir', NULL, NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocLwKnWbjKNbiIZYUFJ190Di2HsdB_F5UBh5rkVfLU0GdBUIUw=s96-c', 'qodir89@stmik-banisaleh.ac.id', '2025-11-12 08:56:08', '$2y$12$P3QDa4Aw9kra2Fv3ohuDfup3Tq4FpevO9.p4OzrvdAnyq0Q/5OBBS', NULL, '2025-11-12 08:56:08', '2026-05-13 10:47:27', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-05-13 10:47:27', NULL, NULL, NULL, NULL, NULL, NULL),
-('d91ccba3-e95b-4692-8f8c-63d543549331', 'Desi Wahyuningtyas', '85801394966', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocK9M1CcvVaDi8yF4OS8EToxJ9Ouf7HZvJS0kchqh43d9jOXUQ=s96-c', 'wahyuningtyasdesi26@gmail.com', '2026-06-18 06:20:40', '$2y$12$mgXflJcm5k.1Jr6LfYlOmelEYhvVJ/NpYBnU70rVvRLinIfEbIIZm', NULL, '2026-06-18 06:20:40', '2026-06-18 06:20:54', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('dc25dea7-9969-46eb-b1ac-fd7f1b8dab77', 'Hj. RR SITI SURYARSI. M. Pd', '086564369843565', NULL, NULL, NULL, 'avatars/5MeOu5b0IzVQ2ad1O3AfGegmHKLgraSNRkheEsU5.png', 'roro@slbpatriotkotabekasi.sch.id', '2025-10-15 02:48:16', '$2y$12$eeFmzxHEyT9P1NeluKEov.N0Bt.41pgSKpQ/w4vQaugLlEYlRKKvi', NULL, '2025-10-15 02:48:16', '2025-10-16 08:27:28', NULL, NULL, 'SEMARANG', '1964-01-20', 'P', 'Islam', 'Kepala Sekolah', '2025-01-01', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto Hidup : Hidup harus berarti 🥰🥰'),
-('dfd391fa-c167-4547-ad17-27d52d9ffc28', 'LAILI QODIR', '82111499545', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocI_XDnP5SMryd0Pmza_xTbIw9C6v1WJT3MYIckshvPgUhe6Wwip=s96-c', 'mujahidin.lail@gmail.com', '2026-05-24 21:45:58', '$2y$12$I/Kahj0LnytBls22gHneDuui0udPYakYDwNkreDIqChruALPrEmyq', NULL, '2026-05-24 21:45:58', '2026-05-24 21:46:16', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('e5a05967-00cb-49f6-97bf-95c1bccee6e0', 'tanjiro', '22212132', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocK2Gy_SJTau_34NwAydQdCsiPl_gm9UkgWf6DTMlFyNMdUO5A=s96-c', 'tanjiro745631@gmail.com', '2026-06-20 12:51:21', '$2y$12$SU47SFZeAyKlbU1wK45hmel1p5.UY8uWTYbrUrrt1spjO4eLSXe5O', NULL, '2026-06-20 12:51:21', '2026-06-20 12:51:33', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('f7010485-3236-4341-a22a-48b70260a607', 'ACEP NURMAN', '0818123456789', 'Jl. Gandaria Selatan 1', 2, 7, 'avatars/V5E0jslSJu3VI6ni3YebCHxGqJiTHtKWvHiupVzj.png', 'acep@slbpatriotkotabekasi.sch.id', '2025-10-16 02:19:59', '$2y$12$IBIP1Evkkjx84ViV13Wv1uYuFTYYnHfM8viJU4ozb8SbErAeNpTA2', NULL, '2025-10-16 02:19:59', '2026-04-17 07:56:53', NULL, NULL, 'SUMEDANG', '1980-12-28', 'L', 'Islam', 'Pegawai', '2025-10-02', '2026-04-17 07:56:53', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Hidup adalah petualangan, jangan takut untuk menjelajahi dan menemukan hal baru'),
-('fab7c79d-a7dc-421f-b343-aaf81bdd20da', 'DINIA ADILA ZAHRA', '0846476554654', NULL, NULL, NULL, 'avatars/DZDVFPUNQy4ZxxaxVia0zWOTWak5toFftP06V9H1.png', 'dinia@slbpatriotkotabekasi.sch.id', '2025-10-16 02:57:22', '$2y$12$auPHZ7J2lhGupmhqCNxZQu.7TO.aHrKLtzcCrjQO04pSSzLXe4XIS', NULL, '2025-10-16 02:57:22', '2025-10-16 08:26:47', NULL, NULL, 'Tangerang', '1998-11-17', 'P', 'Islam', 'Guru', '2025-01-01', NULL, 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'https://slbpatriotkotabekasi.sch.id', 'Motto Hidup \" Hidup sederhana dengan hati penuh rasa syukur lebih berharga dari pada hidup berlimpah tanpa rasa kebahagiaan \"');
+INSERT INTO `users` (`uuid`, `name`, `no_hp`, `alamat`, `kecamatan_id`, `kelurahan_id`, `avatar`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `google_id`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `pengalaman`, `is_active`, `deleted_at`, `facebook`, `instagram`, `twitter`, `tiktok`, `youtube`, `biografi`, `package_uuid`, `membership_start_date`, `membership_end_date`, `total_quota`, `remaining_quota`, `membership_status`) VALUES
+('70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'Wiku Pramesthi Bagaswara', '85691333321', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocJyIWaZ6DTyCSRR_Updmep-Jj4suOOVAPP5K_9YRLlrcXZaHgwn=s96-c', 'wikupb@gmail.com', '2025-11-12 03:39:36', '$2y$12$WXO13gY21gOqgS1s7M743.Oe5UdAxQDykEbmTf0xJ2LnyNdPMzsj6', NULL, '2025-11-12 03:39:36', '2025-11-13 08:26:41', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '01a06234-aac1-722c-84d6-c46d4150e70f', '2026-09-02', '2026-10-02', 4, 4, 'active'),
+('787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', '085691333329', 'Jl. Gandaria', 4, 17, 'avatars/u5KMRU9jG95SYcdq0vhxnksQ0EFatee9WxrPxrtH.jpg', 'super@admin.com', '2025-09-16 00:23:37', '$2y$12$PRZJcd.nlREU6NRq3jvIVemYmlwxVPTb7En4URyNgyQSfKjWUzwDi', 'MMf5hoyFvKn9cNLqQcL9vYvKMtzVNXsNuYWfmYhWitrwyOWP30SGFXlq2GMR', '2025-09-16 00:23:37', '2026-08-31 18:33:47', NULL, NULL, 'dasda', '2025-09-24', 'P', 'Lainnya', '10 tahun', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'dsadasd', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1578,6 +1760,33 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`uuid`),
   ADD UNIQUE KEY `categories_name_unique` (`name`),
   ADD UNIQUE KEY `categories_slug_unique` (`slug`);
+
+--
+-- Indexes for table `classes`
+--
+ALTER TABLE `classes`
+  ADD PRIMARY KEY (`uuid`),
+  ADD UNIQUE KEY `classes_slug_unique` (`slug`),
+  ADD KEY `classes_instructor_uuid_index` (`instructor_uuid`),
+  ADD KEY `classes_is_active_index` (`is_active`);
+
+--
+-- Indexes for table `class_bookings`
+--
+ALTER TABLE `class_bookings`
+  ADD PRIMARY KEY (`uuid`),
+  ADD KEY `class_bookings_user_uuid_status_index` (`user_uuid`,`status`),
+  ADD KEY `class_bookings_class_schedule_uuid_status_index` (`class_schedule_uuid`,`status`),
+  ADD KEY `class_bookings_package_uuid_index` (`package_uuid`),
+  ADD KEY `class_bookings_order_uuid_index` (`order_uuid`);
+
+--
+-- Indexes for table `class_schedules`
+--
+ALTER TABLE `class_schedules`
+  ADD PRIMARY KEY (`uuid`),
+  ADD KEY `class_schedules_class_uuid_date_index` (`class_uuid`,`date`),
+  ADD KEY `class_schedules_date_status_index` (`date`,`status`);
 
 --
 -- Indexes for table `disabilities`
@@ -1691,6 +1900,32 @@ ALTER TABLE `notifications`
   ADD KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`uuid`),
+  ADD UNIQUE KEY `orders_order_number_unique` (`order_number`),
+  ADD KEY `orders_user_uuid_status_index` (`user_uuid`,`status`),
+  ADD KEY `orders_package_uuid_index` (`package_uuid`),
+  ADD KEY `orders_class_schedule_uuid_index` (`class_schedule_uuid`);
+
+--
+-- Indexes for table `packages`
+--
+ALTER TABLE `packages`
+  ADD PRIMARY KEY (`uuid`),
+  ADD UNIQUE KEY `packages_slug_unique` (`slug`),
+  ADD KEY `packages_is_active_index` (`is_active`),
+  ADD KEY `packages_is_popular_index` (`is_popular`);
+
+--
+-- Indexes for table `package_features`
+--
+ALTER TABLE `package_features`
+  ADD PRIMARY KEY (`uuid`),
+  ADD KEY `package_features_package_uuid_index` (`package_uuid`);
+
+--
 -- Indexes for table `pages`
 --
 ALTER TABLE `pages`
@@ -1709,6 +1944,14 @@ ALTER TABLE `password_resets`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`uuid`),
+  ADD KEY `payments_transaction_id_index` (`transaction_id`),
+  ADD KEY `payments_order_uuid_status_index` (`order_uuid`,`status`);
 
 --
 -- Indexes for table `permissions`
@@ -1802,7 +2045,9 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`),
   ADD UNIQUE KEY `users_no_hp_unique` (`no_hp`),
   ADD KEY `users_kecamatan_id_foreign` (`kecamatan_id`),
-  ADD KEY `users_kelurahan_id_foreign` (`kelurahan_id`);
+  ADD KEY `users_kelurahan_id_foreign` (`kelurahan_id`),
+  ADD KEY `users_package_uuid_index` (`package_uuid`),
+  ADD KEY `users_membership_status_index` (`membership_status`);
 
 --
 -- Indexes for table `user_specialization`
@@ -1850,25 +2095,25 @@ ALTER TABLE `kelurahans`
 -- AUTO_INCREMENT for table `menu_groups`
 --
 ALTER TABLE `menu_groups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -1886,13 +2131,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=176;
 
 --
 -- AUTO_INCREMENT for table `seo`
 --
 ALTER TABLE `seo`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- Constraints for dumped tables
@@ -1904,6 +2149,27 @@ ALTER TABLE `seo`
 ALTER TABLE `articles`
   ADD CONSTRAINT `articles_category_uuid_foreign` FOREIGN KEY (`category_uuid`) REFERENCES `categories` (`uuid`) ON DELETE SET NULL,
   ADD CONSTRAINT `articles_user_uuid_foreign` FOREIGN KEY (`user_uuid`) REFERENCES `users` (`uuid`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `classes`
+--
+ALTER TABLE `classes`
+  ADD CONSTRAINT `classes_instructor_uuid_foreign` FOREIGN KEY (`instructor_uuid`) REFERENCES `users` (`uuid`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `class_bookings`
+--
+ALTER TABLE `class_bookings`
+  ADD CONSTRAINT `class_bookings_class_schedule_uuid_foreign` FOREIGN KEY (`class_schedule_uuid`) REFERENCES `class_schedules` (`uuid`) ON DELETE CASCADE,
+  ADD CONSTRAINT `class_bookings_order_uuid_foreign` FOREIGN KEY (`order_uuid`) REFERENCES `orders` (`uuid`) ON DELETE SET NULL,
+  ADD CONSTRAINT `class_bookings_package_uuid_foreign` FOREIGN KEY (`package_uuid`) REFERENCES `packages` (`uuid`) ON DELETE SET NULL,
+  ADD CONSTRAINT `class_bookings_user_uuid_foreign` FOREIGN KEY (`user_uuid`) REFERENCES `users` (`uuid`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `class_schedules`
+--
+ALTER TABLE `class_schedules`
+  ADD CONSTRAINT `class_schedules_class_uuid_foreign` FOREIGN KEY (`class_uuid`) REFERENCES `classes` (`uuid`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `kelurahans`
@@ -1924,10 +2190,30 @@ ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_class_schedule_uuid_foreign` FOREIGN KEY (`class_schedule_uuid`) REFERENCES `class_schedules` (`uuid`) ON DELETE SET NULL,
+  ADD CONSTRAINT `orders_package_uuid_foreign` FOREIGN KEY (`package_uuid`) REFERENCES `packages` (`uuid`) ON DELETE SET NULL,
+  ADD CONSTRAINT `orders_user_uuid_foreign` FOREIGN KEY (`user_uuid`) REFERENCES `users` (`uuid`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `package_features`
+--
+ALTER TABLE `package_features`
+  ADD CONSTRAINT `package_features_package_uuid_foreign` FOREIGN KEY (`package_uuid`) REFERENCES `packages` (`uuid`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `pages`
 --
 ALTER TABLE `pages`
   ADD CONSTRAINT `pages_user_uuid_foreign` FOREIGN KEY (`user_uuid`) REFERENCES `users` (`uuid`) ON DELETE SET NULL;
+
+--
+-- Constraints for table `payments`
+--
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payments_order_uuid_foreign` FOREIGN KEY (`order_uuid`) REFERENCES `orders` (`uuid`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `poll_votes`
@@ -1959,7 +2245,8 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_kecamatan_id_foreign` FOREIGN KEY (`kecamatan_id`) REFERENCES `kecamatans` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `users_kelurahan_id_foreign` FOREIGN KEY (`kelurahan_id`) REFERENCES `kelurahans` (`id`) ON DELETE SET NULL;
+  ADD CONSTRAINT `users_kelurahan_id_foreign` FOREIGN KEY (`kelurahan_id`) REFERENCES `kelurahans` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `users_package_uuid_foreign` FOREIGN KEY (`package_uuid`) REFERENCES `packages` (`uuid`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `user_specialization`

@@ -24,6 +24,9 @@ class ClassModel extends Model
         'description',
         'price',
         'quota_cost',
+        'image',
+        'level',
+        'duration',
         'instructor_uuid',
         'is_active',
     ];
@@ -33,7 +36,7 @@ class ClassModel extends Model
         'quota_cost' => 'integer',
     ];
 
-     public function instructor(): BelongsTo
+    public function instructor(): BelongsTo
     {
         return $this->belongsTo(
             User::class,
