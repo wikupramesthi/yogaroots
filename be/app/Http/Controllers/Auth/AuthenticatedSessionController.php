@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
 
         return redirect()
             ->intended(route('dashboard.index', absolute: false))
-            ->with('success', 'Selamat datang di halaman admin!');
+            ->with('success', 'Welcome to the admin page!');
     }
     /**
      * Destroy an authenticated session.

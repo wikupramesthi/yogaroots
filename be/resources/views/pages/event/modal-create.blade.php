@@ -7,7 +7,7 @@
                 @csrf
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-form-add-events-label">Tambah Baru</h5>
+                    <h5 class="modal-title" id="modal-form-add-events-label">Add Events</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
                 <div class="modal-body">
@@ -15,21 +15,21 @@
                     {{-- Judul --}}
                     <div class="form-group mb-3">
                         <label for="judul" class="mb-2">
-                            Nama Kegiatan <span class="text-danger">*</span>
+                            Event Name <span class="text-danger">*</span>
                         </label>
 
                         <input type="text"
                             class="form-control @error('judul') is-invalid @enderror"
                             id="judul"
                             name="judul"
-                            placeholder="Nama Kegiatan"
+                            placeholder="Event Name"
                             value="{{ old('judul') }}"
                             required>
 
                         @error('judul')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
@@ -39,7 +39,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="tanggal" class="mb-2">
-                                    Tanggal <span class="text-danger">*</span>
+                                    Date <span class="text-danger">*</span>
                                 </label>
 
                                 <input type="date"
@@ -50,9 +50,9 @@
                                     required>
 
                                 @error('tanggal')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -61,20 +61,20 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="lokasi" class="mb-2">
-                                    Lokasi
+                                    Location
                                 </label>
 
                                 <input type="text"
                                     class="form-control @error('lokasi') is-invalid @enderror"
                                     id="lokasi"
                                     name="lokasi"
-                                    placeholder="Lokasi kegiatan"
+                                    placeholder="Event Location"
                                     value="{{ old('lokasi') }}">
 
                                 @error('lokasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="waktu_mulai" class="mb-2">
-                                    Waktu Mulai
+                                    Start Time
                                 </label>
 
                                 <input type="time"
@@ -97,9 +97,9 @@
                                     value="{{ old('waktu_mulai') }}">
 
                                 @error('waktu_mulai')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="waktu_selesai" class="mb-2">
-                                    Waktu Selesai
+                                    End Time
                                 </label>
 
                                 <input type="time"
@@ -118,9 +118,9 @@
                                     value="{{ old('waktu_selesai') }}">
 
                                 @error('waktu_selesai')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -130,51 +130,50 @@
                     {{-- Kapasitas --}}
                     <div class="form-group mb-3">
                         <label for="kapasitas" class="mb-2">
-                            Kapasitas
+                            Capacity
                         </label>
 
                         <input type="number"
                             class="form-control @error('kapasitas') is-invalid @enderror"
                             id="kapasitas"
                             name="kapasitas"
-                            placeholder="Jumlah peserta"
+                            placeholder="Number of Participants"
                             min="1"
                             value="{{ old('kapasitas') }}">
 
                         @error('kapasitas')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
                     <!-- DESKRIPSI -->
-<div class="form-group mb-3">
-    <label for="deskripsi" class="mb-2">
-        Deskripsi <span class="text-danger">*</span>
-    </label>
+                    <div class="form-group mb-3">
+                        <label for="deskripsi" class="mb-2">
+                            Description <span class="text-danger">*</span>
+                        </label>
 
-    <textarea
-        name="deskripsi"
-        id="deskripsi"
-        rows="10"
-        class="form-control @error('deskripsi') is-invalid @enderror"
-        placeholder="Deskripsi lengkap event"
-    >{{ old('deskripsi') }}</textarea>
+                        <textarea
+                            name="deskripsi"
+                            id="event"
+                            rows="10"
+                            class="form-control @error('deskripsi') is-invalid @enderror"
+                            placeholder="Event Description">{{ old('deskripsi') }}</textarea>
 
-    @error('deskripsi')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-    @enderror
-</div>
+                        @error('deskripsi')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                    </div>
                     <div class="row">
 
                         {{-- Gambar --}}
                         <div class="col-md-8">
                             <div class="form-group mb-3">
                                 <label for="gambar" class="mb-2">
-                                    Gambar
+                                    Image
                                 </label>
 
                                 <input type="file"
@@ -188,9 +187,9 @@
                                 </small>
 
                                 @error('gambar')
-                                    <div class="invalid-feedback d-block">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -231,9 +230,9 @@
                                 </select>
 
                                 @error('status')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -242,8 +241,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary ">Simpan</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary ">Save</button>
                 </div>
             </form>
 

@@ -8,7 +8,7 @@
                 @csrf
                 @method('PUT')
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-form-edit-events-{{ $item->uuid }}-label">Edit Event
+                    <h5 class="modal-title" id="modal-form-edit-events-{{ $item->uuid }}-label">Edit Events
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
@@ -18,17 +18,17 @@
                     {{-- Judul --}}
                     <div class="form-group mb-3">
                         <label for="judul" class="mb-2">
-                            Nama Kegiatan <span class="text-danger">*</span>
+                            Event Name <span class="text-danger">*</span>
                         </label>
 
                         <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul"
-                            name="judul" placeholder="Nama Kegiatan" value="{{ old('judul', $item->judul) }}"
+                            name="judul" placeholder="Event Name" value="{{ old('judul', $item->judul) }}"
                             required>
 
                         @error('judul')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
@@ -38,7 +38,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="tanggal" class="mb-2">
-                                    Tanggal <span class="text-danger">*</span>
+                                    Date <span class="text-danger">*</span>
                                 </label>
 
                                 <input type="date" class="form-control @error('tanggal') is-invalid @enderror"
@@ -47,9 +47,9 @@
                                     required>
 
                                 @error('tanggal')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -58,17 +58,17 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="lokasi" class="mb-2">
-                                    Lokasi
+                                    Location
                                 </label>
 
                                 <input type="text" class="form-control @error('lokasi') is-invalid @enderror"
-                                    id="lokasi" name="lokasi" placeholder="Lokasi kegiatan"
+                                    id="lokasi" name="lokasi" placeholder="Event Location"
                                     value="{{ old('lokasi', $item->lokasi) }}">
 
                                 @error('lokasi')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="waktu_mulai" class="mb-2">
-                                    Waktu Mulai
+                                    Start Time
                                 </label>
 
                                 <input type="time" class="form-control @error('waktu_mulai') is-invalid @enderror"
@@ -89,9 +89,9 @@
                                     value="{{ old('waktu_mulai', $item->waktu_mulai ? \Carbon\Carbon::parse($item->waktu_mulai)->format('H:i') : '') }}">
 
                                 @error('waktu_mulai')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3">
                                 <label for="waktu_selesai" class="mb-2">
-                                    Waktu Selesai
+                                    End Time
                                 </label>
 
                                 <input type="time" class="form-control @error('waktu_selesai') is-invalid @enderror"
@@ -108,9 +108,9 @@
                                     value="{{ old('waktu_selesai', $item->waktu_selesai ? \Carbon\Carbon::parse($item->waktu_selesai)->format('H:i') : '') }}">
 
                                 @error('waktu_selesai')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
                             </div>
                         </div>
@@ -119,33 +119,33 @@
                     {{-- Kapasitas --}}
                     <div class="form-group mb-3">
                         <label for="kapasitas" class="mb-2">
-                            Kapasitas
+                            Capacity
                         </label>
 
                         <input type="number" class="form-control @error('kapasitas') is-invalid @enderror"
-                            id="kapasitas" name="kapasitas" placeholder="Jumlah peserta" min="1"
+                            id="kapasitas" name="kapasitas" placeholder="Number of Participants" min="1"
                             value="{{ old('kapasitas', $item->kapasitas) }}">
 
                         @error('kapasitas')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
                     {{-- Deskripsi --}}
                     <div class="form-group mb-3">
                         <label for="deskripsi" class="mb-2">
-                            Deskripsi
+                            Description
                         </label>
 
                         <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="10"
-                            placeholder="Deskripsi lengkap event">{{ old('deskripsi', $item->deskripsi) }}</textarea>
+                            placeholder="Event Description">{{ old('deskripsi', $item->deskripsi) }}</textarea>
 
                         @error('deskripsi')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
                         @enderror
                     </div>
 
@@ -156,15 +156,15 @@
                             <div class="form-group mb-3">
 
                                 <label for="gambar" class="mb-2">
-                                    Gambar
+                                    Image
                                 </label>
 
                                 @if ($item->gambar)
-                                    <div class="mb-2">
-                                        <img src="{{ $item->gambar() }}" alt="{{ $item->judul }}"
-                                            class="img-thumbnail"
-                                            style="max-width: 180px; max-height: 100px; object-fit: cover;">
-                                    </div>
+                                <div class="mb-2">
+                                    <img src="{{ $item->gambar() }}" alt="{{ $item->judul }}"
+                                        class="img-thumbnail"
+                                        style="max-width: 180px; max-height: 100px; object-fit: cover;">
+                                </div>
                                 @endif
 
                                 <input type="file" class="form-control-file @error('gambar') is-invalid @enderror"
@@ -172,13 +172,13 @@
 
                                 <small class="text-muted" style="display: block; margin-top: 5px;">
                                     JPG, JPEG, PNG, WEBP. Maksimal 2MB.
-                                    Kosongkan jika tidak ingin mengganti gambar.
+                                    Leave blank if you don't want to change the image.
                                 </small>
 
                                 @error('gambar')
-                                    <div class="invalid-feedback d-block">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
                                 @enderror
 
                             </div>
@@ -218,9 +218,9 @@
                                 </select>
 
                                 @error('status')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                                 @enderror
 
                             </div>
@@ -231,7 +231,7 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary ">Update</button>
                 </div>
             </form>

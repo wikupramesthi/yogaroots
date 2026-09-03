@@ -98,6 +98,9 @@
             $('#deskripsi').summernote();
             $('#latar_belakang').summernote();
             $('#hasil').summernote();
+            $('#event').summernote({
+                height: 200
+            });
         });
     </script>
 

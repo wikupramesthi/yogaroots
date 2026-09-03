@@ -1,19 +1,19 @@
 @extends('layouts.app')
-@section('title', 'Event')
+@section('title', 'Events')
 @section('content')
 
 @section('breadcrumb')
-    <x-breadcrumb title="Event" page="Event" active="Daftar Event" route="{{ route('events.index') }}" />
+<x-breadcrumb title="Events" page="Events" active="All Events" route="{{ route('events.index') }}" />
 @endsection
 
 <section class="section">
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
-            <span class="alert-text text-white"> {{ session('success') }}</span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
+        <span class="alert-text text-white"> {{ session('success') }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     @endif
     <div class="card">
         <div class="card-header">
@@ -27,7 +27,7 @@
 
                     {{-- Status --}}
                     <select name="status" class="form-control">
-                        <option value="">Semua Status</option>
+                        <option value="">Status</option>
 
                         <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>
                             Draft
@@ -60,23 +60,23 @@
                     </button>
 
                     @if (request('status') || request('tanggal_mulai') || request('tanggal_selesai'))
-                        <a href="{{ route('events.index') }}" class="btn btn-danger">
-                            <i class="fas fa-undo"></i>
-                            Reset
-                        </a>
+                    <a href="{{ route('events.index') }}" class="btn btn-danger">
+                        <i class="fas fa-undo"></i>
+                        Reset
+                    </a>
                     @endif
 
                 </form>
             </div>
 
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Semua Event</h4>
+                <h4 class="fw-normal mb-0 text-body">All Events</h4>
                 @can('events.store')
-                    <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
-                        data-bs-target="#modal-form-add-events">
-                        <i class="bi bi-plus-lg"></i>
-                        Tambah Baru
-                    </button>
+                <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
+                    data-bs-target="#modal-form-add-events">
+                    <i class="bi bi-plus-lg"></i>
+                    Add Events
+                </button>
                 @endcan
 
             </div>
@@ -87,87 +87,87 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Gambar</th>
-                            <th>Nama Event</th>
-                            <th>Tanggal</th>
-                            <th>Waktu</th>
-                            <th>Lokasi</th>
+                            <th>Image</th>
+                            <th>Event Name</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Location</th>
                             <th>Status</th>
                             <th>Edit</th>
-                            <th>Hapus</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($items as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    <img src="{{ asset('storage/' . $item->gambar) }}" alt="Gambar Event"
-                                        style="width: 80px; height: auto;">
-                                </td>
-                                <td>{{ $item->judul }}</td>
-                                <td>
-                                    {{ $item->tanggal?->format('d M Y') ?? '-' }}
-                                </td>
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <img src="{{ asset('storage/' . $item->gambar) }}" alt="Gambar Event"
+                                    style="width: 80px; height: auto;">
+                            </td>
+                            <td>{{ $item->judul }}</td>
+                            <td>
+                                {{ $item->tanggal?->format('d M Y') ?? '-' }}
+                            </td>
 
-                                <td>
-                                    @if ($item->waktu_mulai)
-                                        {{ $item->waktu_mulai }}
-                                        @if ($item->waktu_selesai)
-                                            - {{ $item->waktu_selesai }}
-                                        @endif
-                                    @else
-                                        -
-                                    @endif
-                                </td>
-                                <td>{{ $item->lokasi }}</td>
+                            <td>
+                                @if ($item->waktu_mulai)
+                                {{ $item->waktu_mulai }}
+                                @if ($item->waktu_selesai)
+                                - {{ $item->waktu_selesai }}
+                                @endif
+                                @else
+                                -
+                                @endif
+                            </td>
+                            <td>{{ $item->lokasi }}</td>
 
 
-                                <td>
-                                    @if ($item->status === 'published')
-                                        <span class="badge bg-success">
-                                            Published
-                                        </span>
-                                    @elseif ($item->status === 'draft')
-                                        <span class="badge bg-secondary">
-                                            Draft
-                                        </span>
-                                    @elseif ($item->status === 'cancelled')
-                                        <span class="badge bg-danger">
-                                            Cancelled
-                                        </span>
-                                    @elseif ($item->status === 'completed')
-                                        <span class="badge bg-primary">
-                                            Completed
-                                        </span>
-                                    @endif
-                                </td>
+                            <td>
+                                @if ($item->status === 'published')
+                                <span class="badge bg-success">
+                                    Published
+                                </span>
+                                @elseif ($item->status === 'draft')
+                                <span class="badge bg-secondary">
+                                    Draft
+                                </span>
+                                @elseif ($item->status === 'cancelled')
+                                <span class="badge bg-danger">
+                                    Cancelled
+                                </span>
+                                @elseif ($item->status === 'completed')
+                                <span class="badge bg-primary">
+                                    Completed
+                                </span>
+                                @endif
+                            </td>
 
-                                <td>
-                                    @can('events.update')
-                                        <a data-bs-toggle="modal"
-                                            data-bs-target="#modal-form-edit-events-{{ $item->uuid }}"
-                                            class="btn btn-icon btn-success text-white">
-                                            <i class="bi bi-pencil-square"></i> Edit
-                                        </a>
-                                        @include('pages.event.modal-edit')
-                                    @endcan
-                                </td>
+                            <td>
+                                @can('events.update')
+                                <a data-bs-toggle="modal"
+                                    data-bs-target="#modal-form-edit-events-{{ $item->uuid }}"
+                                    class="btn btn-icon btn-success text-white">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+                                @include('pages.event.modal-edit')
+                                @endcan
+                            </td>
 
-                                <td>
-                                    @can('events.destroy')
-                                        <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
-                                            class="btn btn-icon btn-danger text-white">
-                                            <i class="bi bi-x-square"></i> Hapus
-                                        </a>
-                                        <form id="deleteForm_{{ $item->uuid }}"
-                                            action="{{ route('events.destroy', $item->uuid) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                        </form>
-                                    @endcan
-                                </td>
-                            </tr>
+                            <td>
+                                @can('events.destroy')
+                                <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
+                                    class="btn btn-icon btn-danger text-white">
+                                    <i class="bi bi-x-square"></i> Delete
+                                </a>
+                                <form id="deleteForm_{{ $item->uuid }}"
+                                    action="{{ route('events.destroy', $item->uuid) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                </form>
+                                @endcan
+                            </td>
+                        </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -182,11 +182,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data ini akan dihapus secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin ingin menghapusnya?',
+            title: 'Confirm Deletion',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Deleted!'
         }).then((result) => {
             if (result.isConfirmed) {
                 // If the user clicks "Yes, delete it!", submit the corresponding form
