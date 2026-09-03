@@ -1,29 +1,28 @@
 @extends('layouts.app')
-@section('title', 'Halaman Statis')
+@section('title', 'Static Pages')
 @section('content')
 
 @section('breadcrumb')
-    <x-breadcrumb title="Pengaturan" page="Pengaturan" active="Halaman Statis" route="{{ route('pages.index') }}" />
+<x-breadcrumb title="Master Data" page="Master Data" active="Static Pages" route="{{ route('pages.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
     @if (session('success'))
-        <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
-            <span class="alert-text text-white"> {{ session('success') }}</span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+    <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
+        <span class="alert-text text-white"> {{ session('success') }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     @endif
 
     <div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show position-relative" role="alert">
         <div class="d-flex">
             <i class="bi-exclamation-triangle-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
             <div class="text-white mt-2">
-                <strong>Perhatian!</strong> Mengubah status <em>sidebar</em> akan mempengaruhi tampilan dan tata letak
-                halaman.
+                <strong>Attention!</strong> Changing the <em>sidebar</em> status will affect the appearance and layout of the page.
                 <br>
-                Pastikan Anda memeriksa kembali hasil perubahan sebelum menyimpan.
+                Please make sure to review the changes before saving.
             </div>
         </div>
     </div>
@@ -31,10 +30,10 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Halaman Statis</h4>
+                <h4 class="fw-normal mb-0 text-body">All Pages</h4>
                 @can('pages.store')
-                    <a href="{{ route('pages.create') }}" class="btn btn-primary btn-md"><i class="bi bi-plus-lg"></i>
-                        Tambah Baru</a>
+                <a href="{{ route('pages.create') }}" class="btn btn-primary btn-md"><i class="bi bi-plus-lg"></i>
+                    Add New Page</a>
                 @endcan
 
             </div>
@@ -45,66 +44,66 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Gambar</th>
-                            <th>Judul</th>
+                            <th>Image</th>
+                            <th>Title</th>
                             <th>Slug</th>
                             <th>Sidebar</th>
                             <th>Status</th>
-                            <th>Tanggal Publish</th>
+                            <th>Publish Date</th>
                             <th>Edit</th>
-                            <th>Hapus</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                         @foreach ($pages as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>
-                                    <img src="/storage/{{ $item->featured_image }}" class="img-fluid"
-                                        style="max-height:80px" alt="{{ $item->title }}">
-                                </td>
-                                <td>{{ $item->title }}</td>
-                                <td>{{ $item->slug }}</td>
-                                <td>
-                                    @php
-                                        $statusClass = $item->has_sidebar ? 'btn-info' : 'btn-danger';
-                                        $statusText = $item->has_sidebar ? 'Ya' : 'Tidak';
-                                    @endphp
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>
+                                <img src="/storage/{{ $item->featured_image }}" class="img-fluid"
+                                    style="max-height:80px" alt="{{ $item->title }}">
+                            </td>
+                            <td>{{ $item->title }}</td>
+                            <td>{{ $item->slug }}</td>
+                            <td>
+                                @php
+                                $statusClass = $item->has_sidebar ? 'btn-info' : 'btn-danger';
+                                $statusText = $item->has_sidebar ? 'Ya' : 'Tidak';
+                                @endphp
 
-                                    <button type="button" class="btn {{ $statusClass }} btn-sm text-white"
-                                        data-bs-toggle="modal" data-bs-target="#modalUpdateSidebar-{{ $item->uuid }}">
-                                        {{ $statusText }}
-                                    </button>
+                                <button type="button" class="btn {{ $statusClass }} btn-sm text-white"
+                                    data-bs-toggle="modal" data-bs-target="#modalUpdateSidebar-{{ $item->uuid }}">
+                                    {{ $statusText }}
+                                </button>
 
-                                    @include('pages.halaman.modal-update-sidebar')
-                                </td>
-                                <td>
-                                    {{ $item->is_published ? 'Aktif' : 'Tidak Aktif' }}
-                                </td>
-                                <td> {{ $item->created_at->format('d-m-Y') }}</td>
+                                @include('pages.halaman.modal-update-sidebar')
+                            </td>
+                            <td>
+                                {{ $item->is_published ? 'Aktif' : 'Tidak Aktif' }}
+                            </td>
+                            <td> {{ $item->created_at->format('d-m-Y') }}</td>
 
-                                <td>
-                                    @can('pages.update')
-                                        <a href="{{ route('pages.edit', $item->uuid) }}"
-                                            class="btn btn-icon btn-success text-white"><i class="bi bi-pencil-square"></i>
-                                            Edit</a>
-                                    @endcan
-                                </td>
+                            <td>
+                                @can('pages.update')
+                                <a href="{{ route('pages.edit', $item->uuid) }}"
+                                    class="btn btn-icon btn-success text-white"><i class="bi bi-pencil-square"></i>
+                                    Edit</a>
+                                @endcan
+                            </td>
 
-                                <td>
-                                    @can('pages.destroy')
-                                        <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
-                                            class="btn btn-icon btn-danger text-white">
-                                            <i class="bi bi-x-square"></i> Hapus
-                                        </a>
-                                        <form id="deleteForm_{{ $item->uuid }}"
-                                            action="{{ route('pages.destroy', $item->uuid) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                        </form>
-                                    @endcan
-                                </td>
-                            </tr>
+                            <td>
+                                @can('pages.destroy')
+                                <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
+                                    class="btn btn-icon btn-danger text-white">
+                                    <i class="bi bi-x-square"></i> Hapus
+                                </a>
+                                <form id="deleteForm_{{ $item->uuid }}"
+                                    action="{{ route('pages.destroy', $item->uuid) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                </form>
+                                @endcan
+                            </td>
+                        </tr>
                         @endforeach
 
                     </tbody>
@@ -118,11 +117,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data ini akan dihapus secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin ingin menghapusnya?',
+            title: 'Confirm Deletion',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Deleted!'
         }).then((result) => {
             if (result.isConfirmed) {
                 // If the user clicks "Yes, delete it!", submit the corresponding form

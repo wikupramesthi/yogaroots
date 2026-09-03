@@ -7,24 +7,24 @@
                 @csrf
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-form-add-specializations-label">Tambah Baru</h5>
+                    <h5 class="modal-title" id="modal-form-add-specializations-label">Add Specialization</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
                 <div class="modal-body">
 
                     <div class="form-group mb-3">
-                        <label for="name" class="mb-2">Kategori Spesialisasi <span class="text-danger">*</span></label>
+                        <label for="name" class="mb-2">Yoga Specializations <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                            name="name" placeholder="Nama Kategori" value="{{ old('name') }}" required>
+                            name="name" placeholder="Yoga Specializations" value="{{ old('name') }}" required>
                         @error('name')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="description" class="mb-2">Deskripsi (opsional)</label>
+                        <label for="description" class="mb-2">Description (optional)</label>
                         <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                            rows="3" placeholder="Tulis deskripsi kategori...">{{ old('description') }}</textarea>
+                            rows="3" placeholder="Enter specializations description...">{{ old('description') }}</textarea>
                         @error('description')
                         <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -32,8 +32,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary ">Simpan</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary ">Save</button>
                 </div>
             </form>
 

@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Kategori Spesialisasi')
+@section('title', 'Instructors')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Spesialisasi" page="Spesialisasi" active="Kategori Spesialisasi" route="{{ route('specializations.index') }}" />
+<x-breadcrumb title="Instructors" page="Instructors" active="Yoga Specialization" route="{{ route('specializations.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
@@ -12,8 +12,8 @@
         <div class="d-flex">
             <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
             <div class="text-white mt-2">
-                Kelola <strong>Spesialisasi</strong> yang tersedia di sistem.<br>
-                Tambahkan, perbarui, atau nonaktifkan spesialisasi untuk mendukung pengelolaan instruktur dan kelas.
+                Manage the Specializations available in the system.<br>
+                Add, update, or deactivate specializations to support instructor and class management.
             </div>
         </div>
     </div>
@@ -21,12 +21,12 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Kategori Spesialiasi</h4>
+                <h4 class="fw-normal mb-0 text-body">Yoga Specialization</h4>
                 @can('specializations.store')
                 <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
                     data-bs-target="#modal-form-add-specializations">
                     <i class="bi bi-plus-lg"></i>
-                    Tambah Baru
+                    Add New
                 </button>
                 @endcan
 
@@ -38,11 +38,11 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Kategori Spesialiasi</th>
-                            <th>Deskripsi</th>
-                            <th>Total Kelas</th>
+                            <th>Yoga Specialization</th>
+                            <th>Description</th>
+                            <th>Total Classes</th>
                             <th>Edit</th>
-                            <th>Hapus</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,11 +94,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data ini akan dihapus secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin ingin menghapusnya?',
+            title: 'Confirm Deletion',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Deleted!'
         }).then((result) => {
             if (result.isConfirmed) {
                 // If the user clicks "Yes, delete it!", submit the corresponding form
