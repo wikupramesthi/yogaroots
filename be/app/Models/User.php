@@ -55,14 +55,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'tiktok',
         'youtube',
         'biografi',
-
-        // Membership
-        'package_uuid',
-        'membership_start_date',
-        'membership_end_date',
-        'total_quota',
-        'remaining_quota',
-        'membership_status',
+        'sumber_informasi',
     ];
 
     /**

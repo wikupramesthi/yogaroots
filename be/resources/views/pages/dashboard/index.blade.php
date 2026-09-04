@@ -21,33 +21,34 @@
     </section>
 </div>
 
-@if (empty($user->no_hp))
+@if (blank(Auth::user()->no_hp))
 <div class="modal fade"
     id="completeProfileModal"
     tabindex="-1"
+    aria-labelledby="completeProfileModalLabel"
+    aria-hidden="true"
     data-bs-backdrop="static"
     data-bs-keyboard="false">
 
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
-            <form action="{{ route('submit.sumber') }}" method="POST">
+            <form action="{{ route('dashboard.submitSumber') }}" method="POST">
                 @csrf
 
                 <div class="modal-header">
-                    <h5 class="modal-title">
-                        Complete Your Profile
+                    <h5 class="modal-title" id="completeProfileModalLabel">
+                        Complete Your Information
                     </h5>
                 </div>
 
                 <div class="modal-body">
 
-                    <p class="text-secondary mb-4">
-                        Please provide your WhatsApp number and let us know
-                        how you heard about us.
+                    <p class="text-secondary">
+                        Please complete the following information
+                        before continuing.
                     </p>
 
-                    {{-- WhatsApp Number --}}
                     <div class="mb-3">
                         <label for="no_hp" class="form-label">
                             WhatsApp Number
@@ -58,7 +59,8 @@
                             id="no_hp"
                             class="form-control @error('no_hp') is-invalid @enderror"
                             placeholder="08xxxxxxxxxx"
-                            value="{{ old('no_hp') }}">
+                            value="{{ old('no_hp') }}"
+                            required>
 
                         @error('no_hp')
                         <div class="invalid-feedback">
@@ -67,7 +69,6 @@
                         @enderror
                     </div>
 
-                    {{-- Sumber Informasi --}}
                     <div class="mb-3">
                         <label for="sumber_informasi" class="form-label">
                             How did you hear about us?
@@ -75,22 +76,14 @@
 
                         <select name="sumber_informasi"
                             id="sumber_informasi"
-                            class="form-select @error('sumber_informasi') is-invalid @enderror">
-
-                            <option value="">
-                                Select an option
-                            </option>
-
+                            class="form-select @error('sumber_informasi') is-invalid @enderror"
+                            required>
+                            <option value="">Select an option</option>
                             <option value="google">Google Search</option>
-                            <option value="instagram">Instagram</option>
-                            <option value="facebook">Facebook</option>
-                            <option value="tiktok">TikTok</option>
-                            <option value="google_maps">Google Maps</option>
-                            <option value="friend_family">Friend / Family</option>
-                            <option value="yoga_community">Yoga Community</option>
-                            <option value="member_referral">Member Referral</option>
-                            <option value="yoga_event">Yoga Event / Workshop</option>
-                            <option value="whatsapp">WhatsApp</option>
+                            <option value="sosmed">Social Media</option>
+                            <option value="friend">Friend / Family</option>
+                            <option value="community">Yoga Community</option>
+                            <option value="event">Yoga Event / Workshop</option>
                             <option value="website">Website</option>
                             <option value="other">Other</option>
 
@@ -116,6 +109,23 @@
         </div>
     </div>
 </div>
+@endif
+
+@if (empty($user->no_hp))
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modalElement = document.getElementById('completeProfileModal');
+
+        if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement, {
+                backdrop: 'static',
+                keyboard: false
+            });
+
+            modal.show();
+        }
+    });
+</script>
 @endif
 
 @endsection
