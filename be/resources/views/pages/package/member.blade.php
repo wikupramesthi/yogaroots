@@ -298,11 +298,6 @@
         color: #fff;
     }
 
-
-    /* =========================
-       FEATURES
-    ========================= */
-
     .features-title {
         font-size: 13px;
         font-weight: 700;

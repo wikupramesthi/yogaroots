@@ -82,6 +82,20 @@
             </li>
             @endif
 
+            @if (auth()->user()->role === 'user')
+            @else
+            <div class="contact">
+              <a href="https://wa.me/6281321221270?text=Hello%20Yoga%20Roots%2C%20I%20need%20some%20help" target="_blank" rel="noopener" class="whatsapp-contact">
+                <div class="whatsapp-icon"><i class="bi bi-whatsapp"></i></div>
+                <div>
+                  <div class="fw-bold small" style="color:var(--bs-heading-color);line-height:1.3;">Need help?</div>
+                  <div class="text-secondary" style="font-size:.74rem;line-height:1.3;">Contact us via WhatsApp message</div>
+                </div>
+                <i class="bi bi-arrow-up-right ms-auto text-secondary"></i>
+              </a>
+            </div>
+            @endif
+
           </ul>
         </div>
 
