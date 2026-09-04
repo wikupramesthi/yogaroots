@@ -55,7 +55,8 @@ class InstrukturController extends Controller
      */
     public function create()
     {
-        return view('pages.instruktur.create');
+        $specializations = Specializaty::where('is_active', 'active')->get();
+        return view('pages.instruktur.create', compact('specializations'));
     }
 
     /**
@@ -80,6 +81,8 @@ class InstrukturController extends Controller
             'tiktok'         => 'nullable|string|max:255',
             'youtube'        => 'nullable|string|max:255',
             'biografi'       => 'nullable|string',
+            'specializations' => 'required|array|min:1',
+            'specializations.*' => 'exists:specializations,uuid',
         ]);
 
         DB::beginTransaction();
@@ -108,10 +111,19 @@ class InstrukturController extends Controller
                 'biografi'         => $request->biografi,
             ]);
 
-            $user->assignRole('guru');
+            $user->assignRole('instruktur');
+
+            // Simpan spesialisasi instruktur // 
+            foreach ($request->specializations as $specializationUuid) {
+                DB::table('user_specialization')->insert([
+                    'uuid'                => (string) Str::uuid(),
+                    'user_uuid'           => $user->uuid,
+                    'specialization_uuid' => $specializationUuid,
+                ]);
+            }
 
             DB::commit();
-            return redirect()->route('instruktur.index')->with('success', 'Data instruktur berhasil disimpan.');
+            return redirect()->route('instruktur.index')->with('success', 'Instructor data has been saved successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -134,14 +146,24 @@ class InstrukturController extends Controller
         $authUser = auth()->user();
 
         if ($authUser->hasRole(['admin', 'super-admin'])) {
-            return view('pages.instruktur.edit', compact('instruktur'));
+            $specializations = Specializaty::where('is_active', 'active')->get();
+
+            return view('pages.instruktur.edit', compact(
+                'instruktur',
+                'specializations'
+            ));
         }
 
         if ($authUser->uuid !== $instruktur->uuid) {
             abort(403, 'Anda tidak memiliki akses ke data ini.');
         }
 
-        return view('pages.instruktur.edit', compact('instruktur'));
+        $specializations = Specializaty::where('is_active', 'active')->get();
+
+        return view('pages.instruktur.edit', compact(
+            'instruktur',
+            'specializations'
+        ));
     }
 
 
@@ -167,6 +189,10 @@ class InstrukturController extends Controller
             'tiktok'         => 'nullable|string|max:255',
             'youtube'        => 'nullable|string|max:255',
             'biografi'       => 'nullable|string',
+
+            // Specialization
+            'specializations'   => 'required|array|min:1',
+            'specializations.*' => 'exists:specializations,uuid',
         ]);
 
         DB::beginTransaction();
@@ -196,8 +222,27 @@ class InstrukturController extends Controller
                 $data['avatar'] = $request->file('avatar')->store('avatars', 'public');
             }
 
-
             $instruktur->update($data);
+
+            // Hapus specialization lama
+            DB::table('user_specialization')
+                ->where('user_uuid', $instruktur->uuid)
+                ->delete();
+
+
+            // Masukkan specialization yang baru
+            $specializations = [];
+
+            foreach ($request->specializations as $specializationUuid) {
+                $specializations[] = [
+                    'uuid'                => (string) Str::uuid(),
+                    'user_uuid'           => $instruktur->uuid,
+                    'specialization_uuid' => $specializationUuid,
+                ];
+            }
+
+            DB::table('user_specialization')
+                ->insert($specializations);
 
             DB::commit();
             return redirect()->route('instruktur.index')->with('success', 'Data instruktur berhasil diperbarui.');
@@ -206,7 +251,6 @@ class InstrukturController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
-
 
     /**
      * Remove the specified resource from storage.

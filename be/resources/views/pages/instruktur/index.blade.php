@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Data Instruktur')
+@section('title', 'Instructors')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Data Intruktur" page="Data Intruktur" active="Semua Intruktur" route="{{ route('instruktur.index') }}" />
+<x-breadcrumb title="instructors" page="Instructors" active="All instructors" route="{{ route('instruktur.index') }}" />
 @endsection
 
 <!-- Content -->
@@ -12,9 +12,9 @@
     <div class="d-flex">
         <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
         <div class="text-white mt-2">
-            <strong>Manajemen Data Instruktur</strong>
+            <strong>Instructor Data Management</strong>
             <br>
-            Pada halaman ini Anda dapat melihat, mengelola, dan memperbarui data instruktur.
+            On this page, you can view, manage, and update instructor data.
         </div>
     </div>
 </div>
@@ -27,7 +27,7 @@
                 <form action="{{ route('instruktur.index') }}" method="GET" class="row g-2 align-items-center">
                     <div class="col-md-auto col-12">
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text">Aktif Kerja</span>
+                            <span class="input-group-text">Currently Working</span>
                             <input type="date" name="start_date" value="{{ request('start_date') }}"
                                 class="form-control">
                         </div>
@@ -35,7 +35,7 @@
 
                     <div class="col-md-auto col-12">
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text">Sampai</span>
+                            <span class="input-group-text">Until</span>
                             <input type="date" name="end_date" value="{{ request('end_date') }}"
                                 class="form-control">
                         </div>
@@ -43,9 +43,9 @@
 
                     <div class="col-md-auto col-12">
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text">Jenis Kelamin</span>
+                            <span class="input-group-text">Gender</span>
                             <select name="jenis_kelamin" class="form-select">
-                                <option value="">-- Semua --</option>
+                                <option value="">-- Select Gender --</option>
                                 <option value="L" {{ request('jenis_kelamin') == 'L' ? 'selected' : '' }}>Laki-laki
                                 </option>
                                 <option value="P" {{ request('jenis_kelamin') == 'P' ? 'selected' : '' }}>Perempuan
@@ -56,10 +56,10 @@
 
                     <div class="col-md-auto col-12">
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text">Spesialisasi</span>
+                            <span class="input-group-text">Specializations</span>
 
                             <select name="specialization" class="form-select">
-                                <option value="">-- Semua --</option>
+                                <option value="">-- All Specializations --</option>
 
                                 @foreach ($specializations as $specialization)
                                 <option
@@ -85,16 +85,16 @@
                 <div class="d-flex gap-2">
                     @can('instruktur.store')
                     <a href="{{ route('instruktur.create') }}" class="btn btn-primary btn-md">
-                        <i class="bi bi-plus-lg"></i> Tambah Instruktur
+                        <i class="bi bi-plus-lg"></i> Add Instructor
                     </a>
                     @endcan
 
                     @can('instruktur.store')
                     <form action="{{ route('instruktur.restore') }}" method="POST"
-                        onsubmit="return confirm('Yakin ingin merestore semua instruktur yang terhapus?')">
+                        onsubmit="return confirm('Are you sure you want to restore all deleted instructors?')">
                         @csrf
                         <button type="submit" class="btn btn-warning text-white btn-md">
-                            <i class="bi bi-arrow-counterclockwise"></i> Restore Semua
+                            <i class="bi bi-arrow-counterclockwise"></i> Restore Data
                         </button>
                     </form>
                     @endcan
@@ -109,16 +109,16 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Foto</th>
-                            <th>Nama Lengkap</th>
-                            <th>Spesialisasi</th>
-                            <th>Jenis Kelamin</th>
+                            <th>Photo</th>
+                            <th>Full Name</th>
+                            <th>Specialization</th>
+                            <th>Gender</th>
                             <th>Email</th>
-                            <th>No. Handphone</th>
-                            <th>Pengalaman</th>
-                            <th>Detail</th>
+                            <th>Phone Number</th>
+                            <th>Experience</th>
+                            <th>Details</th>
                             <th>Edit</th>
-                            <th>Hapus</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -195,11 +195,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data ini akan dihapus secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin ingin menghapusnya?',
+            title: 'Confirm Deletion',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Deleted!'
         }).then((result) => {
             if (result.isConfirmed) {
                 // If the user clicks "Yes, delete it!", submit the corresponding form
