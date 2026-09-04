@@ -25,12 +25,12 @@
                             <i class='bi bi-bell bi-sub fs-4'></i>
 
                             @php
-                                $unreadCount = auth()->user()->unreadNotifications->count();
+                            $unreadCount = auth()->user()->unreadNotifications->count();
                             @endphp
                             @if ($unreadCount > 0)
-                                <span class="badge badge-notification bg-danger" id="notif-count">
-                                    {{ $unreadCount }}
-                                </span>
+                            <span class="badge badge-notification bg-danger" id="notif-count">
+                                {{ $unreadCount }}
+                            </span>
                             @endif
                         </a>
 
@@ -41,33 +41,33 @@
                             </li>
 
                             @php
-                                $notifications = auth()->user()->notifications()->latest()->take(5)->get();
+                            $notifications = auth()->user()->notifications()->latest()->take(5)->get();
                             @endphp
 
                             @forelse($notifications as $notification)
-                                <li
-                                    class="dropdown-item notification-item {{ $notification->read_at ? '' : 'bg-light-secondary' }}">
-                                    <a href="javascript:void(0)"
-                                        class="d-flex align-items-center mark-as-read border-bottom pb-3"
-                                        data-id="{{ $notification->id }}">
-                                        <div class="notification-text text-wrap"
-                                            style="white-space: normal; word-break: break-word; max-width: 250px;">
-                                            <p class="notification-title fw-bold mb-0">
-                                                {{ $notification->data['judul_kegiatan'] ?? 'Program' }}
-                                            </p>
-                                            <p class="notification-subtitle text-muted small mb-0">
-                                                {{ $notification->data['message'] ?? '-' }}
-                                            </p>
-                                            <small class="text-muted">
-                                                {{ $notification->created_at->diffForHumans() }}
-                                            </small>
-                                        </div>
-                                    </a>
-                                </li>
+                            <li
+                                class="dropdown-item notification-item {{ $notification->read_at ? '' : 'bg-light-secondary' }}">
+                                <a href="javascript:void(0)"
+                                    class="d-flex align-items-center mark-as-read border-bottom pb-3"
+                                    data-id="{{ $notification->id }}">
+                                    <div class="notification-text text-wrap"
+                                        style="white-space: normal; word-break: break-word; max-width: 250px;">
+                                        <p class="notification-title fw-bold mb-0">
+                                            {{ $notification->data['judul_kegiatan'] ?? 'Program' }}
+                                        </p>
+                                        <p class="notification-subtitle text-muted small mb-0">
+                                            {{ $notification->data['message'] ?? '-' }}
+                                        </p>
+                                        <small class="text-muted">
+                                            {{ $notification->created_at->diffForHumans() }}
+                                        </small>
+                                    </div>
+                                </a>
+                            </li>
                             @empty
-                                <li class="dropdown-item text-center text-muted">
-                                    Tidak ada notifikasi baru
-                                </li>
+                            <li class="dropdown-item text-center text-muted">
+                                Tidak ada notifikasi baru
+                            </li>
                             @endforelse
                         </ul>
                     </li>
@@ -86,7 +86,7 @@
                                         alt="{{ auth()->user()->name }}" class="img-thumbnail rounded-circle">
                                 </div>
                             </div>
-                            <div class="user-name text-start me-3">
+                            <div class="user-name text-start">
                                 <h6 class="mb-0 text-gray-600">{{ Auth::user()->name ?? '' }}</h6>
                                 <p class="mb-0 text-sm text-gray-600">
                                     {{ Auth::user()->getRoleNames()->first() ?? '' }}
@@ -103,11 +103,11 @@
                         </li>
 
                         @role('super-admin|admin')
-                            <li>
-                                <a class="dropdown-item" href="{{ route('account.index') }}">
-                                    <i class="icon-mid bi bi-gear me-2"></i> Pengaturan
-                                </a>
-                            </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('account.index') }}">
+                                <i class="icon-mid bi bi-gear me-2"></i> Pengaturan
+                            </a>
+                        </li>
                         @else
                         @endrole
 
