@@ -154,7 +154,7 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="is_active" class="mb-2">Currently Working <span class="text-danger">*</span></label>
+                    <label for="is_active" class="mb-2">Join on <span class="text-danger">*</span></label>
                     <input type="date" name="is_active"
                         class="form-control @error('is_active') is-invalid @enderror"
                         value="{{ old('is_active') }}">

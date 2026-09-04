@@ -27,7 +27,7 @@
                 <form action="{{ route('instruktur.index') }}" method="GET" class="row g-2 align-items-center">
                     <div class="col-md-auto col-12">
                         <div class="input-group input-group-sm">
-                            <span class="input-group-text">Currently Working</span>
+                            <span class="input-group-text">Join on</span>
                             <input type="date" name="start_date" value="{{ request('start_date') }}"
                                 class="form-control">
                         </div>
