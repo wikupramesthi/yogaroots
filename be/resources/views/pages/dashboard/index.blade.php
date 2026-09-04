@@ -10,10 +10,10 @@
     <section class="row">
         <div class="col-12">
 
-            @if (auth()->user()->role === 'user')
-            @include('pages.dashboard.card')
-            @else
+            @role('user')
             @include('pages.dashboard.member')
+            @else
+            @include('pages.dashboard.card')
             @endif
 
         </div>

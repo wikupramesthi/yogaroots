@@ -82,8 +82,7 @@
             </li>
             @endif
 
-            @if (auth()->user()->role === 'user')
-            @else
+            @role('user')
             <div class="contact">
               <a href="https://wa.me/6281321221270?text=Hello%20Yoga%20Roots%2C%20I%20need%20some%20help" target="_blank" rel="noopener" class="whatsapp-contact">
                 <div class="whatsapp-icon"><i class="bi bi-whatsapp"></i></div>
@@ -94,6 +93,8 @@
                 <i class="bi bi-arrow-up-right ms-auto text-secondary"></i>
               </a>
             </div>
+            @else
+
             @endif
 
           </ul>

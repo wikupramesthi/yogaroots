@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <style>
     .hero-panel {
         background: var(--brand-gradient);
@@ -181,7 +185,7 @@
                     Discover useful tips and interesting information today. There are plenty of new things to learn and explore.
                 </p>
             </div>
-            <div class="col-lg-3 text-lg-end mt-3 mt-lg-0" style="position: relative;z-index: 99;">
+            <div class="col-lg-3 text-lg-end mt-3 mt-lg-0" style="position: relative;z-index: 1;">
                 <a href="{{ route('packages.member') }}" class="btn btn-light fw-bold px-4"><i class="bi bi-calendar-check me-1"></i> Select Your Plan</a>
             </div>
         </div>
@@ -200,7 +204,7 @@
                             </div>
                         </div>
                         <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                            <h6 class="text-muted font-semibold">Total Berita</h6>
+                            <h6 class="text-muted font-semibold">Total Classes</h6>
                             <a href="{{ route('articles.index') }}" class="text-decoration-none">
                                 <h6 class="font-extrabold mb-0">{{ $totalArticles }}</h6>
                             </a>
@@ -538,3 +542,5 @@
     </div>
 
 </div>
+
+@endsection
