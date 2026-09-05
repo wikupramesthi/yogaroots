@@ -364,13 +364,12 @@
     </div>
 
     <div class="row g-4 mb-4">
-        <!-- Jadwal minggu ini -->
         <div class="col-lg-8" id="jadwal">
             <div class="card border-0 h-100">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h6 class="fw-bold mb-0" style="color:var(--bs-heading-color);">Jadwal Minggu Ini</h6>
-                        <a href="#" class="small fw-semibold text-decoration-none">Lihat semua</a>
+                        <h6 class="fw-bold mb-0" style="color:var(--bs-heading-color);">Today’s Schedule</h6>
+                        <a href="#" class="small fw-semibold text-decoration-none">View All</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">

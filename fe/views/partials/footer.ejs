@@ -7,15 +7,25 @@
         </div>
         <p class="text-sm leading-relaxed text-sage-200"><%= site.description %></p>
         <div class="flex gap-2 mt-4">
-          <span class="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-xs">IG</span>
-          <span class="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-xs">YT</span>
-          <span class="w-8 h-8 rounded-full bg-white/10 grid place-items-center text-xs">TK</span>
-        </div>
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/yogaroot.id/" target="_blank" rel="noopener noreferrer"
+       class="w-8 h-8 rounded-full bg-white/10 grid place-items-center hover:bg-white/20 transition"
+       aria-label="Instagram">
+        <svg xmlns="http://www.w3.org/2000/svg"
+             viewBox="0 0 24 24"
+             class="w-4 h-4"
+             fill="currentColor">
+            <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 2A3.75 3.75 0 0 0 4 7.75v8.5A3.75 3.75 0 0 0 7.75 20h8.5A3.75 3.75 0 0 0 20 16.25v-8.5A3.75 3.75 0 0 0 16.25 4h-8.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm5.25-3a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5Z"/>
+        </svg>
+    </a>
+
+</div>
+
       </div>
       <div>
-        <h4 class="font-semibold mb-3">Jelajahi</h4>
+        <h4 class="font-semibold mb-3">Learn More</h4>
         <ul class="space-y-2 text-sm text-sage-200">
-          <% nav.slice(1,5).forEach(n=>{ %><li><a href="<%= n.href %>" class="hover:text-white"><%= n.label %></a></li><% }) %>
+          <% nav.slice(1,6).forEach(n=>{ %><li><a href="<%= n.href %>" class="hover:text-white"><%= n.label %></a></li><% }) %>
         </ul>
       </div>
       <div>
@@ -24,18 +34,20 @@
           <li><%= site.address %></li>
           <li><%= site.phone %></li>
           <li><%= site.email %></li>
-          <li class="text-xs"><%= site.hours || 'Buka 06:00 — 21:00 WIB' %></li>
+          <li class="text-xs"><%= site.hours || 'Open Daily · 6:00 AM — 9:00 PM' %></li>
         </ul>
       </div>
-      <div>
-        <h4 class="font-semibold mb-3">Newsletter</h4>
-        <p class="text-sm text-sage-200 mb-3">Dapatkna tips mindfulness & jadwal retreat.</p>
-        <form id="newsletterForm" class="flex gap-2">
-          <input name="email" type="email" placeholder="Email kamu" class="flex-1 px-4 py-2.5 rounded-full bg-white/10 border border-white/10 placeholder:text-sage-300 text-sm outline-none">
-          <button class="px-5 py-2.5 rounded-full bg-terracotta-500 hover:bg-terracotta-400 text-white text-sm font-semibold">Join</button>
-        </form>
-        <p id="newsletterMsg" class="text-xs mt-2 hidden"></p>
-      </div>
+     <div>
+  <h4 class="font-semibold mb-3">In Collaboration With</h4>
+
+  <a href="https://www.artofliving.org/id-en/" target="_blank" rel="noopener noreferrer">
+    <img
+      src="https://www.artofliving.org/id-en/iimg/1551/180x/i.png"
+      alt="Art of Living"
+      class="h-10 w-auto object-contain"
+    >
+  </a>
+</div>
     </div>
     <div class="border-t border-white/10 mt-10 pt-6 flex flex-col sm:flex-row justify-between gap-2 text-xs text-sage-300">
       <span>© <%= site.year %> Yoga Roots. all rights reserved.</span>
@@ -43,7 +55,7 @@
     href="/pages/kebijakan-privasi"
     class="hover:text-white transition"
   >
-    Kebijakan Privasi
+   Privacy Policy
   </a>
     </div>
   </div>
@@ -55,8 +67,8 @@
   <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeBooking()"></div>
   <div class="relative max-w-md mx-auto mt-[10vh] bg-white rounded-[24px] p-6 shadow-2xl m-4">
     <button onclick="closeBooking()" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-sage-50 grid place-items-center">✕</button>
-    <h3 class="font-display text-2xl font-bold">Mulai Berlatih</h3>
-    <p class="text-sm text-stone-warm mt-1">Masuk dengan Google dan mulai perjalanan menuju tubuh dan pikiran yang lebih seimbang.</p>
+    <h3 class="font-display text-2xl font-bold">Begin Your Practice</h3>
+    <p class="text-sm text-stone-warm mt-1">Sign in with Google and take the first step toward a healthier body and a more balanced mind.</p>
 
     <!-- STATE 1: belum login -->
     <div id="preAuthState" class="mt-5">
@@ -73,10 +85,10 @@
     <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.3 5.6l6.6 5.4C41.6 36.1 44.5 30.6 44.5 24c0-1.2-.1-2.3-.3-3.5z"/>
   </svg>
 
-  <span>Login dengan Google</span>
+  <span>Sign in with Google</span>
 </a>
 
-      <p class="text-xs text-stone-400 mt-3 text-center">Nama & email diambil otomatis dari akun Google-mu.</p>
+      <p class="text-xs text-stone-400 mt-3 text-center">Name and email are synced automatically.</p>
     </div>
 
     <p id="bookingMsg" class="text-sm mt-3 hidden p-3 rounded-xl"></p>

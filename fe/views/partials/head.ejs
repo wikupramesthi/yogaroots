@@ -1,18 +1,73 @@
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><%= title %> — Serene Yoga</title>
-<meta name="description" content="Serene — Studio yoga & mindfulness di Jakarta. Kelas Hatha, Vinyasa, Yin, Meditasi untuk semua level.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/output.css">
-<link rel="stylesheet" href="/css/custom.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪷</text></svg>">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>YogaRoots — Yoga, Meditation & Wellness"</title>
+<meta
+  name="description"
+  content="Discover yoga, meditation, and wellness classes at YogaRoots. Practice with experienced instructors and find greater balance, strength, and peace of mind."
+/>
+
+<meta
+  name="keywords"
+  content="YogaRoots, yoga classes, yoga studio, yoga meditation, wellness, yoga instructors, yoga for beginners, yoga classes Indonesia"
+/>
+
+<meta name="robots" content="index, follow" />
+<meta name="author" content="YogaRoots" />
+
+<link rel="canonical" href="{{ url()->current() }}" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="YogaRoots" />
+<meta property="og:title" content="YogaRoots — Yoga, Meditation & Wellness" />
+<meta
+  property="og:description"
+  content="Discover yoga, meditation, and wellness classes at YogaRoots. Practice with experienced instructors and find greater balance, strength, and peace of mind."
+/>
+<meta property="og:url" content="{{ url()->current() }}" />
+<meta
+  property="og:image"
+  content="{{ asset('assets/images/og-yogaroots.jpg') }}"
+/>
+<meta
+  property="og:image:alt"
+  content="YogaRoots — Yoga, Meditation & Wellness"
+/>
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="YogaRoots — Yoga, Meditation & Wellness" />
+<meta
+  name="twitter:description"
+  content="Discover yoga, meditation, and wellness classes at YogaRoots. Practice with experienced instructors and find greater balance, strength, and peace of mind."
+/>
+<meta
+  name="twitter:image"
+  content="{{ asset('assets/images/og-yogaroots.jpg') }}"
+/>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link
+  href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="/css/output.css" />
+<link rel="stylesheet" href="/css/custom.css" />
+<link
+  rel="icon"
+  href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪷</text></svg>"
+/>
 <script>
-  (function(){
+  (function () {
     try {
-      const saved = localStorage.getItem('serene-dark');
-      const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (saved === 'true' || (!saved && prefers)) document.documentElement.classList.add('dark');
-    } catch(e) {}
+      const saved = localStorage.getItem("serene-dark");
+      const prefers = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (saved === "true" || (!saved && prefers))
+        document.documentElement.classList.add("dark");
+    } catch (e) {}
   })();
 </script>
