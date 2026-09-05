@@ -40,7 +40,7 @@
                             <th>No.</th>
                             <th>Yoga Specialization</th>
                             <th>Description</th>
-                            <th>Total Classes</th>
+                            <th>Total instructors</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>

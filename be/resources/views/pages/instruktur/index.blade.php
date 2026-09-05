@@ -3,7 +3,7 @@
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="instructors" page="Instructors" active="All instructors" route="{{ route('instruktur.index') }}" />
+<x-breadcrumb title="Instructors" page="Instructors" active="All instructors" route="{{ route('instruktur.index') }}" />
 @endsection
 
 <!-- Content -->

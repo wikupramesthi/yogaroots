@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Specializaty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -15,10 +16,14 @@ class SpecializatyController extends Controller
      */
     public function index()
     {
-        $specializations = Specializaty::withCount('programs')->get();
-        $specializatyCounts = $specializations;
+        $specializations = Specializaty::withCount([
+            'users as specializations_count'
+        ])->get();
 
-        return view('pages.specializations.index', compact('specializations', 'specializatyCounts'));
+        return view(
+            'pages.specializations.index',
+            compact('specializations')
+        );
     }
 
     /**
@@ -41,7 +46,7 @@ class SpecializatyController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Kategori spesialisasi berhasil ditambahkan.');
+            return redirect()->back()->with('success', 'Specialization category successfully added.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -69,7 +74,7 @@ class SpecializatyController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Kategori spesialisasi berhasil diperbarui.');
+            return redirect()->back()->with('success', 'Specialization category successfully changed.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -87,7 +92,7 @@ class SpecializatyController extends Controller
             $item->delete();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Kategori spesialisasi berhasil dihapus.');
+            return redirect()->back()->with('success', 'Specialization category successfully deleted.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
