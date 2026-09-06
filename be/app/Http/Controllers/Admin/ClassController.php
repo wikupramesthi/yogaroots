@@ -265,7 +265,7 @@ class ClassController extends Controller
 
             return redirect()
                 ->route('classes.index')
-                ->with('success', 'Class berhasil diperbarui.');
+                ->with('success', 'Class update successfully.');
         } catch (\Throwable $th) {
 
             DB::rollBack();
@@ -313,7 +313,7 @@ class ClassController extends Controller
 
             return redirect()
                 ->route('classes.index')
-                ->with('success', 'Class berhasil dihapus.');
+                ->with('success', 'Class deleted successfully.');
         } catch (\Throwable $th) {
 
             DB::rollBack();

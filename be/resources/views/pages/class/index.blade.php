@@ -57,151 +57,161 @@
 
     <div class="card">
 
-        <div class="card-header">
+        <div class="card-header border-0 bg-white p-3 p-md-4">
 
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
 
-                {{-- Filter --}}
                 <form
                     action="{{ route('classes.index') }}"
                     method="GET"
-                    class="row g-2 align-items-center">
+                    class="d-flex align-items-center gap-2 flex-wrap flex-grow-1">
 
                     {{-- Level --}}
-                    <div class="col-md-auto col-12">
+                    <div class="input-group input-group-sm" style="width: 220px;">
 
-                        <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-light">
+                            Level
+                        </span>
 
-                            <span class="input-group-text">
-                                Level
-                            </span>
+                        <select
+                            name="level"
+                            class="form-select">
 
-                            <select name="level" class="form-select">
+                            <option value="">-- All --</option>
 
-                                <option value="">
-                                    -- All --
-                                </option>
+                            <option
+                                value="foundation"
+                                {{ request('level') == 'foundation' ? 'selected' : '' }}>
+                                Foundation
+                            </option>
 
-                                <option
-                                    value="pemula"
-                                    {{ request('level') == 'pemula' ? 'selected' : '' }}>
-                                    Pemula
-                                </option>
+                            <option
+                                value="intermediate"
+                                {{ request('level') == 'intermediate' ? 'selected' : '' }}>
+                                Intermediate
+                            </option>
 
-                                <option
-                                    value="menengah"
-                                    {{ request('level') == 'menengah' ? 'selected' : '' }}>
-                                    Menengah
-                                </option>
+                            <option
+                                value="advance"
+                                {{ request('level') == 'advance' ? 'selected' : '' }}>
+                                Advance
+                            </option>
 
-                                <option
-                                    value="advance"
-                                    {{ request('level') == 'advance' ? 'selected' : '' }}>
-                                    Advance
-                                </option>
-
-                                <option
-                                    value="semua_level"
-                                    {{ request('level') == 'semua_level' ? 'selected' : '' }}>
-                                    Semua Level
-                                </option>
-
-                            </select>
-
-                        </div>
+                        </select>
 
                     </div>
+
 
                     {{-- Instructor --}}
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('superadmin'))
-                    {{-- Instructor Filter --}}
-                    <div>
-                        <label class="mb-2 block text-sm font-medium text-gray-600">
+
+                    <div
+                        class="input-group input-group-sm"
+                        style="width: 260px;">
+
+                        <span class="input-group-text bg-light">
                             Instructor
-                        </label>
+                        </span>
 
                         <select
                             name="instructor_uuid"
-                            class="w-full rounded-xl border-gray-200 text-sm focus:border-gray-900 focus:ring-gray-900">
-                            <option value="">All Instructors</option>
+                            class="form-select">
+
+                            <option value="">
+                                All Instructors
+                            </option>
 
                             @foreach($instructors as $instructor)
+
                             <option
                                 value="{{ $instructor->uuid }}"
                                 {{ request('instructor_uuid') == $instructor->uuid ? 'selected' : '' }}>
+
                                 {{ $instructor->name }}
+
                             </option>
+
                             @endforeach
+
                         </select>
+
                     </div>
+
                     @endif
 
+
                     {{-- Status --}}
-                    <div class="col-md-auto col-12">
+                    <div
+                        class="input-group input-group-sm"
+                        style="width: 190px;">
 
-                        <div class="input-group input-group-sm">
+                        <span class="input-group-text bg-light">
+                            Status
+                        </span>
 
-                            <span class="input-group-text">
-                                Status
-                            </span>
+                        <select
+                            name="is_active"
+                            class="form-select">
 
-                            <select
-                                name="is_active"
-                                class="form-select">
+                            <option value="">
+                                -- All --
+                            </option>
 
-                                <option value="">
-                                    -- All --
-                                </option>
+                            <option
+                                value="active"
+                                {{ request('is_active') == 'active' ? 'selected' : '' }}>
+                                Active
+                            </option>
 
-                                <option
-                                    value="active"
-                                    {{ request('is_active') == 'active' ? 'selected' : '' }}>
-                                    Active
-                                </option>
+                            <option
+                                value="inactive"
+                                {{ request('is_active') == 'inactive' ? 'selected' : '' }}>
+                                Inactive
+                            </option>
 
-                                <option
-                                    value="inactive"
-                                    {{ request('is_active') == 'inactive' ? 'selected' : '' }}>
-                                    Inactive
-                                </option>
-
-                            </select>
-
-                        </div>
+                        </select>
 
                     </div>
 
-                    {{-- Filter Button --}}
-                    <div class="col-md-auto col-12">
 
-                        <button
-                            class="btn btn-sm btn-success"
-                            type="submit">
+                    {{-- Filter --}}
+                    <button
+                        type="submit"
+                        class="btn btn-sm btn-success px-3">
 
-                            <i class="bi bi-funnel"></i>
-                            Filter
+                        <i class="bi bi-funnel me-1"></i>
+                        Filter
 
-                        </button>
+                    </button>
 
-                        <a
-                            href="{{ route('classes.index') }}"
-                            class="btn btn-sm btn-secondary">
 
-                            Reset
+                    {{-- Reset --}}
+                    <a
+                        href="{{ route('classes.index') }}"
+                        class="btn btn-sm btn-secondary px-3">
 
-                        </a>
+                        <i class="bi bi-arrow-counterclockwise me-1"></i>
+                        Reset
 
-                    </div>
+                    </a>
 
                 </form>
 
-                {{-- Add Class --}}
-                <div class="d-flex gap-2">
+
+                {{-- =========================
+            ADD CLASS
+        ========================== --}}
+                <div class="flex-shrink-0">
 
                     @can('classes.create')
 
-                    <a href="{{ route('classes.create') }}" class="btn btn-primary btn-md">
-                        <i class="bi bi-plus-lg"></i> Add Classes
+                    <a
+                        href="{{ route('classes.create') }}"
+                        class="btn btn-primary px-4">
+
+                        <i class="bi bi-plus-lg me-1"></i>
+                        Add Class
+
                     </a>
 
                     @endcan
@@ -439,14 +449,9 @@
 
                                 @can('classes.update')
 
-                                <a
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal-form-edit-class-{{ $class->uuid }}"
+                                <a href="{{ route('classes.edit', $class->uuid) }}" title="Edit"
                                     class="btn btn-icon btn-success text-white">
-
-                                    <i class="bi bi-pencil-square"></i>
-                                    Edit
-
+                                    <i class="bi bi-pencil-square"></i> Edit
                                 </a>
 
                                 @endcan
@@ -489,12 +494,6 @@
                     </tbody>
 
                 </table>
-
-                @if ($classes->isEmpty())
-                <div class="text-center text-muted py-4">
-                    No classes found.
-                </div>
-                @endif
 
             </div>
 

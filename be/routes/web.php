@@ -99,6 +99,10 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
         '/classes/{uuid}/level',
         [ClassController::class, 'changeLevel']
     )->name('classes.change-level');
+    Route::get(
+        '/class-schedules/print',
+        [ClassScheduleController::class, 'print']
+    )->name('class-schedules.print');
     Route::resource('class-schedules', ClassScheduleController::class);
     Route::resource('orders', OrderController::class)
         ->only(['index', 'show']);

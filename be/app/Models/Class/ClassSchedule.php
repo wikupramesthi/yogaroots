@@ -20,7 +20,7 @@ class ClassSchedule extends Model
 
     protected $fillable = [
         'class_uuid',
-        'date',
+        'day',
         'start_time',
         'end_time',
         'capacity',
@@ -28,7 +28,6 @@ class ClassSchedule extends Model
     ];
 
     protected $casts = [
-        'date' => 'date',
         'capacity' => 'integer',
     ];
 
