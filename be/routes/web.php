@@ -95,6 +95,10 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::resource('packages', PackageController::class);
 
     Route::resource('classes', ClassController::class);
+    Route::patch(
+        '/classes/{uuid}/level',
+        [ClassController::class, 'changeLevel']
+    )->name('classes.change-level');
     Route::resource('class-schedules', ClassScheduleController::class);
     Route::resource('orders', OrderController::class)
         ->only(['index', 'show']);

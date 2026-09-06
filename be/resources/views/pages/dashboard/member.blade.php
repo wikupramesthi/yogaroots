@@ -144,7 +144,6 @@
 
 
     /* Button */
-
     .membership-button {
         display: flex;
         align-items: center;
@@ -162,7 +161,8 @@
         transition: all 0.25s ease;
     }
 
-    .membership-icon i {
+    .membership-icon i,
+    .membership-button i {
         width: auto;
         height: auto;
     }
@@ -355,10 +355,9 @@
                 </div>
 
                 <a href="#" class="membership-button">
-                    <i class="bi bi-arrow-repeat me-2"></i>
+                    <i class="bi bi-arrow-repeat me-2 spin-icon"></i>
                     Renew Membership
                 </a>
-
             </div>
         </div>
     </div>

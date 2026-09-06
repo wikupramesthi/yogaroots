@@ -21,18 +21,18 @@
 
   <div class="stage">
 
-    <p class="eyebrow"><span class="dash"></span>Halaman tidak ditemukan</p>
+    <p class="eyebrow"><span class="dash"></span>Page Not Found</p>
     <h1>4<em>0</em>4</h1>
-    <h2>Sepertinya jalur ini belum kami petakan.</h2>
-    <p class="lead">Tarik napas sejenak — halaman yang kamu cari mungkin sudah dipindahkan, berganti nama, atau memang belum pernah ada. Mari kembali ke jalur yang lebih tenang.</p>
+    <h2>It seems this path hasn’t been mapped yet.</h2>
+    <p class="lead">The page you’re looking for may have been moved, renamed, or no longer exists. Take a moment, then let’s get you back on the right path.</p>
 
     <div class="action-row">
-      <a href="/" class="btn-primary">
+      <a href="{{ route('dashboard.index') }}" class="btn-primary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 11l9-8 9 8" />
           <path d="M5 10v10h14V10" />
         </svg>
-        Kembali ke Beranda
+        Back to Home
       </a>
       <a href="/kelas" class="btn-secondary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -40,13 +40,13 @@
           <path d="M3 10h18" />
           <path d="M8 2v4M16 2v4" />
         </svg>
-        Lihat Jadwal Kelas
+        Explore Class Schedule
       </a>
     </div>
 
     <div class="breath-note">
       <div class="breath-circle"></div>
-      <span>Tidak apa tersesat sesekali.<br>Yang penting, kamu tahu ke mana kembali.</span>
+      <span>It’s okay to lose your way sometimes.<br>What matters is knowing the way back.</span>
     </div>
 
   </div>

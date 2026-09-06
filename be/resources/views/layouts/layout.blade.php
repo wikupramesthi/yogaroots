@@ -6,16 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title')</title>
 
-    <meta name="title" content="Sekolah Disabilitas Terpadu Kota Bekasi | Pendidikan Inklusif & Berkualitas">
+    <meta name="title" content="YogaRoots | Studio Wellness, Yoga & Mindfulness">
     <meta name="description"
-        content="Sekolah Disabilitas Terpadu Kota Bekasi menyediakan layanan pendidikan inklusif bagi anak berkebutuhan khusus (ABK) dengan pendekatan holistik, guru berpengalaman, serta fasilitas ramah disabilitas untuk mendukung perkembangan akademik dan keterampilan hidup.">
+        content="YogaRoots adalah studio wellness di Jakarta yang menghadirkan ruang untuk yoga, meditasi, mindfulness, dan praktik kebugaran untuk membantu tubuh dan pikiran lebih seimbang.">
     <meta name="keywords"
-        content="Sekolah Disabilitas Bekasi, Sekolah Inklusif Bekasi, Sekolah ABK Bekasi, Pendidikan Anak Berkebutuhan Khusus, Sekolah Ramah Disabilitas, SLB Bekasi">
-    <meta name="author" content="Dinas Pendidikan Kota Bekasi">
+        content="YogaRoots Jakarta, studio yoga Jakarta, yoga Jakarta, kelas yoga Jakarta, mindfulness Jakarta, meditasi Jakarta, wellness Jakarta, studio wellness Jakarta">
+    <meta name="author" content="YogaRoots">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Sekolah Disabilitas Terpadu Kota Bekasi | Pendidikan Inklusif & Berkualitas">
+
+    <meta property="og:title"
+        content="YogaRoots | Studio Wellness, Yoga & Mindfulness">
     <meta property="og:description"
-        content="Sekolah inklusif di Bekasi yang mendukung anak berkebutuhan khusus dengan fasilitas ramah disabilitas, guru profesional, dan metode pembelajaran holistik.">
+        content="Ruang wellness di Jakarta untuk yoga, meditasi, mindfulness, dan praktik kebugaran yang mendukung keseimbangan tubuh dan pikiran.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="YogaRoots">
     <meta property="og:image" content="{{ asset('img/seamless-pattern3.png') }}">
 
     <link rel="shortcut icon" href="{{ asset('img/fav.png') }}" type="image/x-icon">

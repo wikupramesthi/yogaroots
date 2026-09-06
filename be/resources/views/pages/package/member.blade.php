@@ -414,7 +414,7 @@
     @media (max-width: 767px) {
 
         .membership-page {
-            padding: 40px 15px 55px;
+            padding: 15px 0;
         }
 
         .membership-header {

@@ -198,18 +198,11 @@
                 {{-- Add Class --}}
                 <div class="d-flex gap-2">
 
-                    @can('classes.store')
+                    @can('classes.create')
 
-                    <button
-                        type="button"
-                        class="btn btn-primary btn-md"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modal-form-add-class">
-
-                        <i class="bi bi-plus-lg"></i>
-                        Add Class
-
-                    </button>
+                    <a href="{{ route('classes.create') }}" class="btn btn-primary btn-md">
+                        <i class="bi bi-plus-lg"></i> Add Classes
+                    </a>
 
                     @endcan
 
@@ -248,7 +241,7 @@
 
                     <tbody>
 
-                        @forelse ($classes as $class)
+                        @foreach ($classes as $class)
 
                         <tr>
 
@@ -310,41 +303,48 @@
 
                             {{-- Level --}}
                             <td>
-
                                 @switch($class->level)
 
-                                @case('pemula')
-
-                                <span class="badge bg-success">
-                                    Pemula
+                                @case('foundation')
+                                <span
+                                    class="badge bg-success"
+                                    role="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-change-level-{{ $class->uuid }}">
+                                    Foundation
                                 </span>
-
                                 @break
 
-                                @case('menengah')
-
-                                <span class="badge bg-warning text-dark">
-                                    Menengah
+                                @case('intermediate')
+                                <span
+                                    class="badge bg-warning text-dark"
+                                    role="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-change-level-{{ $class->uuid }}">
+                                    Intermediate
                                 </span>
-
                                 @break
 
                                 @case('advance')
-
-                                <span class="badge bg-danger">
+                                <span
+                                    class="badge bg-danger"
+                                    role="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-change-level-{{ $class->uuid }}">
                                     Advance
                                 </span>
-
                                 @break
 
                                 @default
-
-                                <span class="badge bg-primary">
-                                    Semua Level
+                                <span
+                                    class="badge bg-secondary"
+                                    role="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-change-level-{{ $class->uuid }}">
+                                    -
                                 </span>
 
                                 @endswitch
-
                             </td>
 
                             {{-- Duration --}}
@@ -449,8 +449,6 @@
 
                                 </a>
 
-                                @include('pages.class.modal-edit')
-
                                 @endcan
 
                             </td>
@@ -486,31 +484,17 @@
 
                         </tr>
 
-                        @empty
-
-                        <tr>
-
-                            <td
-                                colspan="10"
-                                class="text-center py-4">
-
-                                <div class="text-muted">
-
-                                    <i class="bi bi-inbox fs-2 d-block mb-2"></i>
-
-                                    No classes found.
-
-                                </div>
-
-                            </td>
-
-                        </tr>
-
-                        @endforelse
+                        @endforeach
 
                     </tbody>
 
                 </table>
+
+                @if ($classes->isEmpty())
+                <div class="text-center text-muted py-4">
+                    No classes found.
+                </div>
+                @endif
 
             </div>
 
@@ -520,8 +504,7 @@
 
 </section>
 
-{{-- Modal Create --}}
-@include('pages.class.modal-create')
+@include('pages.class.modal-change-level')
 
 <script>
     function showSweetAlert(getId) {
@@ -531,9 +514,7 @@
             title: 'Delete Class?',
             text: 'This class will be permanently deleted. Are you sure?',
             icon: 'warning',
-
             showCancelButton: true,
-
             confirmButtonText: 'Yes, Delete!',
             cancelButtonText: 'Cancel'
 

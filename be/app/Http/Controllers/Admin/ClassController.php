@@ -67,7 +67,10 @@ class ClassController extends Controller
      */
     public function create()
     {
-        //
+        $instructors = User::role('instruktur')
+            ->orderBy('name')
+            ->get();
+        return view('pages.class.create', compact('instructors'));
     }
 
     /**
@@ -78,17 +81,17 @@ class ClassController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:classes,name',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'level' => 'required|in:pemula,menengah,advance,semua_level',
+            'level' => 'required|in:foundation,intermediate,advance',
             'duration' => 'required|integer|min:1',
             'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
+            'price' => 'nullable|numeric|min:0',
             'quota_cost' => 'required|integer|min:1',
             'is_active' => 'required|in:active,inactive',
         ]);
 
         if (
             auth()->user()->hasRole('admin') ||
-            auth()->user()->hasRole('superadmin')
+            auth()->user()->hasRole('super-admin')
         ) {
             $request->validate([
                 'instructor_uuid' => 'required|uuid|exists:users,uuid',
@@ -130,7 +133,7 @@ class ClassController extends Controller
 
             return redirect()
                 ->route('classes.index')
-                ->with('success', 'Class berhasil ditambahkan.');
+                ->with('success', 'Class added successfully.');
         } catch (\Throwable $th) {
 
             DB::rollBack();
@@ -142,12 +145,41 @@ class ClassController extends Controller
         }
     }
 
+    public function changeLevel(Request $request, $uuid)
+    {
+        $request->validate([
+            'level' => 'required|in:foundation,intermediate,advance',
+        ]);
+
+        try {
+            $class = ClassModel::where('uuid', $uuid)->firstOrFail();
+
+            $class->update([
+                'level' => $request->level,
+            ]);
+
+            return redirect()
+                ->route('classes.index')
+                ->with('success', 'Class level updated successfully.');
+        } catch (\Throwable $th) {
+            return redirect()
+                ->back()
+                ->with('error', $th->getMessage());
+        }
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $uuid)
     {
-        //
+        $class = ClassModel::where('uuid', $uuid)->firstOrFail();
+
+        $instructors = User::role('instruktur')
+            ->orderBy('name')
+            ->get();
+
+        return view('pages.class.edit', compact('class', 'instructors'));
     }
 
     /**
