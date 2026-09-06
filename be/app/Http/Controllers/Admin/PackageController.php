@@ -256,11 +256,82 @@ class PackageController extends Controller
 
     public function members(Request $request)
     {
-        $packages = Package::with('features')
-            ->where('is_active', 'active')
-            ->orderByDesc('is_popular')
-            ->orderBy('price')
-            ->get();
+        $query = Package::with('features')
+            ->where('is_active', 'active');
+
+        // =========================
+        // FILTER
+        // =========================
+
+        if ($request->filter === 'popular') {
+
+            $query->where('is_popular', true);
+        } elseif ($request->filter === 'unlimited') {
+
+            $query->whereNull('quota');
+        }
+
+
+        // =========================
+        // SORT
+        // =========================
+
+        switch ($request->sort) {
+
+            case 'price_low':
+
+                $query->orderByRaw(
+                    'COALESCE(discount_price, price) ASC'
+                );
+
+                break;
+
+            case 'price_high':
+
+                $query->orderByRaw(
+                    'COALESCE(discount_price, price) DESC'
+                );
+
+                break;
+
+            case 'duration_short':
+
+                $query->orderByRaw("
+                CASE duration_unit
+                    WHEN 'day' THEN duration
+                    WHEN 'week' THEN duration * 7
+                    WHEN 'month' THEN duration * 30
+                    WHEN 'year' THEN duration * 365
+                    ELSE duration
+                END ASC
+            ");
+
+                break;
+
+            case 'duration_long':
+
+                $query->orderByRaw("
+                CASE duration_unit
+                    WHEN 'day' THEN duration
+                    WHEN 'week' THEN duration * 7
+                    WHEN 'month' THEN duration * 30
+                    WHEN 'year' THEN duration * 365
+                    ELSE duration
+                END DESC
+            ");
+
+                break;
+
+            default:
+
+                // Recommended
+                $query->orderByDesc('is_popular')
+                    ->orderBy('price');
+
+                break;
+        }
+
+        $packages = $query->get();
 
         return view(
             'pages.package.member',

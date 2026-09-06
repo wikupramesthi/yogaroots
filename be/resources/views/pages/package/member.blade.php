@@ -3,19 +3,24 @@
 @section('content')
 
 <style>
+    /* =========================================================
+       MEMBERSHIP PAGE
+    ========================================================= */
+
     .membership-page {
         min-height: 100vh;
         padding: 55px 0 70px;
     }
 
-    /* =========================
+
+    /* =========================================================
        HEADER
-    ========================= */
+    ========================================================= */
 
     .membership-header {
         text-align: center;
         max-width: 720px;
-        margin: 0 auto 55px;
+        margin: 0 auto 38px;
     }
 
     .membership-header .eyebrow {
@@ -59,32 +64,143 @@
     }
 
 
-    /* =========================
-       CARD
-    ========================= */
+    /* =========================================================
+       PACKAGE FILTER
+    ========================================================= */
+
+    .package-filter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+
+        margin-bottom: 30px;
+        padding: 6px;
+
+        background: #fff;
+        border: 1px solid #ece9e4;
+        border-radius: 14px;
+
+        box-shadow: 0 4px 18px rgba(0, 0, 0, .035);
+    }
+
+    .package-filter-left {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .package-filter-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+
+        padding: 9px 15px;
+
+        border-radius: 9px;
+
+        color: #777;
+        background: transparent;
+
+        text-decoration: none;
+
+        font-size: 13px;
+        font-weight: 600;
+
+        transition: all .2s ease;
+    }
+
+    .package-filter-btn:hover {
+        color: #6d4aff;
+        background: #f7f5ff;
+    }
+
+    .package-filter-btn.active {
+        color: #6d4aff;
+        background: #f1edff;
+    }
+
+    .package-filter-btn i {
+        font-size: 16px;
+        margin-top: 1px;
+    }
+
+
+    /* =========================================================
+       SORT
+    ========================================================= */
+
+    .package-sort {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+
+        padding-right: 4px;
+    }
+
+    .sort-label {
+        color: #888;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .package-sort .form-select {
+        width: 175px;
+
+        border-color: #e7e4df;
+        border-radius: 9px;
+
+        color: #444;
+        font-size: 13px;
+
+        cursor: pointer;
+    }
+
+    .package-sort .form-select:focus {
+        border-color: #6d4aff;
+
+        box-shadow:
+            0 0 0 .15rem rgba(109, 74, 255, .10);
+    }
+
+
+    /* =========================================================
+       PACKAGE CARD
+    ========================================================= */
 
     .membership-card {
         position: relative;
+
         height: 100%;
+
         background: #fff;
+
         border: 1px solid #ece9e4;
         border-radius: 24px;
+
         padding: 30px;
+
         display: flex;
         flex-direction: column;
+
         box-shadow: 0 8px 30px rgba(0, 0, 0, .045);
-        transition: all .3s ease;
+
+        transition:
+            transform .3s ease,
+            box-shadow .3s ease;
     }
 
     .membership-card:hover {
         transform: translateY(-7px);
-        box-shadow: 0 18px 45px rgba(0, 0, 0, .10);
+
+        box-shadow:
+            0 18px 45px rgba(0, 0, 0, .10);
     }
 
 
-    /* =========================
+    /* =========================================================
        POPULAR CARD
-    ========================= */
+    ========================================================= */
 
     .membership-card.popular {
         background: linear-gradient(145deg,
@@ -93,8 +209,12 @@
                 #29205d 100%);
 
         border: 2px solid #7047e8;
+
         color: #fff;
-        box-shadow: 0 20px 45px rgba(73, 37, 126, .25);
+
+        box-shadow:
+            0 20px 45px rgba(73, 37, 126, .25);
+
         transform: translateY(-10px);
     }
 
@@ -104,28 +224,39 @@
 
     .popular-badge {
         position: absolute;
+
         top: -14px;
         left: 50%;
+
         transform: translateX(-50%);
+
         background: #7047e8;
         color: #fff;
+
         padding: 7px 18px;
+
         border-radius: 50px;
+
         font-size: 12px;
         font-weight: 700;
+
         white-space: nowrap;
-        box-shadow: 0 6px 18px rgba(112, 71, 232, .35);
+
+        box-shadow:
+            0 6px 18px rgba(112, 71, 232, .35);
     }
 
 
-    /* =========================
+    /* =========================================================
        PACKAGE NAME
-    ========================= */
+    ========================================================= */
 
     .package-name {
         font-size: 25px;
         font-weight: 700;
+
         color: #202020;
+
         margin-bottom: 7px;
     }
 
@@ -133,11 +264,19 @@
         color: #fff;
     }
 
+
+    /* =========================================================
+       DESCRIPTION
+    ========================================================= */
+
     .package-description {
         color: #6b7280;
+
         font-size: 14px;
         line-height: 1.6;
+
         min-height: 45px;
+
         margin-bottom: 22px;
     }
 
@@ -146,12 +285,13 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        DIVIDER
-    ========================= */
+    ========================================================= */
 
     .package-divider {
         border-top: 1px solid #eee;
+
         margin-bottom: 22px;
     }
 
@@ -160,13 +300,15 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        PRICE
-    ========================= */
+    ========================================================= */
 
     .price-label {
         font-size: 13px;
+
         color: #777;
+
         margin-bottom: 6px;
     }
 
@@ -181,14 +323,19 @@
     .package-old-price {
         display: flex;
         align-items: center;
+
         gap: 8px;
+
         margin-bottom: 2px;
+
         min-height: 22px;
     }
 
     .package-old-price .amount {
         color: #999;
+
         font-size: 14px;
+
         text-decoration: line-through;
     }
 
@@ -199,28 +346,36 @@
     .discount-badge {
         display: inline-flex;
         align-items: center;
+
         background: #fce8e8;
+
         color: #d9534f;
+
         border-radius: 6px;
+
         padding: 3px 7px;
+
         font-size: 11px;
         font-weight: 700;
     }
 
     .popular .discount-badge {
         background: rgba(255, 255, 255, .15);
+
         color: #fff;
     }
 
     .package-price {
         display: flex;
         align-items: baseline;
+
         gap: 5px;
     }
 
     .package-price .currency {
         font-size: 15px;
         font-weight: 600;
+
         color: #202020;
     }
 
@@ -231,8 +386,11 @@
     .package-price .amount {
         font-size: 35px;
         font-weight: 800;
+
         letter-spacing: -1px;
+
         color: #202020;
+
         line-height: 1;
     }
 
@@ -242,6 +400,7 @@
 
     .package-price .period {
         font-size: 13px;
+
         color: #777;
     }
 
@@ -250,29 +409,38 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        QUOTA
-    ========================= */
+    ========================================================= */
 
     .quota-box {
         background: #fafafa;
+
         border: 1px solid #eee;
+
         border-radius: 15px;
+
         padding: 15px 17px;
+
         margin-bottom: 25px;
     }
 
     .popular .quota-box {
         background: rgba(255, 255, 255, .08);
+
         border-color: rgba(255, 255, 255, .12);
     }
 
     .quota-label {
         display: flex;
         align-items: center;
+
         gap: 7px;
+
         color: #777;
+
         font-size: 13px;
+
         margin-bottom: 5px;
     }
 
@@ -291,6 +459,7 @@
     .quota-value {
         font-size: 20px;
         font-weight: 700;
+
         color: #2d6041;
     }
 
@@ -298,10 +467,17 @@
         color: #fff;
     }
 
+
+    /* =========================================================
+       FEATURES
+    ========================================================= */
+
     .features-title {
         font-size: 13px;
         font-weight: 700;
+
         color: #444;
+
         margin-bottom: 14px;
     }
 
@@ -311,18 +487,24 @@
 
     .package-features {
         list-style: none;
+
         padding: 0;
         margin: 0 0 28px;
+
         flex-grow: 1;
     }
 
     .package-features li {
         display: flex;
         align-items: flex-start;
+
         gap: 10px;
+
         color: #555;
+
         font-size: 14px;
         line-height: 1.5;
+
         margin-bottom: 11px;
     }
 
@@ -332,7 +514,9 @@
 
     .package-features li i {
         color: #39a66b;
-        font-size: 14px;
+
+        font-size: 18px;
+
         flex-shrink: 0;
     }
 
@@ -345,47 +529,61 @@
     }
 
 
-    /* =========================
+    /* =========================================================
        BUTTON
-    ========================= */
+    ========================================================= */
 
     .choose-package {
         width: 100%;
+
         border-radius: 12px;
+
         padding: 12px 20px;
+
         font-size: 14px;
         font-weight: 700;
+
         border: 1.5px solid #6d4aff;
+
         background: transparent;
+
         color: #6d4aff;
+
         transition: all .25s ease;
     }
 
     .choose-package:hover {
         background: #6d4aff;
+
         color: #fff;
     }
 
     .popular .choose-package {
         background: #7047e8;
+
         border-color: #7047e8;
+
         color: #fff;
     }
 
     .popular .choose-package:hover {
         background: #805cf0;
+
         border-color: #805cf0;
     }
 
 
-    /* =========================
+    /* =========================================================
        BOTTOM TEXT
-    ========================= */
+    ========================================================= */
 
     .saving-text {
         text-align: center;
+
         margin-top: 17px;
+
         color: #6d4aff;
+
         font-size: 13px;
         font-weight: 700;
     }
@@ -395,9 +593,59 @@
     }
 
 
-    /* =========================
+    /* =========================================================
+       EMPTY STATE
+    ========================================================= */
+
+    .package-empty {
+        background: #fff;
+
+        border: 1px solid #ece9e4;
+
+        border-radius: 20px;
+
+        padding: 60px 30px;
+
+        box-shadow: 0 8px 30px rgba(0, 0, 0, .035);
+    }
+
+    .package-empty-icon {
+        width: 70px;
+        height: 70px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin: 0 auto 18px;
+
+        background: #f5f2ff;
+
+        border-radius: 50%;
+
+        color: #6d4aff;
+
+        font-size: 28px;
+    }
+
+    .package-empty h5 {
+        color: #333;
+
+        margin-bottom: 8px;
+    }
+
+    .package-empty p {
+        color: #888;
+
+        margin-bottom: 0;
+
+        font-size: 14px;
+    }
+
+
+    /* =========================================================
        RESPONSIVE
-    ========================= */
+    ========================================================= */
 
     @media (max-width: 1199px) {
 
@@ -414,11 +662,11 @@
     @media (max-width: 767px) {
 
         .membership-page {
-            padding: 15px 0;
+            padding: 30px 0 50px;
         }
 
         .membership-header {
-            margin-bottom: 45px;
+            margin-bottom: 30px;
         }
 
         .membership-header h2 {
@@ -428,6 +676,61 @@
         .membership-header p {
             font-size: 14px;
         }
+
+        .membership-note {
+            font-size: 12px;
+
+            padding: 8px 14px;
+        }
+
+
+        /* Filter */
+
+        .package-filter {
+            flex-direction: column;
+
+            align-items: stretch;
+
+            padding: 8px;
+
+            gap: 8px;
+        }
+
+        .package-filter-left {
+            width: 100%;
+
+            overflow-x: auto;
+
+            scrollbar-width: none;
+        }
+
+        .package-filter-left::-webkit-scrollbar {
+            display: none;
+        }
+
+        .package-filter-btn {
+            white-space: nowrap;
+
+            padding: 8px 12px;
+        }
+
+
+        /* Sort */
+
+        .package-sort {
+            width: 100%;
+
+            padding: 4px 2px 0;
+        }
+
+        .package-sort .form-select {
+            flex: 1;
+
+            width: auto;
+        }
+
+
+        /* Card */
 
         .membership-card {
             padding: 25px;
@@ -452,9 +755,11 @@
 
     <div class="container">
 
-        {{-- =========================
+
+        {{-- =====================================================
              HEADER
-        ========================= --}}
+        ====================================================== --}}
+
         <div class="membership-header">
 
             <div class="eyebrow">
@@ -470,23 +775,138 @@
             </p>
 
             <div class="membership-note">
+
                 <i class="bi bi-stars"></i>
+
                 All packages can be used for Yogaroots classes
+
             </div>
 
         </div>
 
 
-        {{-- =========================
+        {{-- =====================================================
+             FILTER
+        ====================================================== --}}
+
+        <div class="package-filter">
+
+
+            {{-- Filter Buttons --}}
+
+            <div class="package-filter-left">
+
+                {{-- All --}}
+
+                <a
+                    href="{{ route('packages.member') }}"
+                    class="package-filter-btn {{ !request('filter') ? 'active' : '' }}">
+
+                    <i class="bi bi-grid-3x3-gap"></i>
+
+                    All Packages
+
+                </a>
+
+
+                {{-- Popular --}}
+
+                <a
+                    href="{{ route('packages.member', [
+                        'filter' => 'popular',
+                        'sort' => request('sort')
+                    ]) }}"
+                    class="package-filter-btn {{ request('filter') === 'popular' ? 'active' : '' }}">
+
+                    <i class="bi bi-star-fill"></i>
+
+                    Popular
+
+                </a>
+
+
+                {{-- Unlimited --}}
+
+                <a
+                    href="{{ route('packages.member', [
+                        'filter' => 'unlimited',
+                        'sort' => request('sort')
+                    ]) }}"
+                    class="package-filter-btn {{ request('filter') === 'unlimited' ? 'active' : '' }}">
+
+                    <i class="bi bi-infinity"></i>
+
+                    Unlimited
+
+                </a>
+
+            </div>
+
+
+            {{-- Sort --}}
+
+            <div class="package-sort">
+
+                <span class="sort-label">
+                    Sort by
+                </span>
+
+                <select
+                    id="packageSort"
+                    class="form-select form-select-sm"
+                    onchange="sortPackages(this.value)">
+
+                    <option
+                        value=""
+                        {{ !request('sort') ? 'selected' : '' }}>
+                        Recommended
+                    </option>
+
+                    <option
+                        value="price_low"
+                        {{ request('sort') === 'price_low' ? 'selected' : '' }}>
+                        Lowest Price
+                    </option>
+
+                    <option
+                        value="price_high"
+                        {{ request('sort') === 'price_high' ? 'selected' : '' }}>
+                        Highest Price
+                    </option>
+
+                    <option
+                        value="duration_short"
+                        {{ request('sort') === 'duration_short' ? 'selected' : '' }}>
+                        Shortest Duration
+                    </option>
+
+                    <option
+                        value="duration_long"
+                        {{ request('sort') === 'duration_long' ? 'selected' : '' }}>
+                        Longest Duration
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        {{-- =====================================================
              PACKAGES
-        ========================= --}}
+        ====================================================== --}}
+
         <div class="row g-4 align-items-stretch">
 
+
             @forelse ($packages as $package)
+
 
             @php
 
             $isPopular = $package->is_popular;
+
 
             /*
             |--------------------------------------------------------------------------
@@ -527,6 +947,7 @@
             !is_null($package->discount_price)
             && $package->discount_price < $package->price;
 
+
                 $finalPrice = $hasDiscount
                 ? $package->discount_price
                 : $package->price;
@@ -551,14 +972,18 @@
                 @endphp
 
 
+                {{-- =================================================
+                     PACKAGE ITEM
+                ================================================== --}}
+
                 <div class="col-xl-4 col-lg-4 col-md-6">
+
 
                     <div class="membership-card {{ $isPopular ? 'popular' : '' }}">
 
 
-                        {{-- =========================
-                             POPULAR BADGE
-                        ========================= --}}
+                        {{-- Popular Badge --}}
+
                         @if ($isPopular)
 
                         <div class="popular-badge">
@@ -572,9 +997,8 @@
                         @endif
 
 
-                        {{-- =========================
-                             PACKAGE NAME
-                        ========================= --}}
+                        {{-- Package Name --}}
+
                         <div class="package-name">
 
                             {{ $package->name }}
@@ -582,9 +1006,8 @@
                         </div>
 
 
-                        {{-- =========================
-                             DESCRIPTION
-                        ========================= --}}
+                        {{-- Description --}}
+
                         <div class="package-description">
 
                             {{ $package->description ?: 'Start your yoga journey with a membership designed for you.' }}
@@ -595,27 +1018,36 @@
                         <div class="package-divider"></div>
 
 
-                        {{-- =========================
-                             PRICE
-                        ========================= --}}
+                        {{-- Price --}}
+
                         <div class="price-label">
+
                             Membership price
+
                         </div>
+
 
                         <div class="package-price-wrapper">
 
 
-                            {{-- Old Price + Discount --}}
+                            {{-- Old Price --}}
+
                             @if ($hasDiscount)
 
                             <div class="package-old-price">
 
                                 <span class="amount">
-                                    Rp {{ number_format($package->price, 0, ',', '.') }}
+
+                                    Rp
+                                    {{ number_format($package->price, 0, ',', '.') }}
+
                                 </span>
 
+
                                 <span class="discount-badge">
+
                                     -{{ $discountPercent }}%
+
                                 </span>
 
                             </div>
@@ -624,6 +1056,7 @@
 
 
                             {{-- Final Price --}}
+
                             <div class="package-price">
 
                                 <span class="currency">
@@ -631,11 +1064,15 @@
                                 </span>
 
                                 <span class="amount">
+
                                     {{ number_format($finalPrice, 0, ',', '.') }}
+
                                 </span>
 
                                 <span class="period">
+
                                     / {{ $durationLabel }}
+
                                 </span>
 
                             </div>
@@ -643,9 +1080,8 @@
                         </div>
 
 
-                        {{-- =========================
-                             QUOTA
-                        ========================= --}}
+                        {{-- Quota --}}
+
                         <div class="quota-box">
 
                             <div class="quota-label">
@@ -655,6 +1091,7 @@
                                 Class Quota
 
                             </div>
+
 
                             <div class="quota-value">
 
@@ -673,12 +1110,14 @@
                         </div>
 
 
-                        {{-- =========================
-                             FEATURES
-                        ========================= --}}
+                        {{-- Features --}}
+
                         <div class="features-title">
+
                             What's included
+
                         </div>
+
 
                         <ul class="package-features">
 
@@ -711,10 +1150,10 @@
                         </ul>
 
 
-                        {{-- =========================
-                             BUTTON
-                        ========================= --}}
+                        {{-- Button --}}
+
                         <div class="mt-auto">
+
 
                             <button
                                 type="button"
@@ -738,6 +1177,7 @@
 
                         </div>
 
+
                     </div>
 
                 </div>
@@ -745,26 +1185,56 @@
 
                 @empty
 
-                {{-- =========================
+
+                {{-- =================================================
                      EMPTY STATE
-                ========================= --}}
+                ================================================== --}}
+
                 <div class="col-12">
 
-                    <div class="text-center py-5">
+                    <div class="package-empty text-center">
 
-                        <div class="mb-3">
 
-                            <i class="bi bi-box-seam fs-1 text-muted"></i>
+                        <div class="package-empty-icon">
+
+                            <i class="bi bi-box-seam"></i>
 
                         </div>
 
+
                         <h5 class="fw-bold">
+
                             No Membership Packages Available
+
                         </h5>
 
-                        <p class="text-muted">
+
+                        <p>
+
                             Membership packages are currently unavailable.
+
                         </p>
+
+
+                        {{-- Reset Filter --}}
+
+                        @if (request('filter') || request('sort'))
+
+                        <div class="mt-4">
+
+                            <a
+                                href="{{ route('packages.member') }}"
+                                class="btn btn-sm btn-outline-secondary">
+
+                                <i class="bi bi-arrow-counterclockwise me-1"></i>
+
+                                View All Packages
+
+                            </a>
+
+                        </div>
+
+                        @endif
 
                     </div>
 
@@ -779,14 +1249,74 @@
 </div>
 
 
+{{-- =============================================================
+     SCRIPT
+============================================================= --}}
+
 <script>
+    function sortPackages(sort) {
+
+        const url = new URL(window.location.href);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Keep Current Filter
+        |--------------------------------------------------------------------------
+        */
+
+        const currentFilter = url.searchParams.get('filter');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Update Sort
+        |--------------------------------------------------------------------------
+        */
+
+        if (sort) {
+
+            url.searchParams.set('sort', sort);
+
+        } else {
+
+            url.searchParams.delete('sort');
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Keep Filter
+        |--------------------------------------------------------------------------
+        */
+
+        if (currentFilter) {
+
+            url.searchParams.set('filter', currentFilter);
+
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Reload
+        |--------------------------------------------------------------------------
+        */
+
+        window.location.href = url.toString();
+    }
+
+
     function choosePackage(uuid) {
 
-        // Nanti diarahkan ke proses pembelian package
-        console.log('Selected package:', uuid);
+        /*
+        |--------------------------------------------------------------------------
+        | Checkout
+        |--------------------------------------------------------------------------
+        |
+        | Nanti diarahkan ke halaman checkout.
+        |
+        */
 
-        // Contoh:
-        // window.location.href = '/packages/' + uuid + '/checkout';
+        window.location.href =
+            '/packages/' + uuid + '/checkout';
 
     }
 </script>
