@@ -194,6 +194,7 @@
                     @endif
 
                 </div>
+
                 <div class="row">
 
                     {{-- Price --}}

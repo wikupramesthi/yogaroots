@@ -91,7 +91,7 @@ class ClassController extends Controller
 
         if (
             auth()->user()->hasRole('admin') ||
-            auth()->user()->hasRole('super-admin')
+            auth()->user()->hasRole('superadmin')
         ) {
             $request->validate([
                 'instructor_uuid' => 'required|uuid|exists:users,uuid',
@@ -190,7 +190,7 @@ class ClassController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:classes,name,' . $uuid . ',uuid',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'level' => 'required|in:pemula,menengah,advance,semua_level',
+            'level' => 'required|in:foundation,intermediate,advance',
             'duration' => 'required|integer|min:1',
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
@@ -198,8 +198,13 @@ class ClassController extends Controller
             'is_active' => 'required|in:active,inactive',
         ]);
 
-        // Admin boleh mengganti instructor
-        if (auth()->user()->hasRole('admin')) {
+        $user = auth()->user();
+
+        // Admin & Superadmin boleh mengganti instructor
+        if (
+            $user->hasRole('admin') ||
+            $user->hasRole('superadmin')
+        ) {
             $request->validate([
                 'instructor_uuid' => 'required|uuid|exists:users,uuid',
             ]);
@@ -212,17 +217,19 @@ class ClassController extends Controller
             $query = ClassModel::where('uuid', $uuid);
 
             // Instruktur hanya bisa update class miliknya
-            if (auth()->user()->hasRole('instruktur')) {
+            if ($user->hasRole('instruktur')) {
                 $query->where(
                     'instructor_uuid',
-                    auth()->user()->uuid
+                    $user->uuid
                 );
             }
 
             $class = $query->firstOrFail();
 
+            // Pertahankan gambar lama
             $imagePath = $class->image;
 
+            // Jika upload gambar baru
             if ($request->hasFile('image')) {
 
                 if ($class->image) {
@@ -247,10 +254,11 @@ class ClassController extends Controller
                 'is_active' => $request->is_active,
             ];
 
-
-            // Hanya admin yang bisa mengganti instructor
-            if (auth()->user()->hasRole('admin')) {
-
+            // Admin & Superadmin boleh mengganti instructor
+            if (
+                $user->hasRole('admin') ||
+                $user->hasRole('superadmin')
+            ) {
                 $instructor = User::role('instruktur')
                     ->where('uuid', $request->instructor_uuid)
                     ->firstOrFail();
@@ -258,14 +266,13 @@ class ClassController extends Controller
                 $data['instructor_uuid'] = $instructor->uuid;
             }
 
-
             $class->update($data);
 
             DB::commit();
 
             return redirect()
                 ->route('classes.index')
-                ->with('success', 'Class update successfully.');
+                ->with('success', 'Class updated successfully.');
         } catch (\Throwable $th) {
 
             DB::rollBack();
@@ -276,7 +283,6 @@ class ClassController extends Controller
                 ->with('error', $th->getMessage());
         }
     }
-
 
     /**
      * Remove the specified resource from storage.
