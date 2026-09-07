@@ -50,7 +50,6 @@ app.get("/", async (req, res) => {
 
       testimonials: testimonials.slice(0, 3),
       posts: posts.slice(0, 3),
-
     });
   } catch (error) {
     console.error("Gagal mengambil data api dari backend:", error);
@@ -62,7 +61,7 @@ app.get("/", async (req, res) => {
       features: yogaData.features,
       classes: yogaData.classes.slice(0, 6),
       pricing: yogaData.pricing,
-      
+
       testimonials: [],
       posts: [],
     });
@@ -183,84 +182,72 @@ app.get("/blog/:slug", async (req, res) => {
 
 // events
 app.get("/event", async (req, res) => {
-    try {
+  try {
+    const params = {
+      search: req.query.search || "",
+      filter: req.query.filter || "",
+      date_from: req.query.date_from || "",
+      date_to: req.query.date_to || "",
+    };
 
-        const params = {
-            search: req.query.search || "",
-            filter: req.query.filter || "",
-            date_from: req.query.date_from || "",
-            date_to: req.query.date_to || "",
-        };
+    console.log("FILTER REQUEST:", params);
 
+    const response = await getEvents(params);
 
-        console.log("FILTER REQUEST:", params);
+    const events = Array.isArray(response)
+      ? response
+      : Array.isArray(response?.data)
+        ? response.data
+        : [];
 
+    console.log("EVENT RESULT:", events);
 
-        const response = await getEvents(params);
+    res.render("pages/events", {
+      title: "Event & Workshop",
 
+      events: events,
 
-        const events = Array.isArray(response)
-            ? response
-            : Array.isArray(response?.data)
-                ? response.data
-                : [];
+      search: params.search,
 
+      filter: params.filter,
 
-        console.log("EVENT RESULT:", events);
+      date_from: params.date_from,
 
+      date_to: params.date_to,
 
-        res.render("pages/events", {
+      totalEvents: events.length,
 
-            title: "Event & Workshop",
+      totalPages: 1,
 
-            events: events,
+      currentPage: 1,
 
-            search: params.search,
+      error: null,
+    });
+  } catch (error) {
+    console.error("Gagal mengambil data event:", error);
 
-            filter: params.filter,
+    res.status(500).render("pages/events", {
+      title: "Event & Workshop",
 
-            date_from: params.date_from,
+      events: [],
 
-            date_to: params.date_to,
+      search: req.query.search || "",
 
-            totalEvents: events.length,
+      filter: req.query.filter || "",
 
-            totalPages: 1,
+      date_from: req.query.date_from || "",
 
-            currentPage: 1,
+      date_to: req.query.date_to || "",
 
-            error: null,
-        });
+      totalEvents: 0,
 
+      totalPages: 1,
 
-    } catch (error) {
+      currentPage: 1,
 
-        console.error("Gagal mengambil data event:", error);
-
-
-        res.status(500).render("pages/events", {
-
-            title: "Event & Workshop",
-
-            events: [],
-
-            search: req.query.search || "",
-
-            filter: req.query.filter || "",
-
-            date_from: req.query.date_from || "",
-
-            date_to: req.query.date_to || "",
-
-            totalEvents: 0,
-
-            totalPages: 1,
-
-            currentPage: 1,
-
-            error: "Gagal mengambil data event.",
-        });
-    }
+      error: "Gagal mengambil data event.",
+    });
+  }
 });
 
 // end events
