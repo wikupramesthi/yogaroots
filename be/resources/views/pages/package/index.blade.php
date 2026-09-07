@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Package')
+@section('title', 'Packages')
 
 @section('content')
 
 @section('breadcrumb')
 <x-breadcrumb
-    title="Package"
-    page="Package"
-    active="Semua Package"
+    title="Packages"
+    page="Packages"
+    active="All Packages"
     route="{{ route('packages.index') }}" />
 @endsection
 
@@ -16,10 +16,9 @@
     <div class="d-flex">
         <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
 
-        <div class="text-white mt-2">
-            <strong>Manajemen Paket Membership</strong>
-            <br>
-            Kelola paket membership, harga, kuota, masa berlaku, dan benefit yang tersedia bagi member.
+        <div class="text-white mt-0">
+           <strong>Membership Package Management</strong> <br>
+            Manage membership plans, pricing, class quotas, validity periods, and benefits available to your members.
         </div>
     </div>
 </div>
@@ -61,7 +60,7 @@
 
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-
+             @can('package.store')
                 {{-- Filter --}}
                 <form
                     action="{{ route('packages.index') }}"
@@ -77,7 +76,7 @@
                             </span>
 
                             <select name="is_active" class="form-select">
-                                <option value="">-- Semua --</option>
+                                <option value="">-- All Status --</option>
 
                                 <option
                                     value="active"
@@ -100,22 +99,22 @@
                         <div class="input-group input-group-sm">
 
                             <span class="input-group-text">
-                                Popular
+                                Most Popular
                             </span>
 
                             <select name="is_popular" class="form-select">
-                                <option value="">-- Semua --</option>
+                                <option value="">-- All --</option>
 
                                 <option
                                     value="1"
                                     {{ request('is_popular') === '1' ? 'selected' : '' }}>
-                                    Ya
+                                    Yes
                                 </option>
 
                                 <option
                                     value="0"
                                     {{ request('is_popular') === '0' ? 'selected' : '' }}>
-                                    Tidak
+                                    No
                                 </option>
                             </select>
 
@@ -131,12 +130,12 @@
                             </span>
 
                             <select name="quota_type" class="form-select">
-                                <option value="">-- Semua --</option>
+                                <option value="">-- All --</option>
 
                                 <option
                                     value="limited"
                                     {{ request('quota_type') === 'limited' ? 'selected' : '' }}>
-                                    Berquota
+                                    Limited Quota
                                 </option>
 
                                 <option
@@ -168,6 +167,7 @@
                     </div>
 
                 </form>
+                 @endcan
 
                 {{-- Action --}}
                 <div class="d-flex gap-2">
@@ -179,7 +179,7 @@
                         data-bs-toggle="modal"
                         data-bs-target="#modal-form-add-package">
                         <i class="bi bi-plus-lg"></i>
-                        Tambah Package
+                        Add Package
                     </button>
                     @endcan
 
@@ -196,16 +196,16 @@
 
                     <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Package</th>
-                            <th>Harga</th>
-                            <th>Quota</th>
-                            <th>Durasi</th>
-                            <th>Features</th>
-                            <th>Popular</th>
-                            <th>Status</th>
-                            <th>Edit</th>
-                            <th>Hapus</th>
+                        <th>No.</th>
+                        <th>Package</th>
+                        <th>Price</th>
+                        <th>Quota</th>
+                        <th>Duration</th>
+                        <th>Features</th>
+                        <th>Popular</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                         </tr>
                     </thead>
 
@@ -360,11 +360,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data package ini akan dihapus secara permanen. Apakah Anda yakin?',
+            title: 'Confirm Deletion',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Deleted!'
         }).then((result) => {
 
             if (result.isConfirmed) {

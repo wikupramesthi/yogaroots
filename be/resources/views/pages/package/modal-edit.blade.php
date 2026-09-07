@@ -40,7 +40,7 @@
                     <div class="form-group mb-3">
 
                         <label for="name_{{ $package->uuid }}" class="mb-2">
-                            Nama Package
+                            Package Name
                             <span class="text-danger">*</span>
                         </label>
 
@@ -48,7 +48,7 @@
                             type="text"
                             class="form-control @error('name') is-invalid @enderror"
                             id="name_{{ $package->uuid }}"
-                            placeholder="Nama Package"
+                            placeholder="Package Name"
                             name="name"
                             value="{{ $package->name ?? old('name') }}"
                             required>
@@ -66,14 +66,14 @@
                     <div class="form-group mb-3">
 
                         <label for="description_{{ $package->uuid }}" class="mb-2">
-                            Deskripsi
+                            Description
                         </label>
 
                         <textarea
                             class="form-control @error('description') is-invalid @enderror"
                             id="description_{{ $package->uuid }}"
                             name="description"
-                            placeholder="Deskripsi Package"
+                            placeholder="Description"
                             rows="3">{{ $package->description ?? old('description') }}</textarea>
 
                         @error('description')
@@ -89,7 +89,7 @@
                     <div class="form-group mb-3">
 
                         <label for="price_{{ $package->uuid }}" class="mb-2">
-                            Harga Normal
+                           Regular Price
                             <span class="text-danger">*</span>
                         </label>
 
@@ -123,7 +123,7 @@
                     <div class="form-group mb-3">
 
                         <label for="discount_price_{{ $package->uuid }}" class="mb-2">
-                            Harga Diskon
+                           Discounted Price
                         </label>
 
                         <div class="input-group">
@@ -144,7 +144,7 @@
                         </div>
 
                         <small class="text-muted">
-                            Kosongkan jika paket tidak memiliki diskon.
+                            Leave blank if the package does not have a discount.
                         </small>
 
                         @error('discount_price')
@@ -172,7 +172,7 @@
                             min="1">
 
                         <small class="text-muted">
-                            Kosongkan jika package memiliki quota unlimited.
+                            Leave blank if the package has unlimited quota.
                         </small>
 
                         @error('quota')
@@ -192,7 +192,7 @@
                             <div class="form-group mb-3">
 
                                 <label for="duration_{{ $package->uuid }}" class="mb-2">
-                                    Durasi
+                                    Duration
                                     <span class="text-danger">*</span>
                                 </label>
 
@@ -201,7 +201,7 @@
                                     class="form-control @error('duration') is-invalid @enderror"
                                     id="duration_{{ $package->uuid }}"
                                     name="duration"
-                                    placeholder="Contoh: 1"
+                                    placeholder="example: 1"
                                     value="{{ $package->duration ?? old('duration') }}"
                                     min="1"
                                     required>
@@ -222,7 +222,7 @@
                             <div class="form-group mb-3">
 
                                 <label for="duration_unit_{{ $package->uuid }}" class="mb-2">
-                                    Satuan Durasi
+                                    Duration Unit
                                     <span class="text-danger">*</span>
                                 </label>
 
@@ -233,31 +233,31 @@
                                     required>
 
                                     <option value="">
-                                        -- Pilih --
+                                        -- Select --
                                     </option>
 
                                     <option
                                         value="day"
                                         {{ $package->duration_unit == 'day' ? 'selected' : '' }}>
-                                        Hari
+                                        Days
                                     </option>
 
                                     <option
                                         value="week"
                                         {{ $package->duration_unit == 'week' ? 'selected' : '' }}>
-                                        Minggu
+                                        Weeks
                                     </option>
 
                                     <option
                                         value="month"
                                         {{ $package->duration_unit == 'month' ? 'selected' : '' }}>
-                                        Bulan
+                                        Months
                                     </option>
 
                                     <option
                                         value="year"
                                         {{ $package->duration_unit == 'year' ? 'selected' : '' }}>
-                                        Tahun
+                                        Years
                                     </option>
 
                                 </select>
@@ -290,19 +290,19 @@
                             required>
 
                             <option value="">
-                                -- Pilih --
+                                -- Select --
                             </option>
 
                             <option
                                 value="active"
                                 {{ $package->is_active == 'active' ? 'selected' : '' }}>
-                                Aktif
+                                Active
                             </option>
 
                             <option
                                 value="inactive"
                                 {{ $package->is_active == 'inactive' ? 'selected' : '' }}>
-                                Tidak Aktif
+                                Inactive
                             </option>
 
                         </select>
@@ -332,7 +332,7 @@
                             <label
                                 class="form-check-label"
                                 for="is_popular_{{ $package->uuid }}">
-                                Tandai sebagai package populer
+                                Mark as a Popular Package
                             </label>
 
                         </div>
@@ -354,7 +354,7 @@
                                 class="btn btn-sm btn-outline-primary"
                                 onclick="addEditPackageFeature('{{ $package->uuid }}')">
                                 <i class="bi bi-plus-lg"></i>
-                                Tambah Feature
+                                Add Features
                             </button>
 
                         </div>

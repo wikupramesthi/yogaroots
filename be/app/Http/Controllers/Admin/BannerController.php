@@ -62,7 +62,7 @@ class BannerController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Banner berhasil ditambahkan.');
+            return redirect()->back()->with('success', 'Image uploaded successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -121,7 +121,7 @@ class BannerController extends Controller
             $banner->update($data);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Banner berhasil diperbarui.');
+            return redirect()->back()->with('success', 'Image updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -144,7 +144,7 @@ class BannerController extends Controller
             $banner->delete();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Banner berhasil dihapus.');
+            return redirect()->back()->with('success', 'Image deleted successfully..');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());

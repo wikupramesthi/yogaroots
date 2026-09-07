@@ -19,7 +19,7 @@
     <div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show position-relative" role="alert">
         <div class="d-flex">
             <i class="bi-info-circle-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
-            <div class="text-white mt-2">
+            <div class="text-white mt-0">
                 <strong>Informasi:</strong> Halaman ini digunakan untuk mengelola artikel YogaRoots
                 <br>
                 Admin dapat menambahkan, mengedit, menghapus, dan mengatur artikel berdasarkan tanggal publikasi.

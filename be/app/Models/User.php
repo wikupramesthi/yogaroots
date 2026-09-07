@@ -16,6 +16,7 @@ use App\Models\Package\Package;
 use App\Models\Class\ClassModel;
 use App\Models\Class\ClassBooking;
 use App\Models\Payment\Order;
+use App\Models\UserPackage;
 
 
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -103,6 +104,15 @@ class User extends Authenticatable implements MustVerifyEmail
                 $user->uuid = Str::uuid()->toString();
             }
         });
+    }
+
+    public function userPackages()
+    {
+        return $this->hasMany(
+            UserPackage::class,
+            'user_uuid',
+            'uuid'
+        );
     }
 
     /**

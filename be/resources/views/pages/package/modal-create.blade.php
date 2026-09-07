@@ -22,7 +22,7 @@
           <h5
             class="modal-title"
             id="modal-form-add-package-label">
-            Tambah Package
+            Add Package
           </h5>
 
           <button
@@ -39,7 +39,7 @@
           <div class="form-group mb-3">
 
             <label for="name" class="mb-2">
-              Nama Package
+              Package Name
               <span class="text-danger">*</span>
             </label>
 
@@ -48,7 +48,7 @@
               class="form-control @error('name') is-invalid @enderror"
               id="name"
               name="name"
-              placeholder="Contoh: Bloom"
+              placeholder="Example: Bloom"
               value="{{ old('name') }}"
               required>
 
@@ -65,14 +65,14 @@
           <div class="form-group mb-3">
 
             <label for="description" class="mb-2">
-              Deskripsi
+              Description
             </label>
 
             <textarea
               class="form-control @error('description') is-invalid @enderror"
               id="description"
               name="description"
-              placeholder="Deskripsi package"
+              placeholder="Description"
               rows="3">{{ old('description') }}</textarea>
 
             @error('description')
@@ -88,7 +88,7 @@
           <div class="form-group mb-3">
 
             <label for="price" class="mb-2">
-              Harga Normal
+              Regular Price
               <span class="text-danger">*</span>
             </label>
 
@@ -122,7 +122,7 @@
           <div class="form-group mb-3">
 
             <label for="discount_price" class="mb-2">
-              Harga Diskon
+              Discounted Price
             </label>
 
             <div class="input-group">
@@ -143,7 +143,7 @@
             </div>
 
             <small class="text-muted">
-              Kosongkan jika paket tidak memiliki diskon.
+              Leave blank if the package does not have a discount.
             </small>
 
             @error('discount_price')
@@ -172,7 +172,7 @@
               min="1">
 
             <small class="text-muted">
-              Kosongkan jika package memiliki quota unlimited.
+              Leave blank if the package has unlimited quota.
             </small>
 
             @error('quota')
@@ -192,7 +192,7 @@
               <div class="form-group mb-3">
 
                 <label for="duration" class="mb-2">
-                  Durasi
+                  Duration
                   <span class="text-danger">*</span>
                 </label>
 
@@ -201,7 +201,7 @@
                   class="form-control @error('duration') is-invalid @enderror"
                   id="duration"
                   name="duration"
-                  placeholder="Contoh: 1"
+                  placeholder="example: 1"
                   value="{{ old('duration', 1) }}"
                   min="1"
                   required>
@@ -222,7 +222,7 @@
               <div class="form-group mb-3">
 
                 <label for="duration_unit" class="mb-2">
-                  Satuan Durasi
+                  Duration Unit
                   <span class="text-danger">*</span>
                 </label>
 
@@ -233,31 +233,31 @@
                   required>
 
                   <option value="">
-                    -- Pilih --
+                    -- Select --
                   </option>
 
                   <option
                     value="day"
                     {{ old('duration_unit') == 'day' ? 'selected' : '' }}>
-                    Hari
+                    Days
                   </option>
 
                   <option
                     value="week"
                     {{ old('duration_unit') == 'week' ? 'selected' : '' }}>
-                    Minggu
+                    Weeks
                   </option>
 
                   <option
                     value="month"
                     {{ old('duration_unit', 'month') == 'month' ? 'selected' : '' }}>
-                    Bulan
+                    Months
                   </option>
 
                   <option
                     value="year"
                     {{ old('duration_unit') == 'year' ? 'selected' : '' }}>
-                    Tahun
+                    Years
                   </option>
 
                 </select>
@@ -290,19 +290,19 @@
               required>
 
               <option value="">
-                -- Pilih --
+                -- Select --
               </option>
 
               <option
                 value="active"
                 {{ old('is_active', 'active') == 'active' ? 'selected' : '' }}>
-                Aktif
+                Active
               </option>
 
               <option
                 value="inactive"
                 {{ old('is_active') == 'inactive' ? 'selected' : '' }}>
-                Tidak Aktif
+                Inactive
               </option>
 
             </select>
@@ -332,7 +332,7 @@
               <label
                 class="form-check-label"
                 for="is_popular">
-                Tandai sebagai package populer
+                Mark as a Popular Package
               </label>
 
             </div>
@@ -354,7 +354,7 @@
                 class="btn btn-sm btn-outline-primary"
                 onclick="addPackageFeature()">
                 <i class="bi bi-plus-lg"></i>
-                Tambah Feature
+                Add Features
               </button>
 
             </div>
@@ -390,20 +390,19 @@
 
         </div>
 
-
         <div class="modal-footer">
 
           <button
             type="button"
             class="btn btn-light"
             data-bs-dismiss="modal">
-            Batal
+            Cancel
           </button>
 
           <button
             type="submit"
             class="btn btn-primary">
-            Simpan
+            Save
           </button>
 
         </div>

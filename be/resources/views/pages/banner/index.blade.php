@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Media Pustaka')
+@section('title', 'Media Library')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Media Pustaka" page="Media Pustaka" active="Semua Media" route="{{ route('banner.index') }}" />
+<x-breadcrumb title="Media Library" page="Media Library" active="All Media" route="{{ route('banner.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
@@ -18,12 +18,12 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Semua Media</h4>
+                <h4 class="fw-normal mb-0 text-body">All Media</h4>
                 @can('banner.store')
                 <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
                     data-bs-target="#modal-form-add-banner">
                     <i class="bi bi-plus-lg"></i>
-                    Tambah Baru
+                    Add New Media
                 </button>
                 @endcan
 
@@ -34,15 +34,15 @@
                 <table class="table table table-bordered" id="table1">
                     <thead>
                         <tr>
-                            <th>No.</th>
-                            <th>Gambar</th>
-                            <th>Nama</th>
-                            <th>Posisi</th>
-                            <th>Link</th>
-                            <th>Status</th>
-                            <th>Edit</th>
-                            <th>Hapus</th>
-                        </tr>
+                          <th>No.</th>
+                          <th>Image</th>
+                          <th>Name</th>
+                          <th>Position</th>
+                          <th>Link</th>
+                          <th>Status</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+                          </tr>
                     </thead>
                     <tbody>
                         @foreach ($items as $item)
@@ -70,7 +70,7 @@
                                 @can('banner.destroy')
                                 <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
                                     class="btn btn-icon btn-danger text-white">
-                                    <i class="bi bi-x-square"></i> Hapus
+                                    <i class="bi bi-x-square"></i> Deleted
                                 </a>
                                 <form id="deleteForm_{{ $item->uuid }}" action="{{ route('banner.destroy', $item->uuid) }}"
                                     method="POST">
@@ -94,11 +94,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data ini akan dihapus secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin ingin menghapusnya?',
+            title: 'Confirm Deletion',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Deleted!'
         }).then((result) => {
             if (result.isConfirmed) {
                 // If the user clicks "Yes, delete it!", submit the corresponding form

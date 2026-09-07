@@ -27,6 +27,7 @@ use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PollController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\EventsController;
+use App\Http\Controllers\Admin\PenggunaController;
 
 // payment
 use App\Http\Controllers\Admin\PackageController;
@@ -86,6 +87,8 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::resource('events', EventsController::class);
     Route::resource('program', ProgramController::class);
     Route::resource('filedownload', FileDownloadController::class);
+    Route::get('pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
+    Route::get('/pengguna/export', [PenggunaController::class, 'export'])->name('pengguna.export');
 
     //payment
     Route::get(

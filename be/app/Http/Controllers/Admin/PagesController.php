@@ -65,7 +65,7 @@ class PagesController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('pages.index')->with('success', 'Halaman berhasil ditambahkan.');
+            return redirect()->route('pages.index')->with('success', 'Page added successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -79,7 +79,7 @@ class PagesController extends Controller
             'has_sidebar' => !$page->has_sidebar
         ]);
 
-        return redirect()->route('pages.index')->with('success', 'Status sidebar berhasil diperbarui.');
+        return redirect()->route('pages.index')->with('success', 'Sidebar status updated successfully.');
     }
 
     /**
@@ -139,7 +139,7 @@ class PagesController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('pages.index')->with('success', 'Halaman berhasil diperbarui.');
+            return redirect()->route('pages.index')->with('success', 'Page updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -161,7 +161,7 @@ class PagesController extends Controller
             }
             $page->delete();
             DB::commit();
-            return redirect()->back()->with('success', 'Halaman berhasil dihapus.');
+            return redirect()->back()->with('success', 'Page deleted successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());

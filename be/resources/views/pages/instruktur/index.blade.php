@@ -11,7 +11,7 @@
 <div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show position-relative" role="alert">
     <div class="d-flex">
         <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
-        <div class="text-white mt-2">
+        <div class="text-white mt-0">
             <strong>Instructor Data Management</strong>
             <br>
             On this page, you can view, manage, and update instructor data.

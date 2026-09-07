@@ -20,7 +20,7 @@
 <div class="alert alert-danger alert-dismissible mb-0 mt-3 fade show position-relative" role="alert">
     <div class="d-flex">
         <i class="bi-exclamation-triangle-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
-        <div class="text-white mt-2">
+        <div class="text-white mt-0">
             Lengkapi profil instruktur Anda dengan informasi pribadi, pengalaman, serta keahlian yang Anda miliki.<br>
             Data ini diperlukan untuk melengkapi profil dan membantu peserta mengenal instruktur lebih baik.
         </div>

@@ -7,13 +7,13 @@
         @csrf
 
         <div class="modal-header">
-          <h5 class="modal-title" id="modal-form-add-banner-label">Tambah Baru</h5>
+          <h5 class="modal-title" id="modal-form-add-banner-label">Add New Media</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
         </div>
         <div class="modal-body">
           <div class="form-group mb-3">
-            <label for="nama" class="mb-2">Nama Media <span class="text-danger">*</span></label>
-            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Nama Media" name="nama" value="{{ old('nama') }}" required>
+            <label for="nama" class="mb-2">Media Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Media Name" name="nama" value="{{ old('nama') }}" required>
             @error('nama')
             <div class="invalid-feedback">
               {{ $message }}
@@ -22,9 +22,9 @@
           </div>
 
           <div class="form-group mb-3">
-            <label for="posisi" class="mb-2">Posisi <span class="text-danger">*</span></label>
+            <label for="posisi" class="mb-2">Position <span class="text-danger">*Banner / Slider Size</span></label>
             <select name="posisi" id="posisi" class="form-control @error('posisi') is-invalid @enderror" required>
-              <option value="">-- Pilih --</option>
+              <option value="">-- Select --</option>
               <option value="slider" {{ old('posisi') == 'slider' ? 'selected' : '' }}>Banner / Slider</option>
               <option value="pengumuman" {{ old('posisi') == 'pengumuman' ? 'selected' : '' }}>Pengumuman</option>
               <option value="infografis" {{ old('posisi') == 'infografis' ? 'selected' : '' }}>Infografis</option>
@@ -41,8 +41,8 @@
           </div>
 
           <div class="form-group mb-3">
-            <label for="deskripsi" class="mb-2">Deskripsi</label>
-            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" placeholder="Deskripsi" name="deskripsi" value="{{ old('deskripsi') }}" rows="3"></textarea>
+            <label for="deskripsi" class="mb-2">Description</label>
+            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" placeholder="Description" name="deskripsi" value="{{ old('deskripsi') }}" rows="3"></textarea>
             @error('deskripsi')
             <div class="invalid-feedback">
               {{ $message }}
@@ -53,9 +53,9 @@
           <div class="form-group mb-3">
             <label for="status" class="mb-2">Status <span class="text-danger">*</span></label>
             <select name="status" id="status" class="form-control @error('status') is-invalid @enderror" required>
-              <option value="">-- Pilih --</option>
-              <option value="active">Aktif</option>
-              <option value="inactive">Tidak Aktif</option>
+              <option value="">-- Select --</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
             </select>
             @error('status')
             <div class="invalid-feedback">
@@ -75,7 +75,7 @@
           </div>
 
           <div class="form-group mb-3">
-            <label for="foto" class="mb-2">Gambar <span class="text-danger">*</span></label>
+            <label for="foto" class="mb-2">Image <span class="text-danger">*</span></label>
             <input type="file" name="gambar" id="gambar" class="form-control @error('gambar') is-invalid @enderror" value="{{ old('gambar') }}" required>
             @error('gambar')
             <div class="invalid-feedback">
@@ -86,8 +86,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-primary ">Simpan</button>
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary ">Save</button>
         </div>
       </form>
 

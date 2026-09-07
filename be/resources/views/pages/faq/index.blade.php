@@ -11,7 +11,7 @@
     <div class="alert alert-info alert-dismissible mb-3 mt-3 fade show position-relative" role="alert">
         <div class="d-flex">
             <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
-            <div class="text-white mt-2">
+            <div class="text-white mt-0">
                 Lihat informasi dan jawaban seputar <strong>FAQ Sekolah Luar Biasa Negeri Kota Bekasi</strong>.<br>
                 Panduan ini membantu orang tua, siswa, dan masyarakat memahami layanan serta program pendidikan
                 inklusif.

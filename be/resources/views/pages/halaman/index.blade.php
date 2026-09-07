@@ -19,7 +19,7 @@
     <div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show position-relative" role="alert">
         <div class="d-flex">
             <i class="bi-exclamation-triangle-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
-            <div class="text-white mt-2">
+            <div class="text-white mt-0">
                 <strong>Attention!</strong> Changing the <em>sidebar</em> status will affect the appearance and layout of the page.
                 <br>
                 Please make sure to review the changes before saving.
