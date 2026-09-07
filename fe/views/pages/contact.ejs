@@ -11,11 +11,11 @@
       <div class="grid lg:grid-cols-2 gap-10">
         <!-- LEFT -->
         <div>
-          <h1 class="font-display text-4xl font-bold">Hubungi Kami</h1>
+          <h1 class="font-display text-4xl font-bold">Connect With Us</h1>
 
           <p class="text-stone-warm mt-2">
-            Ada pertanyaan? Tim kami siap membantu memberikan informasi yang
-            Anda butuhkan.
+            Have a question? We’re here to listen, guide, and help you find what
+            feels right for your journey.
           </p>
 
           <!-- CONTACT INFO -->
@@ -30,7 +30,7 @@
               </span>
 
               <div>
-                <div class="font-semibold text-sm">Alamat Studio</div>
+                <div class="font-semibold text-sm">Studio Address</div>
 
                 <div class="text-sm text-stone-warm">
                   <%= contact.address || site.address %>
@@ -48,11 +48,9 @@
               </span>
 
               <div>
-                <div class="font-semibold text-sm">Telepon & WhatsApp</div>
+                <div class="font-semibold text-sm">WhatsApp Us</div>
 
-                <div class="text-sm text-stone-warm">
-                  <%= site.phone %> • <%= site.email %>
-                </div>
+                <div class="text-sm text-stone-warm"><%= site.phone %></div>
               </div>
             </div>
           </div>
@@ -63,12 +61,12 @@
             id="contactForm"
             class="mt-6 bg-white border border-sage-100 rounded-[24px] p-6 space-y-3"
           >
-            <h3 class="font-semibold">Kirim Pesan</h3>
+            <h3 class="font-semibold">Send Us a Message</h3>
 
             <!-- NAMA -->
             <input
               name="nama"
-              placeholder="Nama lengkap"
+              placeholder="Full Name"
               required
               class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
             />
@@ -77,7 +75,7 @@
             <input
               name="email"
               type="email"
-              placeholder="Email"
+              placeholder="Email Address"
               required
               class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
             />
@@ -88,7 +86,7 @@
               type="tel"
               inputmode="numeric"
               pattern="[0-9]+"
-              placeholder="Nomor Whatsapp Aktif"
+              placeholder="Active WhatsApp Number"
               required
               class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
             />
@@ -97,7 +95,7 @@
             <textarea
               name="isi"
               rows="4"
-              placeholder="Ceritakan kebutuhanmu..."
+              placeholder="Tell us how we can help..."
               required
               class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
             ></textarea>
@@ -105,7 +103,7 @@
             <!-- CAPTCHA -->
             <div>
               <label class="block text-sm font-medium mb-2">
-                Verifikasi: <%= captcha?.question || "Verifikasi tidak tersedia"
+                Verifikasi: <%= captcha?.question || "Verification unavailable"
                 %>
               </label>
 
@@ -113,7 +111,7 @@
                 name="captcha_answer"
                 id="captchaAnswer"
                 type="number"
-                placeholder="Masukkan jawaban"
+                placeholder="Enter your answer"
                 required
                 class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
               />
@@ -131,7 +129,7 @@
               type="submit"
               class="w-full py-3 rounded-full bg-sage-700 text-white font-semibold hover:bg-sage-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Kirim Pesan →
+              Send Message →
             </button>
 
             <!-- MESSAGE -->
@@ -155,21 +153,18 @@
 
           <!-- OPERATIONAL HOURS -->
           <div class="bg-sage-700 text-white rounded-[24px] p-6">
-            <h3 class="font-semibold">Jam Operasional</h3>
-
+            <h3 class="font-semibold">Class Schedule</h3>
             <ul class="text-sm text-sage-200 mt-2 space-y-1">
-              <li>Senin — Jumat: 06:00 — 21:00</li>
-
-              <li>Sabtu — Minggu: 07:00 — 20:00</li>
-
-              <li>Lihat Instagram: @<%= site.instagram %></li>
+              <li>Monday — Friday: 06:00 — 21:00</li>
+              <li>Saturday — Sunday: 07:00 — 20:00</li>
+              <li>Follow us on Instagram: @<%= site.instagram %></li>
             </ul>
 
             <button
               onclick="openBooking()"
               class="mt-4 bg-white text-sage-700 px-5 py-2.5 rounded-full text-sm font-semibold"
             >
-              Pilih Kelas →
+              Choose a Class →
             </button>
           </div>
         </div>
