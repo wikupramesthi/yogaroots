@@ -24,7 +24,20 @@ class ClassScheduleController extends Controller
         $schedules = ClassSchedule::with([
             'class.instructor'
         ])
-            ->latest()
+            ->where('status', 'active')
+            ->orderByRaw("
+            FIELD(
+                day,
+                'monday',
+                'tuesday',
+                'wednesday',
+                'thursday',
+                'friday',
+                'saturday',
+                'sunday'
+            )
+        ")
+            ->orderBy('start_time')
             ->get();
 
         return view(
@@ -47,7 +60,7 @@ class ClassScheduleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'class_uuid' => 'required|exists:classes,uuid',
+            'class_uuid' => 'required|uuid|exists:classes,uuid',
             'day' => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i',
@@ -55,10 +68,11 @@ class ClassScheduleController extends Controller
             'status' => 'required|in:active,inactive',
         ]);
 
-        $start = strtotime($request->start_time);
-        $end = strtotime($request->end_time);
+        // Pastikan end time lebih besar dari start time
+        $start = \Carbon\Carbon::createFromFormat('H:i', $request->start_time);
+        $end = \Carbon\Carbon::createFromFormat('H:i', $request->end_time);
 
-        if ($end <= $start) {
+        if ($end->lessThanOrEqualTo($start)) {
             return back()
                 ->withErrors([
                     'end_time' => 'End time must be after start time.'
@@ -66,9 +80,27 @@ class ClassScheduleController extends Controller
                 ->withInput();
         }
 
+        // Cek bentrok dengan schedule lain
+        $conflict = ClassSchedule::where('day', $request->day)
+            ->where('status', 'active')
+            ->where(function ($query) use ($request) {
+                $query->where('start_time', '<', $request->end_time)
+                    ->where('end_time', '>', $request->start_time);
+            })
+            ->exists();
+
+        if ($conflict) {
+            return back()
+                ->withErrors([
+                    'start_time' => 'This schedule conflicts with an existing class schedule.'
+                ])
+                ->withInput();
+        }
+
         DB::beginTransaction();
 
         try {
+
             ClassSchedule::create([
                 'uuid' => (string) Str::uuid(),
                 'class_uuid' => $request->class_uuid,
@@ -85,15 +117,14 @@ class ClassScheduleController extends Controller
                 ->route('class-schedules.index')
                 ->with('success', 'Class schedule added successfully.');
         } catch (\Throwable $th) {
+
             DB::rollBack();
 
-            return redirect()
-                ->back()
+            return back()
                 ->withInput()
                 ->with('error', $th->getMessage());
         }
     }
-
     /**
      * Display the specified resource.
      */
@@ -119,7 +150,7 @@ class ClassScheduleController extends Controller
             'class_uuid' => 'required|uuid|exists:classes,uuid',
             'day' => 'required|in:monday,tuesday,wednesday,thursday,friday,saturday,sunday',
             'start_time' => 'required|date_format:H:i',
-            'end_time' => 'nullable|date_format:H:i|after:start_time',
+            'end_time' => 'required|date_format:H:i|after:start_time',
             'capacity' => 'required|integer|min:1',
             'status' => 'required|in:active,inactive',
         ]);
@@ -143,7 +174,7 @@ class ClassScheduleController extends Controller
 
             return redirect()
                 ->route('class-schedules.index')
-                ->with('success', 'Class schedule update successfully.');
+                ->with('success', 'Class schedule updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
 
@@ -179,20 +210,22 @@ class ClassScheduleController extends Controller
             $schedule = ClassSchedule::where('uuid', $uuid)
                 ->firstOrFail();
 
-            $schedule->delete();
+            $schedule->update([
+                'status' => 'inactive',
+            ]);
 
             DB::commit();
 
             return redirect()
                 ->route('class-schedules.index')
-                ->with('success', 'Class schedule deleted successfully.');
+                ->with('success', 'Class schedule deactivated successfully.');
         } catch (\Throwable $th) {
+
             DB::rollBack();
 
             return redirect()
                 ->back()
-                ->withInput()
-                ->with('error', $th->getMessage());
+                ->with('error', 'Failed to deactivate class schedule.');
         }
     }
 }
