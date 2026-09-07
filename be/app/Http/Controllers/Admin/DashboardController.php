@@ -13,25 +13,37 @@ use App\Models\Faq;
 use App\Models\Kontak;
 use App\Models\Poll;
 use App\Models\Testimonial;
-use App\Models\Category;
+use App\Models\Class\ClassSchedule;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
+
     public function index()
     {
         $user = Auth::user();
 
-        $jumlahInstruktur       = User::role('instruktur')->count();
-        $jumlahMembers       = User::role('user')->count();
-        $totalArticles    = Article::count();
-        $totalEvents     = Event::count();
-        $totalDokumen     = FileDownload::count();
-        $totalFaq         = Faq::count();
-        $totalPolling     = Poll::count();
-        $totalPesan       = Kontak::count();
+        // =========================
+        // DASHBOARD STATISTICS
+        // =========================
+
+        $jumlahInstruktur = User::role('instruktur')->count();
+        $jumlahMembers = User::role('user')->count();
+
+        $totalArticles = Article::count();
+        $totalEvents = Event::count();
+        $totalDokumen = FileDownload::count();
+        $totalFaq = Faq::count();
+        $totalPolling = Poll::count();
+        $totalPesan = Kontak::count();
         $totalTestimonial = Testimonial::count();
+
+
+        // =========================
+        // UPCOMING EVENTS
+        // =========================
 
         $events = Event::where('status', 'published')
             ->whereDate('tanggal', '>=', now())
@@ -40,10 +52,65 @@ class DashboardController extends Controller
             ->take(3)
             ->get();
 
+
+        // =========================
+        // TODAY'S SCHEDULE
+        // =========================
+
+        $today = strtolower(now()->format('l'));
+
+        $todaySchedules = ClassSchedule::with([
+            'class.instructor'
+        ])
+            ->withCount('bookings')
+            ->where('status', 'active')
+            ->where('day', $today)
+            ->orderBy('start_time')
+            ->take(5)
+            ->get();
+
+
+        // =========================
+        // UPCOMING CLASSES
+        // STARTING TOMORROW
+        // =========================
+
+        $today = strtolower(now()->format('l'));
+
+        $days = [
+            'monday',
+            'tuesday',
+            'wednesday',
+            'thursday',
+            'friday',
+            'saturday',
+            'sunday',
+        ];
+
+        $currentDayIndex = array_search($today, $days);
+
+        // Hanya hari setelah hari ini
+        $upcomingDays = array_slice($days, $currentDayIndex + 1);
+
+        $upcomingClasses = ClassSchedule::with([
+            'class.instructor'
+        ])
+            ->withCount('bookings')
+            ->where('status', 'active')
+            ->whereIn('day', $upcomingDays)
+            ->orderByRaw(
+                'FIELD(day, "' . implode('","', $upcomingDays) . '")'
+            )
+            ->orderBy('start_time')
+            ->take(3)
+            ->get();
+
         return view('pages.dashboard.index', compact(
             'user',
+
             'jumlahInstruktur',
             'jumlahMembers',
+
             'totalArticles',
             'totalEvents',
             'totalDokumen',
@@ -51,7 +118,9 @@ class DashboardController extends Controller
             'totalPolling',
             'totalPesan',
             'totalTestimonial',
-            'events'
+            'events',
+            'todaySchedules',
+            'upcomingClasses'
         ));
     }
 
