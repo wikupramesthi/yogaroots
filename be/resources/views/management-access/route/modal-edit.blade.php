@@ -21,18 +21,19 @@
             <select class="form-control choices" id="route" name="route" required>
               <option value="" disabled selected>Choose</option>
               @foreach ($facadesRoutes as $facadesRoute)
-                @if (!blank($facadesRoute->getName()))
-                  <option @selected($route->route == $facadesRoute->getName()) value="{{ $facadesRoute->getName() }}">
-                    {{ $facadesRoute->getName() }}</option>
-                @endif
+              @if (!blank($facadesRoute->getName()))
+              <option @selected($route->route == $facadesRoute->getName()) value="{{ $facadesRoute->getName() }}">
+                {{ $facadesRoute->getName() }}
+              </option>
+              @endif
               @endforeach
             </select>
             @error('route')
-              <a style="color: red">
-                <small>
-                  {{ $message }}
-                </small>
-              </a>
+            <a style="color: red">
+              <small>
+                {{ $message }}
+              </small>
+            </a>
             @enderror
             {{-- <x-form.validation.error name="route" /> --}}
           </div>
@@ -46,15 +47,15 @@
               id="permission_name" name="permission_name" required>
               <option value="" disabled selected>Choose</option>
               @foreach ($permissions as $permission)
-                <option @selected($permission->name == $route->permission_name) value="{{ $permission->name }}">{{ $permission->name }}</option>
+              <option @selected($permission->name == $route->permission_name) value="{{ $permission->name }}">{{ $permission->name }}</option>
               @endforeach
             </select>
             @error('permission_name')
-              <a style="color: red">
-                <small>
-                  {{ $message }}
-                </small>
-              </a>
+            <a style="color: red">
+              <small>
+                {{ $message }}
+              </small>
+            </a>
             @enderror
             {{-- <x-form.validation.error name="permission_name" /> --}}
           </div>
@@ -77,7 +78,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary ">Save</button>
+          <button type="submit" class="btn btn-primary ">Save Changes</button>
         </div>
       </form>
 

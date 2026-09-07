@@ -18000,8 +18000,8 @@ fieldset:disabled .btn {
 }
 .avatar.avatar-md .avatar-content,
 .avatar.avatar-md img {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     font-size: 0.8rem;
 }
 .avatar.avatar-md2 .avatar-content,
@@ -18923,8 +18923,8 @@ fieldset:disabled .btn {
     height: 1.5rem;
 }
 .navbar .user-menu img {
-    width: 39px;
-    height: 39px;
+    width: 40px;
+    height: 40px;
 }
 .navbar.navbar-header li {
     display: flex;
@@ -20268,7 +20268,7 @@ h6,
 /* ---------- Avatar ---------- */
 .avatar img,
 .avatar .avatar-content {
-    border: 2px solid #fff;
+    border: 1px solid #fff;
     box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25);
 }
 

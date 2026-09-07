@@ -17,11 +17,11 @@
             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
               placeholder="Menu Name" name="name" required>
             @error('name')
-              <a style="color: red">
-                <small>
-                  {{ $message }}
-                </small>
-              </a>
+            <a style="color: red">
+              <small>
+                {{ $message }}
+              </small>
+            </a>
             @enderror
             {{-- <x-form.validation.error name="name" /> --}}
           </div>
@@ -39,17 +39,17 @@
               data-choices-removeItem required>
               <option value="" disabled selected>Choose</option>
               @foreach ($routes as $route)
-                @if (!blank($route->getName()))
-                  <option value="{{ $route->getName() }}">{{ $route->getName() }}</option>
-                @endif
+              @if (!blank($route->getName()))
+              <option value="{{ $route->getName() }}">{{ $route->getName() }}</option>
+              @endif
               @endforeach
             </select>
             @error('route')
-              <a style="color: red">
-                <small>
-                  {{ $message }}
-                </small>
-              </a>
+            <a style="color: red">
+              <small>
+                {{ $message }}
+              </small>
+            </a>
             @enderror
             {{-- <x-form.validation.error name="route" /> --}}
           </div>
@@ -60,15 +60,15 @@
               name="permission_name" data-choices data-choices-removeItem required>
               <option value="" disabled selected>Choose</option>
               @foreach ($permissions as $permission)
-                <option value="{{ $permission->name }}">{{ $permission->name }}</option>
+              <option value="{{ $permission->name }}">{{ $permission->name }}</option>
               @endforeach
             </select>
             @error('permission_name')
-              <a style="color: red">
-                <small>
-                  {{ $message }}
-                </small>
-              </a>
+            <a style="color: red">
+              <small>
+                {{ $message }}
+              </small>
+            </a>
             @enderror
             {{-- <x-form.validation.error name="permission_name" /> --}}
           </div>
@@ -85,7 +85,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary ">Save</button>
+          <button type="submit" class="btn btn-primary ">Save Changes</button>
         </div>
       </form>
 

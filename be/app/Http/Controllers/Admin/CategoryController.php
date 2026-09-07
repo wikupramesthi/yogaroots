@@ -51,7 +51,7 @@ class CategoryController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Kategori berhasil ditambahkan.');
+            return redirect()->back()->with('success', 'Category added successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -98,7 +98,7 @@ class CategoryController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Kategori berhasil diperbarui.');
+            return redirect()->back()->with('success', 'Category updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -116,7 +116,7 @@ class CategoryController extends Controller
             $item->delete();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Kategori berhasil dihapus.');
+            return redirect()->back()->with('success', 'Category deleted successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());

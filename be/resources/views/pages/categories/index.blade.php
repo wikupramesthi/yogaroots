@@ -1,21 +1,21 @@
 @extends('layouts.app')
-@section('title', 'Semua Kategori')
+@section('title', 'All Category')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Kategori" page="Kategori" active="Semua Kategori" route="{{ route('categories.index') }}" />
+<x-breadcrumb title="Category" page="Category" active="All Category" route="{{ route('categories.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Semua Kategori</h4>
+                <h4 class="fw-normal mb-0 text-body">All Category</h4>
                 @can('categories.store')
                 <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
                     data-bs-target="#modal-form-add-categories">
                     <i class="bi bi-plus-lg"></i>
-                    Tambah Baru
+                    Add Category
                 </button>
                 @endcan
 
@@ -27,11 +27,11 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Nama Kategori</th>
-                            <th>Deskripsi</th>
-                            <th>Total Publikasi</th>
+                            <th>Category Name</th>
+                            <th>Description</th>
+                            <th>Total Publications</th>
                             <th>Edit</th>
-                            <th>Hapus</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,7 +55,7 @@
                                 @can('categories.destroy')
                                 <a onclick="showSweetAlert('{{  $item->uuid }}')" title="Delete"
                                     class="btn btn-icon btn-danger text-white">
-                                    <i class="bi bi-x-square"></i> Hapus
+                                    <i class="bi bi-x-square"></i> Delete
                                 </a>
                                 <form id="deleteForm_{{  $item->uuid }}" action="{{ route('categories.destroy',  $item->uuid) }}"
                                     method="POST">
@@ -81,11 +81,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data ini akan dihapus secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin ingin menghapusnya?',
+            title: 'Confirm Deletion',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Deleted!'
         }).then((result) => {
             if (result.isConfirmed) {
                 // If the user clicks "Yes, delete it!", submit the corresponding form

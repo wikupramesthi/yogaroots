@@ -8466,8 +8466,8 @@ html[data-bs-theme="dark"] .avatar.avatar-sm img {
 }
 html[data-bs-theme="dark"] .avatar.avatar-md .avatar-content,
 html[data-bs-theme="dark"] .avatar.avatar-md img {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     font-size: 0.8rem;
 }
 html[data-bs-theme="dark"] .avatar.avatar-md2 .avatar-content,
@@ -9506,8 +9506,8 @@ html[data-bs-theme="dark"] .navbar .navbar-brand img {
     height: 1.5rem;
 }
 html[data-bs-theme="dark"] .navbar .user-menu img {
-    width: 39px;
-    height: 39px;
+    width: 40px;
+    height: 40px;
 }
 html[data-bs-theme="dark"] .navbar.navbar-header li {
     display: flex;
@@ -10708,7 +10708,7 @@ html[data-bs-theme="dark"] .alert-light-danger {
 /* ---------- Avatar ---------- */
 html[data-bs-theme="dark"] .avatar img,
 html[data-bs-theme="dark"] .avatar .avatar-content {
-    border: 2px solid #131826;
+    border: 1px solid #131826;
     box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.35);
 }
 
