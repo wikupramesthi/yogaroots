@@ -204,9 +204,9 @@
                             </div>
                         </div>
                         <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                            <h6 class="text-muted font-semibold">Total Classes</h6>
+                            <h6 class="text-muted font-semibold">Total Member</h6>
                             <a href="{{ route('articles.index') }}" class="text-decoration-none">
-                                <h6 class="font-extrabold mb-0">{{ $totalArticles }}</h6>
+                                <h6 class="font-extrabold mb-0">{{ $jumlahMembers }}</h6>
                             </a>
                         </div>
                     </div>

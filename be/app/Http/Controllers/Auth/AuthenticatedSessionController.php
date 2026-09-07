@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Faq;
 use Illuminate\View\View;
 
@@ -20,8 +21,10 @@ class AuthenticatedSessionController extends Controller
         $faqs = Faq::where('status', 'active')
             ->orderBy('created_at', 'asc')
             ->get();
+        $jumlahInstruktur       = User::role('instruktur')->count();
+        $jumlahMembers       = User::role('user')->count();
 
-        return view('auth.login', compact('faqs'));
+        return view('auth.login', compact('faqs', 'jumlahInstruktur', 'jumlahMembers'));
     }
 
     /**

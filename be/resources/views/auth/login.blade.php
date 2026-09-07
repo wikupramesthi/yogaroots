@@ -15,9 +15,9 @@
             <p class="lead">Sign in to book your classes, stay on top of your practice, and continue your journey toward
                 greater balance and well-being.</p>
                 <div class="stat-row">
-                    <div class="stat"><strong>500+</strong><span>Active Members</span></div>
+                    <div class="stat"><strong>{{ $jumlahMembers }}+</strong><span>Active Members</span></div>
                     <div class="stat-divider"></div>
-                    <div class="stat"><strong>12</strong><span>Certified Instructors</span></div>
+                    <div class="stat"><strong>{{ $jumlahInstruktur }}</strong><span>Certified Instructors</span></div>
                     <div class="stat-divider"></div>
                     <div class="stat"><strong>4.9</strong><span>Member Rating</span></div>
                 </div>

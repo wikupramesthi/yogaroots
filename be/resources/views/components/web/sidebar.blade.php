@@ -70,7 +70,23 @@
             </li>
             @endcan
 
-            <li class="sidebar-item  ">
+            @role('user')
+             <li class="sidebar-title">Others</li>
+             <li class="sidebar-item has-sub  ">
+              <a href="#" class="sidebar-link">
+                <i class="bx bx-cog"></i>
+                <span>Settings</span>
+              </a>
+
+              <ul class="submenu submenu-sub">
+                <li class="submenu-item  ">
+                  <a href="{{ route('profile.edit') }}" class="submenu-link">
+                    My Profile</a>
+                </li>                       
+              </ul>
+            </li>
+            @endrole
+            <li class="sidebar-item">
               <a class='sidebar-link' href="{{ route('logout') }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="bi bi-arrow-bar-left"></i>

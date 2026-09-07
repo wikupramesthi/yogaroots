@@ -99,13 +99,13 @@
                         style="min-width: 11rem;">
                         <li>
                             <a class="dropdown-item" href="{{ route('profile.edit') }}"><i
-                                    class="icon-mid bi bi-person me-2"></i> Profil Saya</a>
+                                    class="icon-mid bi bi-person me-2"></i> My Profile</a>
                         </li>
 
                         @role('super-admin|admin')
                         <li>
                             <a class="dropdown-item" href="{{ route('account.index') }}">
-                                <i class="icon-mid bi bi-gear me-2"></i> Pengaturan
+                                <i class="icon-mid bi bi-gear me-2"></i> Settings
                             </a>
                         </li>
                         @else
