@@ -20,6 +20,7 @@ class ClassSchedule extends Model
 
     protected $fillable = [
         'class_uuid',
+        'studio_uuid',
         'day',
         'start_time',
         'end_time',

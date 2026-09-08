@@ -63,7 +63,6 @@ class MenuItemController extends Controller
             )
         ));
         return back()->with('success', 'Menu Item has been created successfully!');
-
     }
 
     /**
@@ -98,7 +97,6 @@ class MenuItemController extends Controller
         ));
 
         return back()->with('success', 'Menu Item has been updated successfully!');
-
     }
 
     /**
@@ -109,6 +107,5 @@ class MenuItemController extends Controller
         $item->delete();
 
         return back()->with('success', 'Menu Item has been deleted successfully!');
-
     }
 }

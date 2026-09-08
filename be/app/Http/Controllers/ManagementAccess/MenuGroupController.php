@@ -14,19 +14,19 @@ class MenuGroupController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $menuGroups = MenuGroup::query()
-            ->when(! blank($request->search), function ($query) use ($request) {
-                return $query
-                    ->where('name', 'like', '%' . $request->search . '%')
-                    ->orWhere('permission_name', 'like', '%' . $request->search . '%');
-            })
-            ->orderBy('name')
-            ->paginate(10);
+        $menuGroups = MenuGroup::orderBy('name')->get();
+
         $permissions = Permission::orderBy('name')->get();
 
-        return view('management-access.menu-group.index', compact('menuGroups', 'permissions'));
+        return view(
+            'management-access.menu-group.index',
+            compact(
+                'menuGroups',
+                'permissions'
+            )
+        );
     }
 
     /**
@@ -50,7 +50,6 @@ class MenuGroupController extends Controller
             ),
         ));
         return back()->with('success', 'Menu has been created successfully!');
-
     }
 
     /**
@@ -80,7 +79,6 @@ class MenuGroupController extends Controller
         $findId->update($data);
 
         return back()->with('success', 'Menu has been updated successfully!');
-
     }
 
     /**
@@ -93,7 +91,5 @@ class MenuGroupController extends Controller
         $menu->delete();
 
         return back()->with('Sukses', 'Data berhasil dihapus');
-
     }
-
 }

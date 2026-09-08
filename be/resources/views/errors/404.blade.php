@@ -34,7 +34,7 @@
         </svg>
         Back to Home
       </a>
-      <a href="/kelas" class="btn-secondary">
+      <a href="{{ route('class-schedules.index') }}" class="btn-secondary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="4" width="18" height="18" rx="2" />
           <path d="M3 10h18" />

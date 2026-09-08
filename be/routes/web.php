@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\SpecializatyController;
 use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\FileDownloadController;
 use App\Http\Controllers\Admin\InstrukturController;
+use App\Http\Controllers\Admin\StudioController;
 use App\Http\Controllers\Admin\PagesController;
 use App\Http\Controllers\Admin\PollController;
 use App\Http\Controllers\Admin\TestimonialController;
@@ -96,7 +97,7 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
         [PackageController::class, 'members']
     )->name('packages.member');
     Route::resource('packages', PackageController::class);
-
+    Route::resource('studios', StudioController::class);
     Route::resource('classes', ClassController::class);
     Route::patch(
         '/classes/{uuid}/level',
