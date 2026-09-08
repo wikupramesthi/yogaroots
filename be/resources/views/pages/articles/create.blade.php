@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Tambah Publikasi')
+@section('title', 'Add Article')
 @section('content')
 
 @section('breadcrumb')
-    <x-breadcrumb title="Tambah Publikasi" page="Publikasi" active="Tambah Publikasi" route="{{ route('articles.index') }}" />
+    <x-breadcrumb title="Add Article" page="Article" active="Add Article" route="{{ route('articles.index') }}" />
 @endsection
 
 <!-- Content -->
@@ -14,7 +14,7 @@
                 @csrf
 
                 <div class="form-group mb-3">
-                    <label for="title" class="mb-2">Judul Konten <span class="text-danger">*</span></label>
+                    <label for="title" class="mb-2">Title  <span class="text-danger">*</span></label>
                     <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
                         value="{{ old('title') }}" required>
                     @error('title')
@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="excerpt" class="mb-2">Ringkasan</label>
+                    <label for="excerpt" class="mb-2">Excerpt</label>
                     <input type="text" name="excerpt" class="form-control @error('excerpt') is-invalid @enderror"
                         value="{{ old('excerpt') }}">
                     @error('excerpt')
@@ -32,10 +32,10 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="category_uuid" class="mb-2">Kategori <span class="text-danger">*</span></label>
+                    <label for="category_uuid" class="mb-2">Category <span class="text-danger">*</span></label>
                     <select name="category_uuid" id="category_uuid"
                         class="form-control @error('category_uuid') is-invalid @enderror" required>
-                        <option value="">-- Pilih --</option>
+                        <option value="">-- Select Category --</option>
                         @foreach ($categories as $category)
                             <option value="{{ $category->uuid }}"
                                 data-name="{{ strtolower(str_replace(' ', '-', $category->name)) }}"
@@ -50,15 +50,14 @@
                 </div>
 
                 <div class="form-group mb-3" id="videoForm" style="display: none;">
-                    <label for="video" class="mb-2">Link YouTube <span class="text-danger">*contoh :
-                            PlNOD--gPQU</span></label>
+                    <label for="video" class="mb-2">Link YouTube <span class="text-danger">*example : PlNOD--gPQU</span></label>
                     <input type="text" name="video" id="video" class="form-control"
                         value="{{ old('video', $article->video ?? '') }}" placeholder="Masukkan link YouTube">
                 </div>
 
 
                 <div class="form-group mb-3">
-                    <label for="content" class="mb-2">Isi Konten <span class="text-danger">*</span></label>
+                    <label for="content" class="mb-2">Content  <span class="text-danger">*</span></label>
                     <textarea name="content" id="deskripsi" cols="30" rows="5"
                         class="form-control @error('content') is-invalid @enderror">{{ old('content') }}</textarea>
                     @error('content')
@@ -67,8 +66,7 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="featured_image" class="mb-2">Gambar Konten <span class="text-danger">*Maksimal ukuran
-                            1 mb</span></label>
+                    <label for="featured_image" class="mb-2">Featured Image <span class="text-danger">*Maximum file size: 1 MB</span></label>
                     <input type="file" name="featured_image" id="featured_image" accept="image/*"
                         class="form-control @error('featured_image') is-invalid @enderror">
                     @error('featured_image')
@@ -77,8 +75,7 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="tagging">Tagging <span class="text-danger"> *Pisahkan dengan koma, misal: berita, kota
-                            bekasi, distaru</span></label>
+                    <label for="tagging">Tags <span class="text-danger"> *Separate tags with commas, e.g. yoga, mindfulness, wellness</span></label>
                     <input type="text" name="tagging" class="form-control"
                         value="{{ old('tagging', $article->tagging ?? '') }}"
                         placeholder="Pisahkan dengan koma, misal: slb patriot, berita, kota bekasi">
@@ -111,7 +108,7 @@
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="scheduled_at" class="mb-2">Tanggal Publish <span class="text-danger">*</span></label>
+                    <label for="scheduled_at" class="mb-2">Published Date <span class="text-danger">*</span></label>
                     <input type="date" name="scheduled_at"
                         class="form-control @error('scheduled_at') is-invalid @enderror"
                         value="{{ old('scheduled_at') }}" required>
@@ -122,7 +119,7 @@
 
                 <div class="form-group text-right mt-4">
                     <a href="{{ route('articles.index') }}" class="btn btn-secondary me-2">Batal</a>
-                    <button class="btn btn-danger">Simpan</button>
+                    <button class="btn btn-danger">Save Changes</button>
                 </div>
             </form>
 
@@ -149,7 +146,7 @@
         }
 
         categorySelect.addEventListener('change', toggleVideoForm);
-        toggleVideoForm(); // Jalankan saat halaman dimuat (mode edit)
+        toggleVideoForm(); 
     });
 </script>
 
