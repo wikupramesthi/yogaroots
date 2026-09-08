@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Article;
 use App\Models\Event;
-use App\Models\FileDownload;
+use App\Models\Class\ClassModel;
+use App\Models\Package\Package;
 use App\Models\User;
 use App\Models\Faq;
 use App\Models\Kontak;
@@ -31,10 +32,10 @@ class DashboardController extends Controller
 
         $jumlahInstruktur = User::role('instruktur')->count();
         $jumlahMembers = User::role('user')->count();
-
+        $totalClasses = ClassModel::count();
+        $totalPackages = Package::count();
         $totalArticles = Article::count();
         $totalEvents = Event::count();
-        $totalDokumen = FileDownload::count();
         $totalFaq = Faq::count();
         $totalPolling = Poll::count();
         $totalPesan = Kontak::count();
@@ -110,10 +111,10 @@ class DashboardController extends Controller
 
             'jumlahInstruktur',
             'jumlahMembers',
-
+            'totalClasses',
+            'totalPackages',
             'totalArticles',
             'totalEvents',
-            'totalDokumen',
             'totalFaq',
             'totalPolling',
             'totalPesan',

@@ -92,12 +92,6 @@ class PackageController extends Controller
                 'is_active' => $request->is_active,
             ]);
 
-            /*
-            |--------------------------------------------------------------------------
-            | Package Features
-            |--------------------------------------------------------------------------
-            */
-
             if ($request->filled('features')) {
 
                 foreach ($request->features as $index => $feature) {
@@ -183,12 +177,6 @@ class PackageController extends Controller
                 'is_popular' => $request->boolean('is_popular'),
                 'is_active' => $request->is_active,
             ]);
-
-            /*
-            |--------------------------------------------------------------------------
-            | Update Features
-            |--------------------------------------------------------------------------
-            */
 
             $package->features()->delete();
 
