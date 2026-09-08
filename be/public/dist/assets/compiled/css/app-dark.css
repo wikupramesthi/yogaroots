@@ -9496,6 +9496,7 @@ html[data-bs-theme="dark"] .navbar-fixed .navbar-top {
     background-color: var(--bs-body-bg);
     z-index: 9;
     top: 0;
+    margin-bottom: 15px;
     width: inherit;
 }
 html[data-bs-theme="dark"] .navbar {
@@ -10145,6 +10146,9 @@ html[data-bs-theme="dark"] .stats-icon.lime {
     html[data-bs-theme="dark"] .stats-icon {
         float: left;
         margin-bottom: 0.4rem;
+    }
+    html[data-bs-theme="dark"] nav.breadcrumb-header {
+        display: none;
     }
 }
 html[data-bs-theme="dark"] .burger-btn {

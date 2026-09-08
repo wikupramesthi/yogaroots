@@ -18913,6 +18913,7 @@ fieldset:disabled .btn {
     background-color: var(--bs-body-bg);
     z-index: 9;
     top: 0;
+    margin-bottom: 15px;
     width: inherit;
 }
 .navbar {
@@ -19465,6 +19466,9 @@ fieldset:disabled .btn {
     .stats-icon {
         float: left;
         margin-bottom: 0.4rem;
+    }
+    nav.breadcrumb-header {
+        display: none;
     }
 }
 .burger-btn {
