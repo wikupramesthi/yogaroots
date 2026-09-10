@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\BannerController;
 use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\PageController;
+use App\Http\Controllers\Api\ClassScheduleController;
+use App\Http\Controllers\Api\ClassController;
 
 
 /*
@@ -56,3 +58,25 @@ Route::get('/pages/{slug}', [PageController::class, 'show']);
 // halaman event
 Route::get('/events', [EventController::class, 'index']);
 Route::get('/events/{slug}', [EventController::class, 'show']);
+
+// classes
+Route::get('/classes', [
+    ClassController::class,
+    'index'
+]);
+
+Route::get('/classes/{slug}', [
+    ClassController::class,
+    'show'
+]);
+
+// class schedules
+Route::get('/class-schedules', [
+    ClassScheduleController::class,
+    'index'
+]);
+
+Route::get('/class-schedules/{uuid}', [
+    ClassScheduleController::class,
+    'show'
+]);
