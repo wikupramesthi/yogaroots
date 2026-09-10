@@ -3,6 +3,7 @@
 namespace App\Models\Class;
 
 use App\Models\Payment\Order;
+use App\Models\Studio;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -55,6 +56,15 @@ class ClassSchedule extends Model
         return $this->hasMany(
             Order::class,
             'class_schedule_uuid',
+            'uuid'
+        );
+    }
+
+    public function studio(): BelongsTo
+    {
+        return $this->belongsTo(
+            Studio::class,
+            'studio_uuid',
             'uuid'
         );
     }

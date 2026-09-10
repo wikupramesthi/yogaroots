@@ -14,7 +14,6 @@ export const yogaData = {
   nav: [
     { label: "Home", href: "/" },
     { label: "Classes", href: "/classes" },
-    { label: "Schedule", href: "/schedule" },
     { label: "Instructors", href: "/instructors" },
     { label: "Events", href: "/event" },
     { label: "Articles", href: "/blog" },

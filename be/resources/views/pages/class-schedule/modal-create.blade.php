@@ -1,9 +1,6 @@
 <!-- Add Class Schedule Modal -->
-<div id="modal-form-add-class-schedule"
-    class="modal fade"
-    tabindex="-1"
-    aria-labelledby="modal-form-add-class-schedule-label"
-    aria-hidden="true">
+<div id="modal-form-add-class-schedule" class="modal fade" tabindex="-1"
+    aria-labelledby="modal-form-add-class-schedule-label" aria-hidden="true">
 
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -16,10 +13,7 @@
                         Add Class Schedule
                     </h5>
 
-                    <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     </button>
                 </div>
 
@@ -31,25 +25,47 @@
                             Class <span class="text-danger">*</span>
                         </label>
 
-                        <select
-                            name="class_uuid"
-                            id="class_uuid"
-                            class="form-select @error('class_uuid') is-invalid @enderror"
-                            required>
+                        <select name="class_uuid" id="class_uuid"
+                            class="form-select @error('class_uuid') is-invalid @enderror" required>
                             <option value="">Select Class</option>
 
                             @foreach ($classes as $class)
-                            <option value="{{ $class->uuid }}"
-                                {{ old('class_uuid') == $class->uuid ? 'selected' : '' }}>
-                                {{ $class->name }}
-                            </option>
+                                <option value="{{ $class->uuid }}"
+                                    {{ old('class_uuid') == $class->uuid ? 'selected' : '' }}>
+                                    {{ $class->name }}
+                                </option>
                             @endforeach
                         </select>
 
                         @error('class_uuid')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label for="studio_uuid" class="form-label">
+                            Studio <span class="text-danger">*</span>
+                        </label>
+
+                        <select name="studio_uuid" id="studio_uuid"
+                            class="form-select @error('studio_uuid') is-invalid @enderror" required>
+
+                            <option value="">Select Studio</option>
+
+                            @foreach ($studios as $studio)
+                                <option value="{{ $studio->uuid }}"
+                                    {{ old('studio_uuid') == $studio->uuid ? 'selected' : '' }}>
+                                    {{ $studio->name }}
+                                </option>
+                            @endforeach
+
+                        </select>
+
+                        @error('studio_uuid')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
 
                     <!-- Day -->
                     <div class="mb-3">
@@ -57,15 +73,13 @@
                             Day <span class="text-danger">*</span>
                         </label>
 
-                        <select
-                            name="day"
-                            id="day"
-                            class="form-select @error('day') is-invalid @enderror"
+                        <select name="day" id="day" class="form-select @error('day') is-invalid @enderror"
                             required>
                             <option value="">Select Day</option>
                             <option value="monday" {{ old('day') == 'monday' ? 'selected' : '' }}>Monday</option>
                             <option value="tuesday" {{ old('day') == 'tuesday' ? 'selected' : '' }}>Tuesday</option>
-                            <option value="wednesday" {{ old('day') == 'wednesday' ? 'selected' : '' }}>Wednesday</option>
+                            <option value="wednesday" {{ old('day') == 'wednesday' ? 'selected' : '' }}>Wednesday
+                            </option>
                             <option value="thursday" {{ old('day') == 'thursday' ? 'selected' : '' }}>Thursday</option>
                             <option value="friday" {{ old('day') == 'friday' ? 'selected' : '' }}>Friday</option>
                             <option value="saturday" {{ old('day') == 'saturday' ? 'selected' : '' }}>Saturday</option>
@@ -73,7 +87,7 @@
                         </select>
 
                         @error('day')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -84,16 +98,12 @@
                                 Start Time <span class="text-danger">*</span>
                             </label>
 
-                            <input
-                                type="time"
-                                name="start_time"
-                                id="start_time"
+                            <input type="time" name="start_time" id="start_time"
                                 class="form-control @error('start_time') is-invalid @enderror"
-                                value="{{ old('start_time') }}"
-                                required>
+                                value="{{ old('start_time') }}" required>
 
                             @error('start_time')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
@@ -102,16 +112,12 @@
                                 End Time <span class="text-danger">*</span>
                             </label>
 
-                            <input
-                                type="time"
-                                name="end_time"
-                                id="end_time"
+                            <input type="time" name="end_time" id="end_time"
                                 class="form-control @error('end_time') is-invalid @enderror"
-                                value="{{ old('end_time') }}"
-                                required>
+                                value="{{ old('end_time') }}" required>
 
                             @error('end_time')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
@@ -122,18 +128,12 @@
                             Capacity <span class="text-danger">*</span>
                         </label>
 
-                        <input
-                            type="number"
-                            name="capacity"
-                            id="capacity"
+                        <input type="number" name="capacity" id="capacity"
                             class="form-control @error('capacity') is-invalid @enderror"
-                            placeholder="Enter class capacity"
-                            value="{{ old('capacity') }}"
-                            min="1"
-                            required>
+                            placeholder="Enter class capacity" value="{{ old('capacity') }}" min="1" required>
 
                         @error('capacity')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
@@ -143,37 +143,29 @@
                             Status <span class="text-danger">*</span>
                         </label>
 
-                        <select
-                            name="status"
-                            id="status"
-                            class="form-select @error('status') is-invalid @enderror"
+                        <select name="status" id="status" class="form-select @error('status') is-invalid @enderror"
                             required>
-                            <option value="active"
-                                {{ old('status', 'active') == 'active' ? 'selected' : '' }}>
+                            <option value="active" {{ old('status', 'active') == 'active' ? 'selected' : '' }}>
                                 Active
                             </option>
-                            <option value="inactive"
-                                {{ old('status') == 'inactive' ? 'selected' : '' }}>
+                            <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>
                                 Inactive
                             </option>
                         </select>
 
                         @error('status')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                            <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
 
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button"
-                        class="btn btn-light"
-                        data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
                         Cancel
                     </button>
 
-                    <button type="submit"
-                        class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary">
                         Save
                     </button>
                 </div>
