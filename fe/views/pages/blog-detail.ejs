@@ -29,26 +29,11 @@
         <%- post.content %>
       </div>
 
-      <div
-        class="bg-cream border border-sage-100 rounded-2xl p-6 mt-8 flex justify-between items-center"
-      >
-        <div>
-          <h4 class="font-semibold">Suka artikel ini?</h4>
-          <p class="text-sm text-stone-warm">
-            Dapatkan jurnal mingguan di email.
-          </p>
-        </div>
-        <button
-          onclick="
-            document
-              .getElementById('newsletterForm')
-              ?.scrollIntoView({ behavior: 'smooth' })
-          "
-          class="bg-sage-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold"
-        >
-          Subscribe →
-        </button>
-      </div>
+      <div class="bg-sage-700 text-white rounded-[24px] p-6 mt-8 flex flex-col lg:flex-row justify-between gap-4 items-start lg:items-center">
+    <div><h3 class="font-semibold">Need help finding your flow?</h3><p class="text-sm text-sage-200">Not sure which class fits your energy this week? Chat with our team—we’ll help you find the perfect class to move, breathe, and feel your best.</p></div>
+    <a href="/contact" class="bg-white text-sage-700 px-6 py-3 rounded-full text-sm font-semibold shrink-0">Talk to Our Team →</a>
+  </div>
+
     </article>
     <%- include('../partials/footer') %>
     <script src="/js/main.js"></script>

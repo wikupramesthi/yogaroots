@@ -10,6 +10,10 @@ import { getContactCaptcha, sendContact } from "./services/contactServices.js";
 import { getTestimonials } from "./services/testimonialService.js";
 import { getPage } from "./services/pageService.js";
 import { getEvents } from "./services/eventService.js";
+import {
+    getClasses,
+    getClass
+} from "./services/classService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -36,58 +40,75 @@ app.use((req, res, next) => {
 
 // Routes
 app.get("/", async (req, res) => {
-  try {
-    const posts = await getArticles();
-    const testimonials = await getTestimonials();
+    try {
+        const posts = await getArticles();
+        const testimonials = await getTestimonials();
 
-    res.render("pages/home", {
-      title: "Yogaroots — Temukan Keseimbangan dalam Setiap Napas",
-      hero: yogaData.hero,
-      stats: yogaData.stats,
-      features: yogaData.features,
-      classes: yogaData.classes.slice(0, 6),
-      pricing: yogaData.pricing,
+        const classes = await getClasses({
+            per_page: 6
+        });
 
-      testimonials: testimonials.slice(0, 3),
-      posts: posts.slice(0, 3),
-    });
-  } catch (error) {
-    console.error("Gagal mengambil data api dari backend:", error);
+        res.render("pages/home", {
+            title: "YogaRoots — Find Balance in Every Breath",
+            hero: yogaData.hero,
+            stats: yogaData.stats,
+            features: yogaData.features,
+            pricing: yogaData.pricing,
+            classes,
+            testimonials: testimonials.slice(0, 3),
+            posts: posts.slice(0, 3),
+        });
 
-    res.render("pages/home", {
-      title: "Yogaroots — Temukan Keseimbangan dalam Setiap Napas",
-      hero: yogaData.hero,
-      stats: yogaData.stats,
-      features: yogaData.features,
-      classes: yogaData.classes.slice(0, 6),
-      pricing: yogaData.pricing,
+    } catch (error) {
+        console.error(
+            "Gagal mengambil data api dari backend:",
+            error
+        );
 
-      testimonials: [],
-      posts: [],
-    });
-  }
+        res.render("pages/home", {
+            title: "Yogaroots — Temukan Keseimbangan dalam Setiap Napas",
+            hero: yogaData.hero,
+            stats: yogaData.stats,
+            features: yogaData.features,
+            pricing: yogaData.pricing,
+            classes: [],
+            testimonials: [],
+            posts: [],
+        });
+    }
 });
 
+// classes
 app.get("/classes", (req, res) => {
-  const category = req.query.category || "all";
-  let classes = yogaData.classes;
-  if (category !== "all")
-    classes = classes.filter((c) => c.category === category);
-  res.render("pages/classes", {
-    title: "Kelas Yoga — Temukan Aliranmu",
-    classes,
-    categories: yogaData.categories,
-    activeCategory: category,
-  });
+    res.render("pages/classes", {
+        title: "YogaRoots — Yoga Classes for All Levels",
+    });
 });
 
-app.get("/classes/:slug", (req, res) => {
-  const cls = yogaData.classes.find((c) => c.slug === req.params.slug);
-  if (!cls)
-    return res
-      .status(404)
-      .render("pages/404", { title: "Kelas Tidak Ditemukan" });
-  res.render("pages/class-detail", { title: cls.name, cls });
+app.get("/classes/:slug", async (req, res) => {
+    try {
+        const cls = await getClass(req.params.slug);
+
+        if (!cls) {
+            return res.status(404).render("pages/404", {
+                title: "Kelas Tidak Ditemukan",
+            });
+        }
+
+        res.render("pages/class-detail", {
+            title: cls.name,
+            cls,
+        });
+
+    } catch (error) {
+        console.error("Gagal mengambil detail class:", error);
+
+        return res.status(error.status || 500).render("pages/404", {
+            title: error.status === 404
+                ? "Kelas Tidak Ditemukan"
+                : "Gagal Memuat Class",
+        });
+    }
 });
 
 //pages
