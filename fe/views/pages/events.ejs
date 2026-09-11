@@ -11,42 +11,25 @@
 
   <main>
 
-    <!-- =====================================================
-         HEADER
-    ====================================================== -->
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-7">
+      <div class="max-w-2xl">
 
-      <div class="max-w-3xl">
-
-        <div class="flex items-center gap-3 mb-3">
-
-          <span class="w-7 h-px bg-terracotta-500"></span>
-
-          <span class="text-[11px] font-bold tracking-[0.2em] text-terracotta-600">
-            EVENT & WORKSHOP
-          </span>
-
-        </div>
-
-       <h1 class="font-display text-4xl sm:text-5xl font-bold text-stone-800">
-  Ada pengalaman baru menantimu
+         <h1 class="font-display text-4xl lg:text-5xl font-bold text-sage-900 mt-3 leading-tight">
+                Something New
+                <span class="text-terracotta-600">Awaits You</span>
+            </h1>
 </h1>
 
 <p class="mt-3 text-sm sm:text-base text-stone-500 leading-relaxed">
-  Jelajahi berbagai kelas, workshop, dan event pilihan.
-  Temukan ruang untuk belajar, bergerak, dan menikmati momen bersama.
+    Explore our upcoming events and workshops.
+    Find new ways to learn, move, connect, and enjoy meaningful moments together.
 </p>
 
       </div>
 
     </section>
 
-
-
-    <!-- =====================================================
-         FILTER
-    ====================================================== -->
 
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -81,7 +64,7 @@
               type="text"
               name="search"
               value="<%= typeof search !== 'undefined' ? search : '' %>"
-              placeholder="Cari event, workshop, atau kelas..."
+              placeholder="Search events, workshops, or classes..."
               class="w-full h-11 pl-10 pr-4 rounded-xl bg-stone-50
                      border border-transparent text-sm text-stone-700
                      placeholder:text-stone-400 outline-none
@@ -135,7 +118,7 @@
                      text-white text-sm font-semibold
                      hover:bg-stone-700 transition"
             >
-              Cari Event
+              Search
             </button>
 
             <%
@@ -168,11 +151,10 @@
 
 
       <!-- QUICK FILTER -->
-
       <div class="flex flex-wrap items-center gap-2 mt-4">
 
         <span class="text-xs text-stone-400 mr-1">
-          Pilih waktu:
+         Select a time
         </span>
 
 
@@ -184,7 +166,7 @@
             : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
           %>"
         >
-          Semua
+          All
         </a>
 
 
@@ -196,7 +178,7 @@
             : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
           %>"
         >
-          Hari Ini
+          Today
         </a>
 
 
@@ -208,7 +190,7 @@
             : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
           %>"
         >
-          Minggu Ini
+          This Week
         </a>
 
 
@@ -220,7 +202,7 @@
             : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
           %>"
         >
-          Bulan Ini
+         This Month
         </a>
 
       </div>
@@ -229,25 +211,18 @@
 
 
 
-    <!-- =====================================================
-         EVENT LIST
-    ====================================================== -->
-
     <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
-
-      <!-- LIST HEADER -->
-
       <div class="flex items-center justify-between mb-4">
 
         <div>
 
           <h2 class="font-display text-2xl font-bold text-stone-800">
-            Event & Workshop
+            Events & Workshops
           </h2>
 
           <p class="text-xs text-stone-400 mt-1">
             <%= typeof totalEvents !== 'undefined' ? totalEvents : events.length %>
-            event tersedia
+            event available
           </p>
 
         </div>

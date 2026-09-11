@@ -10,10 +10,8 @@ import { getContactCaptcha, sendContact } from "./services/contactServices.js";
 import { getTestimonials } from "./services/testimonialService.js";
 import { getPage } from "./services/pageService.js";
 import { getEvents } from "./services/eventService.js";
-import {
-    getClasses,
-    getClass
-} from "./services/classService.js";
+import { getClasses, getClass } from "./services/classService.js";
+import { getInstructors } from "./services/instructorService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,75 +38,69 @@ app.use((req, res, next) => {
 
 // Routes
 app.get("/", async (req, res) => {
-    try {
-        const posts = await getArticles();
-        const testimonials = await getTestimonials();
+  try {
+    const posts = await getArticles();
+    const testimonials = await getTestimonials();
 
-        const classes = await getClasses({
-            per_page: 6
-        });
+    const classes = await getClasses({
+      per_page: 6,
+    });
 
-        res.render("pages/home", {
-            title: "YogaRoots — Find Balance in Every Breath",
-            hero: yogaData.hero,
-            stats: yogaData.stats,
-            features: yogaData.features,
-            pricing: yogaData.pricing,
-            classes,
-            testimonials: testimonials.slice(0, 3),
-            posts: posts.slice(0, 3),
-        });
+    res.render("pages/home", {
+      title: "YogaRoots — Find Balance in Every Breath",
+      hero: yogaData.hero,
+      stats: yogaData.stats,
+      features: yogaData.features,
+      pricing: yogaData.pricing,
+      classes,
+      testimonials: testimonials.slice(0, 3),
+      posts: posts.slice(0, 3),
+    });
+  } catch (error) {
+    console.error("Gagal mengambil data api dari backend:", error);
 
-    } catch (error) {
-        console.error(
-            "Gagal mengambil data api dari backend:",
-            error
-        );
-
-        res.render("pages/home", {
-            title: "Yogaroots — Temukan Keseimbangan dalam Setiap Napas",
-            hero: yogaData.hero,
-            stats: yogaData.stats,
-            features: yogaData.features,
-            pricing: yogaData.pricing,
-            classes: [],
-            testimonials: [],
-            posts: [],
-        });
-    }
+    res.render("pages/home", {
+      title: "Yogaroots — Temukan Keseimbangan dalam Setiap Napas",
+      hero: yogaData.hero,
+      stats: yogaData.stats,
+      features: yogaData.features,
+      pricing: yogaData.pricing,
+      classes: [],
+      testimonials: [],
+      posts: [],
+    });
+  }
 });
 
 // classes
 app.get("/classes", (req, res) => {
-    res.render("pages/classes", {
-        title: "YogaRoots — Yoga Classes for All Levels",
-    });
+  res.render("pages/classes", {
+    title: "YogaRoots — Yoga Classes for All Levels",
+  });
 });
 
 app.get("/classes/:slug", async (req, res) => {
-    try {
-        const cls = await getClass(req.params.slug);
+  try {
+    const cls = await getClass(req.params.slug);
 
-        if (!cls) {
-            return res.status(404).render("pages/404", {
-                title: "Kelas Tidak Ditemukan",
-            });
-        }
-
-        res.render("pages/class-detail", {
-            title: cls.name,
-            cls,
-        });
-
-    } catch (error) {
-        console.error("Gagal mengambil detail class:", error);
-
-        return res.status(error.status || 500).render("pages/404", {
-            title: error.status === 404
-                ? "Kelas Tidak Ditemukan"
-                : "Gagal Memuat Class",
-        });
+    if (!cls) {
+      return res.status(404).render("pages/404", {
+        title: "Kelas Tidak Ditemukan",
+      });
     }
+
+    res.render("pages/class-detail", {
+      title: cls.name,
+      cls,
+    });
+  } catch (error) {
+    console.error("Gagal mengambil detail class:", error);
+
+    return res.status(error.status || 500).render("pages/404", {
+      title:
+        error.status === 404 ? "Kelas Tidak Ditemukan" : "Gagal Memuat Class",
+    });
+  }
 });
 
 //pages
@@ -148,11 +140,23 @@ app.get("/pricing", (req, res) => {
   });
 });
 
-app.get("/instructors", (req, res) => {
-  res.render("pages/instructors", {
-    title: "Instruktur Kami",
-    instructors: yogaData.instructors,
-  });
+app.get("/instructors", async (req, res) => {
+  try {
+    const instructors = await getInstructors({
+      per_page: 20,
+    });
+
+    res.render("pages/instructors", {
+      title: "Our Instructors — YogaRoots",
+      instructors,
+    });
+  } catch (error) {
+    console.error("Gagal mengambil data instruktur:", error);
+
+    res.status(error.status || 500).render("pages/404", {
+      title: "Instructors Not Found",
+    });
+  }
 });
 
 //blog
