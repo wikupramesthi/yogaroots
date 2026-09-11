@@ -1,1006 +1,723 @@
 <!DOCTYPE html>
 <html lang="id">
-
-<head>
-  <%- include('../partials/head') %>
-</head>
-
-<body class="antialiased bg-cream">
-
-  <%- include('../partials/navbar') %>
-
-
-  <!-- ========================================= -->
-  <!-- HEADER -->
-  <!-- ========================================= -->
-
-  <section class="bg-cream pt-12 pb-6">
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-
-        <div>
-
-          <span class="text-xs font-bold tracking-[0.2em] text-terracotta-600">
-            CLASS SCHEDULE
-          </span>
-
-          <h1 class="font-display text-4xl md:text-5xl font-bold mt-2">
-            Find your flow
-          </h1>
-
-          <p class="text-stone-warm mt-3 max-w-2xl leading-relaxed">
-            Choose a class, pick your preferred time, and book your next
-            practice at YogaRoots.
-          </p>
-
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- ========================================= -->
-  <!-- DATE SELECTOR -->
-  <!-- ========================================= -->
-
-  <section class="bg-cream pb-8">
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <div class="bg-white rounded-[24px] border border-sage-100 p-3 shadow-sm">
-
-        <div class="flex items-center gap-2 overflow-x-auto">
-
-          <!-- PREVIOUS -->
-          <button
-            type="button"
-            class="shrink-0 w-10 h-10 rounded-full border border-sage-100 flex items-center justify-center hover:bg-sage-50 transition">
-
-            <span class="text-lg">‹</span>
-
-          </button>
-
-
-          <!-- DATE -->
-          <div class="flex gap-2 flex-1 min-w-max">
-
-            <!-- DATE 1 -->
-            <button
-              type="button"
-              class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50">
-
-              <div class="text-xs text-stone-warm">
-                Sun
-              </div>
-
-              <div class="text-xl font-bold mt-1">
-                13
-              </div>
-
-              <div class="text-[11px] text-stone-warm mt-0.5">
-                Sep
-              </div>
-
-            </button>
-
-
-            <!-- DATE 2 -->
-            <button
-              type="button"
-              class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50">
-
-              <div class="text-xs text-stone-warm">
-                Mon
-              </div>
-
-              <div class="text-xl font-bold mt-1">
-                14
-              </div>
-
-              <div class="text-[11px] text-stone-warm mt-0.5">
-                Sep
-              </div>
-
-            </button>
-
-
-            <!-- SELECTED -->
-            <button
-              type="button"
-              class="min-w-[76px] px-3 py-3 rounded-2xl text-center bg-sage-700 text-white shadow-sm">
-
-              <div class="text-xs opacity-80">
-                Tue
-              </div>
-
-              <div class="text-xl font-bold mt-1">
-                15
-              </div>
-
-              <div class="text-[11px] opacity-80 mt-0.5">
-                Sep
-              </div>
-
-            </button>
-
-
-            <!-- DATE 4 -->
-            <button
-              type="button"
-              class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50">
-
-              <div class="text-xs text-stone-warm">
-                Wed
-              </div>
-
-              <div class="text-xl font-bold mt-1">
-                16
-              </div>
-
-              <div class="text-[11px] text-stone-warm mt-0.5">
-                Sep
-              </div>
-
-            </button>
-
-
-            <!-- DATE 5 -->
-            <button
-              type="button"
-              class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50">
-
-              <div class="text-xs text-stone-warm">
-                Thu
-              </div>
-
-              <div class="text-xl font-bold mt-1">
-                17
-              </div>
-
-              <div class="text-[11px] text-stone-warm mt-0.5">
-                Sep
-              </div>
-
-            </button>
-
-
-            <!-- DATE 6 -->
-            <button
-              type="button"
-              class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50">
-
-              <div class="text-xs text-stone-warm">
-                Fri
-              </div>
-
-              <div class="text-xl font-bold mt-1">
-                18
-              </div>
-
-              <div class="text-[11px] text-stone-warm mt-0.5">
-                Sep
-              </div>
-
-            </button>
-
-
-            <!-- DATE 7 -->
-            <button
-              type="button"
-              class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50">
-
-              <div class="text-xs text-stone-warm">
-                Sat
-              </div>
-
-              <div class="text-xl font-bold mt-1">
-                19
-              </div>
-
-              <div class="text-[11px] text-stone-warm mt-0.5">
-                Sep
-              </div>
-
-            </button>
-
+  <head>
+    <%- include('../partials/head') %>
+  </head>
+
+  <body class="antialiased bg-cream">
+    <%- include('../partials/navbar') %>
+
+    <section class="bg-cream pt-12 pb-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row md:items-end md:justify-between gap-4"
+        >
+          <div>
+            <span
+              class="text-xs font-bold tracking-[0.2em] text-terracotta-600"
+            >
+              CLASS SCHEDULE
+            </span>
+
+            <h1 class="font-display text-4xl md:text-5xl font-bold mt-2">
+              Find your flow
+            </h1>
+
+            <p class="text-stone-warm mt-3 max-w-2xl leading-relaxed">
+              Choose a class, pick your preferred time, and book your next
+              practice at YogaRoots.
+            </p>
           </div>
-
-
-          <!-- NEXT -->
-          <button
-            type="button"
-            class="shrink-0 w-10 h-10 rounded-full border border-sage-100 flex items-center justify-center hover:bg-sage-50 transition">
-
-            <span class="text-lg">›</span>
-
-          </button>
-
         </div>
-
       </div>
+    </section>
 
-    </div>
+    <!-- ========================================= -->
+    <!-- DATE SELECTOR -->
+    <!-- ========================================= -->
 
-  </section>
+    <section class="bg-cream pb-8">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="bg-white rounded-[24px] border border-sage-100 p-3 shadow-sm"
+        >
+          <div class="flex items-center gap-2 overflow-x-auto">
+            <!-- PREVIOUS -->
+            <button
+              type="button"
+              class="shrink-0 w-10 h-10 rounded-full border border-sage-100 flex items-center justify-center hover:bg-sage-50 transition"
+            >
+              <span class="text-lg">‹</span>
+            </button>
 
-
-  <!-- ========================================= -->
-  <!-- MAIN CONTENT -->
-  <!-- ========================================= -->
-
-  <section class="bg-cream pb-16">
-
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-      <div class="grid lg:grid-cols-[240px_1fr] gap-8">
-
-
-        <!-- ===================================== -->
-        <!-- FILTER -->
-        <!-- ===================================== -->
-
-        <aside>
-
-          <div class="bg-white rounded-[24px] border border-sage-100 p-5 sticky top-6">
-
-            <div class="flex items-center justify-between mb-5">
-
-              <h3 class="font-semibold">
-                Filter
-              </h3>
-
+            <!-- DATE -->
+            <div class="flex gap-2 flex-1 min-w-max">
+              <!-- DATE 1 -->
               <button
                 type="button"
-                class="text-xs text-sage-700 font-semibold">
-                Reset
+                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
+              >
+                <div class="text-xs text-stone-warm">Sun</div>
+
+                <div class="text-xl font-bold mt-1">13</div>
+
+                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
               </button>
 
+              <!-- DATE 2 -->
+              <button
+                type="button"
+                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
+              >
+                <div class="text-xs text-stone-warm">Mon</div>
+
+                <div class="text-xl font-bold mt-1">14</div>
+
+                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
+              </button>
+
+              <!-- SELECTED -->
+              <button
+                type="button"
+                class="min-w-[76px] px-3 py-3 rounded-2xl text-center bg-sage-700 text-white shadow-sm"
+              >
+                <div class="text-xs opacity-80">Tue</div>
+
+                <div class="text-xl font-bold mt-1">15</div>
+
+                <div class="text-[11px] opacity-80 mt-0.5">Sep</div>
+              </button>
+
+              <!-- DATE 4 -->
+              <button
+                type="button"
+                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
+              >
+                <div class="text-xs text-stone-warm">Wed</div>
+
+                <div class="text-xl font-bold mt-1">16</div>
+
+                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
+              </button>
+
+              <!-- DATE 5 -->
+              <button
+                type="button"
+                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
+              >
+                <div class="text-xs text-stone-warm">Thu</div>
+
+                <div class="text-xl font-bold mt-1">17</div>
+
+                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
+              </button>
+
+              <!-- DATE 6 -->
+              <button
+                type="button"
+                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
+              >
+                <div class="text-xs text-stone-warm">Fri</div>
+
+                <div class="text-xl font-bold mt-1">18</div>
+
+                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
+              </button>
+
+              <!-- DATE 7 -->
+              <button
+                type="button"
+                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
+              >
+                <div class="text-xs text-stone-warm">Sat</div>
+
+                <div class="text-xl font-bold mt-1">19</div>
+
+                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
+              </button>
             </div>
 
-
-            <!-- LEVEL -->
-
-            <div class="mb-6">
-
-              <h4 class="text-xs font-bold uppercase tracking-wider text-stone-warm mb-3">
-                Level
-              </h4>
-
-              <div class="space-y-2">
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    checked
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    All Levels
-                  </span>
-
-                </label>
-
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    Foundation
-                  </span>
-
-                </label>
-
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    Intermediate
-                  </span>
-
-                </label>
-
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    Advance
-                  </span>
-
-                </label>
-
-              </div>
-
-            </div>
-
-
-            <!-- TIME -->
-
-            <div class="mb-6">
-
-              <h4 class="text-xs font-bold uppercase tracking-wider text-stone-warm mb-3">
-                Time
-              </h4>
-
-              <div class="space-y-2">
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    Morning
-                  </span>
-
-                </label>
-
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    Afternoon
-                  </span>
-
-                </label>
-
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    Evening
-                  </span>
-
-                </label>
-
-              </div>
-
-            </div>
-
-
-            <!-- STUDIO -->
-
-            <div>
-
-              <h4 class="text-xs font-bold uppercase tracking-wider text-stone-warm mb-3">
-                Studio
-              </h4>
-
-              <div class="space-y-2">
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    checked
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    All Studios
-                  </span>
-
-                </label>
-
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    Studio Chandra
-                  </span>
-
-                </label>
-
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    Studio Surya
-                  </span>
-
-                </label>
-
-
-                <label class="flex items-center gap-3 cursor-pointer">
-
-                  <input
-                    type="checkbox"
-                    class="w-4 h-4 accent-sage-700">
-
-                  <span class="text-sm">
-                    Studio Lotus
-                  </span>
-
-                </label>
-
-              </div>
-
-            </div>
-
+            <!-- NEXT -->
+            <button
+              type="button"
+              class="shrink-0 w-10 h-10 rounded-full border border-sage-100 flex items-center justify-center hover:bg-sage-50 transition"
+            >
+              <span class="text-lg">›</span>
+            </button>
           </div>
-
-        </aside>
-
-
-        <!-- ===================================== -->
-        <!-- SCHEDULE -->
-        <!-- ===================================== -->
-
-        <main>
-
-
-          <!-- SCHEDULE HEADER -->
-
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5">
-
-            <div>
-
-              <h2 class="text-xl font-bold">
-                Tuesday, September 15
-              </h2>
-
-              <p class="text-sm text-stone-warm mt-1">
-                5 classes available
-              </p>
-
-            </div>
-
-
-            <div class="text-sm text-stone-warm">
-              Showing all classes
-            </div>
-
-          </div>
-
-
-          <!-- ================================= -->
-          <!-- CLASS 1 -->
-          <!-- ================================= -->
-
-          <div class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition">
-
-            <div class="flex flex-col md:flex-row md:items-center gap-5">
-
-
-              <!-- TIME -->
-
-              <div class="md:w-[120px] shrink-0">
-
-                <div class="text-xl font-bold">
-                  07:30
-                </div>
-
-                <div class="text-sm text-stone-warm">
-                  08:45
-                </div>
-
-                <div class="text-xs text-stone-warm mt-1">
-                  75 min
-                </div>
-
-              </div>
-
-
-              <!-- CLASS INFO -->
-
-              <div class="flex-1">
-
-                <div class="flex flex-wrap items-center gap-2 mb-2">
-
-                  <span class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold">
-                    Foundation
-                  </span>
-
-                  <span class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs">
-                    Morning
-                  </span>
-
-                </div>
-
-                <h3 class="text-lg font-bold">
-                  Morning Flow
-                </h3>
-
-                <p class="text-sm text-stone-warm mt-1">
-                  A gentle and energizing practice to start your day.
-                </p>
-
-
-                <div class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm">
-
-                  <span>
-                    <span class="mr-1">●</span>
-                    Kiki
-                  </span>
-
-                  <span>
-                    <span class="mr-1">⌖</span>
-                    Studio Chandra
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <!-- AVAILABILITY -->
-
-              <div class="md:w-[150px] shrink-0">
-
-                <div class="text-sm font-semibold">
-                  8 spots left
-                </div>
-
-                <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
-
-                  <div
-                    class="h-1.5 bg-sage-600 rounded-full"
-                    style="width: 35%;">
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <!-- ACTION -->
-
-              <div class="md:w-[120px] shrink-0">
-
-                <a
-                  href="#"
-                  class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition">
-                  Book Class
-                </a>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- ================================= -->
-          <!-- CLASS 2 -->
-          <!-- ================================= -->
-
-          <div class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition">
-
-            <div class="flex flex-col md:flex-row md:items-center gap-5">
-
-
-              <div class="md:w-[120px] shrink-0">
-
-                <div class="text-xl font-bold">
-                  09:00
-                </div>
-
-                <div class="text-sm text-stone-warm">
-                  10:15
-                </div>
-
-                <div class="text-xs text-stone-warm mt-1">
-                  75 min
-                </div>
-
-              </div>
-
-
-              <div class="flex-1">
-
-                <div class="flex flex-wrap items-center gap-2 mb-2">
-
-                  <span class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold">
-                    Intermediate
-                  </span>
-
-                  <span class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs">
-                    Morning
-                  </span>
-
-                </div>
-
-                <h3 class="text-lg font-bold">
-                  Hatha Yoga
-                </h3>
-
-                <p class="text-sm text-stone-warm mt-1">
-                  Build strength, balance, and awareness through mindful movement.
-                </p>
-
-
-                <div class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm">
-
-                  <span>
-                    <span class="mr-1">●</span>
-                    Sarah
-                  </span>
-
-                  <span>
-                    <span class="mr-1">⌖</span>
-                    Studio Surya
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <div class="md:w-[150px] shrink-0">
-
-                <div class="text-sm font-semibold">
-                  5 spots left
-                </div>
-
-                <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
-
-                  <div
-                    class="h-1.5 bg-sage-600 rounded-full"
-                    style="width: 60%;">
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <div class="md:w-[120px] shrink-0">
-
-                <a
-                  href="#"
-                  class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition">
-                  Book Class
-                </a>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- ================================= -->
-          <!-- CLASS 3 -->
-          <!-- ================================= -->
-
-          <div class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition">
-
-            <div class="flex flex-col md:flex-row md:items-center gap-5">
-
-
-              <div class="md:w-[120px] shrink-0">
-
-                <div class="text-xl font-bold">
-                  12:30
-                </div>
-
-                <div class="text-sm text-stone-warm">
-                  13:45
-                </div>
-
-                <div class="text-xs text-stone-warm mt-1">
-                  75 min
-                </div>
-
-              </div>
-
-
-              <div class="flex-1">
-
-                <div class="flex flex-wrap items-center gap-2 mb-2">
-
-                  <span class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold">
-                    Foundation
-                  </span>
-
-                  <span class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs">
-                    Afternoon
-                  </span>
-
-                </div>
-
-                <h3 class="text-lg font-bold">
-                  Gentle Yoga
-                </h3>
-
-                <p class="text-sm text-stone-warm mt-1">
-                  Slow-paced movement designed to relax the body and mind.
-                </p>
-
-
-                <div class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm">
-
-                  <span>
-                    <span class="mr-1">●</span>
-                    Ayu
-                  </span>
-
-                  <span>
-                    <span class="mr-1">⌖</span>
-                    Studio Chandra
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <div class="md:w-[150px] shrink-0">
-
-                <div class="text-sm font-semibold">
-                  10 spots left
-                </div>
-
-                <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
-
-                  <div
-                    class="h-1.5 bg-sage-600 rounded-full"
-                    style="width: 20%;">
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <div class="md:w-[120px] shrink-0">
-
-                <a
-                  href="#"
-                  class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition">
-                  Book Class
-                </a>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- ================================= -->
-          <!-- CLASS 4 -->
-          <!-- ================================= -->
-
-          <div class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition">
-
-            <div class="flex flex-col md:flex-row md:items-center gap-5">
-
-
-              <div class="md:w-[120px] shrink-0">
-
-                <div class="text-xl font-bold">
-                  17:30
-                </div>
-
-                <div class="text-sm text-stone-warm">
-                  18:45
-                </div>
-
-                <div class="text-xs text-stone-warm mt-1">
-                  75 min
-                </div>
-
-              </div>
-
-
-              <div class="flex-1">
-
-                <div class="flex flex-wrap items-center gap-2 mb-2">
-
-                  <span class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold">
-                    Intermediate
-                  </span>
-
-                  <span class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs">
-                    Evening
-                  </span>
-
-                </div>
-
-                <h3 class="text-lg font-bold">
-                  Yin Yoga
-                </h3>
-
-                <p class="text-sm text-stone-warm mt-1">
-                  A calming practice focused on deep stretching and relaxation.
-                </p>
-
-
-                <div class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm">
-
-                  <span>
-                    <span class="mr-1">●</span>
-                    Yusak
-                  </span>
-
-                  <span>
-                    <span class="mr-1">⌖</span>
-                    Studio Lotus
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <div class="md:w-[150px] shrink-0">
-
-                <div class="text-sm font-semibold">
-                  3 spots left
-                </div>
-
-                <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
-
-                  <div
-                    class="h-1.5 bg-terracotta-500 rounded-full"
-                    style="width: 85%;">
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <div class="md:w-[120px] shrink-0">
-
-                <a
-                  href="#"
-                  class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition">
-                  Book Class
-                </a>
-
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <!-- ================================= -->
-          <!-- CLASS 5 - FULL -->
-          <!-- ================================= -->
-
-          <div class="bg-white rounded-[24px] border border-sage-100 p-5 opacity-70">
-
-            <div class="flex flex-col md:flex-row md:items-center gap-5">
-
-
-              <div class="md:w-[120px] shrink-0">
-
-                <div class="text-xl font-bold">
-                  19:00
-                </div>
-
-                <div class="text-sm text-stone-warm">
-                  20:15
-                </div>
-
-                <div class="text-xs text-stone-warm mt-1">
-                  75 min
-                </div>
-
-              </div>
-
-
-              <div class="flex-1">
-
-                <div class="flex flex-wrap items-center gap-2 mb-2">
-
-                  <span class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold">
-                    Advance
-                  </span>
-
-                  <span class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs">
-                    Evening
-                  </span>
-
-                </div>
-
-                <h3 class="text-lg font-bold">
-                  Power Yoga
-                </h3>
-
-                <p class="text-sm text-stone-warm mt-1">
-                  A dynamic practice for building strength and endurance.
-                </p>
-
-
-                <div class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm">
-
-                  <span>
-                    <span class="mr-1">●</span>
-                    Dina
-                  </span>
-
-                  <span>
-                    <span class="mr-1">⌖</span>
-                    Studio Surya
-                  </span>
-
-                </div>
-
-              </div>
-
-
-              <div class="md:w-[150px] shrink-0">
-
-                <div class="text-sm font-semibold text-terracotta-600">
-                  Class Full
-                </div>
-
-                <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
-
-                  <div
-                    class="h-1.5 bg-terracotta-500 rounded-full w-full">
-                  </div>
-
-                </div>
-
-              </div>
-
-
-              <div class="md:w-[120px] shrink-0">
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================= -->
+    <!-- MAIN CONTENT -->
+    <!-- ========================================= -->
+
+    <section class="bg-cream pb-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-[240px_1fr] gap-8">
+          <!-- ===================================== -->
+          <!-- FILTER -->
+          <!-- ===================================== -->
+
+          <aside>
+            <div
+              class="bg-white rounded-[24px] border border-sage-100 p-5 sticky top-6"
+            >
+              <div class="flex items-center justify-between mb-5">
+                <h3 class="font-semibold">Filter</h3>
 
                 <button
                   type="button"
-                  disabled
-                  class="w-full text-center bg-stone-100 text-stone-400 rounded-full px-5 py-2.5 text-sm font-semibold cursor-not-allowed">
-                  Full
+                  class="text-xs text-sage-700 font-semibold"
+                >
+                  Reset
                 </button>
-
               </div>
 
+              <!-- LEVEL -->
+
+              <div class="mb-6">
+                <h4
+                  class="text-xs font-bold uppercase tracking-wider text-stone-warm mb-3"
+                >
+                  Level
+                </h4>
+
+                <div class="space-y-2">
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked
+                      class="w-4 h-4 accent-sage-700"
+                    />
+
+                    <span class="text-sm"> All Levels </span>
+                  </label>
+
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
+
+                    <span class="text-sm"> Foundation </span>
+                  </label>
+
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
+
+                    <span class="text-sm"> Intermediate </span>
+                  </label>
+
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
+
+                    <span class="text-sm"> Advance </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- TIME -->
+
+              <div class="mb-6">
+                <h4
+                  class="text-xs font-bold uppercase tracking-wider text-stone-warm mb-3"
+                >
+                  Time
+                </h4>
+
+                <div class="space-y-2">
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
+
+                    <span class="text-sm"> Morning </span>
+                  </label>
+
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
+
+                    <span class="text-sm"> Afternoon </span>
+                  </label>
+
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
+
+                    <span class="text-sm"> Evening </span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- STUDIO -->
+
+              <div>
+                <h4
+                  class="text-xs font-bold uppercase tracking-wider text-stone-warm mb-3"
+                >
+                  Studio
+                </h4>
+
+                <div class="space-y-2">
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked
+                      class="w-4 h-4 accent-sage-700"
+                    />
+
+                    <span class="text-sm"> All Studios </span>
+                  </label>
+
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
+
+                    <span class="text-sm"> Studio Chandra </span>
+                  </label>
+
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
+
+                    <span class="text-sm"> Studio Surya </span>
+                  </label>
+
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
+
+                    <span class="text-sm"> Studio Lotus </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          <!-- ===================================== -->
+          <!-- SCHEDULE -->
+          <!-- ===================================== -->
+
+          <main>
+            <!-- SCHEDULE HEADER -->
+
+            <div
+              class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5"
+            >
+              <div>
+                <h2 class="text-xl font-bold">Tuesday, September 15</h2>
+
+                <p class="text-sm text-stone-warm mt-1">5 classes available</p>
+              </div>
+
+              <div class="text-sm text-stone-warm">Showing all classes</div>
             </div>
 
+            <!-- ================================= -->
+            <!-- CLASS 1 -->
+            <!-- ================================= -->
+
+            <div
+              class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition"
+            >
+              <div class="flex flex-col md:flex-row md:items-center gap-5">
+                <!-- TIME -->
+
+                <div class="md:w-[120px] shrink-0">
+                  <div class="text-xl font-bold">07:30</div>
+
+                  <div class="text-sm text-stone-warm">08:45</div>
+
+                  <div class="text-xs text-stone-warm mt-1">75 min</div>
+                </div>
+
+                <!-- CLASS INFO -->
+
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <span
+                      class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold"
+                    >
+                      Foundation
+                    </span>
+
+                    <span
+                      class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs"
+                    >
+                      Morning
+                    </span>
+                  </div>
+
+                  <h3 class="text-lg font-bold">Morning Flow</h3>
+
+                  <p class="text-sm text-stone-warm mt-1">
+                    A gentle and energizing practice to start your day.
+                  </p>
+
+                  <div
+                    class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm"
+                  >
+                    <span>
+                      <span class="mr-1">●</span>
+                      Kiki
+                    </span>
+
+                    <span>
+                      <span class="mr-1">⌖</span>
+                      Studio Chandra
+                    </span>
+                  </div>
+                </div>
+
+                <!-- AVAILABILITY -->
+
+                <div class="md:w-[150px] shrink-0">
+                  <div class="text-sm font-semibold">8 spots left</div>
+
+                  <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
+                    <div
+                      class="h-1.5 bg-sage-600 rounded-full"
+                      style="width: 35%"
+                    ></div>
+                  </div>
+                </div>
+
+                <!-- ACTION -->
+
+                <div class="md:w-[120px] shrink-0">
+                  <a
+                    href="#"
+                    class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition"
+                  >
+                    Book Class
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================================= -->
+            <!-- CLASS 2 -->
+            <!-- ================================= -->
+
+            <div
+              class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition"
+            >
+              <div class="flex flex-col md:flex-row md:items-center gap-5">
+                <div class="md:w-[120px] shrink-0">
+                  <div class="text-xl font-bold">09:00</div>
+
+                  <div class="text-sm text-stone-warm">10:15</div>
+
+                  <div class="text-xs text-stone-warm mt-1">75 min</div>
+                </div>
+
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <span
+                      class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold"
+                    >
+                      Intermediate
+                    </span>
+
+                    <span
+                      class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs"
+                    >
+                      Morning
+                    </span>
+                  </div>
+
+                  <h3 class="text-lg font-bold">Hatha Yoga</h3>
+
+                  <p class="text-sm text-stone-warm mt-1">
+                    Build strength, balance, and awareness through mindful
+                    movement.
+                  </p>
+
+                  <div
+                    class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm"
+                  >
+                    <span>
+                      <span class="mr-1">●</span>
+                      Sarah
+                    </span>
+
+                    <span>
+                      <span class="mr-1">⌖</span>
+                      Studio Surya
+                    </span>
+                  </div>
+                </div>
+
+                <div class="md:w-[150px] shrink-0">
+                  <div class="text-sm font-semibold">5 spots left</div>
+
+                  <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
+                    <div
+                      class="h-1.5 bg-sage-600 rounded-full"
+                      style="width: 60%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="md:w-[120px] shrink-0">
+                  <a
+                    href="#"
+                    class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition"
+                  >
+                    Book Class
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================================= -->
+            <!-- CLASS 3 -->
+            <!-- ================================= -->
+
+            <div
+              class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition"
+            >
+              <div class="flex flex-col md:flex-row md:items-center gap-5">
+                <div class="md:w-[120px] shrink-0">
+                  <div class="text-xl font-bold">12:30</div>
+
+                  <div class="text-sm text-stone-warm">13:45</div>
+
+                  <div class="text-xs text-stone-warm mt-1">75 min</div>
+                </div>
+
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <span
+                      class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold"
+                    >
+                      Foundation
+                    </span>
+
+                    <span
+                      class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs"
+                    >
+                      Afternoon
+                    </span>
+                  </div>
+
+                  <h3 class="text-lg font-bold">Gentle Yoga</h3>
+
+                  <p class="text-sm text-stone-warm mt-1">
+                    Slow-paced movement designed to relax the body and mind.
+                  </p>
+
+                  <div
+                    class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm"
+                  >
+                    <span>
+                      <span class="mr-1">●</span>
+                      Ayu
+                    </span>
+
+                    <span>
+                      <span class="mr-1">⌖</span>
+                      Studio Chandra
+                    </span>
+                  </div>
+                </div>
+
+                <div class="md:w-[150px] shrink-0">
+                  <div class="text-sm font-semibold">10 spots left</div>
+
+                  <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
+                    <div
+                      class="h-1.5 bg-sage-600 rounded-full"
+                      style="width: 20%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="md:w-[120px] shrink-0">
+                  <a
+                    href="#"
+                    class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition"
+                  >
+                    Book Class
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================================= -->
+            <!-- CLASS 4 -->
+            <!-- ================================= -->
+
+            <div
+              class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition"
+            >
+              <div class="flex flex-col md:flex-row md:items-center gap-5">
+                <div class="md:w-[120px] shrink-0">
+                  <div class="text-xl font-bold">17:30</div>
+
+                  <div class="text-sm text-stone-warm">18:45</div>
+
+                  <div class="text-xs text-stone-warm mt-1">75 min</div>
+                </div>
+
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <span
+                      class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold"
+                    >
+                      Intermediate
+                    </span>
+
+                    <span
+                      class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs"
+                    >
+                      Evening
+                    </span>
+                  </div>
+
+                  <h3 class="text-lg font-bold">Yin Yoga</h3>
+
+                  <p class="text-sm text-stone-warm mt-1">
+                    A calming practice focused on deep stretching and
+                    relaxation.
+                  </p>
+
+                  <div
+                    class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm"
+                  >
+                    <span>
+                      <span class="mr-1">●</span>
+                      Yusak
+                    </span>
+
+                    <span>
+                      <span class="mr-1">⌖</span>
+                      Studio Lotus
+                    </span>
+                  </div>
+                </div>
+
+                <div class="md:w-[150px] shrink-0">
+                  <div class="text-sm font-semibold">3 spots left</div>
+
+                  <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
+                    <div
+                      class="h-1.5 bg-terracotta-500 rounded-full"
+                      style="width: 85%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="md:w-[120px] shrink-0">
+                  <a
+                    href="#"
+                    class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition"
+                  >
+                    Book Class
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- ================================= -->
+            <!-- CLASS 5 - FULL -->
+            <!-- ================================= -->
+
+            <div
+              class="bg-white rounded-[24px] border border-sage-100 p-5 opacity-70"
+            >
+              <div class="flex flex-col md:flex-row md:items-center gap-5">
+                <div class="md:w-[120px] shrink-0">
+                  <div class="text-xl font-bold">19:00</div>
+
+                  <div class="text-sm text-stone-warm">20:15</div>
+
+                  <div class="text-xs text-stone-warm mt-1">75 min</div>
+                </div>
+
+                <div class="flex-1">
+                  <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <span
+                      class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold"
+                    >
+                      Advance
+                    </span>
+
+                    <span
+                      class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs"
+                    >
+                      Evening
+                    </span>
+                  </div>
+
+                  <h3 class="text-lg font-bold">Power Yoga</h3>
+
+                  <p class="text-sm text-stone-warm mt-1">
+                    A dynamic practice for building strength and endurance.
+                  </p>
+
+                  <div
+                    class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm"
+                  >
+                    <span>
+                      <span class="mr-1">●</span>
+                      Dina
+                    </span>
+
+                    <span>
+                      <span class="mr-1">⌖</span>
+                      Studio Surya
+                    </span>
+                  </div>
+                </div>
+
+                <div class="md:w-[150px] shrink-0">
+                  <div class="text-sm font-semibold text-terracotta-600">
+                    Class Full
+                  </div>
+
+                  <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
+                    <div
+                      class="h-1.5 bg-terracotta-500 rounded-full w-full"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="md:w-[120px] shrink-0">
+                  <button
+                    type="button"
+                    disabled
+                    class="w-full text-center bg-stone-100 text-stone-400 rounded-full px-5 py-2.5 text-sm font-semibold cursor-not-allowed"
+                  >
+                    Full
+                  </button>
+                </div>
+              </div>
+            </div>
+          </main>
+        </div>
+
+        <div
+          class="bg-white border border-sage-100 rounded-[24px] p-6 mt-8 flex flex-col lg:flex-row justify-between gap-4 items-start lg:items-center"
+        >
+          <div>
+            <h3 class="font-semibold text-sage-900">
+              Need help finding your flow?
+            </h3>
+
+            <p class="text-sm text-stone-500 mt-1">
+              Not sure which class is right for you? Chat with our team on
+              WhatsApp and we'll help you find the perfect practice.
+            </p>
           </div>
 
-
-        </main>
-
+          <a
+            href="https://api.whatsapp.com/send/?phone=6281321221270&text=Hi%2C%20I%20found%20you%20through%20your%20website%20and%20would%20like%20more%20information%20about%20your%20classes.%20Thank%20you%21&app_absent=0"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="bg-sage-700 text-white px-6 py-3 rounded-full text-sm font-semibold shrink-0 hover:bg-sage-800 transition"
+          >
+            Chat on WhatsApp →
+          </a>
+        </div>
       </div>
+    </section>
 
-    </div>
+    <%- include('../partials/footer') %>
 
-  </section>
-
-
-  <%- include('../partials/footer') %>
-
-  <script src="/js/main.js"></script>
-
-</body>
-
+    <script src="/js/main.js"></script>
+  </body>
 </html>
