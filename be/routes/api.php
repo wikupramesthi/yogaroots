@@ -13,6 +13,8 @@ use App\Http\Controllers\Api\EventController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ClassScheduleController;
 use App\Http\Controllers\Api\ClassController;
+use App\Http\Controllers\Api\InstructorController;
+
 
 
 /*
@@ -79,4 +81,10 @@ Route::get('/class-schedules', [
 Route::get('/class-schedules/{uuid}', [
     ClassScheduleController::class,
     'show'
+]);
+
+//instructors
+Route::get('/instructors', [
+    InstructorController::class,
+    'index'
 ]);

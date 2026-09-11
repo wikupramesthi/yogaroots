@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content shadow-lg border-0 rounded-3">
             <div class="modal-header">
-                <h5 class="modal-title">Detail Intstrutur</h5>
+                <h5 class="modal-title">Instructor Details</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                     aria-label="Close"></button>
             </div>
@@ -25,7 +25,7 @@
                     <div class="col-md-8">
                         <table class="table table-sm table-borderless">
                             <tr>
-                                <th class="text-muted" style="width: 35%;">Spesialisasi</th>
+                                <th class="text-muted" style="width: 35%;">Specialization</th>
                                 <td>
                                     <div class="d-flex flex-wrap gap-1">
                                         @forelse ($user->specializations as $specialization)
@@ -39,24 +39,23 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th class="text-muted">Jenis Kelamin</th>
-                                <td>{{ $user->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                                <th class="text-muted">Gender</th>
+                                <td>{{ $user->jenis_kelamin == 'L' ? 'Male' : 'Female' }}</td>
                             </tr>
                             <tr>
-                                <th class="text-muted">Tempat, Tgl Lahir</th>
-                                <td>
-                                    {{ $user->tempat_lahir }},
-                                    {{ $user->tanggal_lahir ? \Carbon\Carbon::parse($user->tanggal_lahir)->translatedFormat('d F Y') : '-' }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th class="text-muted">No. Handphone</th>
+                                <th class="text-muted">Phone</th>
                                 <td>{{ $user->no_hp ?? '-' }}</td>
                             </tr>
                             <tr>
-                                <th class="text-muted">Pengalaman</th>
+                                <th class="text-muted">Experience</th>
                                 <td>
                                     {{ $user->pengalaman ?? '-' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-muted">Biography</th>
+                                <td class="text-wrap" style="white-space: normal; word-break: break-word;">
+                                    {{ $user->biografi }},
                                 </td>
                             </tr>
                         </table>
@@ -67,7 +66,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger text-white" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-danger text-white" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

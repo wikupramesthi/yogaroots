@@ -152,7 +152,7 @@
                 <div class="form-group mb-3">
                     <label for="no_hp" class="mb-2">Phone Number <span class="text-danger">*</span></label>
                     <input type="number" name="no_hp" id="no_hp" value="{{ old('no_hp', $instruktur->no_hp) }}"
-                        class="form-control @error('no_hp') is-invalid @enderror" required>
+                        class="form-control @error('no_hp') is-invalid @enderror">
                     @error('no_hp')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

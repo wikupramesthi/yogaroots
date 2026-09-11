@@ -114,7 +114,6 @@
                             <th>Specialization</th>
                             <th>Gender</th>
                             <th>Email</th>
-                            <th>Phone Number</th>
                             <th>Experience</th>
                             <th>Details</th>
                             <th>Edit</th>
@@ -145,9 +144,8 @@
                                     @endforelse
                                 </div>
                             </td>
-                            <td>{{ $user->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
+                            <td>{{ $user->jenis_kelamin == 'L' ? 'Male' : 'Female' }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->no_hp ?? '-' }}</td>
                             <td>{{ $user->pengalaman }}</td>
                             <td>
                                 @can('instruktur.update')
