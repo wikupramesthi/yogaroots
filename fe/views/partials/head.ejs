@@ -15,7 +15,7 @@
 <meta name="robots" content="index, follow" />
 <meta name="author" content="YogaRoots" />
 
-<link rel="canonical" href="{{ url()->current() }}" />
+<link rel="canonical" href="<%= currentUrl %>" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
@@ -25,7 +25,7 @@
   property="og:description"
   content="Discover yoga, meditation, and wellness classes at YogaRoots. Practice with experienced instructors and find greater balance, strength, and peace of mind."
 />
-<meta property="og:url" content="{{ url()->current() }}" />
+<meta property="og:url" content="<%= currentUrl %>" />
 <meta
   property="og:image"
   content="{{ asset('assets/images/og-yogaroots.jpg') }}"
@@ -48,7 +48,7 @@
 />
 
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
+<link rel="icon" type="image/png" href="/img/fav.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link
@@ -57,10 +57,7 @@
 />
 <link rel="stylesheet" href="/css/output.css" />
 <link rel="stylesheet" href="/css/custom.css" />
-<link
-  rel="icon"
-  href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪷</text></svg>"
-/>
+
 <script>
   (function () {
     try {

@@ -28,7 +28,7 @@ class ContactController extends Controller
             'status' => 'success',
             'data' => [
                 'captcha_id' => $captchaId,
-                'question' => "Berapa hasil dari {$a} + {$b}?"
+                'question' => "How much is the result of {$a} + {$b}?"
             ]
         ]);
     }

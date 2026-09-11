@@ -1,9 +1,9 @@
 export const yogaData = {
   site: {
     name: "Yoga Roots",
-    tagline: "Temukan Keseimbangan",
+    tagline: "Yoga, Meditation & Wellness",
     description:
-      "Studio yoga & mindfulness di jantung kota. Sejak 2018 membantu 12.000+ jiwa menemukan kedamaian.",
+      "Through our guidance, you will not only gain a deeper understanding of the postures but also learn to cultivate mental clarity and inner peace.",
     phone: "+62 813 2122 1270",
     email: "halo@serene.yoga",
     address:
@@ -43,23 +43,23 @@ export const yogaData = {
   features: [
     {
       icon: "🌿",
-      title: "Ruang Holistik",
-      desc: "Studio dengan kayu alami, aromaterapi, dan cahaya lembut yang menenangkan sistem saraf.",
+      title: "A Place to Pause",
+      desc: "Leave the noise behind and make space to breathe, move, and reconnect with yourself. Find your balance.",
     },
     {
       icon: "🪷",
-      title: "Semua Level",
-      desc: "Dari pemula yang belum pernah menyentuh matras hingga praktisi advance — ada kelas untukmu.",
+      title: "Practice Your Way",
+      desc: "Whether you're new to yoga or ready to go deeper, find a practice that meets you exactly where you are.",
     },
     {
       icon: "🤲",
-      title: "Komunitas Hangat",
-      desc: "Bukan kompetisi, tapi kebersamaan. Temukan sahabat perjalanan yang saling mendukung.",
+      title: "More Than a Studio",
+      desc: "Come for the practice, stay for the people. Build connections and share meaningful moments along the way.",
     },
     {
-      icon: "🎓",
-      title: "Instruktur Bersertifikat",
-      desc: "RYT-500 & E-RYT dari Yoga Alliance, dengan spesialisasi terapi & mindfulness.",
+      icon: "🧘",
+      title: "Move with Awareness",
+      desc: "Thoughtful guidance helps you understand your body, refine your practice, and find more ease in every movement.",
     },
   ],
   categories: [

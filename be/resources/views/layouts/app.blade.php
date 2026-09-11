@@ -70,7 +70,7 @@
             <!--/Footer -->
 
             <!-- WhatsApp Floating Button -->
-            <a href="https://api.whatsapp.com/send/?phone=6281321221270&text={{ urlencode('Hi, I found you through your website and would like more information about your classes. Thank you!') }}&app_absent=0"
+            <a href="https://api.whatsapp.com/send/?phone=6281321221270&text=Hi%2C%20I%20found%20you%20through%20your%20website%20and%20would%20like%20more%20information%20about%20your%20classes.%20Thank%20you%21&app_absent=0"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Chat on WhatsApp"

@@ -33,6 +33,7 @@ app.use((req, res, next) => {
   res.locals.site = yogaData.site;
   res.locals.nav = yogaData.nav;
   res.locals.currentPath = req.path;
+  res.locals.currentUrl = `${req.protocol}://${req.get("host")}${req.path}`;
   next();
 });
 
