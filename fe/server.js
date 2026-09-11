@@ -12,6 +12,7 @@ import { getPage } from "./services/pageService.js";
 import { getEvents } from "./services/eventService.js";
 import { getClasses, getClass } from "./services/classService.js";
 import { getInstructors } from "./services/instructorService.js";
+import { getFaqs } from "./services/faqService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -137,7 +138,6 @@ app.get("/pricing", (req, res) => {
   res.render("pages/pricing", {
     title: "Paket & Harga",
     pricing: yogaData.pricing,
-    faqs: yogaData.faqs,
   });
 });
 
@@ -302,25 +302,30 @@ app.get("/gallery", async (req, res) => {
 // end gallery
 
 app.get("/contact", async (req, res) => {
+  let captcha = null;
+  let faqs = [];
+
   try {
-    const captcha = await getContactCaptcha();
-
-    console.log("CAPTCHA:", captcha);
-
-    res.render("pages/contact", {
-      title: "Hubungi Kami",
-      contact: yogaData.contact,
-      captcha,
-    });
+    const captchaResponse = await getContactCaptcha();
+    captcha = captchaResponse?.data || captchaResponse;
   } catch (error) {
-    console.error("CONTACT ERROR:", error);
-
-    res.render("pages/contact", {
-      title: "Hubungi Kami",
-      contact: yogaData.contact,
-      captcha: null,
-    });
+    console.error("CAPTCHA ERROR:", error);
   }
+
+  try {
+    const faqResponse = await getFaqs();
+
+    faqs = Array.isArray(faqResponse) ? faqResponse : faqResponse?.data || [];
+  } catch (error) {
+    console.error("FAQ ERROR:", error);
+  }
+
+  res.render("pages/contact", {
+    title: "Contact Us",
+    contact: yogaData.contact,
+    captcha,
+    faqs,
+  });
 });
 
 // API

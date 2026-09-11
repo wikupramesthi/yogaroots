@@ -7,7 +7,7 @@
   <body class="antialiased">
     <%- include('../partials/navbar') %>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-20">
       <div class="grid lg:grid-cols-2 gap-10">
         <!-- LEFT -->
         <div>
@@ -150,22 +150,45 @@
             ></iframe>
           </div>
 
-          <!-- OPERATIONAL HOURS -->
-          <div class="bg-sage-700 text-white rounded-[24px] p-6">
-            <h3 class="font-semibold">Class Schedule</h3>
-            <ul class="text-sm text-sage-200 mt-2 space-y-1">
-              <li>Monday — Friday: 06:00 — 21:00</li>
-              <li>Saturday — Sunday: 07:00 — 20:00</li>
-              <li>Follow us on Instagram: @<%= site.instagram %></li>
-            </ul>
+           <!-- FAQ -->
 
+
+                   <div class="max-w-3xl mx-auto mt-10 space-y-3">
+    <h2 class="font-display text-2xl font-bold text-center">FAQ & Answers</h2>
+      
+  <% if (faqs && faqs.length) { %>
+
+    <% faqs.forEach(f => { %>
+
+        <div class="bg-white border border-sage-100 rounded-2xl overflow-hidden">
             <button
-              onclick="openBooking()"
-              class="mt-4 bg-white text-sage-700 px-5 py-2.5 rounded-full text-sm font-semibold"
+                type="button"
+                data-faq
+                class="w-full text-left px-5 py-4 font-semibold text-sm flex justify-between items-center"
             >
-              Choose a Class →
+                <%= f.question %>
+                <span>+</span>
             </button>
-          </div>
+
+            <div class="hidden px-5 pb-4 text-sm text-stone-warm leading-relaxed">
+                <%= f.answer %>
+            </div>
+        </div>
+
+    <% }) %>
+
+<% } else { %>
+
+    <p class="text-center text-sm text-stone-500">
+        No FAQs available.
+    </p>
+    
+
+<% } %>
+
+                   </div>
+              
+          
         </div>
       </div>
     </section>

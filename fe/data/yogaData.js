@@ -27,8 +27,7 @@ export const yogaData = {
       "Push the off button on it. Burn your bridges with it. You don't have to live with stress, anxiety and pain. Living can be a joyful adventure instead, one where you're in control of how you meet the circumstances of your life. Armed with the knowledge of breath and meditation, you'll win your battles in no time!",
     ctaPrimary: "Start Your Class",
     ctaSecondary: "View Schedule",
-    image:
-      "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&auto=format&fit=crop&q=60",
+    image: "img/sita-manwani.jpg",
     floating: [
       { label: "500+ Kelas / bulan", icon: "🧘" },
       { label: "12K+ Member Bahagia", icon: "💫" },
@@ -68,112 +67,6 @@ export const yogaData = {
     { slug: "vinyasa", label: "Vinyasa" },
     { slug: "yin", label: "Yin & Restoratif" },
     { slug: "meditation", label: "Meditasi" },
-  ],
-  classes: [
-    {
-      slug: "hatha-morning",
-      name: "Hatha Morning Flow",
-      category: "hatha",
-      level: "Pemula",
-      duration: "60 menit",
-      time: "07:00 • Setiap Hari",
-      instructor: "Maya Sari",
-      price: "Rp 85K",
-      image:
-        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&auto=format&fit=crop&q=60",
-      desc: "Bangun tubuh perlahan, selaraskan napas dan gerakan. Sempurna untuk memulai hari dengan jernih.",
-    },
-    {
-      slug: "vinyasa-power",
-      name: "Vinyasa Power",
-      category: "vinyasa",
-      level: "Menengah",
-      duration: "75 menit",
-      time: "18:30 • Sen & Kam",
-      instructor: "Rio Aditya",
-      price: "Rp 120K",
-      image:
-        "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=600&auto=format&fit=crop&q=60",
-      desc: "Aliran dinamis yang membangun kekuatan, fleksibilitas, dan fokus. Berkeringat dengan tujuan.",
-    },
-    {
-      slug: "yin-restorative",
-      name: "Yin Restorative",
-      category: "yin",
-      level: "Semua Level",
-      duration: "90 menit",
-      time: "19:30 • Sel & Jum",
-      instructor: "Dewi Lestari",
-      price: "Rp 110K",
-      image:
-        "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&auto=format&fit=crop&q=60",
-      desc: "Tahan pose lebih lama, lepaskan ketegangan fascia. Penyembuhan mendalam untuk tubuh & pikiran.",
-    },
-    {
-      slug: "ashtanga-primary",
-      name: "Ashtanga Primary",
-      category: "vinyasa",
-      level: "Advance",
-      duration: "90 menit",
-      time: "06:00 • Sen-Sab",
-      instructor: "Krishna Patel",
-      price: "Rp 135K",
-      image:
-        "https://images.unsplash.com/photo-1588286840104-8957b019727f?w=600&auto=format&fit=crop&q=60",
-      desc: "Seri tradisional yang disiplin, membangun tapas dan konsentrasi melalui urutan tetap.",
-    },
-    {
-      slug: "kundalini-awaken",
-      name: "Kundalini Awaken",
-      category: "meditation",
-      level: "Menengah",
-      duration: "60 menit",
-      time: "20:00 • Rabu",
-      instructor: "Ayu Nadira",
-      price: "Rp 100K",
-      image:
-        "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=600&auto=format&fit=crop&q=60",
-      desc: "Mantra, pranayama, dan gerakan untuk membangkitkan energi vital dari dalam.",
-    },
-    {
-      slug: "prenatal-gentle",
-      name: "Prenatal Gentle",
-      category: "hatha",
-      level: "Pemula",
-      duration: "60 menit",
-      time: "10:00 • Sel & Kam",
-      instructor: "Maya Sari",
-      price: "Rp 95K",
-      image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&auto=format&fit=crop&q=60",
-      desc: "Kelas aman & lembut untuk ibu hamil, fokus pada napas, panggul, dan koneksi dengan buah hati.",
-    },
-    {
-      slug: "meditation-sound",
-      name: "Sound Healing & Meditation",
-      category: "meditation",
-      level: "Semua Level",
-      duration: "45 menit",
-      time: "21:00 • Jumat",
-      instructor: "Dewi Lestari",
-      price: "Rp 75K",
-      image:
-        "https://images.unsplash.com/photo-1528715471578-94eba0bff339?w=600&auto=format&fit=crop&q=60",
-      desc: "Meditasi dipandu dengan singing bowl & frekuensi penyembuhan. Tidur lebih nyenyak.",
-    },
-    {
-      slug: "yin-yang-fusion",
-      name: "Yin Yang Fusion",
-      category: "yin",
-      level: "Menengah",
-      duration: "75 menit",
-      time: "17:00 • Sabtu",
-      instructor: "Rio Aditya",
-      price: "Rp 110K",
-      image:
-        "https://images.unsplash.com/photo-1552196561-4e4dc4f2471a?w=600&auto=format&fit=crop&q=60",
-      desc: "Kombinasi kekuatan Yang dan kelembutan Yin — keseimbangan sempurna dalam satu sesi.",
-    },
   ],
   schedule: [
     {
@@ -281,81 +174,6 @@ export const yogaData = {
         "Prioritas booking",
       ],
       cta: "Pilih Retreat",
-    },
-  ],
-  faqs: [
-    {
-      q: "Apakah saya perlu membawa matras sendiri?",
-      a: "Tidak perlu. Kami menyediakan matras Manduka premium yang dibersihkan setiap sesi. Kamu juga boleh bawa matras pribadi jika nyaman.",
-    },
-    {
-      q: "Saya belum pernah yoga sama sekali, bisa ikut?",
-      a: "Sangat bisa! Kelas Hatha Morning & Yin kami dirancang untuk pemula absolut. Instruktur akan memandu modifikasi pose.",
-    },
-    {
-      q: "Bagaimana jika saya terlambat?",
-      a: "Kami tutup pintu 10 menit setelah kelas mulai untuk menjaga ketenangan. Silakan datang 15 menit lebih awal.",
-    },
-    {
-      q: "Apakah ada kelas online?",
-      a: "Ya, semua member Harmony & Retreat mendapat akses live-stream + rekaman 7 hari. Paket Bloom bisa upgrade +99K.",
-    },
-  ],
-  instructors: [
-    {
-      name: "Maya Sari",
-      role: "Lead Hatha & Prenatal • E-RYT 500",
-      exp: "12 tahun",
-      image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&auto=format&fit=crop&q=60",
-      bio: "Maya menemukan yoga saat pemulihan cedera tari. Kini ia mengkhususkan diri pada alignment terapeutik dan prenatal.",
-      quote:
-        "Yoga bukan tentang menyentuh jari kaki, tapi tentang apa yang kamu pelajari dalam perjalanan ke sana.",
-    },
-    {
-      name: "Rio Aditya",
-      role: "Vinyasa & Strength • RYT 500",
-      exp: "9 tahun",
-      image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=60",
-      bio: "Mantan atlet yang membawa energi dinamis ke matras. Kelasnya menantang tapi penuh humor.",
-      quote: "Keringatmu adalah doa tubuhmu.",
-    },
-    {
-      name: "Dewi Lestari",
-      role: "Yin, Restorative & Sound Healing",
-      exp: "15 tahun",
-      image:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&auto=format&fit=crop&q=60",
-      bio: "Guru meditasi bersertifikat, Dewi memadukan tradisi Tibet dengan neuroscience modern.",
-      quote: "Dalam diam, kita mendengar kebijaksanaan.",
-    },
-    {
-      name: "Krishna Patel",
-      role: "Ashtanga • KPJAYI Mysore",
-      exp: "18 tahun",
-      image:
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&auto=format&fit=crop&q=60",
-      bio: "Belajar langsung di Mysore, India. Krishna mengajarkan disiplin dengan kasih.",
-      quote: "Praktik dan semua akan datang.",
-    },
-    {
-      name: "Ayu Nadira",
-      role: "Kundalini & Breathwork",
-      exp: "7 tahun",
-      image:
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=60",
-      bio: "Facilitator breathwork yang membantu rilis emosi melalui napas dan mantra.",
-      quote: "Napasmu adalah jangkar di badai.",
-    },
-    {
-      name: "Seno Wijaya",
-      role: "Meditasi & Mindfulness",
-      exp: "10 tahun",
-      image:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&auto=format&fit=crop&q=60",
-      bio: "Psikolog yang mengintegrasikan mindfulness dalam terapi trauma.",
-      quote: "Kehadiran adalah hadiah terbesar.",
     },
   ],
   contact: {
