@@ -6,7 +6,7 @@
             <div class="logo">
               <a href="{{ route('dashboard.index') }}">
                 <img id="logo-light" src="{{ asset('img/logo-yogaroots.png') }}" alt="Logo" class="d-block" />
-                <img id="logo-dark" src="{{ asset('img/logo-yogaroots.png') }}" alt="Logo" class="d-none" />
+                <img id="logo-dark" src="{{ asset('img/logo-white.png') }}" alt="Logo" class="d-none" />
               </a>
             </div>
 
@@ -71,8 +71,8 @@
             @endcan
 
             @role('user')
-             <li class="sidebar-title">Others</li>
-             <li class="sidebar-item has-sub  ">
+            <li class="sidebar-title">Others</li>
+            <li class="sidebar-item has-sub  ">
               <a href="#" class="sidebar-link">
                 <i class="bx bx-cog"></i>
                 <span>Settings</span>
@@ -82,7 +82,7 @@
                 <li class="submenu-item  ">
                   <a href="{{ route('profile.edit') }}" class="submenu-link">
                     My Profile</a>
-                </li>                       
+                </li>
               </ul>
             </li>
             @endrole
