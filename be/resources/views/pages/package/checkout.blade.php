@@ -497,17 +497,31 @@
 
 
                     {{-- CTA --}}
-                    <button
-                        type="button"
-                        id="continuePayment"
-                        class="btn btn-primary w-100 continue-payment">
 
-                        Continue to Payment
+                    <form
+                        action="{{ route('orders.store') }}"
+                        method="POST"
+                        id="checkoutForm">
+                        @csrf
 
-                        <i class="bi bi-arrow-right ms-1"></i>
+                        <input
+                            type="hidden"
+                            name="type"
+                            value="package">
 
-                    </button>
+                        <input
+                            type="hidden"
+                            name="package_option_uuid"
+                            id="packageOptionUuid">
 
+                        <button
+                            type="submit"
+                            id="continuePayment"
+                            class="btn btn-primary w-100 continue-payment">
+                            Continue to Payment
+                            <i class="bi bi-arrow-right ms-1"></i>
+                        </button>
+                    </form>
 
                     <p class="text-muted text-center small mb-0 mt-3">
                         You will review your order before payment.
@@ -1032,11 +1046,14 @@
     }
 </style>
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
-        const options = document.querySelectorAll('.membership-option');
+        const options =
+            document.querySelectorAll('.membership-option');
+
+        const packageOptionUuid =
+            document.getElementById('packageOptionUuid');
 
         const summaryOptionName =
             document.getElementById('summaryOptionName');
@@ -1056,22 +1073,64 @@
         const summaryOldPrice =
             document.getElementById('summaryOldPrice');
 
+        const checkoutForm =
+            document.getElementById('checkoutForm');
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Format Rupiah
+        |--------------------------------------------------------------------------
+        */
 
         function formatRupiah(value) {
-
             return 'Rp ' + Number(value).toLocaleString('id-ID');
-
         }
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Select Package Option
+        |--------------------------------------------------------------------------
+        */
+
         function selectOption(option) {
+
+            /*
+            |--------------------------------------------------------------------------
+            | Remove Selected State
+            |--------------------------------------------------------------------------
+            */
 
             options.forEach(item => {
                 item.classList.remove('selected');
             });
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Add Selected State
+            |--------------------------------------------------------------------------
+            */
+
             option.classList.add('selected');
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Set Package Option UUID
+            |--------------------------------------------------------------------------
+            */
+
+            packageOptionUuid.value =
+                option.dataset.optionUuid;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Get Option Data
+            |--------------------------------------------------------------------------
+            */
 
             const name =
                 option.dataset.optionName;
@@ -1092,12 +1151,31 @@
                 option.dataset.optionDurationUnit;
 
 
-            summaryOptionName.textContent = name;
+            /*
+            |--------------------------------------------------------------------------
+            | Update Option Name
+            |--------------------------------------------------------------------------
+            */
 
+            summaryOptionName.textContent =
+                name;
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | Update Duration
+            |--------------------------------------------------------------------------
+            */
 
             summaryDuration.textContent =
                 `${duration} ${durationUnit}`;
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Update Class Quota
+            |--------------------------------------------------------------------------
+            */
 
             summaryQuota.textContent =
                 quota === '' ?
@@ -1105,13 +1183,31 @@
                 `${quota} Classes`;
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | Update Price
+            |--------------------------------------------------------------------------
+            */
+
             summaryPrice.textContent =
                 formatRupiah(price);
 
 
+            /*
+            |--------------------------------------------------------------------------
+            | Update Total
+            |--------------------------------------------------------------------------
+            */
+
             summaryTotal.textContent =
                 formatRupiah(price);
 
+
+            /*
+            |--------------------------------------------------------------------------
+            | Update Old Price
+            |--------------------------------------------------------------------------
+            */
 
             if (regularPrice > price) {
 
@@ -1120,12 +1216,18 @@
 
             } else {
 
-                summaryOldPrice.textContent = '';
+                summaryOldPrice.textContent =
+                    '';
 
             }
-
         }
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Click Package Option
+        |--------------------------------------------------------------------------
+        */
 
         options.forEach(option => {
 
@@ -1138,47 +1240,84 @@
         });
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Select First Option
+        |--------------------------------------------------------------------------
+        */
+
         if (options.length) {
 
-            selectOption(
-                document.querySelector('.membership-option.selected') ||
-                options[0]
-            );
+            const defaultOption =
+                document.querySelector(
+                    '.membership-option.selected'
+                ) || options[0];
 
+            selectOption(defaultOption);
         }
 
 
-        document
-            .getElementById('continuePayment')
-            .addEventListener('click', function() {
+        /*
+        |--------------------------------------------------------------------------
+        | Submit Checkout
+        |--------------------------------------------------------------------------
+        */
 
-                const selected =
-                    document.querySelector('.membership-option.selected');
+        if (checkoutForm) {
 
-                if (!selected) {
-                    return;
+            checkoutForm.addEventListener(
+                'submit',
+                function(event) {
+
+                    const selected =
+                        document.querySelector(
+                            '.membership-option.selected'
+                        );
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Validate Selected Option
+                    |--------------------------------------------------------------------------
+                    */
+
+                    if (!selected) {
+
+                        event.preventDefault();
+
+                        alert(
+                            'Please select a package option.'
+                        );
+
+                        return;
+                    }
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Make Sure UUID Is Set
+                    |--------------------------------------------------------------------------
+                    */
+
+                    packageOptionUuid.value =
+                        selected.dataset.optionUuid;
+
+
+                    /*
+                    |--------------------------------------------------------------------------
+                    | Debug
+                    |--------------------------------------------------------------------------
+                    */
+
+                    console.log(
+                        'Creating order for package option:',
+                        packageOptionUuid.value
+                    );
+
                 }
+            );
 
-
-                const optionUuid =
-                    selected.dataset.optionUuid;
-
-
-                console.log(
-                    'Selected package option:',
-                    optionUuid
-                );
-
-
-                /*
-                 * Nanti di sini kita sambungkan ke:
-                 *
-                 * POST checkout
-                 * -> create Order
-                 * -> Midtrans
-                 */
-
-            });
+        }
 
     });
 </script>

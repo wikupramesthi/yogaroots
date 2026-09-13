@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Package\Package;
 use App\Models\Class\ClassSchedule;
 use App\Models\Class\ClassBooking;
+use App\Models\Package\PackageOption;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -26,6 +27,7 @@ class Order extends Model
         'order_number',
         'type',
         'package_uuid',
+        'package_option_uuid',
         'class_schedule_uuid',
         'amount',
         'status',
@@ -53,6 +55,15 @@ class Order extends Model
         return $this->belongsTo(
             Package::class,
             'package_uuid',
+            'uuid'
+        );
+    }
+
+    public function packageOption(): BelongsTo
+    {
+        return $this->belongsTo(
+            PackageOption::class,
+            'package_option_uuid',
             'uuid'
         );
     }

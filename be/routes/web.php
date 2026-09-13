@@ -114,12 +114,13 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     ])->name('checkout.package');
 
     Route::resource('class-schedules', ClassScheduleController::class);
-    // Route::resource('orders', OrderController::class)
-    //     ->only(['index', 'show']);
-    // Route::resource('payments', PaymentController::class)
-    //     ->only(['index', 'show']);
-    // Route::resource('class-bookings', ClassBookingController::class)
-    //     ->only(['index', 'show', 'update']);
+    Route::resource('orders', OrderController::class);
+
+
+    Route::resource('payments', PaymentController::class)
+        ->only(['index', 'show']);
+    Route::resource('class-bookings', ClassBookingController::class)
+        ->only(['index', 'show', 'update']);
     // end payment
 
     Route::get('kontak', [FaqController::class, 'kontak'])->name('layanan.kontak');

@@ -23,12 +23,16 @@ return new class extends Migration
                 'class',
             ]);
 
-            // Jika membeli package
+            // Package purchase
             $table->uuid('package_uuid')->nullable();
 
-            // Jika membeli class
+            // Selected package option
+            $table->uuid('package_option_uuid')->nullable();
+
+            // Class purchase
             $table->uuid('class_schedule_uuid')->nullable();
 
+            // Final amount charged
             $table->decimal('amount', 15, 2);
 
             $table->enum('status', [
@@ -44,6 +48,10 @@ return new class extends Migration
 
             $table->timestamps();
 
+            /*
+             * Foreign Keys
+             */
+
             $table->foreign('user_uuid')
                 ->references('uuid')
                 ->on('users')
@@ -54,10 +62,19 @@ return new class extends Migration
                 ->on('packages')
                 ->nullOnDelete();
 
+            $table->foreign('package_option_uuid')
+                ->references('uuid')
+                ->on('package_options')
+                ->nullOnDelete();
+
             $table->foreign('class_schedule_uuid')
                 ->references('uuid')
                 ->on('class_schedules')
                 ->nullOnDelete();
+
+            /*
+             * Indexes
+             */
 
             $table->index([
                 'user_uuid',
@@ -65,10 +82,15 @@ return new class extends Migration
             ]);
 
             $table->index('package_uuid');
+            $table->index('package_option_uuid');
             $table->index('class_schedule_uuid');
+            $table->index('status');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('orders');
