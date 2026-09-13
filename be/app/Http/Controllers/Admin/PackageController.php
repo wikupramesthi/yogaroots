@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Package\Package;
+use App\Models\Package\PackageOption;
+use App\Models\Package\PackageFeature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -52,7 +54,7 @@ class PackageController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.package.create');
     }
 
     /**
@@ -60,68 +62,255 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:packages,name',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'discount_price' => 'nullable|numeric|min:0|lt:price',
-            'quota' => 'nullable|integer|min:1',
-            'duration' => 'required|integer|min:1',
-            'duration_unit' => 'required|in:day,week,month,year',
-            'is_popular' => 'nullable|boolean',
-            'is_active' => 'required|in:active,inactive',
-            'features' => 'nullable|array',
-            'features.*' => 'nullable|string|max:255',
+        $validated = $request->validate([
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'description' => [
+                'nullable',
+                'string',
+            ],
+
+            'is_active' => [
+                'required',
+                'in:active,inactive',
+            ],
+
+            'is_popular' => [
+                'nullable',
+                'boolean',
+            ],
+
+            'options' => [
+                'required',
+                'array',
+                'min:1',
+            ],
+
+            'options.*.name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'options.*.quota' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+
+            'options.*.price' => [
+                'required',
+                'integer',
+                'min:0',
+            ],
+
+            'options.*.discount_price' => [
+                'nullable',
+                'integer',
+                'min:0',
+            ],
+
+            'options.*.duration' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+
+            'options.*.duration_unit' => [
+                'required',
+                'in:day,week,month,year',
+            ],
+
+            'features' => [
+                'nullable',
+                'array',
+            ],
+
+            'features.*' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
         ]);
 
-        DB::beginTransaction();
 
-        try {
+        /*
+    |--------------------------------------------------------------------------
+    | Validate Discount Price
+    |--------------------------------------------------------------------------
+    */
 
-            $package = Package::create([
-                'uuid' => (string) Str::uuid(),
-                'name' => $request->name,
-                'slug' => Str::slug($request->name),
-                'description' => $request->description,
-                'price' => $request->price,
-                'discount_price' => $request->discount_price,
-                'quota' => $request->quota,
-                'duration' => $request->duration,
-                'duration_unit' => $request->duration_unit,
-                'is_popular' => $request->boolean('is_popular'),
-                'is_active' => $request->is_active,
-            ]);
+        foreach ($validated['options'] as $index => $option) {
 
-            if ($request->filled('features')) {
+            if (
+                isset($option['discount_price']) &&
+                $option['discount_price'] !== null &&
+                $option['discount_price'] >= $option['price']
+            ) {
 
-                foreach ($request->features as $index => $feature) {
+                return back()
+                    ->withErrors([
+                        "options.$index.discount_price" =>
+                        'Discounted price must be lower than regular price.'
+                    ])
+                    ->withInput();
+            }
+        }
 
-                    if (blank($feature)) {
-                        continue;
-                    }
 
-                    $package->features()->create([
-                        'uuid' => (string) Str::uuid(),
-                        'feature' => $feature,
-                        'sort_order' => $index,
-                    ]);
-                }
+        /*
+    |--------------------------------------------------------------------------
+    | Save Package
+    |--------------------------------------------------------------------------
+    */
+
+        DB::transaction(function () use ($validated) {
+
+            /*
+        |--------------------------------------------------------------------------
+        | Generate Unique Slug
+        |--------------------------------------------------------------------------
+        */
+
+            $baseSlug = Str::slug($validated['name']);
+
+            if ($baseSlug === '') {
+                $baseSlug = 'package';
             }
 
-            DB::commit();
+            $slug = $baseSlug;
+            $counter = 2;
 
-            return redirect()
-                ->route('packages.index')
-                ->with('success', 'Package berhasil ditambahkan.');
-        } catch (\Throwable $th) {
+            while (
+                Package::where('slug', $slug)->exists()
+            ) {
 
-            DB::rollBack();
+                $slug = $baseSlug . '-' . $counter;
+                $counter++;
+            }
 
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with('error', $th->getMessage());
-        }
+
+            /*
+        |--------------------------------------------------------------------------
+        | Create Package
+        |--------------------------------------------------------------------------
+        */
+
+            $package = Package::create([
+
+                'uuid' => (string) Str::uuid(),
+
+                'name' => $validated['name'],
+
+                'slug' => $slug,
+
+                'description' =>
+                $validated['description'] ?? null,
+
+                'is_popular' =>
+                $validated['is_popular'] ?? false,
+
+                'is_active' =>
+                $validated['is_active'],
+
+            ]);
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Create Package Options
+        |--------------------------------------------------------------------------
+        */
+
+            foreach (
+                array_values($validated['options'])
+                as $index => $option
+            ) {
+
+                PackageOption::create([
+
+                    'uuid' => (string) Str::uuid(),
+
+                    'package_uuid' =>
+                    $package->uuid,
+
+                    'name' =>
+                    $option['name'],
+
+                    'quota' =>
+                    $option['quota'],
+
+                    'price' =>
+                    $option['price'],
+
+                    'discount_price' =>
+                    $option['discount_price'] ?? null,
+
+                    'duration' =>
+                    $option['duration'],
+
+                    'duration_unit' =>
+                    $option['duration_unit'],
+
+                    'sort_order' =>
+                    $index,
+
+                    'is_active' =>
+                    true,
+
+                ]);
+            }
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Create Package Features
+        |--------------------------------------------------------------------------
+        */
+
+            foreach (
+                $validated['features'] ?? []
+                as $index => $feature
+            ) {
+
+                if (blank($feature)) {
+                    continue;
+                }
+
+                PackageFeature::create([
+
+                    'uuid' => (string) Str::uuid(),
+
+                    'package_uuid' =>
+                    $package->uuid,
+
+                    'feature' =>
+                    $feature,
+
+                    'sort_order' =>
+                    $index,
+
+                ]);
+            }
+        });
+
+
+        /*
+    |--------------------------------------------------------------------------
+    | Redirect
+    |--------------------------------------------------------------------------
+    */
+
+        return redirect()
+            ->route('packages.index')
+            ->with(
+                'success',
+                'Package created successfully.'
+            );
     }
 
     /**
@@ -137,79 +326,302 @@ class PackageController extends Controller
      */
     public function edit(string $uuid)
     {
-        //
+        $package = Package::with([
+            'options' => function ($query) {
+                $query->orderBy('sort_order');
+            },
+            'features' => function ($query) {
+                $query->orderBy('sort_order');
+            },
+        ])->where('uuid', $uuid)->firstOrFail();
+
+        return view('pages.package.edit', compact('package'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update($uuid, Request $request)
+    public function update(Request $request, string $uuid)
     {
-        $request->validate([
-            'name' => 'required|string|max:255|unique:packages,name,' . $uuid . ',uuid',
-            'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
-            'discount_price' => 'nullable|numeric|min:0|lt:price',
-            'quota' => 'nullable|integer|min:1',
-            'duration' => 'required|integer|min:1',
-            'duration_unit' => 'required|in:day,week,month,year',
-            'is_popular' => 'nullable|boolean',
-            'is_active' => 'required|in:active,inactive',
-            'features' => 'nullable|array',
-            'features.*' => 'nullable|string|max:255',
+        $package = Package::where('uuid', $uuid)
+            ->firstOrFail();
+
+
+        /*
+    |--------------------------------------------------------------------------
+    | Validation
+    |--------------------------------------------------------------------------
+    */
+
+        $validated = $request->validate([
+
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'description' => [
+                'nullable',
+                'string',
+            ],
+
+            'is_active' => [
+                'required',
+                'in:active,inactive',
+            ],
+
+            'is_popular' => [
+                'nullable',
+                'boolean',
+            ],
+
+            'options' => [
+                'required',
+                'array',
+                'min:1',
+            ],
+
+            'options.*.name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'options.*.quota' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+
+            'options.*.price' => [
+                'required',
+                'integer',
+                'min:0',
+            ],
+
+            'options.*.discount_price' => [
+                'nullable',
+                'integer',
+                'min:0',
+            ],
+
+            'options.*.duration' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+
+            'options.*.duration_unit' => [
+                'required',
+                'in:day,week,month,year',
+            ],
+
+            'features' => [
+                'nullable',
+                'array',
+            ],
+
+            'features.*' => [
+                'nullable',
+                'string',
+                'max:255',
+            ],
+
         ]);
 
-        DB::beginTransaction();
 
-        try {
+        /*
+    |--------------------------------------------------------------------------
+    | Validate Discount
+    |--------------------------------------------------------------------------
+    */
 
-            $package = Package::where('uuid', $uuid)
-                ->firstOrFail();
+        foreach ($validated['options'] as $index => $option) {
+
+            if (
+                isset($option['discount_price']) &&
+                $option['discount_price'] !== null &&
+                $option['discount_price'] >= $option['price']
+            ) {
+
+                return back()
+                    ->withErrors([
+                        "options.$index.discount_price" =>
+                        'Discounted price must be lower than regular price.'
+                    ])
+                    ->withInput();
+            }
+        }
+
+
+        /*
+    |--------------------------------------------------------------------------
+    | Update Package
+    |--------------------------------------------------------------------------
+    */
+
+        DB::transaction(function () use (
+            $validated,
+            $package
+        ) {
+
+            /*
+        |--------------------------------------------------------------------------
+        | Generate Unique Slug
+        |--------------------------------------------------------------------------
+        */
+
+            $baseSlug = Str::slug(
+                $validated['name']
+            );
+
+            if ($baseSlug === '') {
+                $baseSlug = 'package';
+            }
+
+            $slug = $baseSlug;
+            $counter = 2;
+
+
+            while (
+                Package::where('slug', $slug)
+                ->where('uuid', '!=', $package->uuid)
+                ->exists()
+            ) {
+
+                $slug =
+                    $baseSlug . '-' . $counter;
+
+                $counter++;
+            }
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Update Package
+        |--------------------------------------------------------------------------
+        */
 
             $package->update([
-                'name' => $request->name,
-                'description' => $request->description,
-                'price' => $request->price,
-                'discount_price' => $request->discount_price,
-                'quota' => $request->quota,
-                'duration' => $request->duration,
-                'duration_unit' => $request->duration_unit,
-                'is_popular' => $request->boolean('is_popular'),
-                'is_active' => $request->is_active,
+
+                'name' =>
+                $validated['name'],
+
+                'slug' =>
+                $slug,
+
+                'description' =>
+                $validated['description'] ?? null,
+
+                'is_popular' =>
+                $validated['is_popular'] ?? false,
+
+                'is_active' =>
+                $validated['is_active'],
+
             ]);
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Replace Package Options
+        |--------------------------------------------------------------------------
+        */
+
+            $package->options()->delete();
+
+
+            foreach (
+                array_values($validated['options'])
+                as $index => $option
+            ) {
+
+                PackageOption::create([
+
+                    'uuid' =>
+                    (string) Str::uuid(),
+
+                    'package_uuid' =>
+                    $package->uuid,
+
+                    'name' =>
+                    $option['name'],
+
+                    'quota' =>
+                    $option['quota'],
+
+                    'price' =>
+                    $option['price'],
+
+                    'discount_price' =>
+                    $option['discount_price'] ?? null,
+
+                    'duration' =>
+                    $option['duration'],
+
+                    'duration_unit' =>
+                    $option['duration_unit'],
+
+                    'sort_order' =>
+                    $index,
+
+                    'is_active' =>
+                    true,
+
+                ]);
+            }
+
+
+            /*
+        |--------------------------------------------------------------------------
+        | Replace Package Features
+        |--------------------------------------------------------------------------
+        */
 
             $package->features()->delete();
 
-            if ($request->filled('features')) {
 
-                foreach ($request->features as $index => $feature) {
+            foreach (
+                $validated['features'] ?? []
+                as $index => $feature
+            ) {
 
-                    if (blank($feature)) {
-                        continue;
-                    }
-
-                    $package->features()->create([
-                        'uuid' => (string) Str::uuid(),
-                        'feature' => $feature,
-                        'sort_order' => $index,
-                    ]);
+                if (blank($feature)) {
+                    continue;
                 }
+
+                PackageFeature::create([
+
+                    'uuid' =>
+                    (string) Str::uuid(),
+
+                    'package_uuid' =>
+                    $package->uuid,
+
+                    'feature' =>
+                    $feature,
+
+                    'sort_order' =>
+                    $index,
+
+                ]);
             }
+        });
 
-            DB::commit();
 
-            return redirect()
-                ->route('packages.index')
-                ->with('success', 'Package berhasil diperbarui.');
-        } catch (\Throwable $th) {
+        /*
+    |--------------------------------------------------------------------------
+    | Redirect
+    |--------------------------------------------------------------------------
+    */
 
-            DB::rollBack();
-
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with('error', $th->getMessage());
-        }
+        return redirect()
+            ->route('packages.index')
+            ->with(
+                'success',
+                'Package updated successfully.'
+            );
     }
 
 
@@ -244,82 +656,118 @@ class PackageController extends Controller
 
     public function members(Request $request)
     {
-        $query = Package::with('features')
+
+        $query = Package::with([
+            'options' => function ($query) {
+                $query->where('is_active', true)
+                    ->orderBy('sort_order');
+            },
+            'features' => function ($query) {
+                $query->orderBy('sort_order');
+            },
+        ])
             ->where('is_active', 'active');
 
-        // =========================
         // FILTER
-        // =========================
-
         if ($request->filter === 'popular') {
 
             $query->where('is_popular', true);
         } elseif ($request->filter === 'unlimited') {
 
-            $query->whereNull('quota');
+            $query->whereHas('options', function ($query) {
+                $query->whereNull('quota');
+            });
         }
 
+        $packages = $query->get();
 
-        // =========================
         // SORT
-        // =========================
-
         switch ($request->sort) {
 
             case 'price_low':
 
-                $query->orderByRaw(
-                    'COALESCE(discount_price, price) ASC'
-                );
+                $packages = $packages->sortBy(function ($package) {
+                    return $package->options->min(
+                        fn($option) =>
+                        $option->discount_price ?? $option->price
+                    );
+                });
 
                 break;
 
             case 'price_high':
 
-                $query->orderByRaw(
-                    'COALESCE(discount_price, price) DESC'
-                );
+                $packages = $packages->sortByDesc(function ($package) {
+                    return $package->options->max(
+                        fn($option) =>
+                        $option->discount_price ?? $option->price
+                    );
+                });
 
                 break;
 
             case 'duration_short':
 
-                $query->orderByRaw("
-                CASE duration_unit
-                    WHEN 'day' THEN duration
-                    WHEN 'week' THEN duration * 7
-                    WHEN 'month' THEN duration * 30
-                    WHEN 'year' THEN duration * 365
-                    ELSE duration
-                END ASC
-            ");
+                $packages = $packages->sortBy(function ($package) {
+                    return $package->options->min(function ($option) {
+
+                        return match ($option->duration_unit) {
+                            'day'   => $option->duration,
+                            'week'  => $option->duration * 7,
+                            'month' => $option->duration * 30,
+                            'year'  => $option->duration * 365,
+                            default => $option->duration,
+                        };
+                    });
+                });
 
                 break;
 
             case 'duration_long':
 
-                $query->orderByRaw("
-                CASE duration_unit
-                    WHEN 'day' THEN duration
-                    WHEN 'week' THEN duration * 7
-                    WHEN 'month' THEN duration * 30
-                    WHEN 'year' THEN duration * 365
-                    ELSE duration
-                END DESC
-            ");
+                $packages = $packages->sortByDesc(function ($package) {
+                    return $package->options->max(function ($option) {
+
+                        return match ($option->duration_unit) {
+                            'day'   => $option->duration,
+                            'week'  => $option->duration * 7,
+                            'month' => $option->duration * 30,
+                            'year'  => $option->duration * 365,
+                            default => $option->duration,
+                        };
+                    });
+                });
 
                 break;
 
             default:
 
-                // Recommended
-                $query->orderByDesc('is_popular')
-                    ->orderBy('price');
+                $packages = $packages
+                    ->sortByDesc('is_popular')
+                    ->values();
 
                 break;
         }
 
-        $packages = $query->get();
+        // =========================
+        // MOBILE VIEW
+        // =========================
+
+        if (
+            auth()->check() &&
+            auth()->user()->hasRole('user') &&
+            $request->header('User-Agent') &&
+            preg_match('/Mobile|Android|iPhone|iPad/i', $request->header('User-Agent'))
+        ) {
+            return view(
+                'pages.mobile.package',
+                compact('packages')
+            );
+        }
+
+        // =========================
+        // DESKTOP VIEW
+        // =========================
 
         return view(
             'pages.package.member',

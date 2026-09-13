@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\ClassScheduleController;
 use App\Http\Controllers\Api\ClassController;
 use App\Http\Controllers\Api\InstructorController;
+use App\Http\Controllers\Api\PackageController;
 
 
 
@@ -87,4 +88,16 @@ Route::get('/class-schedules/{uuid}', [
 Route::get('/instructors', [
     InstructorController::class,
     'index'
+]);
+
+
+// packages
+Route::get('/packages', [
+    PackageController::class,
+    'index'
+]);
+
+Route::get('/packages/{slug}', [
+    PackageController::class,
+    'show'
 ]);

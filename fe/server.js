@@ -13,6 +13,7 @@ import { getEvents } from "./services/eventService.js";
 import { getClasses, getClass } from "./services/classService.js";
 import { getInstructors } from "./services/instructorService.js";
 import { getFaqs } from "./services/faqService.js";
+import { getPackages, getPackage } from "./services/packageService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,26 +49,39 @@ app.get("/", async (req, res) => {
       per_page: 6,
     });
 
+    const packages = await getPackages({
+      per_page: 3,
+    });
+
+    console.dir(packages, {
+      depth: null,
+    });
+
     res.render("pages/home", {
       title: "YogaRoots — Find Balance in Every Breath",
+
       hero: yogaData.hero,
       stats: yogaData.stats,
       features: yogaData.features,
-      pricing: yogaData.pricing,
-      classes,
+
+      classes: classes.data || classes,
+      packages: packages || [],
+
       testimonials: testimonials.slice(0, 3),
       posts: posts.slice(0, 3),
     });
   } catch (error) {
-    console.error("Gagal mengambil data api dari backend:", error);
+    console.error("Gagal mengambil data API dari backend:", error);
 
     res.render("pages/home", {
-      title: "Yogaroots — Temukan Keseimbangan dalam Setiap Napas",
+      title: "YogaRoots — Find Balance in Every Breath",
+
       hero: yogaData.hero,
       stats: yogaData.stats,
       features: yogaData.features,
-      pricing: yogaData.pricing,
+
       classes: [],
+      packages: [],
       testimonials: [],
       posts: [],
     });
@@ -131,13 +145,6 @@ app.get("/schedule", (req, res) => {
     title: "Jadwal Mingguan",
     schedule: yogaData.schedule,
     days: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
-  });
-});
-
-app.get("/pricing", (req, res) => {
-  res.render("pages/pricing", {
-    title: "Paket & Harga",
-    pricing: yogaData.pricing,
   });
 });
 
@@ -205,6 +212,85 @@ app.get("/blog/:slug", async (req, res) => {
 });
 
 // end blog
+
+// packages
+
+app.get("/packages", async (req, res) => {
+  try {
+    const params = {
+      search: req.query.search || "",
+      filter: req.query.filter || "",
+      sort: req.query.sort || "",
+      page: Number(req.query.page) || 1,
+      per_page: 10,
+    };
+
+    console.log("PACKAGE PARAMS:", params);
+
+    const response = await getPackages(params);
+
+    console.log("PACKAGE API RESPONSE:", response);
+
+    // getPackages() sudah mengembalikan array package
+    const packages = Array.isArray(response) ? response : [];
+
+    console.log("PACKAGE COUNT:", packages.length);
+
+    return res.render("pages/packages", {
+      title: "Membership Packages",
+
+      packages,
+
+      search: params.search,
+      filter: params.filter,
+      sort: params.sort,
+
+      totalPackages: packages.length,
+      currentPage: params.page,
+      totalPages: 1,
+
+      error: null,
+    });
+  } catch (error) {
+    console.error("PACKAGE ERROR:", error);
+
+    return res.status(500).render("pages/packages", {
+      title: "Membership Packages",
+
+      packages: [],
+
+      search: req.query.search || "",
+      filter: req.query.filter || "",
+      sort: req.query.sort || "",
+
+      totalPackages: 0,
+      currentPage: 1,
+      totalPages: 1,
+
+      error: "Gagal mengambil data package.",
+    });
+  }
+});
+
+app.get("/packages/:slug", async (req, res) => {
+  try {
+    const packageDetail = await getPackage(req.params.slug);
+
+    return res.render("pages/packages-detail", {
+      title: packageDetail.name,
+      package: packageDetail,
+      error: null,
+    });
+  } catch (error) {
+    console.error("PACKAGE DETAIL ERROR:", error);
+
+    return res.status(404).render("pages/packages-detail", {
+      title: "Package Not Found",
+      package: null,
+      error: "Package tidak ditemukan.",
+    });
+  }
+});
 
 // events
 app.get("/event", async (req, res) => {

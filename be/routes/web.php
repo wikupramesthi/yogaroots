@@ -37,6 +37,7 @@ use App\Http\Controllers\Admin\ClassScheduleController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ClassBookingController;
+use App\Http\Controllers\Admin\CheckoutController;
 
 use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Auth;
@@ -65,8 +66,8 @@ Route::post('/notifications/{id}/read', function ($id) {
 Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'], function () {
     $superAdmin = 'role:super-admin';
     // $user = 'role:user';
-    Route::resource('dashboard', DashboardController::class)->only('index');
     Route::post('/dashboard/sumber-informasi', [DashboardController::class, 'submitSumber'])->name('dashboard.submitSumber');
+    Route::resource('dashboard', DashboardController::class)->only('index');
     Route::resource('user', UserController::class)->middleware($superAdmin)->only('index', 'store', 'update', 'destroy');
     Route::resource('route', RouteController::class)->middleware($superAdmin)->only('index', 'store', 'update', 'destroy');
     Route::resource('permission', PermissionController::class)->middleware($superAdmin)->only('index', 'store', 'update', 'destroy');
@@ -107,13 +108,18 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
         '/class-schedules/print',
         [ClassScheduleController::class, 'print']
     )->name('class-schedules.print');
+    Route::get('/checkout/package/{packageUuid}', [
+        CheckoutController::class,
+        'package'
+    ])->name('checkout.package');
+
     Route::resource('class-schedules', ClassScheduleController::class);
-    Route::resource('orders', OrderController::class)
-        ->only(['index', 'show']);
-    Route::resource('payments', PaymentController::class)
-        ->only(['index', 'show']);
-    Route::resource('class-bookings', ClassBookingController::class)
-        ->only(['index', 'show', 'update']);
+    // Route::resource('orders', OrderController::class)
+    //     ->only(['index', 'show']);
+    // Route::resource('payments', PaymentController::class)
+    //     ->only(['index', 'show']);
+    // Route::resource('class-bookings', ClassBookingController::class)
+    //     ->only(['index', 'show', 'update']);
     // end payment
 
     Route::get('kontak', [FaqController::class, 'kontak'])->name('layanan.kontak');
@@ -123,6 +129,8 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     )->name('kontak.destroy');
     Route::resource('instruktur', InstrukturController::class);
     Route::post('instruktur/restore', [InstrukturController::class, 'restore'])->name('instruktur.restore');
+    Route::get('/mobile/instruktur', [InstrukturController::class, 'mobile'])
+        ->name('instruktur.mobile');
     Route::post('program/upload', [ProgramController::class, 'upload'])->name('program.upload');
     Route::get('/program/{id}/edit/{uuid}', [ProgramController::class, 'edit'])->name('program.edit');
     Route::patch('/program/update/{id}/{uuid}', [ProgramController::class, 'update'])->name('program.update');

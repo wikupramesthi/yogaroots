@@ -6,22 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('package_features', function (Blueprint $table) {
+        Schema::create('package_options', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
-
             $table->uuid('package_uuid');
-
-            $table->string('feature');
+            $table->string('name');
+            $table->unsignedInteger('quota');
+            $table->unsignedBigInteger('price');
+            $table->unsignedBigInteger('discount_price')->nullable();
+            $table->unsignedInteger('duration');
+            $table->enum('duration_unit', [
+                'day',
+                'week',
+                'month',
+                'year',
+            ]);
 
             $table->unsignedInteger('sort_order')->default(0);
-
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
-
             $table->foreign('package_uuid')
                 ->references('uuid')
                 ->on('packages')
@@ -33,6 +37,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('package_features');
+        Schema::dropIfExists('package_options');
     }
 };

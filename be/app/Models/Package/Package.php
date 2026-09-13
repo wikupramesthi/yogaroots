@@ -22,21 +22,22 @@ class Package extends Model
         'name',
         'slug',
         'description',
-        'price',
-        'discount_price',
-        'quota',
-        'duration',
-        'duration_unit',
         'is_popular',
         'is_active',
     ];
 
     protected $casts = [
-        'price' => 'decimal:2',
-        'quota' => 'integer',
-        'duration' => 'integer',
         'is_popular' => 'boolean',
     ];
+
+    public function options(): HasMany
+    {
+        return $this->hasMany(
+            PackageOption::class,
+            'package_uuid',
+            'uuid'
+        )->orderBy('sort_order');
+    }
 
     public function features(): HasMany
     {

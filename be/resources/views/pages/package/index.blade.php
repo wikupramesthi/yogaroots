@@ -17,7 +17,7 @@
         <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
 
         <div class="text-white mt-0">
-           <strong>Membership Package Management</strong> <br>
+            <strong>Membership Package Management</strong> <br>
             Manage membership plans, pricing, class quotas, validity periods, and benefits available to your members.
         </div>
     </div>
@@ -60,7 +60,7 @@
 
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-             @can('package.store')
+                @can('package.store')
                 {{-- Filter --}}
                 <form
                     action="{{ route('packages.index') }}"
@@ -167,20 +167,18 @@
                     </div>
 
                 </form>
-                 @endcan
+                @endcan
 
                 {{-- Action --}}
                 <div class="d-flex gap-2">
 
                     @can('package.store')
-                    <button
-                        type="button"
-                        class="btn btn-primary btn-md"
-                        data-bs-toggle="modal"
-                        data-bs-target="#modal-form-add-package">
+                    <a
+                        href="{{ route('packages.create') }}"
+                        class="btn btn-primary btn-md">
                         <i class="bi bi-plus-lg"></i>
                         Add Package
-                    </button>
+                    </a>
                     @endcan
 
                 </div>
@@ -196,16 +194,14 @@
 
                     <thead>
                         <tr>
-                        <th>No.</th>
-                        <th>Package</th>
-                        <th>Price</th>
-                        <th>Quota</th>
-                        <th>Duration</th>
-                        <th>Features</th>
-                        <th>Popular</th>
-                        <th>Status</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                            <th>No.</th>
+                            <th>Package</th>
+                            <th>Options</th>
+                            <th>Features</th>
+                            <th>Popular</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
 
@@ -215,8 +211,10 @@
 
                         <tr>
 
+                            {{-- No --}}
                             <td>{{ $loop->iteration }}</td>
 
+                            {{-- Package --}}
                             <td>
                                 <strong>{{ $package->name }}</strong>
 
@@ -228,115 +226,161 @@
                                 @endif
                             </td>
 
+                            {{-- Options --}}
                             <td>
-                                @if($package->discount_price && $package->discount_price < $package->price)
-                                    @php
-                                    $discountPercent = round(
-                                    (($package->price - $package->discount_price) / $package->price) * 100
-                                    );
-                                    @endphp
 
-                                    <div class="mb-1">
-                                        <span class="text-muted text-decoration-line-through small">
-                                            Rp {{ number_format($package->price, 0, ',', '.') }}
-                                        </span>
+                                @forelse ($package->options as $option)
+
+                                <div class="mb-2 pb-2 border-bottom">
+
+                                    <div class="fw-semibold">
+                                        {{ $option->name }}
                                     </div>
 
-                                    <div class="fw-bold text-success">
-                                        Rp {{ number_format($package->discount_price, 0, ',', '.') }}
+                                    <div class="small text-muted mt-1">
+
+                                        {{-- Price --}}
+                                        @if ($option->discount_price !== null &&
+                                        $option->discount_price < $option->price)
+
+                                            <span class="text-decoration-line-through">
+                                                Rp {{ number_format($option->price, 0, ',', '.') }}
+                                            </span>
+
+                                            <span class="fw-bold text-success ms-1">
+                                                Rp {{ number_format($option->discount_price, 0, ',', '.') }}
+                                            </span>
+
+                                            @else
+
+                                            <span class="fw-bold">
+                                                Rp {{ number_format($option->price, 0, ',', '.') }}
+                                            </span>
+
+                                            @endif
+
+                                            <span class="mx-1">·</span>
+
+                                            {{-- Quota --}}
+                                            {{ $option->quota }}x Class
+
+                                            <span class="mx-1">·</span>
+
+                                            {{-- Duration --}}
+                                            {{ $option->duration }}
+                                            {{ ucfirst($option->duration_unit) }}
+
                                     </div>
 
-                                    <span class="badge bg-danger mt-1">
-                                        -{{ $discountPercent }}%
-                                    </span>
-                                    @else
-                                    <div class="fw-bold">
-                                        Rp {{ number_format($package->price, 0, ',', '.') }}
-                                    </div>
-                                    @endif
-                            </td>
+                                </div>
 
-                            <td>
-                                @if (is_null($package->quota))
-                                <span class="badge bg-info">
-                                    Unlimited
+                                @empty
+
+                                <span class="text-muted">
+                                    No options
                                 </span>
-                                @else
-                                {{ $package->quota }}x
-                                @endif
+
+                                @endforelse
+
                             </td>
 
+                            {{-- Features --}}
                             <td>
-                                {{ $package->duration }}
-                                {{ ucfirst($package->duration_unit) }}
-                            </td>
 
-                            <td>
-                                @foreach ($package->features as $feature)
+                                @forelse ($package->features as $feature)
+
                                 <span class="badge bg-light text-dark mb-1">
                                     {{ $feature->feature }}
                                 </span>
-                                @endforeach
+
+                                @empty
+
+                                <span class="text-muted">
+                                    -
+                                </span>
+
+                                @endforelse
+
                             </td>
 
+                            {{-- Popular --}}
                             <td>
                                 @if ($package->is_popular)
+
                                 <span class="badge bg-warning">
                                     Popular
                                 </span>
+
                                 @else
-                                -
+
+                                <span class="text-muted">
+                                    -
+                                </span>
+
                                 @endif
                             </td>
 
+                            {{-- Status --}}
                             <td>
                                 @if ($package->is_active === 'active')
+
                                 <span class="badge bg-success">
                                     Active
                                 </span>
+
                                 @else
+
                                 <span class="badge bg-secondary">
                                     Inactive
                                 </span>
+
                                 @endif
                             </td>
 
+                            {{-- Edit --}}
                             <td>
+
                                 @can('package.update')
 
-                                <a
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal-form-edit-package-{{ $package->uuid }}"
+                                <a href="{{ route('packages.edit', $package->uuid) }}"
                                     class="btn btn-icon btn-success text-white">
+
                                     <i class="bi bi-pencil-square"></i>
                                     Edit
+
                                 </a>
 
-                                @include('pages.package.modal-edit')
-
                                 @endcan
+
                             </td>
 
+                            {{-- Delete --}}
                             <td>
+
                                 @can('package.destroy')
 
                                 <a
                                     onclick="showSweetAlert('{{ $package->uuid }}')"
                                     title="Delete"
                                     class="btn btn-icon btn-danger text-white">
+
                                     <i class="bi bi-x-square"></i>
-                                    Hapus
+                                    Delete
+
                                 </a>
 
                                 <form
                                     id="deleteForm_{{ $package->uuid }}"
                                     action="{{ route('packages.destroy', $package->uuid) }}"
                                     method="POST">
+
                                     @method('DELETE')
                                     @csrf
+
                                 </form>
 
                                 @endcan
+
                             </td>
 
                         </tr>
@@ -354,8 +398,6 @@
     </div>
 
 </section>
-
-@include('pages.package.modal-create')
 
 <script>
     function showSweetAlert(getId) {

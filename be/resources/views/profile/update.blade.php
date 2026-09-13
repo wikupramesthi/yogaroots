@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title', 'Profile')
-
 @section('breadcrumb')
 <x-breadcrumb
     title="Profile"

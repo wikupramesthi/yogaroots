@@ -144,7 +144,7 @@ class FaqController extends Controller
 
             return redirect()
                 ->back()
-                ->with('success', 'Pesan masuk berhasil dihapus permanen.');
+                ->with('success', 'Message permanently deleted successfully.');
         } catch (\Throwable $th) {
             return redirect()
                 ->back()

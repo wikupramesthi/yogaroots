@@ -14,10 +14,10 @@ export const yogaData = {
   nav: [
     { label: "Home", href: "/" },
     { label: "Classes", href: "/classes" },
+    { label: "Packages", href: "/packages" },
     { label: "Instructors", href: "/instructors" },
     { label: "Events", href: "/event" },
     { label: "Articles", href: "/blog" },
-    { label: "Gallery", href: "/gallery" },
     { label: "Contact", href: "/contact" },
   ],
   hero: {
@@ -130,52 +130,7 @@ export const yogaData = {
       sun: "—",
     },
   ],
-  pricing: [
-    {
-      name: "Bloom",
-      price: "299K",
-      period: "/bulan",
-      popular: false,
-      desc: "Untuk pemula yang ingin mencoba konsisten",
-      features: [
-        "4x kelas / bulan",
-        "Akses semua level pemula",
-        "Komunitas WhatsApp",
-        "Free matras",
-      ],
-      cta: "Pilih Bloom",
-    },
-    {
-      name: "Harmony",
-      price: "549K",
-      period: "/bulan",
-      popular: true,
-      desc: "Paling populer — fleksibel & lengkap",
-      features: [
-        "12x kelas / bulan",
-        "Semua kelas & level",
-        "1x private check-in",
-        "Workshop bulanan gratis",
-        "Akses video on-demand",
-      ],
-      cta: "Pilih Harmony",
-    },
-    {
-      name: "Retreat",
-      price: "899K",
-      period: "/bulan",
-      popular: false,
-      desc: "Transformasi mendalam",
-      features: [
-        "Unlimited kelas",
-        "2x private session",
-        "Retreat quarterly",
-        "Konsultasi nutrisi",
-        "Prioritas booking",
-      ],
-      cta: "Pilih Retreat",
-    },
-  ],
+
   contact: {
     mapEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.1610802006066!2d106.8327788!3d-6.2087284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f591a35191c3%3A0x255c635679625e83!2sYoga%20Roots!5e1!3m2!1sen!2sid!4v1787872983524!5m2!1sen!2sid",

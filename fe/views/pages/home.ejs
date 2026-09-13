@@ -415,19 +415,389 @@
 <section class="py-16 bg-cream">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <h2 class="font-display text-3xl font-bold text-center">A Better You Starts Here</h2>
-    <div class="grid md:grid-cols-3 gap-6 mt-8 max-w-5xl mx-auto">
-      <% pricing.forEach(p=>{ %>
-        <div class="rounded-[24px] p-6 border <%= p.popular ? 'bg-sage-700 text-white border-sage-700 shadow-xl scale-[1.02]' : 'bg-white border-sage-100' %> reveal">
-          <% if(p.popular){ %><span class="bg-terracotta-500 text-white text-[10px] font-bold tracking-widest px-3 py-1 rounded-full">PALING POPULER</span><% } %>
-          <h3 class="font-display text-xl font-bold mt-3"><%= p.name %></h3>
-          <p class="text-sm <%= p.popular ? 'text-sage-200' : 'text-stone-warm' %>"><%= p.desc %></p>
-          <div class="mt-4"><span class="text-3xl font-bold">Rp <%= p.price %></span><span class="text-sm <%= p.popular?'text-sage-200':'text-stone-warm' %>"><%= p.period %></span></div>
-          <ul class="mt-4 space-y-2 text-sm <%= p.popular?'text-sage-100':'text-stone-warm' %>"><% p.features.slice(0,3).forEach(f=>{ %><li>✓ <%= f %></li><% }) %></ul>
-          <button onclick="openBooking()" class="w-full mt-6 py-3 rounded-full font-semibold text-sm <%= p.popular?'bg-white text-sage-700':'bg-sage-700 text-white' %>"><%= p.cta %></button>
+   
+<%
+  /*
+   * Package order:
+   * Normal Package
+   * Most Popular
+   * Normal Package
+   */
+
+  const allPackages = [...(packages || [])];
+
+  const popularPackage = allPackages.find(function(pkg) {
+    return pkg.is_popular;
+  });
+
+  const normalPackages = allPackages.filter(function(pkg) {
+    return !pkg.is_popular;
+  });
+
+  const sortedPackages = popularPackage
+    ? [
+        normalPackages[0],
+        popularPackage,
+        normalPackages[1]
+      ].filter(Boolean)
+    : allPackages.slice(0, 3);
+%>
+
+
+<div class="grid md:grid-cols-3 gap-6 mt-8 max-w-5xl mx-auto">
+
+  <% sortedPackages.forEach(function(pkg) { %>
+
+    <%
+      const options = pkg.options || [];
+      const features = pkg.features || [];
+
+      /*
+       * Format Rupiah
+       */
+      function formatPrice(price) {
+        return new Intl.NumberFormat('id-ID').format(price);
+      }
+
+
+      /*
+       * Find option with lowest final price
+       */
+      let lowestOption = null;
+      let lowestPrice = null;
+
+      options.forEach(function(option) {
+
+        let finalPrice;
+
+        if (
+          option.discount_price !== null &&
+          option.discount_price !== undefined &&
+          option.discount_price < option.price
+        ) {
+          finalPrice = option.discount_price;
+        } else {
+          finalPrice = option.price;
+        }
+
+        if (
+          lowestPrice === null ||
+          finalPrice < lowestPrice
+        ) {
+          lowestPrice = finalPrice;
+          lowestOption = option;
+        }
+
+      });
+
+
+      /*
+       * Discount
+       */
+      const hasDiscount =
+        lowestOption &&
+        lowestOption.discount_price !== null &&
+        lowestOption.discount_price !== undefined &&
+        lowestOption.discount_price < lowestOption.price;
+
+
+      /*
+       * Quota
+       */
+      let quotaText = null;
+
+      if (lowestOption) {
+
+        if (lowestOption.quota === null) {
+
+          quotaText = 'Unlimited';
+
+        } else if (lowestOption.quota !== undefined) {
+
+          quotaText = lowestOption.quota + ' Classes';
+
+        }
+
+      }
+
+
+      /*
+       * Duration
+       */
+      let durationText = null;
+
+      if (
+        lowestOption &&
+        lowestOption.duration
+      ) {
+
+        durationText =
+          lowestOption.duration +
+          ' ' +
+          lowestOption.duration_unit;
+
+      }
+    %>
+
+
+    <!-- PACKAGE CARD -->
+    <div
+      class="relative rounded-[24px] p-6 border
+        transition-all duration-300 reveal
+        <%= pkg.is_popular
+          ? 'bg-sage-700 text-white border-sage-700 shadow-xl md:scale-[1.02]'
+          : 'bg-white border-sage-100 hover:-translate-y-1 hover:shadow-lg'
+        %>"
+    >
+
+
+      <!-- POPULAR BADGE -->
+      <% if (pkg.is_popular) { %>
+
+        <span
+          class="inline-flex items-center gap-1
+            bg-terracotta-500 text-white
+            text-[10px] font-bold tracking-widest
+            px-3 py-1.5 rounded-full"
+        >
+
+          <i class="bi bi-star-fill"></i>
+
+          MOST POPULAR
+
+        </span>
+
+      <% } %>
+
+
+      <!-- PACKAGE NAME -->
+      <div class="<%= pkg.is_popular ? 'mt-4' : '' %>">
+
+        <h3
+          class="font-display text-2xl font-bold leading-tight"
+        >
+          <%= pkg.name %>
+        </h3>
+
+
+        <p
+          class="text-sm leading-relaxed mt-2
+            <%= pkg.is_popular
+              ? 'text-sage-200'
+              : 'text-stone-warm'
+            %>"
+        >
+          <%= pkg.description %>
+        </p>
+
+      </div>
+
+
+      <!-- PRICE -->
+      <% if (lowestOption) { %>
+
+        <div class="mt-6">
+
+          <div class="flex items-baseline gap-1">
+
+            <span
+              class="text-xs
+                <%= pkg.is_popular
+                  ? 'text-sage-200'
+                  : 'text-stone-warm'
+                %>"
+            >
+              Rp
+            </span>
+
+
+            <span class="text-3xl font-bold tracking-tight">
+              <%= formatPrice(lowestPrice) %>
+            </span>
+
+          </div>
+
+
+          <!-- ORIGINAL PRICE -->
+          <% if (hasDiscount) { %>
+
+            <div class="flex items-center gap-2 mt-1">
+
+              <span
+                class="text-xs line-through
+                  <%= pkg.is_popular
+                    ? 'text-sage-300'
+                    : 'text-stone-400'
+                  %>"
+              >
+                Rp <%= formatPrice(lowestOption.price) %>
+              </span>
+
+
+              <span
+                class="text-[10px] font-bold
+                  bg-terracotta-500 text-white
+                  px-2 py-0.5 rounded-full"
+              >
+                SAVE
+              </span>
+
+            </div>
+
+          <% } %>
+
         </div>
-      <% }) %>
+
+      <% } %>
+
+
+      <!-- PACKAGE INFO -->
+      <% if (quotaText || durationText) { %>
+
+        <div class="flex flex-wrap gap-2 mt-5">
+
+
+          <!-- QUOTA -->
+          <% if (quotaText) { %>
+
+            <span
+              class="inline-flex items-center gap-1.5
+                text-xs px-3 py-1.5 rounded-full
+                <%= pkg.is_popular
+                  ? 'bg-white/10 text-sage-100'
+                  : 'bg-sage-50 text-sage-700'
+                %>"
+            >
+
+              <% if (lowestOption.quota === null) { %>
+
+                <i class="bi bi-infinity"></i>
+
+              <% } else { %>
+
+                <i class="bi bi-check2-circle"></i>
+
+              <% } %>
+
+              <%= quotaText %>
+
+            </span>
+
+          <% } %>
+
+
+          <!-- DURATION -->
+          <% if (durationText) { %>
+
+            <span
+              class="inline-flex items-center gap-1.5
+                text-xs px-3 py-1.5 rounded-full
+                <%= pkg.is_popular
+                  ? 'bg-white/10 text-sage-100'
+                  : 'bg-sage-50 text-sage-700'
+                %>"
+            >
+
+              <i class="bi bi-calendar3"></i>
+
+              <%= durationText %>
+
+            </span>
+
+          <% } %>
+
+        </div>
+
+      <% } %>
+
+
+      <!-- FEATURES -->
+      <div
+        class="mt-5 border-t
+          <%= pkg.is_popular
+            ? 'border-white/10'
+            : 'border-sage-100'
+          %>"
+      >
+
+        <p
+          class="text-xs font-semibold uppercase tracking-wider mb-3 mt-5
+            <%= pkg.is_popular
+              ? 'text-sage-200'
+              : 'text-stone-500'
+            %>"
+        >
+          What's included
+        </p>
+
+<ul class="space-y-2.5">
+  <% features.slice(0, 3).forEach(function(feature) { %>
+    <li
+      class="flex items-start gap-2.5 text-sm
+        <%= pkg.is_popular
+          ? 'text-sage-100'
+          : 'text-stone-warm'
+        %>"
+    >
+      <span
+        class="shrink-0 mt-0.5
+          <%= pkg.is_popular
+            ? 'text-white'
+            : 'text-sage-700'
+          %>"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M20 6 9 17l-5-5"></path>
+        </svg>
+      </span>
+
+      <span>
+        <%= feature.feature %>
+      </span>
+    </li>
+  <% }) %>
+</ul>
+
+      </div>
+
+
+      <!-- CTA -->
+      <button
+        type="button"
+        onclick="window.location.href='/packages/<%= pkg.slug %>'"
+        class="w-full mt-7 py-3.5 rounded-full
+          font-semibold text-sm
+          transition-all duration-300
+          <%= pkg.is_popular
+            ? 'bg-white text-sage-700 hover:bg-sage-50'
+            : 'bg-sage-700 text-white hover:bg-sage-800'
+          %>"
+      >
+
+        View Package
+
+        <i class="bi bi-arrow-right ms-1"></i>
+
+      </button>
+
     </div>
-    <div class="text-center mt-6"><a href="/pricing" class="text-sm font-semibold text-sage-700">View All Packages →</a></div>
+
+  <% }) %>
+
+</div>
+
+    <div class="text-center mt-6"><a href="/packages" class="text-sm font-semibold text-sage-700">View All Packages →</a></div>
   </div>
 </section>
 

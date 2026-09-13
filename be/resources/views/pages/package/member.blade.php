@@ -748,6 +748,69 @@
             font-size: 31px;
         }
     }
+
+    .package-price-range {
+        padding: 16px 18px;
+        border-radius: 14px;
+        background: rgba(107, 143, 111, 0.08);
+        border: 1px solid rgba(107, 143, 111, 0.12);
+    }
+
+    .price-caption {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        color: #7d857b;
+        margin-bottom: 4px;
+    }
+
+    .price-range-value {
+        font-size: 21px;
+        font-weight: 700;
+        color: var(--fg);
+        letter-spacing: -.02em;
+    }
+
+    .package-price-box {
+        margin-bottom: 20px;
+    }
+
+    .package-price-label {
+        font-size: 11px;
+        font-weight: 600;
+        color: #8b8f87;
+        margin-bottom: 5px;
+    }
+
+    .package-price-range {
+        font-size: 21px;
+        line-height: 1.2;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        color: var(--fg);
+    }
+
+    .package-price-range.discounted {
+        color: #c4703c;
+    }
+
+    .package-price-range span {
+        font-size: 16px;
+        font-weight: 500;
+        color: #9b9d97;
+        margin: 0 3px;
+    }
+
+    .package-price-original {
+        margin-top: 4px;
+        font-size: 11px;
+        color: #9b9d97;
+    }
+
+    .package-price-original span {
+        text-decoration: line-through;
+    }
 </style>
 
 
@@ -899,348 +962,198 @@
 
         <div class="row g-4 align-items-stretch">
 
-
             @forelse ($packages as $package)
 
-
             @php
-
             $isPopular = $package->is_popular;
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Duration
-            |--------------------------------------------------------------------------
-            */
-
-            $durationLabel = match ($package->duration_unit) {
-
-            'day' => $package->duration > 1
-            ? 'Days'
-            : 'Day',
-
-            'week' => $package->duration > 1
-            ? 'Weeks'
-            : 'Week',
-
-            'month' => $package->duration > 1
-            ? 'Months'
-            : 'Month',
-
-            'year' => $package->duration > 1
-            ? 'Years'
-            : 'Year',
-
-            default => $package->duration_unit,
-
-            };
-
-
-            /*
-            |--------------------------------------------------------------------------
-            | Price
-            |--------------------------------------------------------------------------
-            */
-
-            $hasDiscount =
-            !is_null($package->discount_price)
-            && $package->discount_price < $package->price;
-
-
-                $finalPrice = $hasDiscount
-                ? $package->discount_price
-                : $package->price;
-
-
-                /*
-                |--------------------------------------------------------------------------
-                | Discount Percentage
-                |--------------------------------------------------------------------------
-                */
-
-                $discountPercent =
-                ($hasDiscount && $package->price > 0)
-                ? round(
-                (
-                ($package->price - $package->discount_price)
-                / $package->price
-                ) * 100
-                )
-                : 0;
-
-                @endphp
-
-
-                {{-- =================================================
-                     PACKAGE ITEM
-                ================================================== --}}
-
-                <div class="col-xl-4 col-lg-4 col-md-6">
-
-
-                    <div class="membership-card {{ $isPopular ? 'popular' : '' }}">
-
-
-                        {{-- Popular Badge --}}
-
-                        @if ($isPopular)
-
-                        <div class="popular-badge">
-
-                            <i class="bi bi-star-fill me-1"></i>
-
-                            POPULAR
-
-                        </div>
-
-                        @endif
-
-
-                        {{-- Package Name --}}
-
-                        <div class="package-name">
-
-                            {{ $package->name }}
-
-                        </div>
-
-
-                        {{-- Description --}}
-
-                        <div class="package-description">
-
-                            {{ $package->description ?: 'Start your yoga journey with a membership designed for you.' }}
-
-                        </div>
-
-
-                        <div class="package-divider"></div>
-
-
-                        {{-- Price --}}
-
-                        <div class="price-label">
-
-                            Membership price
-
-                        </div>
-
-
-                        <div class="package-price-wrapper">
-
-
-                            {{-- Old Price --}}
-
-                            @if ($hasDiscount)
-
-                            <div class="package-old-price">
-
-                                <span class="amount">
-
-                                    Rp
-                                    {{ number_format($package->price, 0, ',', '.') }}
-
-                                </span>
-
-
-                                <span class="discount-badge">
-
-                                    -{{ $discountPercent }}%
-
-                                </span>
-
-                            </div>
-
-                            @endif
-
-
-                            {{-- Final Price --}}
-
-                            <div class="package-price">
-
-                                <span class="currency">
-                                    Rp
-                                </span>
-
-                                <span class="amount">
-
-                                    {{ number_format($finalPrice, 0, ',', '.') }}
-
-                                </span>
-
-                                <span class="period">
-
-                                    / {{ $durationLabel }}
-
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        {{-- Quota --}}
-
-                        <div class="quota-box">
-
-                            <div class="quota-label">
-
-                                <i class="bi bi-calendar-check"></i>
-
-                                Class Quota
-
-                            </div>
-
-
-                            <div class="quota-value">
-
-                                @if (is_null($package->quota))
-
-                                Unlimited
-
-                                @else
-
-                                {{ $package->quota }} Classes
-
+            @endphp
+
+            <div class="col-xl-4 col-lg-4 col-md-6">
+
+                <div class="membership-card {{ $isPopular ? 'popular' : '' }}">
+
+                    @if ($isPopular)
+                    <div class="popular-badge">
+                        <i class="bi bi-star-fill me-1"></i>
+                        POPULAR
+                    </div>
+                    @endif
+
+                    {{-- Package Name --}}
+                    <div class="package-name">
+                        {{ $package->name }}
+                    </div>
+
+                    {{-- Description --}}
+                    <div class="package-description">
+                        {{ $package->description ?: 'Start your yoga journey with a membership designed for you.' }}
+                    </div>
+
+                    <div class="package-divider"></div>
+
+                    @php
+                    $regularPrices = $package->options->pluck('price');
+
+                    $finalPrices = $package->options->map(function ($option) {
+                    return $option->discount_price !== null
+                    && $option->discount_price < $option->price
+                        ? $option->discount_price
+                        : $option->price;
+                        });
+
+                        $minRegular = $regularPrices->min();
+                        $maxRegular = $regularPrices->max();
+
+                        $minFinal = $finalPrices->min();
+                        $maxFinal = $finalPrices->max();
+
+                        $hasDiscount = $package->options->contains(function ($option) {
+                        return $option->discount_price !== null
+                        && $option->discount_price < $option->price;
+                            });
+                            @endphp
+
+                            <div class="package-price-box">
+
+                                <div class="package-price-label">
+                                    Membership from
+                                </div>
+
+                                <div class="package-price-range {{ $hasDiscount ? 'discounted' : '' }}">
+                                    Rp {{ number_format($minFinal, 0, ',', '.') }}
+
+                                    @if ($minFinal != $maxFinal)
+                                    <span>-</span>
+                                    Rp {{ number_format($maxFinal, 0, ',', '.') }}
+                                    @endif
+                                </div>
+
+                                @if ($hasDiscount)
+                                <div class="package-price-original">
+                                    from
+                                    <span>
+                                        Rp {{ number_format($minRegular, 0, ',', '.') }}
+
+                                        @if ($minRegular != $maxRegular)
+                                        - Rp {{ number_format($maxRegular, 0, ',', '.') }}
+                                        @endif
+                                    </span>
+                                </div>
                                 @endif
 
                             </div>
 
-                        </div>
 
+                            {{-- Features --}}
+                            <div class="features-title">
+                                What's included
+                            </div>
 
-                        {{-- Features --}}
+                            <ul class="package-features">
 
-                        <div class="features-title">
+                                @forelse ($package->features as $feature)
 
-                            What's included
+                                <li>
+                                    <i class="bi bi-check-circle-fill"></i>
 
-                        </div>
+                                    <span>
+                                        {{ $feature->feature }}
+                                    </span>
+                                </li>
 
+                                @empty
 
-                        <ul class="package-features">
+                                <li>
+                                    <i class="bi bi-check-circle-fill"></i>
 
-                            @forelse ($package->features as $feature)
+                                    <span>
+                                        Access to Yogaroots classes
+                                    </span>
+                                </li>
 
-                            <li>
+                                @endforelse
 
-                                <i class="bi bi-check-circle-fill"></i>
+                            </ul>
 
-                                <span>
-                                    {{ $feature->feature }}
-                                </span>
+                            {{-- Button --}}
+                            <div class="mt-auto">
+                                <button
+                                    type="button"
+                                    class="choose-package w-100"
+                                    onclick="window.location.href='{{ route('checkout.package', $package->uuid) }}'">
+                                    Choose Package
+                                    <i class="bi bi-arrow-right ms-1"></i>
+                                </button>
 
-                            </li>
-
-                            @empty
-
-                            <li>
-
-                                <i class="bi bi-check-circle-fill"></i>
-
-                                <span>
-                                    Access to Yogaroots classes
-                                </span>
-
-                            </li>
-
-                            @endforelse
-
-                        </ul>
-
-
-                        {{-- Button --}}
-
-                        <div class="mt-auto">
-
-
-                            <button
-                                type="button"
-                                class="choose-package"
-                                onclick="choosePackage('{{ $package->uuid }}')">
-
-                                Choose Package
-
-                                <i class="bi bi-arrow-right ms-1"></i>
-
-                            </button>
-
-
-                            <div class="saving-text">
-
-                                <i class="bi bi-heart-fill me-1"></i>
-
-                                Start your yoga journey
+                                <div class="saving-text">
+                                    <i class="bi bi-heart-fill me-1"></i>
+                                    Start your yoga journey
+                                </div>
 
                             </div>
 
-                        </div>
-
-
-                    </div>
-
                 </div>
 
+            </div>
 
-                @empty
+            @empty
 
 
-                {{-- =================================================
+            {{-- =================================================
                      EMPTY STATE
                 ================================================== --}}
 
-                <div class="col-12">
+            <div class="col-12">
 
-                    <div class="package-empty text-center">
-
-
-                        <div class="package-empty-icon">
-
-                            <i class="bi bi-box-seam"></i>
-
-                        </div>
+                <div class="package-empty text-center">
 
 
-                        <h5 class="fw-bold">
+                    <div class="package-empty-icon">
 
-                            No Membership Packages Available
-
-                        </h5>
-
-
-                        <p>
-
-                            Membership packages are currently unavailable.
-
-                        </p>
-
-
-                        {{-- Reset Filter --}}
-
-                        @if (request('filter') || request('sort'))
-
-                        <div class="mt-4">
-
-                            <a
-                                href="{{ route('packages.member') }}"
-                                class="btn btn-sm btn-outline-secondary">
-
-                                <i class="bi bi-arrow-counterclockwise me-1"></i>
-
-                                View All Packages
-
-                            </a>
-
-                        </div>
-
-                        @endif
+                        <i class="bi bi-box-seam"></i>
 
                     </div>
 
+
+                    <h5 class="fw-bold">
+
+                        No Membership Packages Available
+
+                    </h5>
+
+
+                    <p>
+
+                        Membership packages are currently unavailable.
+
+                    </p>
+
+
+                    {{-- Reset Filter --}}
+
+                    @if (request('filter') || request('sort'))
+
+                    <div class="mt-4">
+
+                        <a
+                            href="{{ route('packages.member') }}"
+                            class="btn btn-sm btn-outline-secondary">
+
+                            <i class="bi bi-arrow-counterclockwise me-1"></i>
+
+                            View All Packages
+
+                        </a>
+
+                    </div>
+
+                    @endif
+
                 </div>
 
-                @endforelse
+            </div>
+
+            @endforelse
 
         </div>
 

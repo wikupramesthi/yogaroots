@@ -123,7 +123,7 @@ class InstrukturController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('instruktur.index')->with('success', 'Instructor data has been saved successfully.');
+            return redirect()->route('instruktur.index')->with('success', 'Instructor has been saved successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -245,7 +245,7 @@ class InstrukturController extends Controller
                 ->insert($specializations);
 
             DB::commit();
-            return redirect()->route('instruktur.index')->with('success', 'Data instruktur berhasil diperbarui.');
+            return redirect()->route('instruktur.index')->with('success', 'Instructor successfully updated.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -261,7 +261,7 @@ class InstrukturController extends Controller
             $instruktur->delete();
             return redirect()
                 ->route('instruktur.index')
-                ->with('success', 'Data instruktur berhasil dihapus (soft delete).');
+                ->with('success', 'Instructor has been successfully deleted. (soft delete).');
         } catch (\Throwable $th) {
             return redirect()
                 ->route('instruktur.index')
@@ -273,9 +273,44 @@ class InstrukturController extends Controller
     {
         try {
             User::onlyTrashed()->restore();
-            return redirect()->route('instruktur.index')->with('success', 'Semua instruktur berhasil direstore.');
+            return redirect()->route('instruktur.index')->with('success', 'All instructors have been successfully restored.');
         } catch (\Throwable $th) {
             return redirect()->route('instruktur.index')->with('error', 'Gagal restore data: ' . $th->getMessage());
         }
+    }
+
+    public function mobile()
+    {
+        $user = auth()->user();
+
+        $isMobile = preg_match(
+            '/Mobile|Android|iPhone|iPad|iPod/i',
+            request()->header('User-Agent')
+        );
+
+        if ($user->hasRole('user') && $isMobile) {
+
+            $instructors = User::role('instruktur')
+                ->with([
+                    'specializations',
+                    'classes'
+                ])
+                ->get();
+
+            $specializations = Specializaty::where('is_active', 'active')
+                ->orderBy('name')
+                ->get();
+
+            return view(
+                'pages.mobile.instruktur',
+                compact(
+                    'user',
+                    'instructors',
+                    'specializations'
+                )
+            );
+        }
+
+        abort(403);
     }
 }

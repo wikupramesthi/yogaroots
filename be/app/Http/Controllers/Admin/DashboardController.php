@@ -14,6 +14,7 @@ use App\Models\Faq;
 use App\Models\Kontak;
 use App\Models\Poll;
 use App\Models\Testimonial;
+use App\Models\Banner;
 use App\Models\Class\ClassSchedule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -26,10 +27,6 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        // =========================
-        // DASHBOARD STATISTICS
-        // =========================
-
         $jumlahInstruktur = User::role('instruktur')->count();
         $jumlahMembers = User::role('user')->count();
         $totalClasses = ClassModel::count();
@@ -41,6 +38,10 @@ class DashboardController extends Controller
         $totalPesan = Kontak::count();
         $totalTestimonial = Testimonial::count();
 
+        $banner = Banner::where('status', 'active')
+            ->where('posisi', 'slider')
+            ->first();
+
 
         // =========================
         // UPCOMING EVENTS
@@ -50,33 +51,12 @@ class DashboardController extends Controller
             ->whereDate('tanggal', '>=', now())
             ->orderBy('tanggal')
             ->orderBy('waktu_mulai')
-            ->take(3)
+            ->take(5)
             ->get();
-
 
         // =========================
         // TODAY'S SCHEDULE
         // =========================
-
-        $today = strtolower(now()->format('l'));
-
-        $todaySchedules = ClassSchedule::with([
-            'class.instructor'
-        ])
-            ->withCount('bookings')
-            ->where('status', 'active')
-            ->where('day', $today)
-            ->orderBy('start_time')
-            ->take(5)
-            ->get();
-
-
-        // =========================
-        // UPCOMING CLASSES
-        // STARTING TOMORROW
-        // =========================
-
-        $today = strtolower(now()->format('l'));
 
         $days = [
             'monday',
@@ -88,27 +68,72 @@ class DashboardController extends Controller
             'sunday',
         ];
 
+        $today = strtolower(now()->format('l'));
+
         $currentDayIndex = array_search($today, $days);
 
-        // Hanya hari setelah hari ini
-        $upcomingDays = array_slice($days, $currentDayIndex + 1);
-
-        $upcomingClasses = ClassSchedule::with([
+        $todaySchedules = ClassSchedule::with([
             'class.instructor'
         ])
             ->withCount('bookings')
             ->where('status', 'active')
-            ->whereIn('day', $upcomingDays)
-            ->orderByRaw(
-                'FIELD(day, "' . implode('","', $upcomingDays) . '")'
-            )
+            ->where('day', $today)
+            ->orderBy('start_time')
+            ->take(5)
+            ->get();
+
+        // =========================
+        // UPCOMING CLASSES
+        // NEXT DAY ONLY
+        // =========================
+
+        $nextDay = $days[($currentDayIndex + 1) % 7];
+
+        $upcomingClasses = ClassSchedule::with([
+            'class.instructor'
+        ])
+            ->where('status', 'active')
+            ->where('day', $nextDay)
             ->orderBy('start_time')
             ->take(3)
             ->get();
 
+        // =========================
+        // DETECT MOBILE
+        // =========================
+
+        $isMobile = preg_match(
+            '/Mobile|Android|iPhone|iPad|iPod/i',
+            request()->header('User-Agent')
+        );
+
+        // =========================
+        // RETURN VIEW
+        // =========================
+
+        $isMobile = preg_match(
+            '/Mobile|Android|iPhone|iPad|iPod/i',
+            request()->header('User-Agent')
+        );
+
+        if ($user->hasRole('user') && $isMobile) {
+            return view('pages.mobile.home', compact(
+                'user',
+                'jumlahInstruktur',
+                'jumlahMembers',
+                'totalClasses',
+                'totalPackages',
+                'totalArticles',
+                'totalEvents',
+                'banner',
+                'events',
+                'todaySchedules',
+                'upcomingClasses'
+            ));
+        }
+
         return view('pages.dashboard.index', compact(
             'user',
-
             'jumlahInstruktur',
             'jumlahMembers',
             'totalClasses',
@@ -150,7 +175,7 @@ class DashboardController extends Controller
 
         $user = Auth::user();
 
-        $no_hp = preg_replace('/^0/', '', trim($request->no_hp));
+        $no_hp = trim($request->no_hp);
 
         $user->update([
             'no_hp'             => $no_hp,

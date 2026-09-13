@@ -16,8 +16,21 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
+        $user = $request->user();
+
+        $isMobile = preg_match(
+            '/Mobile|Android|iPhone|iPad|iPod/i',
+            $request->header('User-Agent')
+        );
+
+        if ($user->hasRole('user') && $isMobile) {
+            return view('pages.mobile.profile', [
+                'user' => $user,
+            ]);
+        }
+
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $user,
         ]);
     }
 
