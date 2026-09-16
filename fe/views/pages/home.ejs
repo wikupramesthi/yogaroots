@@ -1,757 +1,220 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="<%= lang || 'en' %>">
 <head><%- include('../partials/head') %></head>
-<body class="antialiased">
+<body class="min-h-screen bg-sand-50 antialiased">
 <%- include('../partials/navbar') %>
 
-<!-- HERO -->
-<section class="relative overflow-hidden bg-cream">
-  <div class="absolute inset-0 bg-gradient-to-b from-sage-50 to-transparent h-[60%]"></div>
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16 lg:py-16">
-    <div class="grid lg:grid-cols-12 gap-8 items-center">
-      <div class="lg:col-span-7 reveal">
-        <span class="inline-flex items-center gap-2 bg-white border border-sage-200 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide text-sage-700"><%= hero.eyebrow %></span>
-        <h1 class="font-display text-[40px] sm:text-5xl lg:text-[56px] font-bold leading-[0.95] mt-5"><%= hero.title %></h1>
-        <p class="text-stone-warm leading-relaxed mt-4 max-w-xl text-[15px]"><%= hero.subtitle %></p>
-        <div class="flex flex-wrap gap-3 mt-7">
-          <button onclick="openBooking()" class="bg-sage-700 hover:bg-sage-600 text-white px-7 py-3.5 rounded-full font-semibold text-sm transition">🧘 <%= hero.ctaPrimary %> →</button>
-          <a href="/classes" class="bg-white border border-sage-200 hover:bg-sage-50 px-7 py-3.5 rounded-full font-semibold text-sm"><%= hero.ctaSecondary %></a>
-        </div>
-        <div class="flex items-center gap-6 mt-8">
-        <div class="flex -space-x-3">
-  <% testimonials.slice(0, 3).forEach(t => { %>
-    <img
-      src="<%= t.foto %>"
-      alt="<%= t.nama %>"
-      class="w-10 h-10 rounded-full border-2 border-white object-cover"
-    >
-  <% }) %>
-</div>
-          <div class="text-sm">
-            <div class="font-semibold">2,400+ Reviews ★★★★★</div>
-            <div class="text-stone-warm text-xs">Trusted by our community on Google & Instagram</div>
-          </div>
-        </div>
-      </div>
-      <div class="lg:col-span-5 relative reveal">
-        <div class="relative rounded-[32px] overflow-hidden bg-sage-100 p-3 shadow-xl">
-          <img src="<%= hero.image %>" alt="Yoga hero" class="w-full h-[420px] object-cover rounded-[24px]">
-          <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur rounded-2xl p-4 flex items-center justify-between shadow-lg">
-            <div>
-<div class="text-xs font-semibold tracking-widest text-stone-warm">
-    TODAY'S CLASSES
-</div>              <div class="font-semibold">Hatha Morning • 07:00</div>
-            </div>
-            <button onclick="openBooking('Hatha Morning Flow')" class="bg-sage-700 text-white px-4 py-2 rounded-full text-xs font-semibold">Join →</button>
-          </div>
-        </div>
-        <!-- floating cards -->
-        <div class="absolute -left-4 top-10 bg-white rounded-2xl shadow-lg px-4 py-3 hidden lg:flex items-center gap-3">
-          <span class="w-9 h-9 rounded-xl bg-sage-100 grid place-items-center">💫</span>
-          <div><div class="text-sm font-bold">12K+ Member</div><div class="text-xs text-stone-warm">Bahagia & sehat</div></div>
-        </div>
-        <div class="absolute -right-2 bottom-20 bg-terracotta-600 text-white rounded-2xl shadow-lg px-4 py-3 hidden lg:block">
-<div class="text-xs opacity-80">PRACTICE</div>
-<div class="font-bold">All Levels</div>        
-</div>
-      </div>
-    </div>
+<main>
 
-    <!-- stats -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-10">
-      <% stats.forEach(s=>{ %>
-        <div class="bg-white border border-sage-100 rounded-2xl p-5 text-center reveal">
-          <div class="font-display text-3xl font-bold text-sage-700"><%= s.value %></div>
-          <div class="text-xs tracking-widest font-semibold text-stone-warm mt-1"><%= s.label %></div>
-        </div>
-      <% }) %>
-    </div>
-  </div>
-</section>
+  <!-- ======================= HERO ======================= -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <!-- earthy gradient -->
+    <div class="absolute inset-0" style="background:
+      radial-gradient(ellipse 70% 55% at 18% 12%, #a6814f 0%, transparent 62%),
+      radial-gradient(ellipse 60% 60% at 88% 95%, #382a16 0%, transparent 65%),
+      radial-gradient(ellipse 45% 40% at 72% 32%, #8a6a3e 0%, transparent 70%),
+      linear-gradient(135deg, #75542b 0%, #543d22 55%, #3b2b17 100%)"></div>
 
-<!-- Features -->
-<section class="py-14 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid md:grid-cols-4 gap-6">
-      <% features.forEach(f=>{ %>
-        <div class="bg-cream border border-sage-100 rounded-2xl p-6 reveal">
-          <div class="w-10 h-10 rounded-xl bg-white border border-sage-100 grid place-items-center text-lg"><%= f.icon %></div>
-          <h3 class="font-semibold mt-3"><%= f.title %></h3>
-          <p class="text-sm text-stone-warm leading-relaxed mt-1"><%= f.desc %></p>
-        </div>
-      <% }) %>
-    </div>
-  </div>
-</section>
+    <!-- grain overlay -->
+    <div class="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none" style="background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
 
-<!-- About -->
-<section class="py-16 bg-sage-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 items-center">
-<div class="reveal">
-  <span class="text-xs font-bold tracking-[0.2em] text-sage-700">ABOUT US</span>
-  <h2 class="font-display text-4xl font-bold leading-tight mt-2">A Practice That Grows With You </h2>
-  <p class="text-stone-warm leading-relaxed mt-4">Our structured classes and highly trained teachers lead sequences that guide students through their difficulty levels and focus areas. We know your starting point and guide you to your goal. Everything in between is taught with a clear intention.</p>
-  <ul class="mt-6 space-y-3 text-sm">
-    <li class="flex gap-3"><span class="text-sage-600">✓</span> Thoughtfully curated classes for every level</li>
-    <li class="flex gap-3"><span class="text-sage-600">✓</span> Experienced instructors with a mindful approach</li>
-    <li class="flex gap-3"><span class="text-sage-600">✓</span> A welcoming space to practice, breathe, and connect</li>
-  </ul>
-  <a href="/instructors" class="inline-flex mt-6 bg-white border border-sage-200 px-6 py-3 rounded-full text-sm font-semibold hover:bg-sage-50">Meet Our Instructors →</a>
-</div>
-    <div class="grid grid-cols-2 gap-4 reveal">
-      <img src="img/yogaroots_about1.jpg" class="rounded-[24px] h-[320px] object-cover">
-      <div class="space-y-4">
-        <img src="img/yogaroots_about2.jpg" class="rounded-[24px] h-[150px] w-full object-cover">
-        <div class="bg-sage-700 text-white rounded-[24px] p-6">
-          <div class="text-3xl font-display font-bold">
-            <%= new Date().getFullYear() - 2023 %> Years
-        </div>
-          <div class="text-sm opacity-80">A space where movement meets mindfulness, helping you care for your body, find inner balance, and live with greater intention.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- sweeping sheen -->
+    <div class="hero-shimmer"></div>
 
-<!-- Classes preview -->
-<section class="py-16 bg-cream">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-wrap justify-between items-end gap-4">
-      <div>
-        <span class="text-xs font-bold tracking-[0.2em] text-terracotta-600">FEATURED YOGA</span>
-        <h2 class="font-display text-4xl font-bold mt-1">Calm Your Mind</h2>
-      </div>
-      <a href="/classes" class="bg-sage-700 text-white px-6 py-3 rounded-full text-sm font-semibold">View All Classes →</a>
-    </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+    <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-transparent to-black/25 pointer-events-none"></div>
 
-    <% classes.slice(0, 3).forEach(c => { %>
+    <div class="relative w-full max-w-5xl mx-auto px-6 py-28 text-center">
+      <h1 class="font-display text-sand-50 tracking-tight" style="font-size:clamp(2.6rem, min(11vw, 10vh), 4.75rem); line-height:1.06">
+        <span class="block anim-slide-up" style="animation-delay:.05s"><%= t.heroLine1 %></span>
+        <span class="block italic font-light anim-slide-up" style="animation-delay:.2s"><%= t.heroLine2 %></span>
+      </h1>
 
-        <a
-            href="/classes/<%= c.slug %>"
-            class="bg-white rounded-[24px] overflow-hidden border border-sage-100 hover:shadow-xl transition group reveal"
-        >
+      <p class="mt-6 font-sans text-base sm:text-lg text-sand-100/80 max-w-xl mx-auto leading-relaxed anim-fade-in" style="animation-delay:.45s"><%= t.heroSub %></p>
 
-            <!-- Image -->
-            <div class="relative overflow-hidden">
-
-                <% if (c.image) { %>
-
-                    <img
-                        src="<%= c.image %>"
-                        alt="<%= c.name %>"
-                        class="h-[220px] w-full object-cover group-hover:scale-[1.04] transition duration-500"
-                    >
-
-                <% } else { %>
-
-                    <div class="h-[220px] w-full bg-sage-50 flex items-center justify-center">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.5"
-                            class="w-10 h-10 text-sage-600"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 20.25c4.97 0 9-3.36 9-7.5 0-3.31-2.69-6-6-6-1.19 0-2.3.35-3.23.95A5.98 5.98 0 0 0 9 6.75a3.75 3.75 0 1 0-7.5 0c0 4.14 4.03 7.5 9 7.5"
-                            />
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M12 20.25v-6"
-                            />
-                        </svg>
-                    </div>
-
-                <% } %>
-
-                <!-- Level -->
-                <% if (c.level) { %>
-
-                    <span class="absolute top-4 right-4 bg-sage-700 text-white px-3 py-1.5 rounded-full text-[11px] font-semibold uppercase tracking-wide">
-                        <%= c.level === 'advance' ? 'ADVANCED' : c.level.toUpperCase() %>
-                    </span>
-
-                <% } %>
-
-            </div>
-
-
-            <!-- Content -->
-            <div class="p-6">
-                <h3 class="font-display text-2xl font-semibold text-sage-900">
-                    <%= c.name %>
-                </h3>
-
-
-                <p class="text-sm text-stone-warm leading-relaxed line-clamp-3 mt-3">
-                    <%= c.description || 'Discover a mindful yoga practice designed to support your journey.' %>
-                </p>
-
-                <!-- Footer -->
-                <div class="flex items-center justify-between mt-7 pt-6 border-t border-stone-100">
-
-                    <!-- Instructor -->
-                    <div class="flex items-center gap-3">
-
-                        <% if (c.instructor?.avatar) { %>
-
-                            <img
-                                src="<%= c.instructor.avatar %>"
-                                alt="<%= c.instructor.name || 'Instructor' %>"
-                                class="w-9 h-9 rounded-full object-cover"
-                            >
-
-                        <% } else { %>
-
-                            <div class="w-9 h-9 rounded-full bg-sage-50 flex items-center justify-center">
-
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="1.5"
-                                    class="w-5 h-5 text-sage-700"
-                                >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
-                                    />
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M4.5 20.25a7.5 7.5 0 0 1 15 0"
-                                    />
-                                </svg>
-
-                            </div>
-
-                        <% } %>
-
-
-                        <div>
-                            <span class="block text-[11px] text-stone-400">
-                                Instructor
-                            </span>
-
-                            <span class="block text-sm font-semibold text-sage-800">
-                                <%= c.instructor?.name || 'Yoga Instructor' %>
-                            </span>
-                        </div>
-
-                    </div>
-
-
-                    <!-- Arrow -->
-                    <div class="w-10 h-10 rounded-full bg-sage-700 text-white flex items-center justify-center group-hover:bg-terracotta-600 group-hover:translate-x-1 transition">
-
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                            class="w-4 h-4"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M5 12h14"
-                            />
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m13 6 6 6-6 6"
-                            />
-                        </svg>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-4 anim-fade-in" style="animation-delay:.65s">
+        <button onclick="openBooking()" class="group inline-flex items-center gap-3 text-sand-900 bg-sand-50 hover:bg-white rounded-full px-8 py-3.5 text-sm font-medium tracking-wide transition-all">
+          <%= t.heroBookClass %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </button>
+        <a href="/classes" class="inline-flex items-center gap-3 text-sand-50 border border-sand-50/40 hover:border-sand-50 hover:bg-sand-50/10 rounded-full px-8 py-3.5 text-sm tracking-wide transition-all">
+          <%= t.viewAllClasses %>
         </a>
+      </div>
+    </div>
 
-    <% }) %>
+    <!-- scroll indicator -->
+    <div class="scroll-indicator absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 anim-fade-in" style="animation-delay:.9s">
+      <span class="text-xs tracking-widest uppercase" style="color:rgba(246,241,235,0.4);"><%= t.scroll %></span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-down" class="lucide lucide-chevron-down scroll-chevron w-4 h-4" style="color:rgba(246,241,235,0.4);"><path d="m6 9 6 6 6-6"></path></svg>
+    </div>
+  </section>
 
-</div>
-  </div>
-</section>
+  <!-- ======================= CLASSES FOR EVERY BODY ======================= -->
+  <%
+    const classCards = (classes && classes.length) ? classes.slice(0, 4) : (t.fallbackClasses || []);
+    const cardVariants = [
+      { tile: 'bg-lotus-100 text-lotus-700', icon: 'M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z' },
+      { tile: 'bg-sage-100 text-sage-700', icon: 'M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2' },
+      { tile: 'bg-sand-200 text-sand-700', icon: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z' },
+      { tile: 'bg-clay-100 text-clay-700', icon: 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z' },
+    ];
+  %>
+  <section class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal flex items-end justify-between mb-12">
+        <div>
+          <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-2"><%= t.whatWeOffer %></p>
+          <h2 class="font-display text-3xl sm:text-4xl text-sand-900"><%= t.classesTitle %> <span class="italic"><%= t.classesTitleItalic %></span></h2>
+        </div>
+        <a href="/classes" class="hidden sm:flex items-center gap-2 text-sm text-sand-600 hover:text-sand-800 transition-colors group">
+          <%= t.viewAllClasses %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+      </div>
 
-<!-- Testimonials -->
-<section class="py-16 bg-sage-900 text-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-    <h2 class="font-display text-3xl font-bold text-center">
-      What Those Who Joined Say
-    </h2>
-
-    <div class="grid md:grid-cols-3 gap-6 mt-8">
-
-      <% testimonials.forEach(t => { %>
-
-        <div class="bg-white/5 border border-white/10 rounded-[24px] p-6 reveal">
-
-          <!-- Rating -->
-          <div class="text-terracotta-400">
-            ★★★★★
-          </div>
-
-          <!-- Testimoni -->
-          <p class="text-sm leading-relaxed mt-2 text-sage-100">
-            “<%= t.isi_testimoni %>”
-          </p>
-
-          <!-- User -->
-          <div class="flex items-center gap-3 mt-4">
-
-            <% if (t.foto) { %>
-              <img
-                src="<%= t.foto %>"
-                alt="<%= t.nama %>"
-                class="w-10 h-10 rounded-full object-cover"
-              >
-            <% } else { %>
-              <div
-                class="w-10 h-10 rounded-full bg-sage-700 flex items-center justify-center"
-              >
-                <span class="text-sm">
-                  <%= t.nama.charAt(0).toUpperCase() %>
-                </span>
-              </div>
-            <% } %>
-
-            <div>
-              <div class="text-sm font-semibold">
-                <%= t.nama %>
-              </div>
-
-              <div class="text-xs text-sage-300">
-                <%= t.jabatan || '' %>
-              </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <% classCards.forEach((c, i) => { const v = cardVariants[i % cardVariants.length]; %>
+          <a href="<%= c.slug ? '/classes/' + c.slug : '/classes' %>" class="card-earthy p-6 group cursor-pointer block h-full reveal" data-delay="<%= i * 90 %>">
+            <div class="icon-tile w-10 h-10 rounded-xl <%= v.tile %> flex items-center justify-center mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="<%= v.icon %>"></path>
+              </svg>
             </div>
-
-          </div>
-
-        </div>
-
-      <% }) %>
-
-    </div>
-  </div>
-</section>
-
-<!-- Pricing teaser -->
-<section class="py-16 bg-cream">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="font-display text-3xl font-bold text-center">A Better You Starts Here</h2>
-   
-<%
-  /*
-   * Package order:
-   * Normal Package
-   * Most Popular
-   * Normal Package
-   */
-
-  const allPackages = [...(packages || [])];
-
-  const popularPackage = allPackages.find(function(pkg) {
-    return pkg.is_popular;
-  });
-
-  const normalPackages = allPackages.filter(function(pkg) {
-    return !pkg.is_popular;
-  });
-
-  const sortedPackages = popularPackage
-    ? [
-        normalPackages[0],
-        popularPackage,
-        normalPackages[1]
-      ].filter(Boolean)
-    : allPackages.slice(0, 3);
-%>
-
-
-<div class="grid md:grid-cols-3 gap-6 mt-8 max-w-5xl mx-auto">
-
-  <% sortedPackages.forEach(function(pkg) { %>
-
-    <%
-      const options = pkg.options || [];
-      const features = pkg.features || [];
-
-      /*
-       * Format Rupiah
-       */
-      function formatPrice(price) {
-        return new Intl.NumberFormat('id-ID').format(price);
-      }
-
-
-      /*
-       * Find option with lowest final price
-       */
-      let lowestOption = null;
-      let lowestPrice = null;
-
-      options.forEach(function(option) {
-
-        let finalPrice;
-
-        if (
-          option.discount_price !== null &&
-          option.discount_price !== undefined &&
-          option.discount_price < option.price
-        ) {
-          finalPrice = option.discount_price;
-        } else {
-          finalPrice = option.price;
-        }
-
-        if (
-          lowestPrice === null ||
-          finalPrice < lowestPrice
-        ) {
-          lowestPrice = finalPrice;
-          lowestOption = option;
-        }
-
-      });
-
-
-      /*
-       * Discount
-       */
-      const hasDiscount =
-        lowestOption &&
-        lowestOption.discount_price !== null &&
-        lowestOption.discount_price !== undefined &&
-        lowestOption.discount_price < lowestOption.price;
-
-
-      /*
-       * Quota
-       */
-      let quotaText = null;
-
-      if (lowestOption) {
-
-        if (lowestOption.quota === null) {
-
-          quotaText = 'Unlimited';
-
-        } else if (lowestOption.quota !== undefined) {
-
-          quotaText = lowestOption.quota + ' Classes';
-
-        }
-
-      }
-
-
-      /*
-       * Duration
-       */
-      let durationText = null;
-
-      if (
-        lowestOption &&
-        lowestOption.duration
-      ) {
-
-        durationText =
-          lowestOption.duration +
-          ' ' +
-          lowestOption.duration_unit;
-
-      }
-    %>
-
-
-    <!-- PACKAGE CARD -->
-    <div
-      class="relative rounded-[24px] p-6 border
-        transition-all duration-300 reveal
-        <%= pkg.is_popular
-          ? 'bg-sage-700 text-white border-sage-700 shadow-xl md:scale-[1.02]'
-          : 'bg-white border-sage-100 hover:-translate-y-1 hover:shadow-lg'
-        %>"
-    >
-
-
-      <!-- POPULAR BADGE -->
-      <% if (pkg.is_popular) { %>
-
-        <span
-          class="inline-flex items-center gap-1
-            bg-terracotta-500 text-white
-            text-[10px] font-bold tracking-widest
-            px-3 py-1.5 rounded-full"
-        >
-
-          <i class="bi bi-star-fill"></i>
-
-          MOST POPULAR
-
-        </span>
-
-      <% } %>
-
-
-      <!-- PACKAGE NAME -->
-      <div class="<%= pkg.is_popular ? 'mt-4' : '' %>">
-
-        <h3
-          class="font-display text-2xl font-bold leading-tight"
-        >
-          <%= pkg.name %>
-        </h3>
-
-
-        <p
-          class="text-sm leading-relaxed mt-2
-            <%= pkg.is_popular
-              ? 'text-sage-200'
-              : 'text-stone-warm'
-            %>"
-        >
-          <%= pkg.description %>
-        </p>
-
-      </div>
-
-
-      <!-- PRICE -->
-      <% if (lowestOption) { %>
-
-        <div class="mt-6">
-
-          <div class="flex items-baseline gap-1">
-
-            <span
-              class="text-xs
-                <%= pkg.is_popular
-                  ? 'text-sage-200'
-                  : 'text-stone-warm'
-                %>"
-            >
-              Rp
-            </span>
-
-
-            <span class="text-3xl font-bold tracking-tight">
-              <%= formatPrice(lowestPrice) %>
-            </span>
-
-          </div>
-
-
-          <!-- ORIGINAL PRICE -->
-          <% if (hasDiscount) { %>
-
-            <div class="flex items-center gap-2 mt-1">
-
-              <span
-                class="text-xs line-through
-                  <%= pkg.is_popular
-                    ? 'text-sage-300'
-                    : 'text-stone-400'
-                  %>"
-              >
-                Rp <%= formatPrice(lowestOption.price) %>
-              </span>
-
-
-              <span
-                class="text-[10px] font-bold
-                  bg-terracotta-500 text-white
-                  px-2 py-0.5 rounded-full"
-              >
-                SAVE
-              </span>
-
+            <h3 class="font-display text-lg text-sand-900 mb-1"><%= c.name %></h3>
+            <p class="text-sm text-sand-500 leading-relaxed"><%= c.description || 'Explore a mindful class designed to support your journey.' %></p>
+            <div class="mt-4 flex items-center gap-1 text-xs text-gold opacity-0 group-hover:opacity-100 transition-opacity">
+              <%= t.learnMore %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
             </div>
-
-          <% } %>
-
-        </div>
-
-      <% } %>
-
-
-      <!-- PACKAGE INFO -->
-      <% if (quotaText || durationText) { %>
-
-        <div class="flex flex-wrap gap-2 mt-5">
-
-
-          <!-- QUOTA -->
-          <% if (quotaText) { %>
-
-            <span
-              class="inline-flex items-center gap-1.5
-                text-xs px-3 py-1.5 rounded-full
-                <%= pkg.is_popular
-                  ? 'bg-white/10 text-sage-100'
-                  : 'bg-sage-50 text-sage-700'
-                %>"
-            >
-
-              <% if (lowestOption.quota === null) { %>
-
-                <i class="bi bi-infinity"></i>
-
-              <% } else { %>
-
-                <i class="bi bi-check2-circle"></i>
-
-              <% } %>
-
-              <%= quotaText %>
-
-            </span>
-
-          <% } %>
-
-
-          <!-- DURATION -->
-          <% if (durationText) { %>
-
-            <span
-              class="inline-flex items-center gap-1.5
-                text-xs px-3 py-1.5 rounded-full
-                <%= pkg.is_popular
-                  ? 'bg-white/10 text-sage-100'
-                  : 'bg-sage-50 text-sage-700'
-                %>"
-            >
-
-              <i class="bi bi-calendar3"></i>
-
-              <%= durationText %>
-
-            </span>
-
-          <% } %>
-
-        </div>
-
-      <% } %>
-
-
-      <!-- FEATURES -->
-      <div
-        class="mt-5 border-t
-          <%= pkg.is_popular
-            ? 'border-white/10'
-            : 'border-sage-100'
-          %>"
-      >
-
-        <p
-          class="text-xs font-semibold uppercase tracking-wider mb-3 mt-5
-            <%= pkg.is_popular
-              ? 'text-sage-200'
-              : 'text-stone-500'
-            %>"
-        >
-          What's included
-        </p>
-
-<ul class="space-y-2.5">
-  <% features.slice(0, 3).forEach(function(feature) { %>
-    <li
-      class="flex items-start gap-2.5 text-sm
-        <%= pkg.is_popular
-          ? 'text-sage-100'
-          : 'text-stone-warm'
-        %>"
-    >
-      <span
-        class="shrink-0 mt-0.5
-          <%= pkg.is_popular
-            ? 'text-white'
-            : 'text-sage-700'
-          %>"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M20 6 9 17l-5-5"></path>
-        </svg>
-      </span>
-
-      <span>
-        <%= feature.feature %>
-      </span>
-    </li>
-  <% }) %>
-</ul>
-
+          </a>
+        <% }) %>
       </div>
 
-
-      <!-- CTA -->
-      <button
-        type="button"
-        onclick="window.location.href='/packages/<%= pkg.slug %>'"
-        class="w-full mt-7 py-3.5 rounded-full
-          font-semibold text-sm
-          transition-all duration-300
-          <%= pkg.is_popular
-            ? 'bg-white text-sage-700 hover:bg-sage-50'
-            : 'bg-sage-700 text-white hover:bg-sage-800'
-          %>"
-      >
-
-        View Package
-
-        <i class="bi bi-arrow-right ms-1"></i>
-
-      </button>
-
+      <a href="/classes" class="sm:hidden flex items-center justify-center gap-2 mt-6 text-sm text-sand-600">
+        <%= t.viewAllClasses %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+      </a>
     </div>
+  </section>
 
-  <% }) %>
+  <!-- ======================= OUR APPROACH ======================= -->
+  <%
+    const imgPool = ['/img/yogaroots_about1.jpg', '/img/yogaroots_about2.jpg', '/img/sita-manwani.jpg'];
+    const approachCards = (t.approachCards || []).map((a, i) => ({ ...a, img: imgPool[i % imgPool.length] }));
+  %>
+  <section class="py-24 px-6 bg-sand-100/50 relative">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center mb-16">
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.ourApproach %></p>
+        <h2 class="font-display text-4xl sm:text-5xl text-sand-900 leading-tight"><%= t.moreThanJust %> <span class="italic text-gold-dark"><%= t.moreThanJustItalic %></span></h2>
+      </div>
 
-</div>
-
-    <div class="text-center mt-6"><a href="/packages" class="text-sm font-semibold text-sage-700">View All Packages →</a></div>
-  </div>
-</section>
-
-<!-- Final CTA -->
-<section class="py-16 bg-white">
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="bg-sage-700 rounded-[32px] p-8 lg:p-12 text-white relative overflow-hidden text-center reveal">
-      <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
-      <h2 class="font-display text-3xl lg:text-4xl font-bold">CLOSE YOUR EYES. FIND CLARITY</h2>
-      <p class="text-sage-200 mt-3 max-w-2xl mx-auto">Moments of tranquillity and peace are so rare. You may be experiencing physical and emotional discomfort. Submerged in work, partner and family demands, it can be tough to get a handle on your life, let alone enjoy it.</p>
-      <div class="flex flex-wrap justify-center gap-3 mt-6">
-        <button onclick="openBooking()" class="bg-white text-sage-700 px-7 py-3.5 rounded-full font-semibold">Start Your Class →</button>
-        <a href="https://api.whatsapp.com/send/?phone=6281321221270&text=Hi%2C%20I%20found%20you%20through%20your%20website%20and%20would%20like%20more%20information%20about%20your%20classes.%20Thank%20you%21&app_absent=0" class="border border-white/30 px-7 py-3.5 rounded-full font-semibold hover:bg-white/10">Chat on WhatsApp</a>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <% approachCards.forEach((a, i) => { %>
+          <div class="approach-card reveal relative overflow-hidden rounded-2xl aspect-[4/5] group hover:-translate-y-1 transition-transform duration-300 shadow-lg ring-1 ring-sand-900/5" data-delay="<%= i * 120 %>">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[1400ms] group-hover:scale-105" style="background-image:url('<%= a.img %>')"></div>
+            <div class="approach-overlay absolute inset-0 bg-gradient-to-t from-black/75 via-black/30 to-black/10"></div>
+            <div class="relative h-full flex flex-col justify-end p-7">
+              <h3 class="font-display text-2xl text-white mb-2 leading-tight drop-shadow-sm"><%= a.title %></h3>
+              <p class="text-sm text-white/85 leading-relaxed drop-shadow-sm"><%= a.desc %></p>
+            </div>
+          </div>
+        <% }) %>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- ======================= UPCOMING / EVENTS ======================= -->
+  <section class="py-24 px-6 bg-clay-50/30">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal flex items-end justify-between mb-12">
+        <div>
+          <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-2"><%= t.upcoming %></p>
+          <h2 class="font-display text-3xl sm:text-4xl text-sand-900"><%= t.eventsTitle %> <span class="italic"><%= t.eventsTitleItalic %></span></h2>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% (events || []).slice(0, 3).forEach((event, i) => { %>
+          <button type="button" onclick="openEvent(<%= i %>)" class="reveal group relative overflow-hidden rounded-2xl aspect-[4/5] text-left w-full shadow-lg ring-1 ring-sand-900/5 hover:-translate-y-1 transition-transform duration-300" data-delay="<%= i * 100 %>">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[1400ms] group-hover:scale-105" style="background-image:url('<%= event.gambar || '/img/yogaroots_about1.jpg' %>')"></div>
+            <div class="approach-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10"></div>
+            <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded-full bg-sand-50/15 backdrop-blur-sm text-[9px] font-bold tracking-[0.15em] text-sand-50">EVENT</span>
+            <div class="relative h-full flex flex-col justify-end p-6">
+              <p class="text-xs text-sand-100/90 mb-2"><%= event.tanggal || '' %><% if (event.waktu_mulai) { %> · <%= String(event.waktu_mulai).substring(0, 5) %><% } %></p>
+              <h3 class="font-display text-xl text-white leading-tight drop-shadow-sm"><%= event.judul %></h3>
+              <p class="mt-3 inline-flex items-center gap-1.5 text-xs text-sand-100/80 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                <%= t.eventViewDetails %>
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </p>
+            </div>
+          </button>
+        <% }) %>
+      </div>
+
+      <% if ((events || []).length > 0) { %>
+        <div class="reveal flex justify-center mt-10">
+          <a href="/event" class="btn-secondary group inline-flex items-center gap-2 px-6 py-3 text-sm">
+            <%= t.viewAllEvents %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      <% } %>
+
+      <script id="eventsData" type="application/json"><%- JSON.stringify((events || []).slice(0, 3).map((e) => ({
+          gambar: e.gambar || "",
+          judul: e.judul || "",
+          tanggal: e.tanggal || "",
+          waktu_mulai: e.waktu_mulai ? String(e.waktu_mulai) : "",
+          waktu_selesai: e.waktu_selesai ? String(e.waktu_selesai) : "",
+          lokasi: e.lokasi || "",
+          deskripsi: e.deskripsi || ""
+        }))).replace(/</g, "\\u003c") %></script>
+
+      <!-- Event Modal -->
+      <div id="eventModal" class="fixed inset-0 z-[70] hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeEvent()"></div>
+        <div class="relative max-w-lg mx-auto mt-[6vh] mb-6 bg-white rounded-3xl shadow-2xl overflow-hidden">
+          <button onclick="closeEvent()" class="absolute right-4 top-4 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm grid place-items-center text-sand-700 hover:bg-white transition" aria-label="Close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+          </button>
+          <div class="p-6 sm:p-8">
+            <span class="px-2.5 py-1 rounded-full bg-sand-100 text-[9px] font-bold tracking-[0.15em] text-sand-600">EVENT</span>
+            <h3 id="eventTitle" class="font-display text-2xl text-sand-900 mt-3 leading-snug"></h3>
+            <div id="eventMeta" class="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-sm text-sand-600"></div>
+            <div id="eventDesc" class="mt-5 pt-5 border-t border-sand-100 text-sm text-sand-600 leading-relaxed [&_p]:m-0 [&_p]:mb-3"></div>
+            <a href="#" id="eventWhatsApp" target="_blank" rel="noopener noreferrer" class="btn-primary group w-full mt-6 py-3 justify-center">
+              <%= t.eventReserve %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="ms-2"><path d="M12.04 2a9.91 9.91 0 0 0-8.5 15.03L2 22l5.06-1.5A9.9 9.9 0 1 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.52.05-1.17.24-3.9-.81-3.28-1.31-5.34-4.72-5.5-4.94-.16-.22-1.32-1.75-1.32-3.34s.84-2.37 1.13-2.7c.3-.32.64-.4.86-.4h.62c.2 0 .46-.07.72.55.27.64.92 2.23.99 2.39.08.16.13.35.02.57-.1.22-.16.35-.31.54-.15.19-.32.43-.46.57-.15.16-.31.33-.13.64.18.31.8 1.32 1.72 2.14 1.18 1.05 2.18 1.38 2.49 1.53.31.16.49.13.67-.08.18-.2.77-.9.98-1.2.2-.31.4-.26.68-.16.28.11 1.76.83 2.06.98.3.15.5.23.57.35.08.13.08.72-.16 1.42Z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= FINAL CTA ======================= -->
+  <section class="py-24 px-6 bg-sand-200/40">
+    <div class="reveal max-w-3xl mx-auto text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-gold mx-auto mb-6">
+        <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
+        <path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path>
+      </svg>
+      <h2 class="font-display text-3xl sm:text-4xl text-sand-900 mb-4"><%= t.readyTitle %> <span class="italic"><%= t.readyTitleItalic %></span>?</h2>
+      <p class="text-sand-600 mb-8 max-w-lg mx-auto"><%= t.ctaDesc %></p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="https://wa.me/6281321221270" target="_blank" rel="noopener noreferrer" class="btn-primary group text-base px-8 py-3.5">
+          <%= t.chatWhatsApp %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+        <button onclick="openBooking()" class="btn-secondary group text-base px-8 py-3.5">
+          <%= t.bookClassCta %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
 
 <%- include('../partials/footer') %>
 <script src="/js/main.js"></script>

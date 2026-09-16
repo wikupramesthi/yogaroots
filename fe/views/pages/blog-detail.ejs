@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="<%= lang || 'en' %>">
   <head>
     <%- include('../partials/head') %>
   </head>
@@ -34,12 +34,11 @@
       >
         <div>
           <h3 class="font-semibold text-sage-900">
-            Need help finding your flow?
+            <%= t.ctaHelpTitle %>
           </h3>
 
           <p class="text-sm text-stone-500 mt-1">
-            Not sure which class is right for you? Chat with our team on
-            WhatsApp and we'll help you find the perfect practice.
+            <%= t.ctaHelpDesc %>
           </p>
         </div>
 
@@ -49,7 +48,7 @@
           rel="noopener noreferrer"
           class="bg-sage-700 text-white px-6 py-3 rounded-full text-sm font-semibold shrink-0 hover:bg-sage-800 transition"
         >
-          Chat on WhatsApp →
+          <%= t.ctaHelpBtn %>
         </a>
       </div>
     </article>

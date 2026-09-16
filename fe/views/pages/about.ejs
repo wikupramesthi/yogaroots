@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="<%= lang || 'en' %>">
+<head><%- include('../partials/head') %></head>
+<body class="min-h-screen bg-sand-50 antialiased">
+<%- include('../partials/navbar') %>
+
+<main>
+
+  <!-- ======================= HERO ======================= -->
+  <section class="relative overflow-hidden text-sand-50">
+    <img src="/img/yogaroots_about2.jpg" alt="" class="absolute inset-0 w-full h-full object-cover scale-105">
+    <div class="absolute inset-0 bg-gradient-to-br from-[#75542b]/95 via-[#543d22]/92 to-[#2c2013]/96"></div>
+    <div class="absolute inset-0" style="background:
+      radial-gradient(ellipse 70% 55% at 18% 12%, rgba(166,129,79,.55) 0%, transparent 62%),
+      radial-gradient(ellipse 60% 60% at 88% 95%, rgba(56,42,22,.65) 0%, transparent 65%)"></div>
+    <div class="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none" style="background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+    <div class="hero-shimmer"></div>
+
+    <div class="relative max-w-4xl mx-auto px-6 py-28 lg:py-40 text-center">
+      <span class="inline-flex items-center gap-2 rounded-full border border-sand-100/25 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-sand-100 anim-fade-in">
+        <span class="w-1.5 h-1.5 rounded-full bg-gold-light"></span>
+        <%= t.about.heroBadge %>
+      </span>
+      <h1 class="mt-6 font-display tracking-tight anim-slide-up" style="font-size:clamp(2.75rem, min(9vw, 12vh), 4.75rem); line-height:1.05">
+        <%= t.about.titleA %>
+        <span class="italic font-light text-gold-light"><%= t.about.titleB %></span>
+      </h1>
+      <p class="mt-6 font-sans text-base sm:text-lg text-sand-100/85 max-w-2xl mx-auto leading-relaxed anim-fade-in" style="animation-delay:.35s"><%= t.about.heroDesc %></p>
+    </div>
+  </section>
+
+  <!-- ======================= STORY ======================= -->
+  <section class="py-24 px-6">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div class="reveal relative">
+        <div class="absolute -top-6 -left-6 w-32 h-32 rounded-full bg-gold/10 blur-2xl"></div>
+        <img src="/img/yogaroots_about1.jpg" alt="YogaRoots studio" class="relative w-full aspect-[4/5] object-cover rounded-[2rem] shadow-xl ring-1 ring-sand-900/5">
+        <img src="/img/yogaroots_about2.jpg" alt="YogaRoots practice" class="hidden sm:block absolute -bottom-10 -right-6 w-44 lg:w-52 aspect-square object-cover rounded-2xl border-4 border-sand-50 shadow-lg">
+        <div class="absolute -bottom-6 -left-4 rounded-2xl bg-sand-900 text-sand-50 px-5 py-3 shadow-lg">
+          <div class="font-display text-2xl text-gold-light leading-none"><%= t.about.heroBadge.replace(/[^0-9]/g, '') || '2016' %></div>
+          <div class="text-[10px] uppercase tracking-[0.2em] text-sand-400 mt-1">YogaRoots</div>
+        </div>
+      </div>
+
+      <div class="reveal" data-delay="120">
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.about.storyEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sand-900 leading-tight mb-6"><%= t.about.storyTitle %></h2>
+        <p class="text-sand-600 leading-relaxed mb-4"><%= t.about.storyP1 %></p>
+        <p class="text-sand-600 leading-relaxed"><%= t.about.storyP2 %></p>
+        <a href="/classes" class="btn-primary group mt-8 py-3">
+          <%= t.viewAllClasses %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= VALUES ======================= -->
+  <%
+    const valueVariants = [
+      { tile: 'bg-lotus-100 text-lotus-700', icon: 'M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z' },
+      { tile: 'bg-sage-100 text-sage-700', icon: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z' },
+      { tile: 'bg-clay-100 text-clay-700', icon: 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z' },
+    ];
+  %>
+  <section class="py-24 px-6 bg-sand-100/60">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center mb-14">
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.about.valuesEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sand-900 leading-tight"><%= t.about.valuesTitle %> <span class="italic text-gold-dark"><%= t.about.valuesTitleItalic %></span></h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <% (t.about.values || []).forEach((v, i) => { const variant = valueVariants[i % valueVariants.length]; %>
+          <div class="relative card-earthy p-8 reveal overflow-hidden group" data-delay="<%= i * 120 %>">
+            <span class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-gold/0 via-gold/60 to-gold/0 scale-x-0 group-hover:scale-x-100 origin-center transition-transform duration-500"></span>
+            <div class="icon-tile w-12 h-12 rounded-2xl <%= variant.tile %> flex items-center justify-center mb-5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="<%= variant.icon %>"></path></svg>
+            </div>
+            <h3 class="font-display text-xl text-sand-900 mb-2"><%= v.title %></h3>
+            <p class="text-sm text-sand-500 leading-relaxed"><%= v.desc %></p>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= STATS ======================= -->
+  <section class="bg-sand-900 text-sand-50 py-16 px-6">
+    <div class="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      <% (t.about.stats || []).forEach((s, i) => { %>
+        <div class="reveal" data-delay="<%= i * 90 %>">
+          <div class="font-display text-4xl sm:text-5xl text-gold-light mb-2"><%= s.value %></div>
+          <div class="font-sans text-xs uppercase tracking-[0.15em] text-sand-400"><%= s.label %></div>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <!-- ======================= JOURNEY ======================= -->
+  <section class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center mb-16">
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.about.journeyEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sand-900 leading-tight"><%= t.about.journeyTitle %> <span class="italic text-gold-dark"><%= t.about.journeyTitleItalic %></span></h2>
+      </div>
+
+      <div class="relative">
+        <div class="hidden md:block absolute top-[7px] left-0 right-0 h-px bg-gradient-to-r from-transparent via-sand-300 to-transparent"></div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+          <% (t.about.milestones || []).forEach((m, i) => { %>
+            <div class="relative reveal" data-delay="<%= i * 110 %>">
+              <div class="flex md:block items-start gap-4">
+                <span class="relative z-10 block w-3.5 h-3.5 rounded-full bg-gold ring-4 ring-sand-50 shrink-0 md:mb-6"></span>
+                <div>
+                  <div class="font-display text-2xl text-gold-dark mb-1"><%= m.year %></div>
+                  <h3 class="font-semibold text-sand-900 mb-2"><%= m.title %></h3>
+                  <p class="text-sm text-sand-500 leading-relaxed"><%= m.desc %></p>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= WHY ======================= -->
+  <%
+    const whyVariants = [
+      'bg-lotus-100 text-lotus-700',
+      'bg-sage-100 text-sage-700',
+      'bg-clay-100 text-clay-700',
+      'bg-sand-200 text-sand-700',
+    ];
+    const whyIcons = [
+      '<path d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"></path><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"></path>',
+      '<path d="M22 7 13.5 15.5 8.5 10.5 2 17"></path><path d="M16 7h6v6"></path>',
+      '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6"></path>',
+      '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>',
+    ];
+  %>
+  <section class="py-24 px-6 bg-sand-100/60">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-[0.85fr_1.15fr] gap-14 lg:gap-20 items-center">
+      <div class="reveal">
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.about.whyEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sand-900 leading-tight mb-5"><%= t.about.whyTitle %> <span class="italic text-gold-dark"><%= t.about.whyTitleItalic %></span></h2>
+        <p class="text-sand-600 leading-relaxed max-w-md"><%= t.about.whyDesc %></p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-6">
+        <% (t.about.whyFeatures || []).forEach((f, i) => { %>
+          <div class="flex gap-4 reveal" data-delay="<%= i * 100 %>">
+            <div class="icon-tile w-11 h-11 rounded-xl <%= whyVariants[i % whyVariants.length] %> flex items-center justify-center shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><%- whyIcons[i % whyIcons.length] %></svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-sand-900 mb-1"><%= f.title %></h3>
+              <p class="text-sm text-sand-500 leading-relaxed"><%= f.desc %></p>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= QUOTE ======================= -->
+  <section class="py-24 px-6 bg-sand-900 text-sand-50 relative overflow-hidden">
+    <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-gold/10 blur-3xl"></div>
+    <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-lotus-600/10 blur-3xl"></div>
+    <div class="reveal relative max-w-3xl mx-auto text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-9 h-9 text-gold-light mx-auto mb-7"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path></svg>
+      <blockquote class="font-display text-2xl sm:text-3xl italic text-sand-100 leading-relaxed">"<%= t.about.quote %>"</blockquote>
+      <p class="mt-7 font-sans text-xs uppercase tracking-[0.25em] text-sand-400"><%= t.about.quoteAuthor %></p>
+    </div>
+  </section>
+
+  <!-- ======================= GALLERY ======================= -->
+  <section class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
+        <div>
+          <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.about.galleryEyebrow %></p>
+          <h2 class="font-display text-3xl sm:text-4xl text-sand-900 leading-tight"><%= t.about.galleryTitle %> <span class="italic text-gold-dark"><%= t.about.galleryTitleItalic %></span></h2>
+        </div>
+        <a href="/gallery" class="btn-secondary group py-2.5 self-start sm:self-auto">
+          <%= t.about.galleryCta %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <a href="/gallery" class="reveal group relative overflow-hidden rounded-2xl aspect-[4/5] col-span-2 md:col-span-1 row-span-1 md:row-span-2">
+          <img src="/img/sita-manwani.jpg" alt="YogaRoots moment" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <span class="absolute inset-0 bg-gradient-to-t from-sand-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+        </a>
+        <a href="/gallery" class="reveal group relative overflow-hidden rounded-2xl aspect-square" data-delay="100">
+          <img src="/img/yogaroots_about1.jpg" alt="YogaRoots moment" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <span class="absolute inset-0 bg-gradient-to-t from-sand-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+        </a>
+        <a href="/gallery" class="reveal group relative overflow-hidden rounded-2xl aspect-square" data-delay="180">
+          <img src="/img/yogaroots_about2.jpg" alt="YogaRoots moment" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <span class="absolute inset-0 bg-gradient-to-t from-sand-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= FINAL CTA ======================= -->
+  <section class="py-24 px-6 bg-sand-200/40">
+    <div class="reveal max-w-3xl mx-auto text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-gold mx-auto mb-6">
+        <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
+        <path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path>
+      </svg>
+      <h2 class="font-display text-3xl sm:text-4xl text-sand-900 mb-4"><%= t.readyTitle %> <span class="italic"><%= t.readyTitleItalic %></span>?</h2>
+      <p class="text-sand-600 mb-8 max-w-lg mx-auto"><%= t.ctaDesc %></p>
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="https://wa.me/6281321221270" target="_blank" rel="noopener noreferrer" class="btn-primary group text-base px-8 py-3.5">
+          <%= t.chatWhatsApp %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+        <button onclick="openBooking()" class="btn-secondary group text-base px-8 py-3.5">
+          <%= t.bookClassCta %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<%- include('../partials/footer') %>
+<script src="/js/main.js"></script>
+</body>
+</html>

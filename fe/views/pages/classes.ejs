@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="<%= lang || 'en' %>">
   <head>
     <%- include('../partials/head') %>
   </head>
@@ -16,16 +16,15 @@
             <span
               class="text-xs font-bold tracking-[0.2em] text-terracotta-600"
             >
-              CLASS SCHEDULE
+              <%= t.classesEyebrow %>
             </span>
 
             <h1 class="font-display text-4xl md:text-5xl font-bold mt-2">
-              Find your flow
+              <%= t.classesTitle %>
             </h1>
 
             <p class="text-stone-warm mt-3 max-w-2xl leading-relaxed">
-              Choose a class, pick your preferred time, and book your next
-              practice at YogaRoots.
+              <%= t.classesDesc %>
             </p>
           </div>
         </div>
@@ -695,12 +694,11 @@
         >
           <div>
             <h3 class="font-semibold text-sage-900">
-              Need help finding your flow?
+              <%= t.ctaHelpTitle %>
             </h3>
 
             <p class="text-sm text-stone-500 mt-1">
-              Not sure which class is right for you? Chat with our team on
-              WhatsApp and we'll help you find the perfect practice.
+              <%= t.ctaHelpDesc %>
             </p>
           </div>
 
@@ -710,7 +708,7 @@
             rel="noopener noreferrer"
             class="bg-sage-700 text-white px-6 py-3 rounded-full text-sm font-semibold shrink-0 hover:bg-sage-800 transition"
           >
-            Chat on WhatsApp →
+            <%= t.ctaHelpBtn %>
           </a>
         </div>
       </div>

@@ -4,12 +4,36 @@ const drawer = document.getElementById("mobileNav");
 if (btn && drawer)
   btn.addEventListener("click", () => drawer.classList.toggle("hidden"));
 
-// Navbar scroll effect
+// Navbar scroll effect (transparent → glass panel past 40px)
+// Inner pages stay in the "scrolled" glass state at all times
 const navbar = document.getElementById("navbar");
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 10) navbar.classList.add("shadow-sm");
-  else navbar.classList.remove("shadow-sm");
-});
+if (navbar) {
+  const navPill = navbar.querySelector("nav");
+  const alwaysSolid = navbar.dataset.static === "true";
+  const updateNavbar = () => {
+    const scrolled = alwaysSolid || window.scrollY > 40;
+    navbar.classList.toggle("scrolled", scrolled);
+    if (scrolled) navPill?.classList.add("glass-panel-strong");
+    else navPill?.classList.remove("glass-panel-strong");
+  };
+  window.addEventListener("scroll", updateNavbar, { passive: true });
+  updateNavbar();
+}
+
+// Language dropdown
+const langToggle = document.getElementById("langToggle");
+const langDropdown = document.getElementById("langDropdown");
+if (langToggle && langDropdown) {
+  langToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    langDropdown.classList.toggle("hidden");
+  });
+  document.addEventListener("click", (e) => {
+    if (!langDropdown.classList.contains("hidden") && !langToggle.contains(e.target)) {
+      langDropdown.classList.add("hidden");
+    }
+  });
+}
 
 // Booking modal
 window.openBooking = (kelas = "") => {
@@ -24,6 +48,51 @@ window.openBooking = (kelas = "") => {
 window.closeBooking = () => {
   document.getElementById("bookingModal")?.classList.add("hidden");
 };
+
+// Event modal (homepage events data)
+const eventsDataEl = document.getElementById("eventsData");
+const eventsData = eventsDataEl ? JSON.parse(eventsDataEl.textContent || "[]") : [];
+const eventModal = document.getElementById("eventModal");
+window.openEvent = (i) => {
+  const e = eventsData[i];
+  if (!e || !eventModal) return;
+  document.getElementById("eventTitle").textContent = e.judul || "";
+  const meta = document.getElementById("eventMeta");
+  let html = "";
+  if (e.tanggal)
+    html +=
+      '<span class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v4m8-4v4M4 9h16M6 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path></svg>' +
+      e.tanggal +
+      "</span>";
+  if (e.waktu_mulai)
+    html +=
+      '<span class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>' +
+      e.waktu_mulai.substring(0, 5) +
+      (e.waktu_selesai ? " - " + e.waktu_selesai.substring(0, 5) : "") +
+      "</span>";
+  if (e.lokasi)
+    html +=
+      '<span class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>' +
+      e.lokasi +
+      "</span>";
+  meta.innerHTML = html;
+  const desc = document.getElementById("eventDesc");
+  desc.innerHTML = e.deskripsi || "";
+  const wa = document.getElementById("eventWhatsApp");
+  if (e.judul) wa.href = "https://wa.me/6281321221270?text=" + encodeURIComponent("Hi, I want to book a spot for: " + e.judul);
+  eventModal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+};
+window.closeEvent = () => {
+  eventModal?.classList.add("hidden");
+  document.body.style.overflow = "";
+};
+document.addEventListener("keydown", (ev) => {
+  if (ev.key === "Escape") {
+    closeEvent();
+    closeBooking();
+  }
+});
 
 // Booking form
 document
@@ -206,17 +275,35 @@ if (darkBtn) {
   });
 }
 
-// Reveal on scroll
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((ent) => {
-      if (ent.isIntersecting)
-        ent.target.classList.add("!opacity-100", "!translate-y-0");
-    });
-  },
-  { threshold: 0.1 },
-);
-document.querySelectorAll(".reveal").forEach((el) => {
-  el.classList.add("opacity-0", "translate-y-6", "transition", "duration-700");
-  observer.observe(el);
-});
+// Reveal on scroll (stagger via data-delay, kannayoga easing)
+const revealEls = document.querySelectorAll(".reveal");
+function revealShow(el) {
+  el.classList.remove("reveal-hide");
+  el.classList.add("reveal-show");
+  const delay = parseInt(el.dataset.delay || "0", 10);
+  setTimeout(() => {
+    el.style.transitionDelay = "";
+  }, 850 + delay);
+}
+if ("IntersectionObserver" in window && revealEls.length) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((ent) => {
+        if (ent.isIntersecting) {
+          revealShow(ent.target);
+          revealObserver.unobserve(ent.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+  );
+  revealEls.forEach((el) => {
+    el.classList.add("reveal-hide");
+    const d = el.dataset.delay;
+    if (d) el.style.transitionDelay = d + "ms";
+    revealObserver.observe(el);
+  });
+} else {
+  // Fallback: show everything immediately
+  revealEls.forEach((el) => el.classList.add("reveal-show"));
+}

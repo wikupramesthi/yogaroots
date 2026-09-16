@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="<%= lang || 'en' %>">
 
 <head>
     <%- include('../partials/head') %>
@@ -18,13 +18,12 @@
   <div class="max-w-2xl">
 
          <h1 class="font-display text-4xl lg:text-5xl font-bold text-sage-900 mt-3 leading-tight">
-                Membership
-                <span class="text-terracotta-600">Packages</span>
+                <%= t.packagesTitleA %>
+                <span class="text-terracotta-600"><%= t.packagesTitleB %></span>
             </h1>
-                </h1>
 
                 <p class="mt-3 text-sm sm:text-base text-stone-500 leading-relaxed">
-                   Find the membership that fits your practice, your pace, and your goals. Explore flexible packages designed to make every Yogaroots session more meaningful.
+                   <%= t.packagesDesc %>
                 </p>
 
                     </div>

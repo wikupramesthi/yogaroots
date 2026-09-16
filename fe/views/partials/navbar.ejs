@@ -1,33 +1,66 @@
-<header id="navbar" class="sticky top-0 z-50 glass border-b border-sage-100 transition-all">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-[68px]">
+<% const isHome = currentPath === '/'; %>
+<header id="navbar" class="<%= isHome ? 'fixed inset-x-0 top-0 z-50' : 'sticky top-0 z-50 scrolled' %> transition-all" data-home="true" <%- isHome ? '' : 'data-static="true"' %>>
+  <div class="mx-auto max-w-6xl px-4 pt-4">
+    <nav class="rounded-2xl px-4 lg:px-6 py-3 flex items-center justify-between <%= isHome ? '' : 'glass-panel-strong' %>">
       <!-- Logo -->
-     <a href="/" class="flex items-center gap-3">
-  <img
-    src="/img/logo.png"
-    alt="YogaRoots"
-    class="w-20 h-auto object-contain">
-</a>
+      <a href="/" class="flex-shrink-0">
+        <img
+          src="/img/logo.png"
+          alt="Yoga Roots"
+          class="logo-main h-10 w-auto object-contain"
+        >
+      </a>
 
       <!-- Desktop Nav -->
-      <nav class="hidden lg:flex items-center gap-1">
+      <div class="hidden lg:flex items-center gap-1">
         <% nav.forEach(item => { %>
-          <a href="<%= item.href %>" class="px-3 py-2 rounded-full text-sm font-medium transition <%= currentPath===item.href ? 'bg-sage-700 text-white' : 'text-stone-warm hover:text-ink hover:bg-sage-50' %>"><%= item.label %></a>
+          <a
+            href="<%= item.href %>"
+            class="nav-link <%= currentPath === item.href ? 'nav-link-active' : (isHome ? '' : 'text-sand-700 hover:text-sand-900 hover:bg-sand-100') %> px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
+          ><%= (t.nav && t.nav[item.key]) || item.label %></a>
         <% }) %>
-      </nav>
-
-      <div class="flex items-center gap-2">
-        <button id="darkToggle" class="w-9 h-9 rounded-full border border-sage-200 grid place-items-center text-sm hover:bg-sage-50" title="Toggle theme">◐</button>
-        <button onclick="openBooking()" class="hidden sm:inline-flex items-center gap-2 bg-terracotta-600 hover:bg-terracotta-500 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition">Register Now</button>
-        <button id="mobileBtn" class="lg:hidden w-9 h-9 rounded-full bg-sage-700 text-white grid place-items-center">☰</button>
       </div>
-    </div>
+
+      <!-- Right side -->
+      <div class="hidden lg:flex items-center gap-3">
+        <!-- Language switcher -->
+        <div class="relative hidden lg:block">
+          <button id="langToggle" class="nav-text flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm transition-all duration-200 <%= isHome ? '' : 'text-sand-600 hover:text-sand-900 hover:bg-sand-100' %>">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+            <span><%= lang === 'id' ? 'ID' : 'EN' %></span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+          </button>
+          <div id="langDropdown" class="lang-dropdown hidden">
+            <a href="?lang=en" class="<%= lang === 'en' ? 'active' : '' %>">English</a>
+            <a href="?lang=id" class="<%= lang === 'id' ? 'active' : '' %>">Indonesia</a>
+          </div>
+        </div>
+
+        <a href="/contact" rel="noopener noreferrer" class="nav-text text-sm transition-colors <%= isHome ? '' : 'text-sand-600 hover:text-sand-900' %>"><%= t.contactUs %></a>
+
+        <button onclick="openBooking()" class="nav-login inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition-colors"><%= t.login %></button>
+      </div>
+
+      <!-- Mobile -->
+      <div class="lg:hidden flex items-center gap-2">
+        <button onclick="openBooking()" class="nav-login inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition-colors"><%= t.login %></button>
+        <button id="mobileBtn" class="nav-hamburger p-2 rounded-lg transition-colors <%= isHome ? '' : 'text-sand-800 hover:bg-sand-100' %>" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+        </button>
+      </div>
+    </nav>
   </div>
+
   <!-- Mobile drawer -->
-  <div id="mobileNav" class="hidden lg:hidden border-t border-sage-100 bg-cream px-4 py-4 space-y-1">
+  <div id="mobileNav" class="mobile-drawer hidden lg:hidden mx-4 mt-2 rounded-2xl border px-4 py-4 space-y-1 <%= isHome ? '' : 'bg-white border-sand-200' %>">
     <% nav.forEach(item => { %>
-      <a href="<%= item.href %>" class="block px-4 py-3 rounded-xl text-sm font-medium <%= currentPath===item.href ? 'bg-sage-700 text-white' : 'bg-white border border-sage-100' %>"><%= item.label %></a>
+      <a href="<%= item.href %>" class="block px-4 py-3 rounded-xl text-sm font-medium <%= currentPath === item.href ? 'bg-sand-800 text-white' : (isHome ? 'hover:bg-white/10' : 'hover:bg-sand-100') %>"><%= (t.nav && t.nav[item.key]) || item.label %></a>
     <% }) %>
-    <button onclick="openBooking()" class="block text-center bg-terracotta-600 text-white px-4 py-3 rounded-xl font-semibold mt-2">Ikuti Kelas Sekarang →</button>
+    <div class="flex items-center gap-3 px-4 py-3 mt-2 border-t <%= isHome ? 'border-white/15' : 'border-sand-100' %>">
+      <a href="?lang=en" class="text-sm <%= lang === 'en' ? 'font-bold' : '' %>">🇬🇧 English</a>
+      <span class="<%= isHome ? 'text-white/30' : 'text-sand-300' %>">|</span>
+      <a href="?lang=id" class="text-sm <%= lang === 'id' ? 'font-bold' : '' %>">🇮🇩 Indonesia</a>
+    </div>
+    <button onclick="openBooking()" class="block w-full text-center bg-lotus-600 text-white px-4 py-3 rounded-xl font-semibold mt-2"><%= t.bookClassBtn %></button>
   </div>
 </header>

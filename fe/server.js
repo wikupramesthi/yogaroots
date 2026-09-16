@@ -4,6 +4,19 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { yogaData } from "./data/yogaData.js";
+import { translations } from "./data/translations.js";
+
+function parseCookies(req) {
+  const cookies = {};
+  const header = req.headers.cookie;
+  if (header) {
+    header.split(";").forEach((c) => {
+      const [k, ...v] = c.trim().split("=");
+      cookies[k] = decodeURIComponent(v.join("=") || "");
+    });
+  }
+  return cookies;
+}
 import { getArticles, getArticle } from "./services/articleService.js";
 import { getBanners } from "./services/bannerService.js";
 import { getContactCaptcha, sendContact } from "./services/contactServices.js";
@@ -39,6 +52,29 @@ app.use((req, res, next) => {
   next();
 });
 
+// i18n middleware
+app.use((req, res, next) => {
+  // Language switch via query param: ?lang=en or ?lang=id
+  if (req.query.lang && ["en", "id"].includes(req.query.lang)) {
+    res.setHeader(
+      "Set-Cookie",
+      `locale=${req.query.lang}; Path=/; Max-Age=${365 * 24 * 60 * 60}; SameSite=Lax`
+    );
+    const url = new URL(
+      req.originalUrl,
+      `${req.protocol}://${req.get("host")}`
+    );
+    url.searchParams.delete("lang");
+    return res.redirect(url.pathname + url.search);
+  }
+
+  const cookies = parseCookies(req);
+  const lang = cookies.locale || "en";
+  res.locals.lang = lang;
+  res.locals.t = translations[lang] || translations.en;
+  next();
+});
+
 // Routes
 app.get("/", async (req, res) => {
   try {
@@ -49,6 +85,10 @@ app.get("/", async (req, res) => {
     });
 
     const packages = await getPackages({
+      per_page: 3,
+    });
+
+    const events = await getEvents({
       per_page: 3,
     });
 
@@ -65,6 +105,7 @@ app.get("/", async (req, res) => {
 
       classes: classes.data || classes,
       packages: packages || [],
+      events: Array.isArray(events) ? events : events?.data || [],
 
       testimonials: testimonials.slice(0, 3),
     });
@@ -80,9 +121,17 @@ app.get("/", async (req, res) => {
 
       classes: [],
       packages: [],
+      events: [],
       testimonials: [],
     });
   }
+});
+
+// about
+app.get("/about", (req, res) => {
+  res.render("pages/about", {
+    title: "About YogaRoots — Our Story & Practice",
+  });
 });
 
 // classes
@@ -135,14 +184,6 @@ app.get("/pages/:slug", async (req, res, next) => {
 
     next(error);
   }
-});
-
-app.get("/schedule", (req, res) => {
-  res.render("pages/schedule", {
-    title: "Jadwal Mingguan",
-    schedule: yogaData.schedule,
-    days: ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"],
-  });
 });
 
 app.get("/instructors", async (req, res) => {
@@ -413,7 +454,6 @@ app.get("/contact", async (req, res) => {
 
 // API
 app.get("/api/classes", (req, res) => res.json(yogaData.classes));
-app.get("/api/schedule", (req, res) => res.json(yogaData.schedule));
 
 app.post("/api/booking", (req, res) => {
   const { name, email, kelas, date } = req.body;

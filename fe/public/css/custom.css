@@ -291,3 +291,294 @@
     height: 28px;
   }
 }
+
+/* =========================
+   GLASS PANEL (kannayoga)
+========================= */
+.glass-panel-strong {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(250, 248, 245, 0.92);
+}
+
+/* =========================
+   HOMEPAGE NAVBAR SCROLL
+========================= */
+
+/* Smooth transition for nav pill */
+header[data-home] > div > nav {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Logo: white on transparent, normal on scroll */
+header[data-home] .logo-main {
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+header[data-home].scrolled .logo-main {
+  filter: none;
+}
+
+/* Nav links: light on transparent, dark on scroll */
+header[data-home] .nav-link {
+  color: rgba(250, 248, 245, 0.85);
+  transition: all 0.2s ease;
+}
+header[data-home] .nav-link:hover {
+  color: #faf8f5;
+  background: rgba(255, 255, 255, 0.1);
+}
+header[data-home] .nav-link-active {
+  background: rgba(255, 255, 255, 0.15);
+  color: #faf8f5;
+}
+header[data-home].scrolled .nav-link {
+  color: #6e5b42;
+}
+header[data-home].scrolled .nav-link:hover {
+  color: #362c1f;
+  background: rgba(245, 240, 234, 0.6);
+}
+header[data-home].scrolled .nav-link-active {
+  background: #524330;
+  color: #faf8f5;
+}
+
+/* Contact + EN button: light on transparent, dark on scroll */
+header[data-home] .nav-text {
+  color: rgba(250, 248, 245, 0.85);
+  transition: color 0.2s ease;
+}
+header[data-home] .nav-text:hover {
+  color: #faf8f5;
+}
+header[data-home].scrolled .nav-text {
+  color: #6e5b42;
+}
+header[data-home].scrolled .nav-text:hover {
+  color: #362c1f;
+}
+
+/* Login button: outlined on transparent, solid on scroll */
+header[data-home] .nav-login {
+  border-color: rgba(250, 248, 245, 0.5);
+  color: #faf8f5;
+  background: transparent;
+  transition: all 0.2s ease;
+}
+header[data-home] .nav-login:hover {
+  background: rgba(250, 248, 245, 0.1);
+}
+header[data-home].scrolled .nav-login {
+  border-color: #524330;
+  background: #524330;
+  color: #faf8f5;
+}
+header[data-home].scrolled .nav-login:hover {
+  background: #362c1f;
+}
+
+/* Hamburger: light on transparent, dark on scroll */
+header[data-home] .nav-hamburger {
+  color: #faf8f5;
+}
+header[data-home].scrolled .nav-hamburger {
+  color: #524330;
+}
+
+/* Mobile drawer: dark translucent on transparent, glass on scroll */
+header[data-home] .mobile-drawer {
+  background: rgba(54, 44, 31, 0.95);
+  color: #faf8f5;
+  backdrop-filter: blur(16px);
+}
+header[data-home].scrolled .mobile-drawer {
+  background: rgba(250, 248, 245, 0.95);
+  border-color: rgba(221, 210, 192, 0.5);
+  color: #362c1f;
+}
+
+/* =========================
+   LANGUAGE DROPDOWN
+========================= */
+.lang-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  min-width: 10rem;
+  background: white;
+  border-radius: 0.75rem;
+  border: 1px solid #ebe3d8;
+  box-shadow: 0 8px 32px rgba(30, 24, 16, 0.12);
+  padding: 0.5rem 0;
+  z-index: 60;
+}
+.lang-dropdown a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: #524330;
+  transition: background 0.15s;
+}
+.lang-dropdown a:hover {
+  background: #f5f0ea;
+}
+.lang-dropdown a.active {
+  background: #f5f0ea;
+  font-weight: 600;
+  color: #362c1f;
+}
+
+/* =========================
+   MOTION & ENTRANCE FX
+========================= */
+
+@keyframes heroSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes floatY {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+  45%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+/* Hero entrance helpers */
+.anim-slide-up {
+  animation: heroSlideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.anim-fade-in {
+  animation: heroFadeIn 1.1s ease both;
+}
+.anim-float {
+  animation: floatY 4s ease-in-out infinite;
+}
+
+/* Scroll indicator: chevron bobbing */
+@keyframes chevronBob {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 0.35;
+  }
+}
+.scroll-chevron {
+  animation: chevronBob 1.8s ease-in-out infinite;
+}
+
+/* Hero sheen sweeping across */
+.hero-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 32%,
+    rgba(255, 255, 255, 0.07) 46%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  animation: shimmer 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Reveal on scroll (global upgrade) */
+.reveal-hide {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal-show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card micro-interaction: icon tile */
+.icon-tile {
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease;
+}
+.card-earthy:hover .icon-tile {
+  transform: scale(1.1) rotate(-4deg);
+  box-shadow: 0 6px 18px rgba(30, 24, 16, 0.12);
+}
+
+/* Approach card: deepens gradient on hover */
+.approach-overlay {
+  transition: background 0.4s ease;
+}
+.approach-card:hover .approach-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.4) 45%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+}
+
+/* Buttons: arrow nudge on hover */
+.btn-arrow {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-primary:hover .btn-arrow,
+.btn-secondary:hover .btn-arrow,
+.group:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal-hide,
+  .anim-slide-up,
+  .anim-fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

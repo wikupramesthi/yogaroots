@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="<%= lang || 'en' %>">
   <head>
     <%- include('../partials/head') %>
   </head>
@@ -11,11 +11,10 @@
       <div class="grid lg:grid-cols-2 gap-10">
         <!-- LEFT -->
         <div>
-          <h1 class="font-display text-4xl font-bold">Connect With Us</h1>
+<h1 class="font-display text-4xl font-bold"><%= t.contactTitle %></h1>
 
           <p class="text-stone-warm mt-2">
-            Have a question? We’re here to listen, guide, and help you find what
-            feels right for your journey.
+            <%= t.contactDesc %>
           </p>
 
           <!-- CONTACT INFO -->

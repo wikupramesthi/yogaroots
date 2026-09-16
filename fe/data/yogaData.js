@@ -12,13 +12,11 @@ export const yogaData = {
     year: new Date().getFullYear(),
   },
   nav: [
-    { label: "Home", href: "/" },
-    { label: "Classes", href: "/classes" },
-    { label: "Packages", href: "/packages" },
-    { label: "Instructors", href: "/instructors" },
-    { label: "Events", href: "/event" },
-    { label: "Articles", href: "/blog" },
-    { label: "Contact", href: "/contact" },
+    { key: "about", label: "About", href: "/about" },
+    { key: "classes", label: "Classes", href: "/classes" },
+    { key: "packages", label: "Packages", href: "/packages" },
+    { key: "instructors", label: "Instructors", href: "/instructors" },
+    { key: "events", label: "Events", href: "/event" },
   ],
   hero: {
     eyebrow: "BREATHE YOUR WAY TO PEACE",
@@ -26,7 +24,7 @@ export const yogaData = {
     subtitle:
       "Push the off button on it. Burn your bridges with it. You don't have to live with stress, anxiety and pain. Living can be a joyful adventure instead, one where you're in control of how you meet the circumstances of your life. Armed with the knowledge of breath and meditation, you'll win your battles in no time!",
     ctaPrimary: "Start Your Class",
-    ctaSecondary: "View Schedule",
+    ctaSecondary: "View Classes",
     image: "img/sita-manwani.jpg",
     floating: [
       { label: "500+ Kelas / bulan", icon: "🧘" },

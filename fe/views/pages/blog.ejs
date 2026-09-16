@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="<%= lang || 'en' %>">
 
 <head>
   <%- include('../partials/head') %>
@@ -13,12 +13,12 @@
       <div class="max-w-2xl">
 
     <h1 class="font-display text-4xl lg:text-5xl font-bold text-sage-900 mt-3 leading-tight">
-                Tips &
-                <span class="text-terracotta-600">Inspiration</span>
+                <%= t.blogTitleA %>
+                <span class="text-terracotta-600"><%= t.blogTitleB %></span>
             </h1>
 
     <p class="text-stone-warm mt-2">
-     Discover helpful tips, inspiring ideas, and simple practices to support a healthier body, a calmer mind, and a more balanced life.
+     <%= t.blogDesc %>
     </p>
 
     </div>

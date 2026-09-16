@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="<%= lang || 'en' %>">
 
 <head>
   <%- include('../partials/head') %>
@@ -16,14 +16,13 @@
       <div class="max-w-2xl">
 
          <h1 class="font-display text-4xl lg:text-5xl font-bold text-sage-900 mt-3 leading-tight">
-                Something New
-                <span class="text-terracotta-600">Awaits You</span>
+                <%= t.eventsTitleA %>
+                <span class="text-terracotta-600"><%= t.eventsTitleB %></span>
             </h1>
 </h1>
 
 <p class="mt-3 text-sm sm:text-base text-stone-500 leading-relaxed">
-    Explore our upcoming events and workshops.
-    Find new ways to learn, move, connect, and enjoy meaningful moments together.
+    <%= t.eventsDesc %>
 </p>
 
       </div>
@@ -64,7 +63,7 @@
               type="text"
               name="search"
               value="<%= typeof search !== 'undefined' ? search : '' %>"
-              placeholder="Search events, workshops, or classes..."
+              placeholder="<%= t.eventsSearchPlaceholder %>"
               class="w-full h-11 pl-10 pr-4 rounded-xl bg-stone-50
                      border border-transparent text-sm text-stone-700
                      placeholder:text-stone-400 outline-none
@@ -118,7 +117,7 @@
                      text-white text-sm font-semibold
                      hover:bg-stone-700 transition"
             >
-              Search
+              <%= t.eventsSearchBtn %>
             </button>
 
             <%
@@ -177,7 +176,7 @@
             : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
           %>"
         >
-          All
+          <%= t.eventsFilterAll %>
         </a>
 
 
@@ -189,7 +188,7 @@
             : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
           %>"
         >
-          Today
+          <%= t.eventsFilterToday %>
         </a>
 
 
@@ -201,7 +200,7 @@
             : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
           %>"
         >
-          This Week
+          <%= t.eventsFilterWeek %>
         </a>
 
 
@@ -213,7 +212,7 @@
             : 'bg-white border border-stone-200 text-stone-500 hover:border-stone-300'
           %>"
         >
-         This Month
+         <%= t.eventsFilterMonth %>
         </a>
 
       </div>
@@ -228,12 +227,12 @@
         <div>
 
           <h2 class="font-display text-2xl font-bold text-stone-800">
-            Events & Workshops
+            <%= t.eventsHeading %>
           </h2>
 
           <p class="text-xs text-stone-400 mt-1">
             <%= typeof totalEvents !== 'undefined' ? totalEvents : events.length %>
-            event available
+            <%= t.eventsCount %>
           </p>
 
         </div>
