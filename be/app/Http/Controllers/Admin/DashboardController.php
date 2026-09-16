@@ -19,6 +19,8 @@ use App\Models\Class\ClassSchedule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
@@ -27,8 +29,13 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
+        // =========================
+        // DASHBOARD STATISTICS
+        // =========================
+
         $jumlahInstruktur = User::role('instruktur')->count();
         $jumlahMembers = User::role('user')->count();
+
         $totalClasses = ClassModel::count();
         $totalPackages = Package::count();
         $totalArticles = Article::count();
@@ -37,6 +44,11 @@ class DashboardController extends Controller
         $totalPolling = Poll::count();
         $totalPesan = Kontak::count();
         $totalTestimonial = Testimonial::count();
+
+
+        // =========================
+        // ACTIVE BANNER
+        // =========================
 
         $banner = Banner::where('status', 'active')
             ->where('posisi', 'slider')
@@ -55,7 +67,7 @@ class DashboardController extends Controller
             ->get();
 
         // =========================
-        // TODAY'S SCHEDULE
+        // DAY CONFIGURATION
         // =========================
 
         $days = [
@@ -69,8 +81,12 @@ class DashboardController extends Controller
         ];
 
         $today = strtolower(now()->format('l'));
-
         $currentDayIndex = array_search($today, $days);
+        $nextDay = $days[($currentDayIndex + 1) % count($days)];
+
+        // =========================
+        // TODAY'S SCHEDULE
+        // =========================
 
         $todaySchedules = ClassSchedule::with([
             'class.instructor'
@@ -82,12 +98,10 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        // =========================
-        // UPCOMING CLASSES
-        // NEXT DAY ONLY
-        // =========================
 
-        $nextDay = $days[($currentDayIndex + 1) % 7];
+        // =========================
+        // NEXT DAY SCHEDULE
+        // =========================
 
         $upcomingClasses = ClassSchedule::with([
             'class.instructor'
@@ -98,42 +112,105 @@ class DashboardController extends Controller
             ->take(3)
             ->get();
 
+
+        // =========================
+        // ART OF LIVING COURSES API
+        // =========================
+
+        // =========================
+        // ART OF LIVING COURSES API
+        // =========================
+
+        $courses = [];
+
+        try {
+
+            $response = Http::timeout(30)
+                ->withHeaders([
+                    'Accept' => 'application/json',
+                    'User-Agent' => 'Mozilla/5.0',
+                ])
+                ->get('https://unity.artofliving.org/csapi/courses', [
+                    'type' => 'country',
+                    'limit' => 100,
+                    'distance' => 50,
+                    'language' => 'id-id',
+                    'country' => 'id',
+                    'order_by' => 'start_date',
+                ]);
+
+            if ($response->successful()) {
+
+                $courses = $response->json('courses', []);
+
+                Log::info('Art of Living Courses', [
+                    'total' => count($courses),
+                    'courses' => $courses,
+                ]);
+            } else {
+
+                Log::warning('Art of Living API Error', [
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                ]);
+            }
+        } catch (\Throwable $e) {
+
+            Log::error('Art of Living API Exception', [
+                'message' => $e->getMessage(),
+            ]);
+        }
+
+
         // =========================
         // DETECT MOBILE
         // =========================
 
         $isMobile = preg_match(
             '/Mobile|Android|iPhone|iPad|iPod/i',
-            request()->header('User-Agent')
+            request()->userAgent()
         );
 
-        // =========================
-        // RETURN VIEW
-        // =========================
 
-        $isMobile = preg_match(
-            '/Mobile|Android|iPhone|iPad|iPod/i',
-            request()->header('User-Agent')
-        );
+        // =========================
+        // MOBILE USER
+        // =========================
 
         if ($user->hasRole('user') && $isMobile) {
+
             return view('pages.mobile.home', compact(
                 'user',
+
+                // Statistics
                 'jumlahInstruktur',
                 'jumlahMembers',
                 'totalClasses',
                 'totalPackages',
                 'totalArticles',
                 'totalEvents',
+
+                // Banner
                 'banner',
+
+                // Events & Schedule
                 'events',
                 'todaySchedules',
-                'upcomingClasses'
+                'upcomingClasses',
+
+                // API Courses
+                'courses'
             ));
         }
 
+
+        // =========================
+        // DESKTOP / ADMIN
+        // =========================
+
         return view('pages.dashboard.index', compact(
             'user',
+
+            // Statistics
             'jumlahInstruktur',
             'jumlahMembers',
             'totalClasses',
@@ -144,9 +221,14 @@ class DashboardController extends Controller
             'totalPolling',
             'totalPesan',
             'totalTestimonial',
+
+            // Events & Schedule
             'events',
             'todaySchedules',
-            'upcomingClasses'
+            'upcomingClasses',
+
+            // API Courses
+            'courses'
         ));
     }
 

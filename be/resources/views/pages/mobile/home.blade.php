@@ -39,8 +39,10 @@
 
             <div class="veil"></div>
             <div class="position-absolute bottom-0 start-0 end-0 p-4">
-                <span class="chip bg-light text-dark"><i class="bi bi-star-fill text-terra"></i> 4.9 • 2.400+
-                    reviews</span>
+                <span class="chip bg-light text-dark">
+                    <i class="bi bi-heart-fill text-terra"></i>
+                    Wellness & Mindfulness
+                </span>
 
                 @if ($banner->deskripsi)
                 <h2
@@ -51,7 +53,7 @@
                 @endif
 
                 <a href="{{ route('packages.member') }}" class="btn btn-warm px-4 py-2 mt-3">
-                    Get Membership →
+                    Book Your Class →
                 </a>
 
             </div>
@@ -297,6 +299,202 @@
                 <p class="mb-0 text-muted2 small">
                     You don't have any upcoming classes yet.
                 </p>
+            </div>
+
+            @endforelse
+
+        </div>
+
+        {{-- =========================
+    Art Of Living
+========================= --}}
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <h3 class="h5 fw-semibold mb-0">
+                Art of Living
+            </h3>
+
+            <span class="badge bg-primary-subtle text-primary">
+                {{ count($courses) }} Courses
+            </span>
+        </div>
+
+        <div class="d-grid gap-2 mt-3">
+
+            @forelse ($courses as $course)
+
+            @php
+            $title = $course['title'] ?? 'Art of Living Course';
+
+            $startDate = !empty($course['start_date'])
+            ? \Carbon\Carbon::parse($course['start_date'])
+            : null;
+
+            $city = $course['city'] ?? '-';
+
+            $teachers = $course['teachers'] ?? [];
+
+            $teacher = is_array($teachers) && count($teachers)
+            ? implode(', ', $teachers)
+            : null;
+
+            $fee = (int) ($course['course_fee'] ?? 0);
+
+            $registerUrl = $course['register_url'] ?? null;
+
+            $isFull = ($course['is_event_capacity_full'] ?? '0') == '1';
+
+            $isClosed = !empty($course['is_registration_closed']);
+            @endphp
+
+
+            <div class="app-card p-3">
+
+                <div class="d-flex gap-3">
+
+                    {{-- DATE --}}
+                    <div
+                        class="d-flex flex-column align-items-center justify-content-center bg-sage-soft flex-shrink-0"
+                        style="
+                        width:52px;
+                        height:52px;
+                        border-radius:15px;
+                    ">
+                        @if ($startDate)
+
+                        <span
+                            class="fw-bold text-sage"
+                            style="font-size:17px; line-height:1;">
+                            {{ $startDate->format('d') }}
+                        </span>
+
+                        <span
+                            class="text-muted2 text-uppercase mt-1"
+                            style="font-size:9px;">
+                            {{ $startDate->format('M') }}
+                        </span>
+
+                        @else
+
+                        <span class="fw-bold text-muted2">
+                            -
+                        </span>
+
+                        @endif
+                    </div>
+
+
+                    {{-- CONTENT --}}
+                    <div class="flex-fill min-w-0">
+
+                        {{-- TITLE --}}
+                        <div
+                            class="fw-semibold text-truncate"
+                            style="font-size:13px;"
+                            title="{{ $title }}">
+                            {{ $title }}
+                        </div>
+
+
+                        {{-- LOCATION + TEACHER --}}
+                        <div
+                            class="text-muted2 text-truncate mt-1"
+                            style="font-size:11px;">
+                            <i class="bi bi-geo-alt me-1"></i>
+                            {{ $city }}
+
+                            @if ($teacher)
+                            · {{ $teacher }}
+                            @endif
+                        </div>
+
+
+                        {{-- BOTTOM --}}
+                        <div
+                            class="d-flex align-items-center justify-content-between mt-2">
+
+                            {{-- DATE --}}
+                            <span
+                                class="text-muted2"
+                                style="font-size:10px;">
+                                @if ($startDate)
+                                {{ $startDate->format('d M Y') }}
+                                @endif
+                            </span>
+
+
+                            <div class="d-flex align-items-center gap-2">
+
+                                {{-- PRICE --}}
+                                @if ($isFull)
+
+                                <span
+                                    class="badge rounded-pill bg-danger-subtle text-danger-emphasis"
+                                    style="font-size:9px;">
+                                    Full
+                                </span>
+
+                                @elseif ($isClosed)
+
+                                <span
+                                    class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis"
+                                    style="font-size:9px;">
+                                    Closed
+                                </span>
+
+                                @elseif ($fee > 0)
+
+                                <span
+                                    class="text-muted2"
+                                    style="font-size:10px;">
+                                    Rp {{ number_format($fee, 0, ',', '.') }}
+                                </span>
+
+                                @else
+
+                                <span
+                                    class="text-success"
+                                    style="font-size:10px;">
+                                    Free
+                                </span>
+
+                                @endif
+
+
+                                {{-- REGISTER --}}
+                                @if ($registerUrl && !$isFull && !$isClosed)
+
+                                <a
+                                    href="{{ $registerUrl }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="btn btn-sm btn-success rounded-pill px-3 py-1"
+                                    style="font-size:10px;">
+                                    Register
+                                </a>
+
+                                @endif
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            @empty
+
+            <div class="app-card text-center p-3">
+
+                <i class="bi bi-calendar2-week text-muted2 fs-4"></i>
+
+                <p class="mb-0 mt-1 small fw-semibold">
+                    No Courses Available
+                </p>
+
             </div>
 
             @endforelse

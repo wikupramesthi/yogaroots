@@ -632,6 +632,271 @@
                 @endforeach
             </div>
         </div>
+
+
+    </div>
+
+    <div class="row g-4 mb-4">
+
+        <!-- Kelas berikutnya -->
+        <!-- Art of Living Courses -->
+        <div class="col-lg-12">
+            <div class="card border-0 h-100">
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <h6 class="fw-bold mb-1" style="color:var(--bs-heading-color);">
+                                Upcoming Courses
+                            </h6>
+
+                            <small class="text-secondary">
+                                Art of Living programs
+                            </small>
+                        </div>
+
+                        <span class="badge bg-primary-subtle text-primary">
+                            {{ count($courses) }} Courses
+                        </span>
+                    </div>
+
+
+                    @forelse ($courses as $course)
+
+                    @php
+                    $title = $course['title'] ?? 'Art of Living Course';
+
+                    $startDate = !empty($course['start_date'])
+                    ? \Carbon\Carbon::parse($course['start_date'])
+                    : null;
+
+                    $endDate = !empty($course['end_date'])
+                    ? \Carbon\Carbon::parse($course['end_date'])
+                    : null;
+
+                    $city = $course['city'] ?? '-';
+
+                    $teachers = $course['teachers'] ?? [];
+
+                    $teacher = is_array($teachers) && count($teachers)
+                    ? implode(', ', $teachers)
+                    : null;
+
+                    $fee = (int) ($course['course_fee'] ?? 0);
+
+                    $registerUrl = $course['register_url'] ?? null;
+
+                    $isFull = ($course['is_event_capacity_full'] ?? '0') == '1';
+
+                    $isClosed = !empty($course['is_registration_closed']);
+
+                    $timing = $course['course_complex_timing']
+                    ?? $course['complex_timings']
+                    ?? $course['weekday_timings']
+                    ?? null;
+
+                    if ($timing) {
+                    $timing = str_ireplace(
+                    ['<br>', '<br />', '<br />'],
+                    ' • ',
+                    $timing
+                    );
+
+                    $timing = strip_tags($timing);
+                    }
+                    @endphp
+
+
+                    <div class="py-3 border-bottom">
+
+                        <div class="d-flex align-items-center gap-3">
+
+                            {{-- DATE --}}
+                            <div
+                                class="d-flex flex-column align-items-center justify-content-center flex-shrink-0"
+                                style="
+                                width:58px;
+                                height:58px;
+                                border-radius:14px;
+                                background:#eef6f1;
+                            ">
+
+                                @if ($startDate)
+
+                                <span
+                                    class="fw-bold"
+                                    style="
+                                        font-size:18px;
+                                        line-height:1;
+                                        color:var(--bs-success);
+                                    ">
+                                    {{ $startDate->format('d') }}
+                                </span>
+
+                                <span
+                                    class="text-secondary text-uppercase mt-1"
+                                    style="font-size:9px;">
+                                    {{ $startDate->format('M') }}
+                                </span>
+
+                                @else
+
+                                <span class="fw-bold text-secondary">
+                                    -
+                                </span>
+
+                                @endif
+
+                            </div>
+
+
+                            {{-- COURSE INFO --}}
+                            <div class="flex-grow-1 min-w-0">
+
+                                <div
+                                    class="fw-semibold text-truncate"
+                                    style="color:var(--bs-heading-color);">
+                                    {{ $title }}
+                                </div>
+
+
+                                {{-- LOCATION --}}
+                                <div
+                                    class="small text-secondary text-truncate mt-1">
+                                    <i class="bi bi-geo-alt me-1"></i>
+                                    {{ $city }}
+
+                                    @if ($teacher)
+                                    &nbsp;•&nbsp;
+
+                                    <i class="bi bi-person me-1"></i>
+                                    {{ $teacher }}
+                                    @endif
+                                </div>
+
+
+                                {{-- DATE + TIME --}}
+                                <div
+                                    class="small text-secondary mt-1">
+                                    @if ($startDate)
+
+                                    <i class="bi bi-calendar3 me-1"></i>
+
+                                    {{ $startDate->format('d M Y') }}
+
+                                    @if (
+                                    $endDate &&
+                                    $startDate->format('Y-m-d') !== $endDate->format('Y-m-d')
+                                    )
+                                    - {{ $endDate->format('d M Y') }}
+                                    @endif
+
+                                    @endif
+
+                                    @if ($timing)
+                                    &nbsp;•&nbsp;
+                                    <i class="bi bi-clock me-1"></i>
+                                    {{ $timing }}
+                                    @endif
+                                </div>
+
+                            </div>
+
+
+                            {{-- PRICE + BUTTON --}}
+                            <div
+                                class="text-end flex-shrink-0"
+                                style="min-width:110px;">
+
+                                {{-- PRICE / STATUS --}}
+                                <div class="mb-2">
+
+                                    @if ($isFull)
+
+                                    <span class="badge bg-danger-subtle text-danger-emphasis">
+                                        Full
+                                    </span>
+
+                                    @elseif ($isClosed)
+
+                                    <span class="badge bg-secondary-subtle text-secondary-emphasis">
+                                        Closed
+                                    </span>
+
+                                    @elseif ($fee > 0)
+
+                                    <div
+                                        class="fw-semibold"
+                                        style="font-size:12px;">
+                                        Rp {{ number_format($fee, 0, ',', '.') }}
+                                    </div>
+
+                                    @else
+
+                                    <span class="badge bg-success-subtle text-success-emphasis">
+                                        Free
+                                    </span>
+
+                                    @endif
+
+                                </div>
+
+
+                                {{-- REGISTER --}}
+                                @if ($registerUrl && !$isFull && !$isClosed)
+
+                                <a
+                                    href="{{ $registerUrl }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="btn btn-sm btn-primary rounded-3 px-3"
+                                    style="font-size:11px;">
+                                    Register
+                                    <i class="bi bi-arrow-up-right ms-1"></i>
+                                </a>
+
+                                @endif
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    @empty
+
+                    <div class="text-center py-5">
+
+                        <div class="mb-3">
+                            <i
+                                class="bi bi-calendar2-week"
+                                style="
+                                font-size:2rem;
+                                color:var(--bs-secondary-color);
+                            "></i>
+                        </div>
+
+                        <h6
+                            class="fw-semibold mb-1"
+                            style="color:var(--bs-heading-color);">
+                            No Upcoming Courses
+                        </h6>
+
+                        <p class="small text-secondary mb-0">
+                            There are no upcoming Art of Living courses.
+                        </p>
+
+                    </div>
+
+                    @endforelse
+
+                </div>
+            </div>
+        </div>
+
+
+
     </div>
 
 </div>
