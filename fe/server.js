@@ -42,7 +42,6 @@ app.use((req, res, next) => {
 // Routes
 app.get("/", async (req, res) => {
   try {
-    const posts = await getArticles();
     const testimonials = await getTestimonials();
 
     const classes = await getClasses({
@@ -68,7 +67,6 @@ app.get("/", async (req, res) => {
       packages: packages || [],
 
       testimonials: testimonials.slice(0, 3),
-      posts: posts.slice(0, 3),
     });
   } catch (error) {
     console.error("Gagal mengambil data API dari backend:", error);
@@ -83,7 +81,6 @@ app.get("/", async (req, res) => {
       classes: [],
       packages: [],
       testimonials: [],
-      posts: [],
     });
   }
 });

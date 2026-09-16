@@ -285,69 +285,6 @@
   </div>
 </section>
 
-<!-- Artikel preview -->
-<section class="py-16 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-wrap justify-between items-end gap-4">
-      <div>
-        <span class="text-xs font-bold tracking-[0.2em] text-terracotta-600">LATEST ARTICLES</span>
-        <h2 class="font-display text-4xl font-bold mt-1">Inspiration for a Balanced Life</h2>
-      </div>
-      <a href="/blog" class="bg-sage-700 text-white px-6 py-3 rounded-full text-sm font-semibold">View All Articles →</a>
-    </div>
-
- <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-
-    <% posts.forEach(p => { %>
-
-      <a
-        href="/blog/<%= p.slug %>"
-        class="bg-white border border-sage-100 rounded-[24px] overflow-hidden hover:shadow-lg transition group"
-      >
-
-        <img
-          src="<%= p.image %>"
-          alt="<%= p.title %>"
-          class="h-[200px] w-full object-cover group-hover:scale-[1.02] transition"
-        >
-
-        <div class="p-5">
-
-          <div class="flex items-center gap-2 text-xs">
-
-            <span class="bg-sage-700 text-white px-2.5 py-1 rounded-full font-semibold">
-              <%= p.category %>
-            </span>
-
-            <span class="text-stone-warm">
-              <%= p.date %>
-            </span>
-
-          </div>
-
-          <h3 class="font-semibold mt-3 leading-tight">
-            <%= p.title %>
-          </h3>
-
-          <p class="text-sm text-stone-warm mt-2 line-clamp-2">
-            <%= p.excerpt %>
-          </p>
-
-          <span class="text-xs font-semibold text-sage-700 mt-4 inline-block">
-            Baca selengkapnya →
-          </span>
-
-        </div>
-
-      </a>
-
-    <% }) %>
-
-  </div>
-    
-  </div>
-</section>
-
 <!-- Testimonials -->
 <section class="py-16 bg-sage-900 text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
