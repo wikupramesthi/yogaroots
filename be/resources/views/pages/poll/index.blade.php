@@ -1,21 +1,21 @@
 @extends('layouts.app')
-@section('title', 'Poling Publik')
+@section('title', 'Public Poll')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Pusat Informasi" page="Pusat Informasi" active="Poling Publik" route="{{ route('poll.index') }}" />
+<x-breadcrumb title="Information Center" page="Information Center" active="Public Poll" route="{{ route('poll.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Poling Publik</h4>
+                <h4 class="fw-normal mb-0 text-body">Public Poll</h4>
                 @can('poll.store')
                 <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
                     data-bs-target="#modal-form-add-polls">
                     <i class="bi bi-plus-lg"></i>
-                    Tambah Baru
+                    Add New
                 </button>
                 @endcan
 
@@ -27,11 +27,11 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Pertanyaan</th>
-                            <th>Opsi</th>
+                            <th>Question</th>
+                            <th>Options</th>
                             <th>Status</th>
                             <th>Edit</th>
-                            <th>Hapus</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,7 +59,7 @@
                                 @can('poll.destroy')
                                 <a onclick="showSweetAlert('{{  $item->uuid }}')" title="Delete"
                                     class="btn btn-icon btn-danger text-white">
-                                    <i class="bi bi-x-square"></i> Hapus
+                                    <i class="bi bi-x-square"></i> Delete
                                 </a>
                                 <form id="deleteForm_{{  $item->uuid }}" action="{{ route('poll.destroy',  $item->uuid) }}"
                                     method="POST">
@@ -85,11 +85,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data ini akan dihapus secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin ingin menghapusnya?',
+            title: 'Delete Confirmation',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Delete!'
         }).then((result) => {
             if (result.isConfirmed) {
                 // If the user clicks "Yes, delete it!", submit the corresponding form
@@ -107,7 +107,7 @@ document.getElementById('add-option').addEventListener('click', function() {
     input.type = 'text';
     input.name = 'options[]';
     input.classList.add('form-control', 'mb-2');
-    input.placeholder = 'Opsi tambahan';
+    input.placeholder = 'Additional option';
     wrapper.appendChild(input);
 });
 </script>

@@ -8,7 +8,7 @@
         @method('PUT')
 
         <div class="modal-header">
-          <h5 class="modal-title" id="modal-form-edit-user-{{ $user->uuid }}-label">Edit Pengguna ({{ $user->name }})
+          <h5 class="modal-title" id="modal-form-edit-user-{{ $user->uuid }}-label">Edit User ({{ $user->name }})
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
         </div>

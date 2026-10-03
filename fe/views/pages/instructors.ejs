@@ -47,11 +47,17 @@
 
                             <% if (ins.avatar) { %>
 
-                                <img
-                                    src="<%= ins.avatar %>"
-                                    alt="<%= ins.name %>"
-                                    class="w-full h-[250px] object-cover group-hover:scale-[1.03] transition duration-500"
-                                >
+                                <div class="relative w-full h-[250px] bg-sage-50 grid place-items-center">
+                                    <span class="font-display text-5xl font-bold text-sage-300">
+                                        <%= (ins.name || '?').charAt(0).toUpperCase() %>
+                                    </span>
+                                    <img
+                                        src="<%= ins.avatar %>"
+                                        alt="<%= ins.name %>"
+                                        onerror="this.remove()"
+                                        class="absolute inset-0 w-full h-[250px] object-cover group-hover:scale-[1.03] transition duration-500"
+                                    >
+                                </div>
 
                             <% } else { %>
 
@@ -236,28 +242,7 @@
 
         <% } %>
 
-         <div
-          class="bg-white border border-sage-100 rounded-[24px] p-6 mt-8 flex flex-col lg:flex-row justify-between gap-4 items-start lg:items-center"
-        >
-          <div>
-            <h3 class="font-semibold text-sage-900">
-              <%= t.ctaHelpTitle %>
-            </h3>
-
-            <p class="text-sm text-stone-500 mt-1">
-              <%= t.ctaHelpDesc %>
-            </p>
-          </div>
-
-          <a
-            href="https://api.whatsapp.com/send/?phone=6281321221270&text=Hi%2C%20I%20found%20you%20through%20your%20website%20and%20would%20like%20more%20information%20about%20your%20classes.%20Thank%20you%21&app_absent=0"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-sage-700 text-white px-6 py-3 rounded-full text-sm font-semibold shrink-0 hover:bg-sage-800 transition"
-          >
-            <%= t.ctaHelpBtn %>
-          </a>
-        </div>
+         <%- include('../partials/cta-help') %>
 
     </section>
 
@@ -265,7 +250,7 @@
     <%- include('../partials/footer') %>
 
 
-    <script src="/js/main.js"></script>
+    <script src="/js/main.js?v=<%= assetV %>"></script>
 
 </body>
 

@@ -47,7 +47,7 @@
                     <label for="featured_image" class="mb-2">Page Image</label>
                     @if ($page->featured_image)
                     <div class="mb-2">
-                        <img src="{{ asset('storage/' . $page->featured_image) }}" alt="Gambar"
+                        <img src="{{ asset('storage/' . $page->featured_image) }}" alt="Image"
                             class="img-thumbnail" width="200">
                     </div>
                     @endif
@@ -62,10 +62,10 @@
                     <label for="has_sidebar" class="mb-2">Show in Sidebar <span
                             class="text-danger">*</span></label>
                     <select name="has_sidebar" id="has_sidebar" class="form-control">
-                        <option value="1" {{ old('has_sidebar', $page->has_sidebar) == 1 ? 'selected' : '' }}>Ya
+                        <option value="1" {{ old('has_sidebar', $page->has_sidebar) == 1 ? 'selected' : '' }}>Yes
                         </option>
                         <option value="0" {{ old('has_sidebar', $page->has_sidebar) == 0 ? 'selected' : '' }}>
-                            Tidak</option>
+                            No</option>
                     </select>
                 </div>
 

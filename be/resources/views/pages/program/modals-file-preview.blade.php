@@ -2,14 +2,14 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Lihat Surat Pernyataan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                <h5 class="modal-title">View Statement Letter</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 @if ($item->user && $item->user->surat_pernyataan && file_exists(public_path('storage/' . $item->user->surat_pernyataan)))
                 <iframe src="{{ asset('storage/' . $item->user->surat_pernyataan) }}" width="100%" height="800px" frameborder="0"></iframe>
                 @else
-                <p class="text-danger">File surat pernyataan belum diunggah.</p>
+                <p class="text-danger">Statement letter file has not been uploaded yet.</p>
                 @endif
             </div>
         </div>
@@ -20,14 +20,14 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Lihat Profil Komunitas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                <h5 class="modal-title">View Community Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 @if ($item->user && $item->user->profil_komunitas && file_exists(public_path('storage/' . $item->user->profil_komunitas)))
                 <iframe src="{{ asset('storage/' . $item->user->profil_komunitas) }}" width="100%" height="800px" frameborder="0"></iframe>
                 @else
-                <p class="text-danger">File profil komunitas belum diunggah.</p>
+                <p class="text-danger">Community profile file has not been uploaded yet.</p>
                 @endif
             </div>
         </div>
@@ -38,14 +38,14 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Lihat Logo Komunitas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                <h5 class="modal-title">View Community Logo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-center">
                 @if ($item->logo_komunitas && file_exists(public_path('storage/' . $item->logo_komunitas)))
-                    <img src="{{ asset('storage/' . $item->logo_komunitas) }}" alt="Logo Komunitas" class="img-fluid rounded">
+                    <img src="{{ asset('storage/' . $item->logo_komunitas) }}" alt="Community Logo" class="img-fluid rounded">
                 @else
-                    <p class="text-danger">File logo komunitas belum diunggah.</p>
+                    <p class="text-danger">Community logo file has not been uploaded yet.</p>
                 @endif
             </div>
         </div>
@@ -61,34 +61,34 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalUpdateStatusLabel-{{ $item->id }}">Status Kegiatan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    <h5 class="modal-title" id="modalUpdateStatusLabel-{{ $item->id }}">Activity Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
                     <div class="form-group mb-3">
-                        <label for="status-{{ $item->id }}" class="mb-2">Pilih Status <span class="text-danger">*</span></label>
+                        <label for="status-{{ $item->id }}" class="mb-2">Select Status <span class="text-danger">*</span></label>
                         <select name="status" id="status-{{ $item->id }}" class="form-select" required>
-                            <option value="diterima" {{ $item->status == 'diterima' ? 'selected' : '' }}>Diterima</option>
-                            <option value="diperbaiki" {{ $item->status == 'diperbaiki' ? 'selected' : '' }}>Diperbaiki</option>
-                            <option value="ditolak" {{ $item->status == 'ditolak' ? 'selected' : '' }}>Ditutup</option>
+                            <option value="diterima" {{ $item->status == 'diterima' ? 'selected' : '' }}>Accepted</option>
+                            <option value="diperbaiki" {{ $item->status == 'diperbaiki' ? 'selected' : '' }}>Needs Revision</option>
+                            <option value="ditolak" {{ $item->status == 'ditolak' ? 'selected' : '' }}>Closed</option>
                         </select>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="catatan" class="mb-2">Catatan</label>
+                        <label for="catatan" class="mb-2">Notes</label>
                         <textarea type="text" name="catatan" class="form-control @error('catatan') is-invalid @enderror"
                             value="{{ old('catatan', $item->catatan) }}">{{ old('catatan', $item->catatan) }}</textarea>
                              @error('catatan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <small>*Status akan mempengaruhi tahapan program ini dalam sistem.</small>
+                    <small>*The status will affect the stages of this program in the system.</small>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>
         </div>

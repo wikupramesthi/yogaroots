@@ -2,6 +2,10 @@
 @section('title', 'Studios')
 @section('content')
 
+@section('breadcrumb')
+<x-breadcrumb title="Studios" page="Studios" active="All Studios" route="{{ route('studios.index') }}" />
+@endsection
+
 @if (session('success'))
 <div class="alert alert-success alert-dismissible mb-3 mt-3 fade show" role="alert">
     <span class="alert-text text-white"> {{ session('success') }}</span>
@@ -10,29 +14,57 @@
     </button>
 </div>
 @endif
+@if (session('error'))
+<div class="alert alert-danger alert-dismissible mb-3 mt-3 fade show" role="alert">
+    <span class="alert-text text-white"> {{ session('error') }}</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
 
 
 <div class="page-heading">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
-        <div>
-            <h3 class="fw-bold mb-1" style="color: var(--bs-heading-color);">
-                Studios
-            </h3>
-            <p class="text-muted mb-0">
-                Manage your YogaRoots studio locations.
-            </p>
+    <div class="row g-3 ml-stats">
+        <div class="col-6 col-xl-3">
+            <div class="card shadow-sm"><div class="card-body py-2 px-3"><div class="ml-stat">
+                <div class="ml-stat-icon ic-primary"><i class="bx bx-building"></i></div>
+                <div><div class="ml-stat-value">{{ number_format($stats['total']) }}</div><div class="ml-stat-label">Total Studios</div></div>
+            </div></div></div>
         </div>
-
-        @can('studios.create')
-        <div>
-            <a href="{{ route('studios.create') }}"
-                class="btn btn-primary d-flex align-items-center gap-2 px-4">
-                <i class="bi bi-plus-lg"></i>
-                Add Studio
-            </a>
+        <div class="col-6 col-xl-3">
+            <div class="card shadow-sm"><div class="card-body py-2 px-3"><div class="ml-stat">
+                <div class="ml-stat-icon ic-success"><i class="bx bx-check-shield"></i></div>
+                <div><div class="ml-stat-value">{{ number_format($stats['active']) }}</div><div class="ml-stat-label">Active Studios</div></div>
+            </div></div></div>
         </div>
-        @endcan
+        <div class="col-6 col-xl-3">
+            <div class="card shadow-sm"><div class="card-body py-2 px-3"><div class="ml-stat">
+                <div class="ml-stat-icon ic-warning"><i class="bx bx-pause-circle"></i></div>
+                <div><div class="ml-stat-value">{{ number_format($stats['inactive']) }}</div><div class="ml-stat-label">Inactive Studios</div></div>
+            </div></div></div>
+        </div>
+        <div class="col-6 col-xl-3">
+            <div class="card shadow-sm"><div class="card-body py-2 px-3"><div class="ml-stat">
+                <div class="ml-stat-icon ic-violet"><i class="bx bx-calendar-event"></i></div>
+                <div><div class="ml-stat-value">{{ number_format($stats['schedules']) }}</div><div class="ml-stat-label">Total Schedules</div></div>
+            </div></div></div>
+        </div>
+    </div>
 
+    <div class="card shadow-sm mb-4">
+        <div class="card-body py-2 px-3">
+            <div class="d-flex flex-wrap align-items-end justify-content-between gap-3">
+                <form method="GET" action="{{ route('studios.index') }}" class="d-flex flex-wrap align-items-end gap-2 flex-grow-1">
+                    <div style="flex:1 1 160px;min-width:0;"><label class="form-label small mb-0">Search</label><input type="text" name="q" value="{{ $q }}" class="form-control form-control-sm w-100" placeholder="Name, address..." autocomplete="off"></div>
+                    <div style="flex:1 1 130px;min-width:0;max-width:200px;"><label class="form-label small mb-0">Status</label><select name="status" class="form-select form-select-sm w-100"><option value="">All</option><option value="active" @selected($status==='active')>Active</option><option value="inactive" @selected($status==='inactive')>Inactive</option></select></div>
+                    <div class="d-flex gap-1"><button type="submit" class="btn btn-sm btn-success"><i class="bi bi-funnel"></i> Filter</button><a href="{{ route('studios.index') }}" class="btn btn-sm btn-light">Reset</a></div>
+                </form>
+                @can('studios.create')
+                <a href="{{ route('studios.create') }}" class="btn btn-sm btn-primary"><i class="bi bi-plus-lg"></i> Add Studio</a>
+                @endcan
+            </div>
+        </div>
     </div>
 
     <div class="row g-4">
@@ -46,7 +78,8 @@
                     <img src="{{ asset('storage/' . $studio->image) }}"
                         alt="{{ $studio->name }}"
                         class="w-100"
-                        style="height: 210px; object-fit: cover;">
+                        style="height: 210px; object-fit: cover;"
+                        loading="lazy">
                     @else
                     <div class="d-flex align-items-center justify-content-center bg-light"
                         style="height: 210px;">
@@ -216,19 +249,26 @@
 
                     <h5 class="fw-bold mb-2"
                         style="color: var(--bs-heading-color);">
-                        No Studios Yet
+                        No Studios Found
                     </h5>
 
                     <p class="text-muted mb-4">
+                        @if ($q !== '' || $status !== '')
+                        Try a different keyword or filter, or
+                        <a href="{{ route('studios.index') }}">reset the filter</a>.
+                        @else
                         Add your first YogaRoots studio location.
+                        @endif
                     </p>
 
                     @can('studios.create')
+                    @if ($q === '' && $status === '')
                     <a href="{{ route('studios.create') }}"
                         class="btn btn-primary px-4">
                         <i class="bi bi-plus-lg me-1"></i>
                         Add Studio
                     </a>
+                    @endif
                     @endcan
 
                 </div>

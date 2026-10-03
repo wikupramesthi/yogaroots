@@ -8,16 +8,16 @@
 
     <meta name="title" content="YogaRoots | Studio Wellness, Yoga & Mindfulness">
     <meta name="description"
-        content="YogaRoots adalah studio wellness di Jakarta yang menghadirkan ruang untuk yoga, meditasi, mindfulness, dan praktik kebugaran untuk membantu tubuh dan pikiran lebih seimbang.">
+        content="YogaRoots is a wellness studio in Jakarta offering space for yoga, meditation, mindfulness, and fitness practices to help balance body and mind.">
     <meta name="keywords"
-        content="YogaRoots Jakarta, studio yoga Jakarta, yoga Jakarta, kelas yoga Jakarta, mindfulness Jakarta, meditasi Jakarta, wellness Jakarta, studio wellness Jakarta">
+        content="YogaRoots Jakarta, Jakarta yoga studio, yoga Jakarta, Jakarta yoga classes, Jakarta mindfulness, Jakarta meditation, Jakarta wellness, Jakarta wellness studio">
     <meta name="author" content="YogaRoots">
     <meta name="robots" content="index, follow">
 
     <meta property="og:title"
         content="YogaRoots | Studio Wellness, Yoga & Mindfulness">
     <meta property="og:description"
-        content="Ruang wellness di Jakarta untuk yoga, meditasi, mindfulness, dan praktik kebugaran yang mendukung keseimbangan tubuh dan pikiran.">
+        content="A wellness space in Jakarta for yoga, meditation, mindfulness, and fitness practices that support body-mind balance.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="YogaRoots">
     <meta property="og:image" content="{{ asset('img/seamless-pattern3.png') }}">

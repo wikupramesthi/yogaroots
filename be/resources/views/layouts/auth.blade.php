@@ -8,16 +8,16 @@
 
     <meta name="title" content="YogaRoots | Studio Wellness, Yoga & Mindfulness">
     <meta name="description"
-        content="YogaRoots adalah studio wellness di Jakarta yang menghadirkan ruang untuk yoga, meditasi, mindfulness, dan praktik kebugaran untuk membantu tubuh dan pikiran lebih seimbang.">
+        content="YogaRoots is a wellness studio in Jakarta offering space for yoga, meditation, mindfulness, and fitness practices to help balance body and mind.">
     <meta name="keywords"
-        content="YogaRoots Jakarta, studio yoga Jakarta, yoga Jakarta, kelas yoga Jakarta, mindfulness Jakarta, meditasi Jakarta, wellness Jakarta, studio wellness Jakarta">
+        content="YogaRoots Jakarta, Jakarta yoga studio, yoga Jakarta, Jakarta yoga classes, Jakarta mindfulness, Jakarta meditation, Jakarta wellness, Jakarta wellness studio">
     <meta name="author" content="YogaRoots">
     <meta name="robots" content="index, follow">
 
     <meta property="og:title"
         content="YogaRoots | Studio Wellness, Yoga & Mindfulness">
     <meta property="og:description"
-        content="Ruang wellness di Jakarta untuk yoga, meditasi, mindfulness, dan praktik kebugaran yang mendukung keseimbangan tubuh dan pikiran.">
+        content="A wellness space in Jakarta for yoga, meditation, mindfulness, and fitness practices that support body-mind balance.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="YogaRoots">
     <meta property="og:image" content="{{ asset('img/seamless-pattern3.png') }}">
@@ -63,7 +63,7 @@
         eyeBtn.addEventListener('click', () => {
             const isHidden = passwordInput.type === 'password';
             passwordInput.type = isHidden ? 'text' : 'password';
-            eyeBtn.setAttribute('aria-label', isHidden ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+            eyeBtn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
             eyeIcon.innerHTML = isHidden ?
                 '<path d="M3 3l18 18" /><path d="M10.6 10.6a3 3 0 0 0 4.24 4.24"/><path d="M6.5 6.6C3.9 8.3 2 12 2 12s3.5 7 10 7c1.9 0 3.5-.5 4.9-1.3"/><path d="M17.9 17.9C20.4 16.1 22 12 22 12s-3.5-7-10-7c-.6 0-1.2.05-1.8.14"/>' :
                 '<path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3"/>';

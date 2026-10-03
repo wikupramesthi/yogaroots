@@ -18,9 +18,16 @@ class ClassController extends Controller
      */
     public function index(Request $request)
     {
-        $query = ClassModel::with('instructor');
+        $search = trim((string) $request->get('search', ''));
+        $level = $request->get('level', '');
+        $level = in_array($level, ['foundation', 'intermediate', 'advance'], true) ? $level : '';
+        $is_active = $request->get('is_active', '');
+        $is_active = in_array($is_active, ['active', 'inactive'], true) ? $is_active : '';
+        $instructor_uuid = $request->get('instructor_uuid', '');
 
-        // Instruktur hanya melihat class miliknya
+        $query = ClassModel::query();
+
+        // Instructors only see their own classes
         if (auth()->user()->hasRole('instruktur')) {
             $query->where(
                 'instructor_uuid',
@@ -28,30 +35,44 @@ class ClassController extends Controller
             );
         }
 
+        if ($search !== '') {
+            $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search) . '%';
+            $query->where('name', 'like', $like);
+        }
+
         // Filter level
-        if ($request->filled('level')) {
-            $query->where('level', $request->level);
+        if ($level !== '') {
+            $query->where('level', $level);
         }
 
         // Filter status
-        if ($request->filled('is_active')) {
-            $query->where('is_active', $request->is_active);
+        if ($is_active !== '') {
+            $query->where('is_active', $is_active);
         }
 
         // Filter instructor - hanya admin
         if (
             auth()->user()->hasRole('admin') &&
-            $request->filled('instructor_uuid')
+            $instructor_uuid !== ''
         ) {
             $query->where(
                 'instructor_uuid',
-                $request->instructor_uuid
+                $instructor_uuid
             );
         }
 
-        $classes = $query
+        $classes = (clone $query)
+            ->with('instructor')
             ->latest()
             ->get();
+
+        // Stats follow the active filter so numbers stay in sync with the data.
+        $stats = [
+            'total' => (clone $query)->count(),
+            'active' => (clone $query)->where('is_active', 'active')->count(),
+            'inactive' => (clone $query)->where('is_active', 'inactive')->count(),
+            'schedules' => \App\Models\Class\ClassSchedule::whereIn('class_uuid', (clone $query)->select('classes.uuid'))->count(),
+        ];
 
         $instructors = User::role('instruktur')
             ->orderBy('name')
@@ -59,7 +80,7 @@ class ClassController extends Controller
 
         return view(
             'pages.class.index',
-            compact('classes', 'instructors')
+            compact('classes', 'instructors', 'stats', 'search', 'level', 'is_active', 'instructor_uuid')
         );
     }
     /**

@@ -63,8 +63,8 @@ class ClassController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => $classes->isEmpty()
-                    ? 'Belum ada class yang tersedia'
-                    : 'Data class berhasil diambil',
+                    ? 'No classes available'
+                    : 'Class data retrieved successfully',
                 'data' => ClassResource::collection(
                     $classes->items()
                 ),
@@ -90,7 +90,7 @@ class ClassController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal mengambil data class',
+                'message' => 'Failed to fetch class data',
                 'data' => [],
             ], 500);
         }
@@ -107,14 +107,14 @@ class ClassController extends Controller
             if (!$class) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Class tidak ditemukan',
+                    'message' => 'Class not found',
                     'data' => null,
                 ], 404);
             }
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Detail class berhasil diambil',
+                'message' => 'Class details retrieved successfully',
                 'data' => new ClassResource($class),
             ], 200);
 
@@ -131,7 +131,7 @@ class ClassController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal mengambil detail class',
+                'message' => 'Failed to fetch class details',
                 'data' => null,
             ], 500);
         }

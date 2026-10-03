@@ -259,8 +259,8 @@ class EventController extends Controller
                 'status' => 'success',
 
                 'message' => $events->isEmpty()
-                    ? 'Belum ada event yang sesuai'
-                    : 'Data event berhasil diambil',
+                    ? 'No matching events found'
+                    : 'Event data retrieved successfully',
 
                 'data' => EventResource::collection(
                     $events->items()
@@ -291,7 +291,7 @@ class EventController extends Controller
 
                 'status' => 'error',
 
-                'message' => 'Parameter yang dikirim tidak valid',
+                'message' => 'Invalid request parameters',
 
                 'errors' => $e->errors(),
 
@@ -315,7 +315,7 @@ class EventController extends Controller
 
                 'status' => 'error',
 
-                'message' => 'Gagal mengambil data event',
+                'message' => 'Failed to fetch event data',
 
                 'data' => [],
 
@@ -353,7 +353,7 @@ class EventController extends Controller
 
                 'status' => 'success',
 
-                'message' => 'Detail event berhasil diambil',
+                'message' => 'Event details retrieved successfully',
 
                 'data' => new EventResource($event),
 
@@ -366,7 +366,7 @@ class EventController extends Controller
 
                 'status' => 'error',
 
-                'message' => 'Event tidak ditemukan',
+                'message' => 'Event not found',
 
                 'data' => null,
 
@@ -388,7 +388,7 @@ class EventController extends Controller
 
                 'status' => 'error',
 
-                'message' => 'Terjadi kesalahan saat mengambil detail event',
+                'message' => 'An error occurred while fetching event details',
 
                 'data' => null,
 

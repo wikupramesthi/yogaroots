@@ -19,33 +19,55 @@ class EventsController extends Controller
 
     public function index(Request $request)
     {
+        $search = trim((string) $request->get('search', ''));
+        $status = $request->get('status', '');
+        $status = in_array($status, ['draft', 'published', 'cancelled', 'completed'], true) ? $status : '';
+        $tanggal_mulai = $request->get('tanggal_mulai');
+        $tanggal_selesai = $request->get('tanggal_selesai');
+
         $query = Event::query();
 
-        // Filter status
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
+        if ($search !== '') {
+            $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search) . '%';
+            $query->where('judul', 'like', $like);
         }
 
-        // Filter tanggal mulai
-        if ($request->filled('tanggal_mulai')) {
-            $query->whereDate('tanggal', '>=', $request->tanggal_mulai);
+        // Filter by status
+        if ($status !== '') {
+            $query->where('status', $status);
         }
 
-        // Filter tanggal selesai
-        if ($request->filled('tanggal_selesai')) {
-            $query->whereDate('tanggal', '<=', $request->tanggal_selesai);
+        // Filter by start date
+        if ($tanggal_mulai) {
+            $query->whereDate('tanggal', '>=', $tanggal_mulai);
         }
 
-        $items = $query
+        // Filter by end date
+        if ($tanggal_selesai) {
+            $query->whereDate('tanggal', '<=', $tanggal_selesai);
+        }
+
+        $items = (clone $query)
             ->orderBy('tanggal', 'DESC')
             ->get();
+
+        // Stats follow the active filter so numbers stay in sync with the data.
+        $stats = [
+            'total' => (clone $query)->count(),
+            'published' => (clone $query)->where('status', 'published')->count(),
+            'draft' => (clone $query)->where('status', 'draft')->count(),
+            'cancelled' => (clone $query)->where('status', 'cancelled')->count(),
+            'completed' => (clone $query)->where('status', 'completed')->count(),
+        ];
 
         return view('pages.event.index', [
             'title' => 'Event',
             'items' => $items,
-            'status' => $request->status,
-            'tanggal_mulai' => $request->tanggal_mulai,
-            'tanggal_selesai' => $request->tanggal_selesai,
+            'stats' => $stats,
+            'search' => $search,
+            'status' => $status,
+            'tanggal_mulai' => $tanggal_mulai,
+            'tanggal_selesai' => $tanggal_selesai,
         ]);
     }
     /**
@@ -97,7 +119,7 @@ class EventsController extends Controller
 
             return redirect()
                 ->back()
-                ->with('success', 'Event berhasil ditambahkan.');
+                ->with('success', 'Event created successfully.');
         } catch (\Throwable $th) {
 
             DB::rollBack();
@@ -158,15 +180,15 @@ class EventsController extends Controller
                 'status',
             ]);
 
-            // Kalau upload gambar baru
+            // When uploading a new image
             if ($request->hasFile('gambar')) {
 
-                // Hapus gambar lama
+                // Delete the old image
                 if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
                     Storage::disk('public')->delete($item->gambar);
                 }
 
-                // Simpan gambar baru
+                // Save the new image
                 $data['gambar'] = $request->file('gambar')->store('events', 'public');
             }
 
@@ -176,7 +198,7 @@ class EventsController extends Controller
 
             return redirect()
                 ->back()
-                ->with('success', 'Event berhasil diperbarui.');
+                ->with('success', 'Event updated successfully.');
         } catch (\Throwable $th) {
 
             DB::rollBack();
@@ -196,19 +218,19 @@ class EventsController extends Controller
         DB::beginTransaction();
 
         try {
-            // Hapus gambar
+            // Delete the image
             if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
                 Storage::disk('public')->delete($item->gambar);
             }
 
-            // Hapus data event
+            // Delete the event record
             $item->delete();
 
             DB::commit();
 
             return redirect()
                 ->back()
-                ->with('success', 'Event berhasil dihapus.');
+                ->with('success', 'Event deleted successfully.');
         } catch (\Throwable $th) {
 
             DB::rollBack();

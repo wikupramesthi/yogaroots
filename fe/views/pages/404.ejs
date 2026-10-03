@@ -1,8 +1,54 @@
-<!DOCTYPE html><html lang="<%= lang || 'en' %>"><head><%- include('../partials/head') %></head><body class="antialiased"><%- include('../partials/navbar') %>
-<section class="max-w-3xl mx-auto px-4 py-20 text-center">
-  <div class="text-6xl">🧘‍♀️</div>
-  <h1 class="font-display text-4xl font-bold mt-4"><%= t.notFoundTitle %></h1>
-  <p class="text-stone-warm mt-2"><%= t.notFoundDesc %></p>
-  <a href="/" class="inline-block mt-6 bg-sage-700 text-white px-7 py-3 rounded-full font-semibold"><%= t.notFoundBack %></a>
-</section>
-<%- include('../partials/footer') %><script src="/js/main.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="<%= lang || 'en' %>">
+<head><%- include('../partials/head') %></head>
+<body class="min-h-screen bg-sand-50 antialiased">
+<%- include('../partials/navbar') %>
+
+<main>
+  <section class="relative overflow-hidden">
+    <!-- earthy gradient -->
+    <div class="absolute inset-0" style="background:
+      radial-gradient(ellipse 70% 55% at 18% 12%, #a6814f 0%, transparent 62%),
+      radial-gradient(ellipse 60% 60% at 88% 95%, #382a16 0%, transparent 65%),
+      radial-gradient(ellipse 45% 40% at 72% 32%, #8a6a3e 0%, transparent 70%),
+      linear-gradient(135deg, #75542b 0%, #543d22 55%, #3b2b17 100%)"></div>
+
+    <!-- grain overlay -->
+    <div class="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none" style="background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+
+    <!-- sweeping sheen -->
+    <div class="hero-shimmer"></div>
+
+    <!-- decorative rings -->
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
+      <div class="w-[560px] h-[560px] max-w-[90vw] max-h-[90vw] rounded-full border border-sand-50/10"></div>
+    </div>
+    <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
+      <div class="w-[400px] h-[400px] max-w-[70vw] max-h-[70vw] rounded-full border border-sand-50/[0.07]"></div>
+    </div>
+
+    <div class="relative w-full max-w-3xl mx-auto px-6 min-h-[78vh] flex flex-col items-center justify-center text-center py-20">
+      <div class="anim-slide-up font-display text-sand-50 leading-none tracking-tight" style="font-size:clamp(5rem, min(22vw, 20vh), 9rem);">404</div>
+
+      <h1 class="anim-slide-up font-display text-2xl sm:text-3xl text-sand-50 mt-6 text-balance" style="animation-delay:.15s"><%= t.notFoundTitle %></h1>
+
+      <p class="anim-fade-in mt-4 font-sans text-base text-sand-100/80 max-w-xl mx-auto leading-relaxed text-balance" style="animation-delay:.3s"><%= t.notFoundDesc %></p>
+
+      <div class="anim-fade-in mt-10 flex flex-wrap items-center justify-center gap-4" style="animation-delay:.45s">
+        <a href="/" class="inline-flex items-center gap-3 text-sand-900 bg-sand-50 hover:bg-white rounded-full px-8 py-3.5 text-sm font-medium tracking-wide transition-all">
+          <%= t.notFoundBack %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+        <a href="/classes" class="inline-flex items-center gap-3 text-sand-50 border border-sand-50/40 hover:border-sand-50 hover:bg-sand-50/10 rounded-full px-8 py-3.5 text-sm tracking-wide transition-all">
+          <%= t.viewAllClasses %>
+        </a>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<%- include('../partials/footer') %>
+<script src="/js/main.js?v=<%= assetV %>"></script>
+</body>
+</html>

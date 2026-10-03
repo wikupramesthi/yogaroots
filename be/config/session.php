@@ -214,4 +214,16 @@ return [
 
     'partitioned' => env('SESSION_PARTITIONED_COOKIE', false),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Inactive Timeout (menit)
+    |--------------------------------------------------------------------------
+    |
+    | Batas diam tanpa aktivitas sebelum user admin di-logout otomatis
+    | (ala DBMSDA). Lihat middleware AutoLogoutInactive + JS di layout.
+    |
+    */
+
+    'inactive_timeout' => env('SESSION_INACTIVE_TIMEOUT', 30),
+
 ];

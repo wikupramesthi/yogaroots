@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Pusat Informasi')
+@section('title', 'Information Center')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Pusat Informasi" page="Pusat Informasi" active="Faq & Answer" route="{{ route('faq.index') }}" />
+<x-breadcrumb title="Information Center" page="Information Center" active="Faq & Answer" route="{{ route('faq.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
@@ -12,9 +12,9 @@
         <div class="d-flex">
             <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
             <div class="text-white mt-0">
-                Lihat informasi dan jawaban seputar <strong>FAQ Sekolah Luar Biasa Negeri Kota Bekasi</strong>.<br>
-                Panduan ini membantu orang tua, siswa, dan masyarakat memahami layanan serta program pendidikan
-                inklusif.
+                View information and answers about <strong>FAQ of Bekasi City State Special School</strong>.<br>
+                This guide helps parents, students, and the community understand inclusive education services and programs
+                
             </div>
 
         </div>
@@ -43,7 +43,7 @@
                 <h4 class="fw-normal mb-0 text-body">Faq & Answer</h4>
                 <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
                     data-bs-target="#modal-form-add-faq">
-                    <i class="bi bi-plus-lg"></i> Tambah Baru
+                    <i class="bi bi-plus-lg"></i> Add New
                 </button>
             </div>
         </div>
@@ -53,12 +53,12 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Tanya</th>
-                            <th>Urutan</th>
+                            <th>Question</th>
+                            <th>Order</th>
                             <th>Status</th>
-                            <th>Detail</th>
+                            <th>Details</th>
                             <th>Edit</th>
-                            <th>Hapus</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,7 +69,7 @@
                             <td>{{ $item->urutan }}</td>
                             <td>
                                 <span class="badge {{ $item->status === 'active' ? 'bg-info' : 'bg-danger' }}">
-                                    {{ $item->status === 'active' ? 'Aktif' : 'Tidak Aktif' }}
+                                    {{ $item->status === 'active' ? 'Active' : 'Inactive' }}
                                 </span>
                             </td>
                             <td>
@@ -77,7 +77,7 @@
                                 <a data-bs-toggle="modal"
                                     data-bs-target="#modal-form-view-faq-{{ $item->uuid }}"
                                     class="btn btn-icon btn-primary text-white">
-                                    Detail
+                                    Details
                                 </a>
                                 @include('pages.faq.modal-view')
                                 @endcan
@@ -97,7 +97,7 @@
                                 @can('faq.destroy')
                                 <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
                                     class="btn btn-icon btn-danger text-white">
-                                    <i class="bi bi-x-square"></i> Hapus
+                                    <i class="bi bi-x-square"></i> Delete
                                 </a>
                                 <form id="deleteForm_{{ $item->uuid }}"
                                     action="{{ route('faq.destroy', $item->uuid) }}" method="POST">
@@ -122,11 +122,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data ini akan dihapus secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin ingin menghapusnya?',
+            title: 'Delete Confirmation',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Delete!'
         }).then((result) => {
             if (result.isConfirmed) {
                 // If the user clicks "Yes, delete it!", submit the corresponding form

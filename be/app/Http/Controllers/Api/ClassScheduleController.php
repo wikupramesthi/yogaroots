@@ -302,8 +302,8 @@ class ClassScheduleController extends Controller
                 'status' => 'success',
 
                 'message' => $data->isEmpty()
-                    ? 'Belum ada class schedule yang sesuai'
-                    : 'Data class schedule berhasil diambil',
+                    ? 'No matching class schedules found'
+                    : 'Class schedule data retrieved successfully',
 
                 'data' => $data,
 
@@ -330,7 +330,7 @@ class ClassScheduleController extends Controller
 
                 'status' => 'error',
 
-                'message' => 'Parameter yang dikirim tidak valid',
+                'message' => 'Invalid request parameters',
 
                 'errors' => $e->errors(),
 
@@ -352,7 +352,7 @@ class ClassScheduleController extends Controller
 
                 'status' => 'error',
 
-                'message' => 'Gagal mengambil data class schedule',
+                'message' => 'Failed to fetch class schedule data',
 
                 'data' => [],
 
@@ -408,7 +408,7 @@ class ClassScheduleController extends Controller
 
                 'status' => 'success',
 
-                'message' => 'Detail class schedule berhasil diambil',
+                'message' => 'Class schedule details retrieved successfully',
 
                 'data' => [
 
@@ -500,7 +500,7 @@ class ClassScheduleController extends Controller
 
                 'status' => 'error',
 
-                'message' => 'Class schedule tidak ditemukan',
+                'message' => 'Class schedule not found',
 
                 'data' => null,
 
@@ -520,7 +520,7 @@ class ClassScheduleController extends Controller
 
                 'status' => 'error',
 
-                'message' => 'Terjadi kesalahan saat mengambil detail class schedule',
+                'message' => 'An error occurred while fetching class schedule details',
 
                 'data' => null,
 

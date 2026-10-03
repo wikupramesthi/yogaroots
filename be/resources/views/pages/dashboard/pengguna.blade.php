@@ -121,7 +121,7 @@
                                 <td class="text-center">
                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#cekProfilModal-{{ $user->uuid }}">
-                                        <i class="bi bi-eye"></i> Lihat
+                                        <i class="bi bi-eye"></i> View
                                     </button>
                                       @include('pages.dashboard.modal-detail-user', ['user' => $user])
                                 </td>

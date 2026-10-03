@@ -171,7 +171,7 @@
                                     id="gambar" name="gambar" accept="image/jpg,image/jpeg,image/png,image/webp">
 
                                 <small class="text-muted" style="display: block; margin-top: 5px;">
-                                    JPG, JPEG, PNG, WEBP. Maksimal 2MB.
+                                    JPG, JPEG, PNG, WEBP. Max 2MB.
                                     Leave blank if you don't want to change the image.
                                 </small>
 

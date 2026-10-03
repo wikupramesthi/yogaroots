@@ -225,8 +225,8 @@ class PackageController extends Controller
                 'status' => 'success',
 
                 'message' => $packages->isEmpty()
-                    ? 'Belum ada package yang tersedia'
-                    : 'Data package berhasil diambil',
+                    ? 'No packages available'
+                    : 'Package data retrieved successfully',
 
                 'data' => PackageResource::collection(
                     $packages->items()

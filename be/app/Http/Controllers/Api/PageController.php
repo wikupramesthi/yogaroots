@@ -19,14 +19,14 @@ class PageController extends Controller
             if ($pages->isEmpty()) {
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Belum ada halaman yang tersedia',
+                    'message' => 'No pages available',
                     'data' => []
                 ], 200);
             }
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Data halaman berhasil diambil',
+                'message' => 'Page data retrieved successfully',
                 'data' => PageResource::collection($pages)
             ], 200);
         } catch (\Throwable $e) {
@@ -34,7 +34,7 @@ class PageController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal mengambil data halaman',
+                'message' => 'Failed to fetch page data',
                 'data' => []
             ], 500);
         }
@@ -49,7 +49,7 @@ class PageController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Detail halaman berhasil diambil',
+                'message' => 'Page details retrieved successfully',
                 'data' => new PageResource($page)
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

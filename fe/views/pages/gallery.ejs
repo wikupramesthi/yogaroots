@@ -5,11 +5,13 @@
   <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
   <% gallery.forEach((img, i) => { %>
 
+  <% const gsrc = img.gambar || '/img/yogaroots_about1.jpg'; %>
   <img
     data-gallery
-    src="<%= img.gambar %>"
+    src="<%= gsrc %>"
+    data-fallback="/img/yogaroots_about1.jpg"
     alt="<%= img.nama || 'Galeri Kami' %>"
-    onclick="openLightbox('<%= img.gambar %>', <%= i %>)"
+    onclick="openLightbox('<%= gsrc %>', <%= i %>)"
     class="h-[200px] w-full object-cover rounded-[20px] cursor-pointer hover:opacity-90 transition"
   >
 
@@ -24,4 +26,4 @@
   <button onclick="lightboxNav(1)" class="absolute right-6 w-10 h-10 rounded-full bg-white grid place-items-center">›</button>
 </div>
 
-<%- include('../partials/footer') %><script src="/js/main.js"></script></body></html>
+<%- include('../partials/footer') %><script src="/js/main.js?v=<%= assetV %>"></script></body></html>

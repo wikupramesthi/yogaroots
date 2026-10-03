@@ -10,7 +10,7 @@
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="modal-form-add-program-label">
-                        Biodata Calon Murid
+                        Prospective Student Biodata
                     </h5>
 
                     <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -20,15 +20,15 @@
                 <div class="modal-body">
 
                     <div class="alert alert-danger mb-4">
-                        Orang Tua/Wali akan dihubungi melalui
+                        Parents/guardians will be contacted via
                         <strong>WhatsApp</strong>
-                        untuk informasi pendaftaran dan tahap wawancara.
+                        for registration information and the interview stage.
                     </div>
 
                     <!-- DISABILITY -->
                     <div class="form-group mb-3">
                         <label class="mb-2">
-                            Kriteria Disabilitas
+                            Disability Criteria
                             <span class="text-danger">*</span>
                         </label>
 
@@ -36,7 +36,7 @@
                             class="form-control @error('disability_uuid') is-invalid @enderror"
                             required>
 
-                            <option value="">-- Pilih Disabilitas --</option>
+                            <option value="">-- Select Disability --</option>
 
                             @foreach ($disabilities as $disability)
                                 <option value="{{ $disability->uuid }}"
@@ -58,7 +58,7 @@
                     <!-- NAMA ANAK -->
                     <div class="form-group mb-3">
                         <label class="mb-2">
-                            Nama Anak
+                            Child Name
                             <span class="text-danger">*</span>
                         </label>
 
@@ -82,7 +82,7 @@
                             <div class="form-group mb-3">
 
                                 <label class="mb-2">
-                                    Tempat Lahir
+                                    Place of Birth
                                     <span class="text-danger">*</span>
                                 </label>
 
@@ -105,7 +105,7 @@
                             <div class="form-group mb-3">
 
                                 <label class="mb-2">
-                                    Tanggal Lahir
+                                    Date of Birth
                                     <span class="text-danger">*</span>
                                 </label>
 
@@ -130,7 +130,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            Jenis Kelamin
+                            Gender
                             <span class="text-danger">*</span>
                         </label>
 
@@ -138,16 +138,16 @@
                             class="form-control @error('jenis_kelamin') is-invalid @enderror"
                             required>
 
-                            <option value="">-- Pilih Jenis Kelamin --</option>
+                            <option value="">-- Select Gender --</option>
 
                             <option value="L"
                                 {{ old('jenis_kelamin') == 'L' ? 'selected' : '' }}>
-                                Laki-laki
+                                Male
                             </option>
 
                             <option value="P"
                                 {{ old('jenis_kelamin') == 'P' ? 'selected' : '' }}>
-                                Perempuan
+                                Female
                             </option>
 
                         </select>
@@ -164,7 +164,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            Agama
+                            Religion
                             <span class="text-danger">*</span>
                         </label>
 
@@ -172,7 +172,7 @@
                             class="form-control @error('agama') is-invalid @enderror"
                             required>
 
-                            <option value="">-- Pilih Agama --</option>
+                            <option value="">-- Select Religion --</option>
 
                             <option value="islam"
                                 {{ old('agama') == 'islam' ? 'selected' : '' }}>
@@ -218,7 +218,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            Anak Ke
+                            Child Number
                             <span class="text-danger">*</span>
                         </label>
 
@@ -243,7 +243,7 @@
                             <div class="form-group mb-3">
 
                                 <label class="mb-2">
-                                    Nama Ayah
+                                    Father's Name
                                     <span class="text-danger">*</span>
                                 </label>
 
@@ -266,7 +266,7 @@
                             <div class="form-group mb-3">
 
                                 <label class="mb-2">
-                                    Nama Ibu
+                                    Mother's Name
                                     <span class="text-danger">*</span>
                                 </label>
 
@@ -291,7 +291,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            Alamat
+                            Address
                             <span class="text-danger">*</span>
                         </label>
 
@@ -312,7 +312,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            No HP / WhatsApp
+                            Phone / WhatsApp No.
                             <span class="text-danger">*</span>
                         </label>
 
@@ -337,12 +337,12 @@
                     <button type="button"
                         class="btn btn-light"
                         data-bs-dismiss="modal">
-                        Batal
+                        Cancel
                     </button>
 
                     <button type="submit"
                         class="btn btn-primary">
-                        Simpan
+                        Save
                     </button>
 
                 </div>

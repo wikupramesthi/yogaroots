@@ -7,7 +7,5 @@ export async function getBanners(posisi = null) {
 
   const response = await apiRequest(url);
 
-  console.log("BANNER API:", response);
-
   return response;
 }

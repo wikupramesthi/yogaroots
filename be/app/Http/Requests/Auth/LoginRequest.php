@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Services\Security\BruteForceProtector;
 
 class LoginRequest extends FormRequest
 {
@@ -39,13 +40,37 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
+        // Blokir sementara ala DBMSDA: cek lockout IP/email sebelum mencoba.
+        $protector = app(BruteForceProtector::class);
+        $lockout = $protector->isLocked($this->ip(), $this->input('email'));
+
+        if ($lockout) {
+            throw ValidationException::withMessages([
+                'email' => $protector->lockedMessage($lockout),
+            ]);
+        }
+
         $this->ensureIsNotRateLimited();
 
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
+            // Listener RecordFailedLogin mencatat ke DB via event Failed.
+            // Jika percobaan ini memicu lockout, tampilkan pesan blokir langsung.
+            $freshLockout = $protector->isLocked($this->ip(), $this->input('email'));
+
+            if ($freshLockout) {
+                throw ValidationException::withMessages([
+                    'email' => $protector->lockedMessage($freshLockout),
+                ]);
+            }
+
+            $remaining = max(0, $protector->maxAttempts() - RateLimiter::attempts($this->throttleKey()));
+
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => $remaining > 0
+                    ? trans('auth.failed') . " Sisa kesempatan: {$remaining} kali sebelum akun/IP diblokir sementara."
+                    : trans('auth.failed'),
             ]);
         }
 

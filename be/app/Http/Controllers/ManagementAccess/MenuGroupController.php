@@ -90,6 +90,6 @@ class MenuGroupController extends Controller
         $menu = MenuGroup::findOrFail($decryptID);
         $menu->delete();
 
-        return back()->with('Sukses', 'Data berhasil dihapus');
+        return back()->with('success', 'Data deleted successfully.');
     }
 }

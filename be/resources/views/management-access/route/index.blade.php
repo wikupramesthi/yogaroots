@@ -3,7 +3,7 @@
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Module Aplikasi" page="Pengaturan" active="Module Aplikasi"
+<x-breadcrumb title="Application Modules" page="Settings" active="Application Modules"
   route="{{ route('route.index') }}" />
 @endsection
 <!-- Content -->
@@ -11,12 +11,12 @@
   <div class="card">
     <div class="card-header">
       <div class="d-flex justify-content-between align-items-center ">
-        <h4 class="fw-normal mb-0 text-body">Module Aplikasi</h4>
+        <h4 class="fw-normal mb-0 text-body">Application Modules</h4>
         @can('route.store')
         <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
           data-bs-target="#modal-form-add-route">
           <i class="bi bi-plus-lg"></i>
-          Tambah Module
+          Add Module
         </button>
         @endcan
       </div>
@@ -31,7 +31,7 @@
               <th>Description</th>
               <th>Status</th>
               <th>Edit</th>
-              <th>Hapus</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody class="table-border-bottom-0">

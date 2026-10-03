@@ -19,34 +19,61 @@ class PackageController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Package::with('features');
+        $search = trim((string) $request->get('search', ''));
+        $is_active = $request->get('is_active', '');
+        $is_active = in_array($is_active, ['active', 'inactive'], true) ? $is_active : '';
+        $is_popular = $request->get('is_popular', '');
+        $is_popular = in_array($is_popular, ['0', '1'], true) ? $is_popular : '';
+        $quota_type = $request->get('quota_type', '');
+        $quota_type = in_array($quota_type, ['limited', 'unlimited'], true) ? $quota_type : '';
+
+        $query = Package::query();
+
+        if ($search !== '') {
+            $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search) . '%';
+            $query->where('name', 'like', $like);
+        }
 
         // Filter status
-        if ($request->filled('is_active')) {
-            $query->where('is_active', $request->is_active);
+        if ($is_active !== '') {
+            $query->where('is_active', $is_active);
         }
 
         // Filter popular
-        if ($request->filled('is_popular')) {
-            $query->where('is_popular', $request->is_popular);
+        if ($is_popular !== '') {
+            $query->where('is_popular', $is_popular);
         }
 
         // Filter quota
-        if ($request->filled('quota_type')) {
-            if ($request->quota_type === 'unlimited') {
-                $query->whereNull('quota');
-            }
-
-            if ($request->quota_type === 'limited') {
-                $query->whereNotNull('quota');
-            }
+        if ($quota_type === 'unlimited') {
+            $query->whereNull('quota');
         }
 
-        $packages = $query
+        if ($quota_type === 'limited') {
+            $query->whereNotNull('quota');
+        }
+
+        $packages = (clone $query)
+            ->with(['features', 'options'])
             ->latest()
             ->get();
 
-        return view('pages.package.index', compact('packages'));
+        // Stats follow the active filter so numbers stay in sync with the data.
+        $stats = [
+            'total' => (clone $query)->count(),
+            'active' => (clone $query)->where('is_active', 'active')->count(),
+            'inactive' => (clone $query)->where('is_active', 'inactive')->count(),
+            'popular' => (clone $query)->where('is_popular', 1)->count(),
+        ];
+
+        return view('pages.package.index', compact(
+            'packages',
+            'stats',
+            'search',
+            'is_active',
+            'is_popular',
+            'quota_type'
+        ));
     }
 
     /**
@@ -643,7 +670,7 @@ class PackageController extends Controller
 
             return redirect()
                 ->route('packages.index')
-                ->with('success', 'Package berhasil dihapus.');
+                ->with('success', 'Package deleted successfully.');
         } catch (\Throwable $th) {
 
             DB::rollBack();

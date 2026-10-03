@@ -15,7 +15,7 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Judul --}}
+                {{-- Title --}}
                 <div class="form-group mb-3">
                     <label for="title" class="mb-2">Title  <span class="text-danger">*</span></label>
                     <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
@@ -25,7 +25,7 @@
                     @enderror
                 </div>
 
-                {{-- Ringkasan --}}
+                {{-- Excerpt --}}
                 <div class="form-group mb-3">
                     <label for="excerpt" class="mb-2">Excerpt</label>
                     <input type="text" name="excerpt" class="form-control @error('excerpt') is-invalid @enderror"
@@ -54,10 +54,9 @@
                 </div>
 
                 <div class="form-group mb-3" id="videoForm" style="display: none;">
-                    <label for="video" class="mb-2">Link YouTube <span class="text-danger">*example :
-                            PlNOD--gPQU</span></label>
+                    <label for="video" class="mb-2">Link YouTube <span class="text-danger">*Example: PlNOD--gPQU</span></label>
                     <input type="text" name="video" id="video" class="form-control"
-                        value="{{ old('video', $article->video ?? '') }}" placeholder="Masukkan link YouTube">
+                        value="{{ old('video', $article->video ?? '') }}" placeholder="Enter YouTube link">
                 </div>
 
                 <div class="form-group mb-3">
@@ -163,10 +162,10 @@
             }
         }
 
-        // Jalankan saat dropdown berubah
+        // Run when the dropdown changes
         categorySelect.addEventListener('change', toggleVideoForm);
 
-        // Jalankan sekali saat halaman dimuat (mode edit)
+        // Run once when the page loads (edit mode)
         toggleVideoForm();
     });
 </script>

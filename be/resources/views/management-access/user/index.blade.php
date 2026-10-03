@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Daftar Pengguna')
+@section('title', 'User List')
 @section('content')
 
 @section('breadcrumb')
-    <x-breadcrumb title="Daftar Pengguna" page="Pengaturan" active="Daftar Pengguna" route="{{ route('user.index') }}" />
+    <x-breadcrumb title="User List" page="Settings" active="User List" route="{{ route('user.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section mt-2">
@@ -21,7 +21,7 @@
                             {{-- Tanggal Mulai --}}
                             <div class="col-auto">
                                 <div class="input-group input-group-sm">
-                                    <span class="input-group-text">Dari</span>
+                                    <span class="input-group-text">From</span>
                                     <input type="date" name="start_date" value="{{ request('start_date') }}"
                                         class="form-control">
                                 </div>
@@ -30,7 +30,7 @@
                             {{-- Tanggal Akhir --}}
                             <div class="col-auto">
                                 <div class="input-group input-group-sm">
-                                    <span class="input-group-text">Sampai</span>
+                                    <span class="input-group-text">To</span>
                                     <input type="date" name="end_date" value="{{ request('end_date') }}"
                                         class="form-control">
                                 </div>
@@ -54,7 +54,7 @@
                         <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
                             data-bs-target="#modal-form-add-user">
                             <i class="bi bi-plus-lg"></i>
-                            Tambah Baru
+                            Add New
                         </button>
                     @endcan
                 </div>
@@ -66,13 +66,13 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Tanggal Daftar</th>
-                            <th>Nama User</th>
+                            <th>Registered Date</th>
+                            <th>User Name</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Status</th>
                             <th>Edit</th>
-                            <th>Hapus</th>
+                            <th>Delete</th>
 
                         </tr>
                     </thead>
@@ -108,7 +108,7 @@
                                     @can('user.destroy')
                                         <a onclick="showSweetAlert('{{ $user->uuid }}')" title="Delete"
                                             class="btn btn-icon btn-danger text-white">
-                                            <i class="bi bi-x-square"></i> Hapus
+                                            <i class="bi bi-x-square"></i> Delete
                                         </a>
                                         <form id="deleteForm_{{ $user->uuid }}"
                                             action="{{ route('user.destroy', $user->uuid) }}" method="POST">

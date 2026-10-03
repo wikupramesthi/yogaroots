@@ -68,7 +68,7 @@
                                 @can('specializations.destroy')
                                 <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
                                     class="btn btn-icon btn-danger text-white">
-                                    <i class="bi bi-x-square"></i> Hapus
+                                    <i class="bi bi-x-square"></i> Delete
                                 </a>
                                 <form id="deleteForm_{{ $item->uuid }}"
                                     action="{{ route('specializations.destroy', $item->uuid) }}" method="POST">

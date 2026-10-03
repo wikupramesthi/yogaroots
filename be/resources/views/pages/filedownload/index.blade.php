@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Dokumen Sekolah')
+@section('title', 'School Documents')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Dokumen Sekolah" page="Dokumen Sekolah" active="Daftar Dokumen" route="{{ route('filedownload.index') }}" />
+<x-breadcrumb title="School Documents" page="School Documents" active="Document List" route="{{ route('filedownload.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
@@ -18,12 +18,12 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Dokumen Sekolah</h4>
+                <h4 class="fw-normal mb-0 text-body">School Documents</h4>
                 @can('filedownload.store')
                 <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
                     data-bs-target="#modal-form-add-dokumen">
                     <i class="bi bi-plus-lg"></i>
-                    Tambah Baru
+                    Add New
                 </button>
                 @endcan
 
@@ -35,13 +35,13 @@
                     <thead>
                         <tr>
                             <th style="width: 20px;">No.</th>
-                            <th class="text-wrap" style="width: 250px;">Judul</th>
-                            <th class="text-wrap" style="width: 350px;">Deskripsi</th>
-                            <th>Kategori</th>
-                            <th>Lihat File</th>
+                            <th class="text-wrap" style="width: 250px;">Title</th>
+                            <th class="text-wrap" style="width: 350px;">Description</th>
+                            <th>Category</th>
+                            <th>View File</th>
                             @role(['super-admin', 'admin'])
                             <th>Edit</th>
-                            <th>Hapus</th>
+                            <th>Delete</th>
                             @endrole
                         </tr>
                     </thead>
@@ -54,29 +54,29 @@
                             <td>
                                 @switch($item->kategori)
                                 @case('akademik')
-                                Dokumen Kurikulum
+                                Curriculum Document
                                 @break
                                 @case('informasi')
-                                Informasi Publik
+                                Public Information
                                 @break
                                 @case('laporan')
-                                Laporan
+                                Report
                                 @break
                                 @case('edaran')
-                                Surat Edaran
+                                Circular Letter
                                 @break
                                 @default
-                                <span class="text-muted">Tidak Diketahui</span>
+                                <span class="text-muted">Unknown</span>
                                 @endswitch
                             </td>
 
                             <td>
                                 @if($item->file)
                                 <a href="{{ asset('storage/' . $item->file) }}" target="_blank" class="btn btn=icon btn-primary">
-                                    <i class="bi bi-file-earmark-pdf"></i> Lihat File
+                                    <i class="bi bi-file-earmark-pdf"></i> View File
                                 </a>
                                 @else
-                                <span class="text-muted">Belum ada file</span>
+                                <span class="text-muted">No file yet</span>
                                 @endif
                             </td>
 
@@ -124,11 +124,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data ini akan dihapus secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin ingin menghapusnya?',
+            title: 'Delete Confirmation',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Delete!'
         }).then((result) => {
             if (result.isConfirmed) {
                 // If the user clicks "Yes, delete it!", submit the corresponding form

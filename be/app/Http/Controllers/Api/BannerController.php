@@ -30,14 +30,14 @@ class BannerController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Daftar banner berhasil diambil',
+                'message' => 'Banner list retrieved successfully',
                 'data' => BannerResource::collection($banners)
             ], 200);
         } catch (\Exception $e) {
             Log::error('Banner fetch error: ' . $e->getMessage());
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal mengambil data banner',
+                'message' => 'Failed to fetch banner data',
                 'data' => []
             ], 500);
         }

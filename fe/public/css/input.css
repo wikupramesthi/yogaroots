@@ -22,7 +22,7 @@
   --color-ink: #1a1d1a;
   --color-stone-warm: #8c8578;
 
-  /* Kanna-style earthy palette */
+  /* Earthy palette */
   --color-sand-50: #faf8f5;
   --color-sand-100: #f5f0ea;
   --color-sand-200: #ebe3d8;
@@ -83,8 +83,8 @@ body { font-family: var(--font-body); background: var(--color-cream); color: var
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
 /* =========================
-   KANNA-STYLE COMPONENTS
-========================= */
+   THEME COMPONENTS
+   ========================= */
 
 .card-earthy {
   border-radius: 1rem;

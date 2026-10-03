@@ -67,10 +67,10 @@ class TestimonialController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Testimoni berhasil ditambahkan.');
+            return redirect()->back()->with('success', 'Testimonial added successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal menambahkan testimoni: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'Failed to add testimonial: ' . $th->getMessage());
         }
     }
 
@@ -136,7 +136,7 @@ class TestimonialController extends Controller
 
             return redirect()
                 ->back()
-                ->with('success', 'Testimonial berhasil diperbarui.');
+                ->with('success', 'Testimonial updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
 
@@ -159,6 +159,6 @@ class TestimonialController extends Controller
 
         $item->delete();
 
-        return redirect()->back()->with('success', 'Testimonial berhasil dihapus.');
+        return redirect()->back()->with('success', 'Testimonial deleted successfully.');
     }
 }

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dokumen Program - {{ $program->judul_kegiatan }}</title>
+    <title>Program Document - {{ $program->judul_kegiatan }}</title>
     <style>
         body {
             font-family: 'DejaVu Sans', sans-serif;
@@ -133,82 +133,82 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Dokumen Program Kegiatan</h1>
-            <small>Kegiatan Kompetensi Ekosistem Cerdas Kota Bekasi 2025</small>
+            <h1>Activity Program Document</h1>
+            <small>Bekasi City Smart Ecosystem Competency Activity 2025</small>
         </div>
 
         <div class="logo-center">
             @if ($program->logo_komunitas)
-                <img src="{{ storage_path('app/public/' . $program->logo_komunitas) }}" alt="Logo Komunitas" class="logo">
+                <img src="{{ storage_path('app/public/' . $program->logo_komunitas) }}" alt="Community Logo" class="logo">
             @endif
         </div>
 
         <div class="section">
-            <div class="section-title">Profil Komunitas</div>
+            <div class="section-title">Community Profile</div>
             <table class="info-table">
-                <tr><td class="label">Nama</td><td>: {{ $program->user->name ?? '-' }}</td></tr>
+                <tr><td class="label">Name</td><td>: {{ $program->user->name ?? '-' }}</td></tr>
                 <tr><td class="label">Email</td><td>: {{ $program->user->email ?? '-' }}</td></tr>
-                <tr><td class="label">No. Telepon</td><td>: {{ $program->user->telp ?? '-' }}</td></tr>
-                <tr><td class="label">Nama Komunitas</td><td>: {{ $program->user->nama_komunitas ?? '-' }}</td></tr>
-                <tr><td class="label">Media Sosial</td><td>: {{ $program->user->medsos ?? '-' }}</td></tr>
-                <tr><td class="label">Alamat</td><td>: {{ $program->user->alamat ?? '-' }}</td></tr>
-                <tr><td class="label">Kecamatan</td><td>: {{ optional($program->user->kecamatan)->nama ?? '-' }}</td></tr>
-                <tr><td class="label">Kelurahan</td><td>: {{ optional($program->user->kelurahan)->nama ?? '-' }}</td></tr>
+                <tr><td class="label">Phone No.</td><td>: {{ $program->user->telp ?? '-' }}</td></tr>
+                <tr><td class="label">Community Name</td><td>: {{ $program->user->nama_komunitas ?? '-' }}</td></tr>
+                <tr><td class="label">Social Media</td><td>: {{ $program->user->medsos ?? '-' }}</td></tr>
+                <tr><td class="label">Address</td><td>: {{ $program->user->alamat ?? '-' }}</td></tr>
+                <tr><td class="label">District</td><td>: {{ optional($program->user->kecamatan)->nama ?? '-' }}</td></tr>
+                <tr><td class="label">Subdistrict</td><td>: {{ optional($program->user->kelurahan)->nama ?? '-' }}</td></tr>
             </table>
         </div>
 
          <div class="section">
-            <div class="section-title">Dimensi Program</div>
+            <div class="section-title">Program Dimension</div>
             <table class="info-table">
                  <div class="content">{{ $program->portofolio->nama ?? '-' }}</div>
             </table>
         </div>
 
         <div class="section">
-            <div class="section-title">Dokumen Pendukung</div>
+            <div class="section-title">Supporting Documents</div>
             <table class="info-table">
-                <tr><td class="label">KTP Penanggung Jawab</td><td>: {{ $program->user->foto_pj ? 'Tersedia' : 'Tidak tersedia' }}</td></tr>
-                <tr><td class="label">Surat Pernyataan</td><td>: {{ $program->user->surat_pernyataan ? 'Tersedia' : 'Tidak tersedia' }}</td></tr>
-                <tr><td class="label">Profil Komunitas</td><td>: {{ $program->user->profil_komunitas ? 'Tersedia' : 'Tidak tersedia' }}</td></tr>
-                <tr><td class="label">Dokumen Power Point </td><td>: {{ $program->presentasi ? 'Tersedia' : 'Tidak tersedia' }}</td></tr>
-                <tr><td class="label">Video Kompetisi </td><td>: {{ $program->video ? 'Tersedia' : 'Tidak tersedia' }}</td></tr>
+                <tr><td class="label">Person-in-Charge ID Card</td><td>: {{ $program->user->foto_pj ? 'Available' : 'Not available' }}</td></tr>
+                <tr><td class="label">Statement Letter</td><td>: {{ $program->user->surat_pernyataan ? 'Available' : 'Not available' }}</td></tr>
+                <tr><td class="label">Community Profile</td><td>: {{ $program->user->profil_komunitas ? 'Available' : 'Not available' }}</td></tr>
+                <tr><td class="label">PowerPoint Document </td><td>: {{ $program->presentasi ? 'Available' : 'Not available' }}</td></tr>
+                <tr><td class="label">Competition Video </td><td>: {{ $program->video ? 'Available' : 'Not available' }}</td></tr>
             </table>
         </div>
 
-        {{-- Informasi Program --}}
+        {{-- Program Information --}}
         <div class="section">
-            <div class="section-title">Judul Kegiatan</div>
+            <div class="section-title">Activity Title</div>
             <div class="content">{{ $program->judul_kegiatan }}</div>
         </div>
 
         <div class="section">
-            <div class="section-title">Jenis Kegiatan</div>
+            <div class="section-title">Activity Type</div>
             <div class="content">{{ ucfirst($program->jenis_kegiatan) }}</div>
         </div>
 
         <div class="section">
-            <div class="section-title">Latar Belakang</div>
+            <div class="section-title">Background</div>
             <div class="content">{{ strip_tags($program->latar_belakang) }}</div>
         </div>
 
         <div class="section">
-            <div class="section-title">Deskripsi Kegiatan</div>
+            <div class="section-title">Activity Description</div>
             <div class="content">{{ strip_tags($program->deskripsi_kegiatan) }}</div>
         </div>
 
         <div class="section">
-            <div class="section-title">Hasil Kegiatan</div>
+            <div class="section-title">Activity Outcome</div>
             <div class="content">{{ strip_tags($program->hasil) }}</div>
         </div>
 
         <div class="section">
-            <div class="section-title">Foto Kegiatan</div>
+            <div class="section-title">Activity Photos</div>
             <div class="grid-photos">
                 @for ($i = 1; $i <= 5; $i++)
                     @php $foto = $program->{'foto_kegiatan_'.$i}; @endphp
                     @if ($foto)
                         <div class="photo">
-                            <img src="{{ storage_path('app/' . $foto) }}" alt="Foto Kegiatan {{ $i }}">
+                            <img src="{{ storage_path('app/' . $foto) }}" alt="Activity Photo {{ $i }}">
                         </div>
                     @endif
                 @endfor
@@ -216,31 +216,31 @@
         </div>
 
         <div class="section">
-            <div class="section-title">Materi Power Point</div>
+            <div class="section-title">PowerPoint Material</div>
             <div class="content video-link">
                 @if ($program->presentasi)
                     <a href="{{ $program->presentasi }}">{{ $program->presentasi }}</a>
                 @else
-                    <p style="text-align: left">Tidak tersedia.</p>
+                    <p style="text-align: left">Not available.</p>
                 @endif
             </div>
         </div>
 
 
         <div class="section">
-            <div class="section-title">Video Dokumentasi</div>
+            <div class="section-title">Documentation Video</div>
             <div class="content video-link">
                 @if ($program->video)
                     <a href="{{ $program->video }}">{{ $program->video }}</a>
                 @else
-                    <p style="text-align: left">Tidak tersedia.</p>
+                    <p style="text-align: left">Not available.</p>
                 @endif
             </div>
         </div>
 
         <div class="signature">
             <p>Bekasi, {{ \Carbon\Carbon::parse($program->created_at)->translatedFormat('d F Y') }}</p>
-            <p><strong>{{ $program->user->name ?? 'Nama Peserta' }}</strong></p>
+            <p><strong>{{ $program->user->name ?? 'Participant Name' }}</strong></p>
         </div>
     </div>
 </body>

@@ -50,9 +50,9 @@
                 </div>
 
                 <div class="form-group mb-3" id="videoForm" style="display: none;">
-                    <label for="video" class="mb-2">Link YouTube <span class="text-danger">*example : PlNOD--gPQU</span></label>
+                    <label for="video" class="mb-2">Link YouTube <span class="text-danger">*Example: PlNOD--gPQU</span></label>
                     <input type="text" name="video" id="video" class="form-control"
-                        value="{{ old('video', $article->video ?? '') }}" placeholder="Masukkan link YouTube">
+                        value="{{ old('video', $article->video ?? '') }}" placeholder="Enter YouTube link">
                 </div>
 
 
@@ -78,7 +78,7 @@
                     <label for="tagging">Tags <span class="text-danger"> *Separate tags with commas, e.g. yoga, mindfulness, wellness</span></label>
                     <input type="text" name="tagging" class="form-control"
                         value="{{ old('tagging', $article->tagging ?? '') }}"
-                        placeholder="Pisahkan dengan koma, misal: slb patriot, berita, kota bekasi">
+                        placeholder="Separate with commas, e.g.: slb patriot, news, bekasi city">
                 </div>
 
                 <div class="form-group mb-3">
@@ -118,7 +118,7 @@
                 </div>
 
                 <div class="form-group text-right mt-4">
-                    <a href="{{ route('articles.index') }}" class="btn btn-secondary me-2">Batal</a>
+                    <a href="{{ route('articles.index') }}" class="btn btn-secondary me-2">Cancel</a>
                     <button class="btn btn-danger">Save Changes</button>
                 </div>
             </form>

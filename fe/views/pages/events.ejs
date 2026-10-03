@@ -289,7 +289,8 @@
     >
 
       <img
-        src="<%= event.gambar %>"
+        src="<%= event.gambar || '/img/yogaroots_about1.jpg' %>"
+        data-fallback="/img/yogaroots_about1.jpg"
         alt="<%= event.judul %>"
         class="w-full h-full object-cover
                transition-transform duration-500
@@ -778,7 +779,7 @@
 
   <%- include('../partials/footer') %>
 
-  <script src="/js/main.js"></script>
+  <script src="/js/main.js?v=<%= assetV %>"></script>
 
 </body>
 </html>

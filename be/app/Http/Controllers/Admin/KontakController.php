@@ -25,7 +25,7 @@ class KontakController extends Controller
             $item->delete();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Pesan masuk berhasil dihapus.');
+            return redirect()->back()->with('success', 'Incoming message deleted successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());

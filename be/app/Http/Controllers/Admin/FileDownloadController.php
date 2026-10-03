@@ -50,10 +50,10 @@ class FileDownloadController extends Controller
             FileDownload::create($data);
             DB::commit();
 
-            return redirect()->route('filedownloads.index')->with('success', 'Dokumen Sekolah berhasil ditambahkan.');
+            return redirect()->route('filedownloads.index')->with('success', 'School document added successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'An error occurred: ' . $th->getMessage());
         }
     }
 
@@ -98,10 +98,10 @@ class FileDownloadController extends Controller
             $item->update($data);
             DB::commit();
 
-            return redirect()->back()->with('success', 'Dokumen Sekolah berhasil diperbarui.');
+            return redirect()->back()->with('success', 'School document updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'An error occurred: ' . $th->getMessage());
         }
     }
 
@@ -120,10 +120,10 @@ class FileDownloadController extends Controller
             $item->delete();
             DB::commit();
 
-            return redirect()->route('filedownloads.index')->with('success', 'Dokumen Sekolah berhasil dihapus.');
+            return redirect()->route('filedownloads.index')->with('success', 'School document deleted successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal menghapus file: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'Failed to delete file: ' . $th->getMessage());
         }
     }
 }

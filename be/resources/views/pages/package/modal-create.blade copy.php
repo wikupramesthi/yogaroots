@@ -35,7 +35,7 @@
 
         <div class="modal-body">
 
-          {{-- Nama --}}
+          {{-- Name --}}
           <div class="form-group mb-3">
 
             <label for="name" class="mb-2">
@@ -61,7 +61,7 @@
           </div>
 
 
-          {{-- Deskripsi --}}
+          {{-- Description --}}
           <div class="form-group mb-3">
 
             <label for="description" class="mb-2">
@@ -84,7 +84,7 @@
           </div>
 
 
-          {{-- Harga --}}
+          {{-- Price --}}
           <div class="form-group mb-3">
 
             <label for="price" class="mb-2">
@@ -167,7 +167,7 @@
               class="form-control @error('quota') is-invalid @enderror"
               id="quota"
               name="quota"
-              placeholder="Kosongkan jika Unlimited"
+              placeholder="Leave blank for Unlimited"
               value="{{ old('quota') }}"
               min="1">
 
@@ -184,7 +184,7 @@
           </div>
 
 
-          {{-- Durasi --}}
+          {{-- Duration --}}
           <div class="row">
 
             <div class="col-md-6">
@@ -367,7 +367,7 @@
                   type="text"
                   name="features[]"
                   class="form-control"
-                  placeholder="Contoh: 4x Yoga Class">
+                  placeholder="Example: 4x Yoga Class">
 
                 <button
                   type="button"
@@ -428,7 +428,7 @@
                     type="text"
                     name="features[]"
                     class="form-control"
-                    placeholder="Contoh: Free Mat"
+                    placeholder="Example: Free Mat"
                 >
 
                 <button

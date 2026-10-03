@@ -1,7 +1,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Yoga Roots — Yoga, Meditation & Wellness"</title>
+<title><%= typeof title !== "undefined" && title ? title : "YogaRoots — Yoga, Meditation & Wellness" %></title>
 <meta
   name="description"
   content="Discover yoga, meditation, and wellness classes at YogaRoots. Practice with experienced instructors and find greater balance, strength, and peace of mind."
@@ -20,32 +20,26 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="YogaRoots" />
-<meta property="og:title" content="Yoga Roots — Yoga, Meditation & Wellness" />
+<meta property="og:title" content="<%= typeof title !== "undefined" && title ? title : "YogaRoots — Yoga, Meditation & Wellness" %>" />
 <meta
   property="og:description"
   content="Discover yoga, meditation, and wellness classes at YogaRoots. Practice with experienced instructors and find greater balance, strength, and peace of mind."
 />
 <meta property="og:url" content="<%= currentUrl %>" />
-<meta
-  property="og:image"
-  content="{{ asset('assets/images/og-yogaroots.jpg') }}"
-/>
+<meta property="og:image" content="/img/yogaroots_about1.jpg" />
 <meta
   property="og:image:alt"
-  content="Yoga Roots — Yoga, Meditation & Wellness"
+  content="YogaRoots — Yoga, Meditation & Wellness"
 />
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Yoga Roots — Yoga, Meditation & Wellness" />
+<meta name="twitter:title" content="<%= typeof title !== "undefined" && title ? title : "YogaRoots — Yoga, Meditation & Wellness" %>" />
 <meta
   name="twitter:description"
   content="Discover yoga, meditation, and wellness classes at YogaRoots. Practice with experienced instructors and find greater balance, strength, and peace of mind."
 />
-<meta
-  name="twitter:image"
-  content="{{ asset('assets/images/og-yogaroots.jpg') }}"
-/>
+<meta name="twitter:image" content="/img/yogaroots_about1.jpg" />
 
 <!-- Favicon -->
 <link rel="icon" type="image/png" href="/img/fav.png" />
@@ -55,8 +49,8 @@
   href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap"
   rel="stylesheet"
 />
-<link rel="stylesheet" href="/css/output.css" />
-<link rel="stylesheet" href="/css/custom.css" />
+<link rel="stylesheet" href="/css/output.css?v=<%= assetV %>" />
+<link rel="stylesheet" href="/css/custom.css?v=<%= assetV %>" />
 
 <script>
   (function () {

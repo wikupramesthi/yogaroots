@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Studio;
-use App\Models\ClassSchedule;
+use App\Models\Class\ClassSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -17,13 +17,38 @@ class StudioController extends Controller
      */
     public function index(Request $request)
     {
-        $studios = Studio::withCount('schedules')
-            ->latest()
-            ->get();
+        $q = trim((string) $request->query('q', ''));
+        $status = $request->query('status', '');
+        $status = in_array($status, ['active', 'inactive'], true) ? $status : '';
+
+        $query = Studio::query();
+
+        if ($q !== '') {
+            $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $q) . '%';
+            $query->where(function ($w) use ($like) {
+                $w->where('name', 'like', $like)
+                    ->orWhere('address', 'like', $like)
+                    ->orWhere('excerpt', 'like', $like);
+            });
+        }
+
+        if ($status !== '') {
+            $query->where('status', $status);
+        }
+
+        $studios = (clone $query)->withCount('schedules')->latest()->get();
+
+        // Stats follow the active filter so numbers stay in sync with the data.
+        $stats = [
+            'total' => (clone $query)->count(),
+            'active' => (clone $query)->where('status', 'active')->count(),
+            'inactive' => (clone $query)->where('status', 'inactive')->count(),
+            'schedules' => ClassSchedule::whereIn('studio_uuid', (clone $query)->select('studios.uuid'))->count(),
+        ];
 
         return view(
             'pages.studios.index',
-            compact('studios')
+            compact('studios', 'stats', 'q', 'status')
         );
     }
 

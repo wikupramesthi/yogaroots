@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Daftar Calon Murid')
+@section('title', 'Prospective Students')
 @section('content')
 
     <section class="section">
@@ -17,16 +17,16 @@
                 <div class="d-flex">
                     <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
                     <div class="text-white">
-                        Halaman ini digunakan oleh <strong>admin</strong> untuk memverifikasi dan mengelola data pendaftaran
-                        siswa
-                        SLB Patriot Kota Bekasi Tahun Pelajaran {{ date('Y') }} / {{ date('Y') + 1 }}.
+                        This page is used by <strong>admins</strong> to verify and manage student
+                        registration data
+                        for SLB Patriot Bekasi for the Academic Year {{ date('Y') }} / {{ date('Y') + 1 }}.
                         <br>
-                        Status pendaftaran yang dapat ditetapkan meliputi:
-                        <span class="badge bg-light text-dark me-1">Seleksi</span>
-                        <span class="badge bg-light text-dark me-1">Hadir</span>
-                        <span class="badge bg-light text-dark me-1">Reschedule</span>
-                        <span class="badge bg-light text-dark me-1">Diterima</span>
-                        <span class="badge bg-light text-dark me-1">Tidak Diterima</span>
+                        Available registration statuses include:
+                        <span class="badge bg-light text-dark me-1">Screening</span>
+                        <span class="badge bg-light text-dark me-1">Attended</span>
+                        <span class="badge bg-light text-dark me-1">Rescheduled</span>
+                        <span class="badge bg-light text-dark me-1">Accepted</span>
+                        <span class="badge bg-light text-dark me-1">Not Accepted</span>
                     </div>
                 </div>
             </div>
@@ -38,9 +38,9 @@
                     <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
                     @foreach ($programs as $item)
                         <div class="text-white mt-2">
-                            <strong>Terima kasih!</strong> Anda telah berhasil melengkapi seluruh data calon murid dengan baik.
+                            <strong>Thank you!</strong> You have successfully completed all prospective student data.
                             <br>
-                            Data Anda siap untuk diverifikasi dan diproses lebih lanjut untuk pendaftaran calon murid ke SLB Patriot Kota Bekasi.
+                            Your data is ready to be verified and processed further for prospective student admission to SLB Patriot Bekasi.
                         </div>
                     @endforeach
                 </div>
@@ -62,24 +62,24 @@
                     <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
                     @foreach ($programs as $item)
                         <div class="text-white mt-2">
-                            Mohon diperhatikan bahwa perubahan data tidak dapat dilakukan setelah Anda melakukan
-                            <strong>Konfirmasi Data</strong>.
+                            Please note that you cannot change your data after you
+                            <strong>Confirm Data</strong>.
                             <br>
                             @php
-                                $statusText = $item->status === 'ditolak' ? 'Ditutup' : ucfirst($item->status);
+                                $statusText = $item->status === 'ditolak' ? 'Closed' : ucfirst($item->status);
                             @endphp
-                            Saat ini, status Program Inovasi Anda adalah: <strong> {{ $statusText }}</strong>.
+                            Currently, your Innovation Program status is: <strong> {{ $statusText }}</strong>.
                             <br>
                             @if (!empty($program) && in_array($program->status, ['verifikasi', 'diterima']))
                                 <span type="button" class="btn btn-light-info btn-sm mt-2 fw-bold">
-                                    <i class="bi bi-hand-thumbs-up"></i> Anda sudah mengonfirmasi!
+                                    <i class="bi bi-hand-thumbs-up"></i> You have already confirmed!
                                 </span>
                             @elseif (!empty($program) && $program->status === 'ditolak')
 
                             @elseif (!empty($showFinalProgramAlert) && $showFinalProgramAlert)
                                 <button type="button" class="btn btn-light-info btn-sm mt-2 fw-bold" data-bs-toggle="modal"
                                     data-bs-target="#modal-konfirmasi-program">
-                                    <i class="bi bi-hand-thumbs-up"></i> Konfirmasi, data sudah benar!
+                                    <i class="bi bi-hand-thumbs-up"></i> Confirm, my data is correct!
                                 </button>
                             @endif
                         </div>
@@ -92,9 +92,9 @@
                     <i class="bi-bell-fill text-white fs-1 me-3 flex-shrink-0 align-self-start"></i>
 
                     <div class="text-white mt-2">
-                        <strong>Terima kasih!</strong> Data pendaftaran calon murid SLB telah berhasil disimpan.
+                        <strong>Thank you!</strong> The SLB prospective student registration data has been saved.
                         <br>
-                        Setiap akun hanya dapat mendaftarkan maksimal 1 calon murid.
+                        Each account can register a maximum of 1 prospective student.
                     </div>
                 </div>
             </div>
@@ -105,8 +105,8 @@
                 <div class="page-title">
                     <div class="card">
                         <div class="card-body" style="padding-bottom: 1px !important;">
-                            <h5>Data Profil <i class="bx bx-user"></i></h5>
-                            <small><i>Untuk melihat data Profil lengkap, silahkan ke menu PROFIL SAYA</i></small>
+                            <h5>Profile Data <i class="bx bx-user"></i></h5>
+                            <small><i>To view your full profile, please go to the MY PROFILE menu</i></small>
                             <div class="row mt-2">
                                 <div class="col-md-2 col-sm-12">
                                     <div class="form-group"><label>Email</label>
@@ -114,17 +114,17 @@
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-12">
-                                    <div class="form-group"><label>Nama Orang Tua</label>
+                                    <div class="form-group"><label>Parent Name</label>
                                         <p class="form-control-static">{{ auth()->user()->name }}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-sm-12">
-                                    <div class="form-group"><label>Jenis Pengguna</label><b>
+                                    <div class="form-group"><label>User Type</label><b>
                                             <p class="form-control-static">{{ auth()->user()->getRoleNames()[0] }}</p>
                                         </b></div>
                                 </div>
                                 <div class="col-md-5 col-sm-12">
-                                    <div class="form-group"><label>Bergabung pada</label>
+                                    <div class="form-group"><label>Joined on</label>
                                         <div class="form-control-static">
                                             {{ Carbon\Carbon::parse(auth()->user()->created_at)->translatedFormat('H:i - l, d F Y') ?? 'N/A' }}
                                             <br><b>ID : {{ auth()->user()->uuid }}</b>
@@ -135,7 +135,7 @@
                                                     fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                                     <path
                                                         d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                                </svg> Lihat Profil
+                                                </svg> View Profile
                                             </button>
 
                                             <!-- Modal -->
@@ -144,7 +144,7 @@
                                                 <div class="modal-dialog modal-lg modal-dialog-centered">
                                                     <div class="modal-content shadow">
                                                         <div class="modal-header">
-                                                            <h5 class="modal-title" id="profilModalLabel">Profil Anda</h5>
+                                                            <h5 class="modal-title" id="profilModalLabel">Your Profile</h5>
                                                             <button type="button" class="btn-close btn-close-dark"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
@@ -153,8 +153,8 @@
                                                             <!-- Ganti dengan data user -->
                                                             <div class="row mb-2">
                                                                 <div class="col-md-6">
-                                                                    <strong>Nama Orang Tua:</strong>
-                                                                    {{ Auth::user()->name ?? 'Nama Anda' }}
+                                                                    <strong>Parent Name:</strong>
+                                                                    {{ Auth::user()->name ?? 'Your Name' }}
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <strong>Email:</strong>
@@ -163,11 +163,11 @@
                                                             </div>
                                                             <div class="row mb-2">
                                                                 <div class="col-md-6">
-                                                                    <strong>No. Whatsapp:</strong>
+                                                                    <strong>WhatsApp No.:</strong>
                                                                     {{ Auth::user()->no_hp ?? '-' }}
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <strong>Nama Anak:</strong>
+                                                                    <strong>Child Name:</strong>
                                                                     {{ Auth::user()->medsos ?? '-' }}
                                                                 </div>
                                                             </div>
@@ -175,7 +175,7 @@
 
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-danger"
-                                                                data-bs-dismiss="modal">Tutup</button>
+                                                                data-bs-dismiss="modal">Close</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -196,7 +196,7 @@
                                         class="bi-exclamation-triangle-fill text-dark fs-5 me-3 flex-shrink-0 align-self-start"></i>
                                     <div class="text-dark mt-2">
                                         @foreach ($programs as $item)
-                                            <strong>Mohon Maaf !</strong> {{ $item->catatan }}
+                                            <strong>Sorry!</strong> {{ $item->catatan }}
                                         @endforeach
                                     </div>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
@@ -209,30 +209,30 @@
                     @endif
 
                     <div class="row mb-2">
-                        <div class="col-lg-6"><strong class="h5 text-muted">Data Siswa</strong><br><small>Informasi
-                                Biodata Calon Murid SLB Patriot Kota Bekasi @php
+                        <div class="col-lg-6"><strong class="h5 text-muted">Student Data</strong><br><small>Prospective Student
+                                Biodata Information for SLB Patriot Bekasi @php
                                     $tahunSekarang = date('Y');
                                     $tahunBerikut = $tahunSekarang + 1;
                                 @endphp
 
-                                <strong>Tahun Pelajaran {{ $tahunSekarang }} / {{ $tahunBerikut }}</strong>.</small></div>
+                                <strong>Academic Year {{ $tahunSekarang }} / {{ $tahunBerikut }}</strong>.</small></div>
                         <div class="col-lg-6">
 
                             @if (!empty($program) && $program->status === 'hadir')
                                 <span type="button" class="btn btn-info btn-md float-end mt-2 text-white">
-                                    <i class="bi bi-hand-thumbs-up"></i> Anda sudah mengonfirmasi!
+                                    <i class="bi bi-hand-thumbs-up"></i> You have already confirmed!
                                 </span>
                             @elseif (!empty($program) && $program->status === 'ditolak')
                                 <div class="alert alert-danger float-end mt-2 mb-0 py-2 px-3 text-white">
                                     <i class="bi bi-x-circle-fill me-2"></i>
-                                    Mohon maaf, pendaftaran sudah <strong>ditutup</strong>.
+                                    Sorry, registration is already <strong>closed</strong>.
                                 </div>
                             @elseif (!empty($program) && $program->status === 'diterima')
                                 {{-- status diterima: tidak menampilkan apapun --}}
                             @elseif (!empty($showFinalProgramAlert) && $showFinalProgramAlert)
                                 <button type="button" class="btn btn-info btn-md float-end mt-2 text-white"
                                     data-bs-toggle="modal" data-bs-target="#modal-konfirmasi-program">
-                                    <i class="bi bi-hand-thumbs-up"></i> Konfirmasi, data sudah benar!
+                                    <i class="bi bi-hand-thumbs-up"></i> Confirm, my data is correct!
                                 </button>
                                 @include('pages.program.modal-konfirmasi')
                             @else
@@ -240,7 +240,7 @@
                                     <button type="button" class="btn btn-primary btn-md float-end mt-2"
                                         data-bs-toggle="modal" data-bs-target="#modal-form-add-program">
                                         <i class="bi bi-plus-lg"></i>
-                                        Tambah Data
+                                        Add Data
                                     </button>
                                 @endrole
                             @endif
@@ -260,17 +260,17 @@
                                     <div class="col-auto">
                                         <select name="status" id="filter_status" class="form-select"
                                             onchange="this.form.submit()">
-                                            <option value="">Semua Status</option>
+                                            <option value="">All Statuses</option>
                                             <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft
                                             </option>
                                             <option value="verifikasi"
-                                                {{ request('status') == 'verifikasi' ? 'selected' : '' }}>Verifikasi</option>
+                                                {{ request('status') == 'verifikasi' ? 'selected' : '' }}>Under Review</option>
                                             <option value="diperbaiki"
-                                                {{ request('status') == 'diperbaiki' ? 'selected' : '' }}>Diperbaiki</option>
+                                                {{ request('status') == 'diperbaiki' ? 'selected' : '' }}>Needs Revision</option>
                                             <option value="diterima" {{ request('status') == 'diterima' ? 'selected' : '' }}>
-                                                Diterima</option>
+                                                Accepted</option>
                                             <option value="ditolak" {{ request('status') == 'ditolak' ? 'selected' : '' }}>
-                                                Ditutup</option>
+                                                Closed</option>
                                         </select>
                                     </div>
 
@@ -289,14 +289,14 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Verifikasi</th>
-                                            <th>Dimensi</th>
-                                            <th class="text-wrap" style="width: 100px;">Nama Peserta</th>
-                                            <th class="text-wrap" style="width: 100px;">Judul Kegiatan</th>
+                                            <th>Verified</th>
+                                            <th>Dimension</th>
+                                            <th class="text-wrap" style="width: 100px;">Participant Name</th>
+                                            <th class="text-wrap" style="width: 100px;">Activity Title</th>
                                             <th>Status</th>
-                                            <th>Dokumen Penunjang</th>
-                                            <th>Dokumen Pendukung</th>
-                                            <th>Detail Program</th>
+                                            <th>Supporting Documents</th>
+                                            <th>Additional Documents</th>
+                                            <th>Program Details</th>
                                         </tr>
                                     </thead>
                                     <tbody class="table-border-bottom-0">
@@ -306,16 +306,16 @@
                                                 <td class="text-center">
                                                     @if ($item->status === 'diterima')
                                                         <i class="bi bi-check-circle-fill text-success fs-5"
-                                                            title="Sudah dicek dan diterima"></i>
+                                                            title="Checked and accepted"></i>
                                                     @elseif ($item->status === 'ditolak')
                                                         <i class="bi bi-x-circle-fill text-danger fs-5 fs-5"
-                                                            title="Sudah dicek dan ditolak"></i>
+                                                            title="Checked and rejected"></i>
                                                     @elseif ($item->status === 'diperbaiki')
                                                         <i class="bi bi-exclamation-triangle-fill text-info fs-5 fs-5"
-                                                            title="Sudah dicek dan diperbaiki"></i>
+                                                            title="Checked and needs revision"></i>
                                                     @else
                                                         <i class="bi bi-dash-circle text-secondary fs-5"
-                                                            title="Belum diterima"></i>
+                                                            title="Not accepted yet"></i>
                                                     @endif
                                                 </td>
                                                 <td>{{ $item->portofolio->nama }}</td>
@@ -334,7 +334,7 @@
 
                                                         $statusText =
                                                             $item->status === 'ditolak'
-                                                                ? 'Ditutup'
+                                                                ? 'Closed'
                                                                 : ucfirst($item->status);
                                                     @endphp
 
@@ -352,22 +352,22 @@
                                                                 class="btn btn-danger text-white btn-outline-secondary btn-sm"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#modalSuratPernyataan-{{ $item->id }}">
-                                                                Surat Pernyataan
-                                                            </button>
-                                                        @endif
-                                                        <br>
-                                                        <button type="button"
-                                                            class="btn btn-primary text-white btn-outline-secondary btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalProfilKomunitas-{{ $item->id }}">
-                                                            Profil Komunitas
-                                                        </button>
-                                                        <br>
-                                                        <button type="button"
-                                                            class="btn btn-success text-white btn-outline-secondary btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#modalLogoKomunitas-{{ $item->id }}">
-                                                            Logo Peserta
+                                                                 Statement Letter
+                                                             </button>
+                                                         @endif
+                                                         <br>
+                                                         <button type="button"
+                                                             class="btn btn-primary text-white btn-outline-secondary btn-sm"
+                                                             data-bs-toggle="modal"
+                                                             data-bs-target="#modalProfilKomunitas-{{ $item->id }}">
+                                                             Community Profile
+                                                         </button>
+                                                         <br>
+                                                         <button type="button"
+                                                             class="btn btn-success text-white btn-outline-secondary btn-sm"
+                                                             data-bs-toggle="modal"
+                                                             data-bs-target="#modalLogoKomunitas-{{ $item->id }}">
+                                                             Participant Logo
                                                         </button>
                                                     </div>
 
@@ -381,10 +381,10 @@
                                                             <a href="{{ $item->video }}"
                                                                 class="btn btn-info text-white btn-outline-secondary btn-sm"
                                                                 target="_blank">
-                                                                Materi Video
-                                                            </a>
-                                                        @else
-                                                            <span class="text-muted">Materi Video belum tersedia</span>
+                                                                 Video Material
+                                                             </a>
+                                                         @else
+                                                             <span class="text-muted">Video material not available yet</span>
                                                         @endif
                                                         <br>
 
@@ -392,10 +392,10 @@
                                                             <a href="{{ $item->presentasi }}"
                                                                 class="btn btn-warning text-white btn-outline-secondary btn-sm"
                                                                 target="_blank">
-                                                                Materi Kompetisi
-                                                            </a>
-                                                        @else
-                                                            <span class="text-muted">Materi Kompetisi belum tersedia</span>
+                                                                 Competition Material
+                                                             </a>
+                                                         @else
+                                                             <span class="text-muted">Competition material not available yet</span>
                                                         @endif
 
                                                     </div>
@@ -406,7 +406,7 @@
                                                     @can('program.update')
                                                         <a href="{{ route('program.cetak', ['id' => $item->id, 'uuid' => $item->user_uuid]) }}"
                                                             class="btn btn-icon btn-secondary btn-sm text-white" target="_blank">
-                                                            Cetak Kegiatan</a>
+                                                            Print Activity</a>
                                                     @endcan
                                                 </td>
                                             </tr>
@@ -424,18 +424,18 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="row mb-1">
-                                            <div class="col-md-4"><strong>Ditambahkan</strong></div>
+                                            <div class="col-md-4"><strong>Added</strong></div>
                                             <div class="col-md-8"><span
                                                     class="badge bg-primary">{{ \Carbon\Carbon::parse($item->created_at)->locale('id')->translatedFormat('H:i - l, d F Y') ?? 'N/A' }}</span>
                                             </div>
                                         </div>
                                         <div class="row mb-1">
-                                            <div class="col-md-4"><strong>Nama Anak</strong></div>
+                                            <div class="col-md-4"><strong>Child Name</strong></div>
                                             <div class="col-md-8">{{ $item->nama_anak }}</div>
                                         </div>
 
                                         <div class="row mb-1">
-                                            <div class="col-md-4"><strong>Disabilitas</strong></div>
+                                            <div class="col-md-4"><strong>Disability</strong></div>
                                             <div class="col-md-8"><span
                                                     class="badge bg-info">{{ $item->disabilities->name ?? '-' }}</span></div>
                                         </div>
@@ -443,9 +443,9 @@
                                         <div class="row mb-1">
                                             <div class="col-md-4">
                                                 <strong>
-                                                    Nama Ayah
-                                                    <i class="bi bi-info-circle-fill text-muted ms-1" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="Nama ayah dari anak."></i>
+                                                     Father's Name
+                                                     <i class="bi bi-info-circle-fill text-muted ms-1" data-bs-toggle="tooltip"
+                                                         data-bs-placement="top" title="Child's father's name."></i>
                                                 </strong>
                                             </div>
                                             <div class="col-md-8">
@@ -456,9 +456,9 @@
                                         <div class="row mb-1">
                                             <div class="col-md-4">
                                                 <strong>
-                                                    Nama Ibu
-                                                    <i class="bi bi-info-circle-fill text-muted ms-1" data-bs-toggle="tooltip"
-                                                        data-bs-placement="top" title="Nama ayah dari ibu."></i>
+                                                     Mother's Name
+                                                     <i class="bi bi-info-circle-fill text-muted ms-1" data-bs-toggle="tooltip"
+                                                         data-bs-placement="top" title="Child's mother's name."></i>
                                                 </strong>
                                             </div>
                                             <div class="col-md-8">
@@ -484,7 +484,7 @@
                                                     $badgeClass = 'bg-primary';
                                                 } elseif ($item->status === 'ditolak') {
                                                     $badgeClass = 'bg-danger';
-                                                    $badgeText = 'Ditutup'; //
+                                                    $badgeText = 'Closed'; //
                                                 } elseif ($item->status === 'diterima') {
                                                     $badgeClass = 'bg-success';
                                                 }
@@ -497,15 +497,15 @@
                                             </div>
                                         </div>
                                         <div class="row mb-1">
-                                            <div class="col-md-4"><strong>No. Handphone</strong></div>
+                                            <div class="col-md-4"><strong>Phone No.</strong></div>
                                             <div class="col-md-8">{{ $item->no_hp }}</div>
                                         </div>
                                         <div class="row mb-1">
-                                            <div class="col-md-4"><strong>Catatan</strong></div>
+                                            <div class="col-md-4"><strong>Notes</strong></div>
                                             <div class="col-md-8">
-                                                Data pendaftaran <strong>SLB Patriot Kota Bekasi</strong> Anda saat ini
-                                                masih dalam status
-                                                <b>{{ ucfirst($item->status) }}</b>, silakan pantau informasi secara berkala.
+                                                Your <strong>SLB Patriot Bekasi</strong> registration data is currently
+                                                in
+                                                <b>{{ ucfirst($item->status) }}</b> status, please check back regularly.
 
                                             </div>
                                         </div>
@@ -513,20 +513,20 @@
                                 </div>
 
                                 @if ($program && $program->status === 'verifikasi')
-                                    <div class="mt-4" <span class="text-muted">*Jika status inovasi sudah
-                                        <strong>Diterima</strong>,
-                                        akan muncul tombol Cetak.</span>
+                                    <div class="mt-4" <span class="text-muted">*Once the innovation status is
+                                        <strong>Accepted</strong>,
+                                        a Print button will appear.</span>
                                     </div>
                                 @elseif (!empty($program) && $program->status === 'ditolak')
-                                    <div class="mt-4" <span class="text-muted">*Jika status inovasi sudah
-                                        <strong>Ditutup</strong>,
-                                        Anda tidak dapat melanjutkan Kompetisi Ekosistem Kota Cerdas.</span>
+                                    <div class="mt-4" <span class="text-muted">*If the innovation status is
+                                        <strong>Closed</strong>,
+                                        you cannot continue in the Smart City Ecosystem Competition.</span>
                                     </div>
                                 @elseif (!empty($program) && $program->status === 'diterima')
                                     <div class="col-md-12 text-end mt-4">
                                         <a href="{{ route('program.cetak', ['id' => $item->id, 'uuid' => $item->user_uuid]) }}"
                                             class="btn btn-icon btn-primary text-white" target="_blank">
-                                            <i class="bi bi-eye"> Cetak Kegiatan</i>
+                                            <i class="bi bi-eye"> Print Activity</i>
                                         </a>
                                     </div>
                                 @else
@@ -535,7 +535,7 @@
                                             <div class="buttons">
                                                 @if ($item->status === 'diterima')
                                                     <a href="{{ route('program.cetak', ['id' => $item->id, 'uuid' => $item->user_uuid]) }}"
-                                                        class="btn btn-outline-primary" target="_blank">Cetak Kegiatan</a>
+                                                        class="btn btn-outline-primary" target="_blank">Print Activity</a>
                                                 @else
                                                     @can('program.update')
                                                         @php
@@ -545,8 +545,8 @@
                                                 @endif
 
                                             </div>
-                                            <span class="text-muted mt-2">*Jika sudah konfirmasi <strong>Hadir</strong>,
-                                             data tidak bisa diubah.</span>
+                                            <span class="text-muted mt-2">*Once you have confirmed <strong>attendance</strong>,
+                                             your data cannot be changed.</span>
                                         </div>
                                         @if (
                                             !empty($program) &&
@@ -569,7 +569,7 @@
                                                     @can('program.destroy')
                                                         <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
                                                             class="btn btn-icon btn-danger text-white">
-                                                            <i class="bi bi-x-square"></i> Hapus
+                                                            <i class="bi bi-x-square"></i> Delete
                                                         </a>
 
                                                         <form id="deleteForm_{{ $item->uuid }}"
@@ -589,7 +589,7 @@
                     @empty
                         <div class="card border-primary mb-4">
                             <div class="card-body">
-                                <p class="text-muted mb-0">Belum ada calon murid yang ditambahkan.</p>
+                                <p class="text-muted mb-0">No prospective students added yet.</p>
                             </div>
                         </div>
                     @endforelse

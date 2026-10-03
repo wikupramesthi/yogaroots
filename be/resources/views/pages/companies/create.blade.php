@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Profil Website')
+@section('title', 'Website Profile')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Profil Website" page="Profil Website" active="Informasi Umum" route="{{ route('company.index') }}" />
+<x-breadcrumb title="Website Profile" page="Website Profile" active="General Information" route="{{ route('company.index') }}" />
 @endsection
 
 <!-- Content -->
@@ -30,28 +30,28 @@
             <form action="{{ route('company.store') }}" method="POST">
                 @csrf
                 <div class="form-group mb-3">
-                    <label for="visi" class="mb-2">Visi Perusahaan<span class="text-danger">*</span></label>
-                    <input type="text" name="visi" class="form-control" placeholder="Masukkan Visi Perusahaan" require>
+                    <label for="visi" class="mb-2">Company Vision<span class="text-danger">*</span></label>
+                    <input type="text" name="visi" class="form-control" placeholder="Enter Company Vision" require>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="misi" class="mb-2">Misi:</label>
-                    <textarea name="misi" class="form-control" placeholder="Masukkan Misi Perusahaan"></textarea>
+                    <label for="misi" class="mb-2">Mission:</label>
+                    <textarea name="misi" class="form-control" placeholder="Enter Company Mission"></textarea>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="kebijakan" class="mb-2">Kebijakan:</label>
-                    <textarea name="kebijakan" class="form-control" placeholder="Masukkan Kebijakan Perusahaan"></textarea>
+                    <label for="kebijakan" class="mb-2">Policy:</label>
+                    <textarea name="kebijakan" class="form-control" placeholder="Enter Company Policy"></textarea>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label for="jasapelayanan" class="mb-2">Jasa Pelayanan:</label>
-                    <textarea name="jasapelayanan" class="form-control" placeholder="Masukkan Jasa Pelayanan Perusahaan"></textarea>
+                    <label for="jasapelayanan" class="mb-2">Services:</label>
+                    <textarea name="jasapelayanan" class="form-control" placeholder="Enter Company Services"></textarea>
                 </div>
 
                 <div class="form-group text-right mt-4">
-                    <a href="{{ route('company.index') }}" class="btn btn-secondary me-2">Batal</a>
-                    <button class="btn btn-danger">Simpan</button>
+                    <a href="{{ route('company.index') }}" class="btn btn-secondary me-2">Cancel</a>
+                    <button class="btn btn-danger">Save</button>
                 </div>
 
             </form>

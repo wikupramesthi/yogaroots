@@ -18,5 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(MenuSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(RouteSeeder::class);
+        $this->call(SecuritySeeder::class);
+        $this->call(BannerMediaSeeder::class);
+        $this->call(WebsiteIdentitySeeder::class);
     }
 }

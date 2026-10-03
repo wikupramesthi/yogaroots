@@ -113,7 +113,7 @@ class InstrukturController extends Controller
 
             $user->assignRole('instruktur');
 
-            // Simpan spesialisasi instruktur // 
+            // Save the instructor specializations // 
             foreach ($request->specializations as $specializationUuid) {
                 DB::table('user_specialization')->insert([
                     'uuid'                => (string) Str::uuid(),
@@ -155,7 +155,7 @@ class InstrukturController extends Controller
         }
 
         if ($authUser->uuid !== $instruktur->uuid) {
-            abort(403, 'Anda tidak memiliki akses ke data ini.');
+            abort(403, 'You do not have access to this data.');
         }
 
         $specializations = Specializaty::where('is_active', 'active')->get();
@@ -224,13 +224,13 @@ class InstrukturController extends Controller
 
             $instruktur->update($data);
 
-            // Hapus specialization lama
+            // Delete the old specializations
             DB::table('user_specialization')
                 ->where('user_uuid', $instruktur->uuid)
                 ->delete();
 
 
-            // Masukkan specialization yang baru
+            // Insert the new specializations
             $specializations = [];
 
             foreach ($request->specializations as $specializationUuid) {
@@ -265,7 +265,7 @@ class InstrukturController extends Controller
         } catch (\Throwable $th) {
             return redirect()
                 ->route('instruktur.index')
-                ->with('error', 'Gagal menghapus data: ' . $th->getMessage());
+                ->with('error', 'Failed to delete data: ' . $th->getMessage());
         }
     }
 
@@ -275,7 +275,7 @@ class InstrukturController extends Controller
             User::onlyTrashed()->restore();
             return redirect()->route('instruktur.index')->with('success', 'All instructors have been successfully restored.');
         } catch (\Throwable $th) {
-            return redirect()->route('instruktur.index')->with('error', 'Gagal restore data: ' . $th->getMessage());
+            return redirect()->route('instruktur.index')->with('error', 'Failed to restore data: ' . $th->getMessage());
         }
     }
 

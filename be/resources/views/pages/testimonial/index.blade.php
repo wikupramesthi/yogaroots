@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Pusat Informasi')
+@section('title', 'Information Center')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Pusat Informasi" page="Pusat Informasi" active="Testimonial" route="{{ route('testimonial.index') }}" />
+<x-breadcrumb title="Information Center" page="Information Center" active="Testimonial" route="{{ route('testimonial.index') }}" />
 @endsection
 <!-- Content -->
 <section class="section">
@@ -28,10 +28,10 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Testimoni</h4>
+                <h4 class="fw-normal mb-0 text-body">Testimonials</h4>
                 <button type="button" class="btn btn-primary btn-md" data-bs-toggle="modal"
                     data-bs-target="#modal-form-add-testimonial">
-                    <i class="bi bi-plus-lg"></i> Tambah Baru
+                    <i class="bi bi-plus-lg"></i> Add New
                 </button>
             </div>
         </div>
@@ -41,14 +41,14 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Foto</th>
-                            <th>Nama</th>
-                            <th>Mulai Bergabung</th>
-                            <th>Isi Testimoni</th>
-                            <th>Urutan</th>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Joined Since</th>
+                            <th>Testimonial Content</th>
+                            <th>Order</th>
                             <th>Status</th>
                             <th>Edit</th>
-                            <th>Hapus</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,7 +57,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>
                                 @if ($item->foto)
-                                <img src="{{ asset('storage/' . $item->foto) }}" alt="Foto {{ $item->name }}"
+                                <img src="{{ asset('storage/' . $item->foto) }}" alt="Photo {{ $item->name }}"
                                     width="60" class="img-thumbnail">
                                 @else
                                 <span class="text-muted">-</span>
@@ -69,7 +69,7 @@
                             <td>{{ $item->urutan }}</td>
                             <td>
                                 <span class="badge {{ $item->is_active === 'active' ? 'bg-info' : 'bg-danger' }}">
-                                    {{ $item->is_active === 'active' ? 'Aktif' : 'Tidak Aktif' }}
+                                    {{ $item->is_active === 'active' ? 'Active' : 'Inactive' }}
                                 </span>
                             </td>
                             <td>
@@ -87,7 +87,7 @@
                                 @can('testimonial.destroy')
                                 <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
                                     class="btn btn-icon btn-danger text-white">
-                                    <i class="bi bi-x-square"></i> Hapus
+                                    <i class="bi bi-x-square"></i> Delete
                                 </a>
                                 <form id="deleteForm_{{ $item->uuid }}"
                                     action="{{ route('testimonial.destroy', $item->uuid) }}" method="POST">
@@ -112,11 +112,11 @@
 <script>
     function showSweetAlert(getId) {
         Swal.fire({
-            title: 'Konfirmasi Penghapusan',
-            text: 'Data ini akan dihapus secara permanen dan tidak bisa dikembalikan. Apakah Anda yakin ingin menghapusnya?',
+            title: 'Delete Confirmation',
+            text: 'This data will be permanently deleted and cannot be recovered. Are you sure you want to delete it?',
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Ya, Hapus!'
+            confirmButtonText: 'Yes, Delete!'
         }).then((result) => {
             if (result.isConfirmed) {
                 // If the user clicks "Yes, delete it!", submit the corresponding form

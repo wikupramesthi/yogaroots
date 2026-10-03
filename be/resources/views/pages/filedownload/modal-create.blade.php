@@ -7,13 +7,13 @@
         @csrf
 
         <div class="modal-header">
-          <h5 class="modal-title" id="modal-form-add-dokumen-label">Tambah Dokumen</h5>
+          <h5 class="modal-title" id="modal-form-add-dokumen-label">Add Document</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
         </div>
         <div class="modal-body">
           <div class="form-group mb-3">
-            <label for="judul" class="mb-2">Nama Dokumen <span class="text-danger">*</span></label>
-            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" placeholder="Nama Dokumen" name="judul" value="{{ old('judul') }}" required>
+            <label for="judul" class="mb-2">Document Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" placeholder="Document Name" name="judul" value="{{ old('judul') }}" required>
             @error('judul')
             <div class="invalid-feedback">
               {{ $message }}
@@ -22,8 +22,8 @@
           </div>
 
           <div class="form-group mb-3">
-            <label for="deskripsi" class="mb-2">Deskripsi <span class="text-danger">*</span></label>
-            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" id="desc" placeholder="Deskripsi" name="deskripsi" value="{{ old('deskripsi') }}" required>{{ old('deskripsi') }}</textarea>
+            <label for="deskripsi" class="mb-2">Description <span class="text-danger">*</span></label>
+            <textarea type="text" class="form-control @error('deskripsi') is-invalid @enderror" id="desc" placeholder="Description" name="deskripsi" value="{{ old('deskripsi') }}" required>{{ old('deskripsi') }}</textarea>
             @error('deskripsi')
             <div class="invalid-feedback">
               {{ $message }}
@@ -32,13 +32,13 @@
           </div>
 
           <div class="form-group mb-3">
-            <label for="kategori" class="mb-2">Kategori <span class="text-danger">*</span></label>
+            <label for="kategori" class="mb-2">Category <span class="text-danger">*</span></label>
             <select name="kategori" id="kategori" class="form-control @error('kategori') is-invalid @enderror" required>
-              <option value="">-- Pilih --</option>
-              <option value="akademik">Dokumen Kurikulum</option>
-              <option value="informasi">Informasi Publik</option>
-              <option value="laporan">Laporan Sekolah</option>
-              <option value="edaran">Surat Edaran</option>
+              <option value="">-- Select --</option>
+              <option value="akademik">Curriculum Document</option>
+              <option value="informasi">Public Information</option>
+              <option value="laporan">School Report</option>
+              <option value="edaran">Circular Letter</option>
             </select>
             @error('kategori')
             <div class="invalid-feedback">
@@ -59,8 +59,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-primary ">Simpan</button>
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary ">Save</button>
         </div>
       </form>
 

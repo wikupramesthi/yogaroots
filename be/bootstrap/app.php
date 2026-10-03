@@ -17,8 +17,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'route.permission' => \App\Http\Middleware\RouteMiddleware::class,
+            'inactive' => \App\Http\Middleware\AutoLogoutInactive::class,
         ]);
+        // Auto-logout bila 30 menit tanpa aktivitas (ala DBMSDA).
+        // Server-side layer: proteksi walau JS dimatikan. JS warning
+        // "Tetap Login / Logout" ada di layouts/app.blade.php (@auth).
         $middleware->appendToGroup('web', 'route.permission');
+        $middleware->appendToGroup('web', \App\Http\Middleware\AutoLogoutInactive::class);
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {

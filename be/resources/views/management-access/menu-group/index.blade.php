@@ -3,7 +3,7 @@
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Menu Manager" page="Pengaturan" active="Menu Manager" route="{{ route('menu.index') }}" />
+<x-breadcrumb title="Menu Manager" page="Settings" active="Menu Manager" route="{{ route('menu.index') }}" />
 @endsection
 
 <!-- Content -->
@@ -17,7 +17,7 @@
         <button type="button" class="btn btn-primary btn-md " data-bs-toggle="modal"
           data-bs-target="#modal-form-add-menu">
           <i class="bi bi-plus-lg"></i>
-          Tambah Menu
+          Add Menu
         </button>
         @endcan
 
@@ -34,7 +34,7 @@
               <th>Status</th>
               <th>Menu Item</th>
               <th>Edit</th>
-              <th>Hapus</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody class="table-border-bottom-0">

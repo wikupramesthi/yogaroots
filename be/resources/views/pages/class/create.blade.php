@@ -148,7 +148,7 @@
                     auth()->user()->hasRole('super-admin')
                     )
 
-                    {{-- Admin & Superadmin bisa memilih instructor --}}
+                    {{-- Admin & Superadmin can select an instructor --}}
                     <select
                         name="instructor_uuid"
                         id="instructor_uuid"
@@ -175,7 +175,7 @@
 
                     @else
 
-                    {{-- Instruktur otomatis menggunakan akun sendiri --}}
+                    {{-- Instructors automatically use their own account --}}
                     <input
                         type="text"
                         class="form-control"

@@ -8,13 +8,13 @@
 
     <title>{{ config('app.name', 'Smart City Kota Bekasi') }}</title>
 
-    <meta name="description" content="Cari rumah, apartemen, tanah, kavling dan properti terbaik di Jabodetabek bersama kami. Dapatkan layanan terpercaya dari agen properti profesional.">
-    <meta name="keywords" content="agen properti, jual rumah, sewa apartemen, properti bekasi, tanah kavling, tanah, beli tanah">
+    <meta name="description" content="Find the best houses, apartments, land, plots, and properties in Jabodetabek with us. Get trusted service from professional property agents.">
+    <meta name="keywords" content="property agent, house for sale, apartment for rent, Bekasi property, plot land, land, buy land">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="">
 
-    <meta property="og:title" content="Agensi Properti Terbaik">
-    <meta property="og:description" content="Bergabunglah dengan kami untuk menemukan properti terbaik.">
+    <meta property="og:title" content="Best Property Agency">
+    <meta property="og:description" content="Join us to find the best properties.">
     <meta property="og:image" content="https://www.contohagensiproperti.com/image.jpg">
     <meta property="og:url" content="">
     <meta property="og:type" content="website">

@@ -29,8 +29,8 @@ class InstructorController extends Controller
                 'status' => 'success',
 
                 'message' => $instructors->isEmpty()
-                    ? 'Belum ada instruktur yang tersedia'
-                    : 'Data instruktur berhasil diambil',
+                    ? 'No instructors available'
+                    : 'Instructor data retrieved successfully',
 
                 'data' => InstructorResource::collection(
                     $instructors->items()
@@ -54,7 +54,7 @@ class InstructorController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal mengambil data instruktur',
+                'message' => 'Failed to fetch instructor data',
                 'data' => [],
             ], 500);
         }

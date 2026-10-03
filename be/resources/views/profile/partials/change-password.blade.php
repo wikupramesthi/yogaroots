@@ -8,7 +8,7 @@
         @method('PUT')
 
         <div class="modal-header">
-          <h5 class="modal-title" id="modal-form-edit-password-{{ auth()->user()->id }}-label">Ubah Password
+          <h5 class="modal-title" id="modal-form-edit-password-{{ auth()->user()->id }}-label">Change Password
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
         </div>
@@ -29,7 +29,7 @@
           </div>
 
           <div class="form-group my-2 d-flex justify-content-end">
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary">Save</button>
           </div>
           {{-- <div class="mb-3">
             <label for="roles[]" class="form-label">Role Name</label>

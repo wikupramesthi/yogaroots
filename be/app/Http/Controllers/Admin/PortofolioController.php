@@ -24,7 +24,7 @@ class PortofolioController extends Controller
     {
 
         return view('pages.portofolio.create', [
-            'title' => 'Tambah Portofolio'
+            'title' => 'Add Portfolio'
         ]);
     }
 
@@ -63,7 +63,7 @@ class PortofolioController extends Controller
                 ]);
             }
             DB::commit();
-            return redirect()->route('portofolio.index')->with('success', 'Portofolio berhasil ditambahkan.');
+            return redirect()->route('portofolio.index')->with('success', 'Portfolio created successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;
@@ -76,7 +76,7 @@ class PortofolioController extends Controller
 
         $item = Portofolio::findOrFail($id);
         return view('pages.portofolio.edit', [
-            'title' => 'Edit Portofolio',
+            'title' => 'Edit Portfolio',
             'item' => $item
         ]);
     }
@@ -98,7 +98,7 @@ class PortofolioController extends Controller
 
             $item->update($data);
             DB::commit();
-            return redirect()->route('portofolio.index')->with('success', 'Portofolio berhasil diupdate.');
+            return redirect()->route('portofolio.index')->with('success', 'Portfolio updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;
@@ -113,7 +113,7 @@ class PortofolioController extends Controller
             $item = Portofolio::findOrFail($id);
             $item->delete();
             DB::commit();
-            return redirect()->route('portofolio.index')->with('success', 'Portofolio berhasil dihapus.');
+            return redirect()->route('portofolio.index')->with('success', 'Portfolio deleted successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;
@@ -134,7 +134,7 @@ class PortofolioController extends Controller
             $item = Kontak::findOrFail($id);
             $item->delete();
             DB::commit();
-            return redirect()->back()->with('success', 'Pesan masuk berhasil dihapus.');
+            return redirect()->back()->with('success', 'Incoming message deleted successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             // throw $th;

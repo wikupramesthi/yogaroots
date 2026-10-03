@@ -22,7 +22,7 @@ class FaqController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Daftar FAQ berhasil diambil',
+                'message' => 'FAQ list retrieved successfully',
                 'data' => FaqResource::collection($faqs)
             ], 200);
 
@@ -32,7 +32,7 @@ class FaqController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal mengambil FAQ',
+                'message' => 'Failed to fetch FAQs',
                 'data' => []
             ], 500);
         }

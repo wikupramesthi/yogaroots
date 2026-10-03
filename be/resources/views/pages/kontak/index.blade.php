@@ -62,7 +62,7 @@
                                 <td>
                                     <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
                                         class="btn btn-icon btn-danger text-white">
-                                        <i class="bi bi-x-square"> Deleted</i>
+                                        <i class="bi bi-x-square"> Delete</i>
                                     </a>
                                     <form id="deleteForm_{{ $item->uuid }}"
                                         action="{{ route('kontak.destroy', $item->uuid) }}" method="POST">

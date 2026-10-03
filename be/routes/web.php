@@ -29,6 +29,10 @@ use App\Http\Controllers\Admin\PollController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\EventsController;
 use App\Http\Controllers\Admin\PenggunaController;
+use App\Http\Controllers\Admin\Security\AuditLogController;
+use App\Http\Controllers\Admin\Security\FailedLoginController;
+use App\Http\Controllers\Admin\Security\LoginActivityController;
+use App\Http\Controllers\Admin\Security\LoginLockoutController;
 
 // payment
 use App\Http\Controllers\Admin\PackageController;
@@ -38,7 +42,8 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\ClassBookingController;
 use App\Http\Controllers\Admin\CheckoutController;
-
+use App\Http\Controllers\Admin\GlobalSearchController;
+use App\Http\Controllers\Admin\WebsiteIdentityController;
 use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\MinifyHtml;
@@ -54,6 +59,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Keep-alive to reset the idle timer (called via JS when the user clicks "Stay signed in")
+    Route::post('/keep-alive', function (\Illuminate\Http\Request $request) {
+        $request->session()->put('last_activity', time());
+        return response()->json(['ok' => true]);
+    })->name('keep-alive');
 });
 
 Route::post('/notifications/{id}/read', function ($id) {
@@ -67,6 +77,8 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     $superAdmin = 'role:super-admin';
     // $user = 'role:user';
     Route::post('/dashboard/sumber-informasi', [DashboardController::class, 'submitSumber'])->name('dashboard.submitSumber');
+    // Cross-module global search for the command palette (Ctrl+K)
+    Route::get('/search', [GlobalSearchController::class, 'index'])->name('search');
     Route::resource('dashboard', DashboardController::class)->only('index');
     Route::resource('user', UserController::class)->middleware($superAdmin)->only('index', 'store', 'update', 'destroy');
     Route::resource('route', RouteController::class)->middleware($superAdmin)->only('index', 'store', 'update', 'destroy');
@@ -78,9 +90,17 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::resource('faq', FaqController::class);
     Route::resource('testimonial', TestimonialController::class);
     Route::resource('company', TentangPerusahaanController::class);
+    Route::get('banner/media', [BannerController::class, 'loadMore'])->name('banner.loadMore');
+    Route::get('banner/foto-picker', [BannerController::class, 'fotoPicker'])->name('banner.fotoPicker');
+    Route::get('banner/album-fotos/{album}', [BannerController::class, 'albumFotos'])->name('banner.albumFotos');
+    Route::get('banner/modal/{tipe}/{uuid}', [BannerController::class, 'modal'])->whereIn('tipe', ['foto', 'video', 'album', 'view-album'])->name('banner.modal');
     Route::resource('banner', BannerController::class);
+    Route::post('banner/album', [BannerController::class, 'storeAlbum'])->name('banner.storeAlbum');
+    Route::put('banner/album/{album}', [BannerController::class, 'updateAlbum'])->name('banner.updateAlbum');
+    Route::delete('banner/album/{album}', [BannerController::class, 'destroyAlbum'])->name('banner.destroyAlbum');
     Route::resource('categories', CategoryController::class);
     Route::resource('specializations', SpecializatyController::class);
+    Route::delete('articles/bulk', [ArticleController::class, 'bulkDestroy'])->name('articles.bulkDestroy');
     Route::resource('articles', ArticleController::class);
     Route::resource('account', AccountController::class);
     Route::get('/get-kelurahan/{kecamatan_id}', [AccountController::class, 'getKelurahan']);
@@ -89,6 +109,9 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::resource('events', EventsController::class);
     Route::resource('program', ProgramController::class);
     Route::resource('filedownload', FileDownloadController::class);
+    // Website Identitas ala DBMSDA (singleton: satu form, tanpa CRUD tabel)
+    Route::get('website-identity', [WebsiteIdentityController::class, 'index'])->name('website-identity.index');
+    Route::put('website-identity', [WebsiteIdentityController::class, 'update'])->name('website-identity.update');
     Route::get('pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
     Route::get('/pengguna/export', [PenggunaController::class, 'export'])->name('pengguna.export');
 
@@ -145,6 +168,29 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::post('/program/presentasi', [ProgramController::class, 'presentasiStore'])->name('program.presentasiStore');
 
     Route::patch('/pages/{uuid}/sidebar', [PagesController::class, 'updateSidebar'])->name('pages.updateSidebar');
+
+    // Security (audit log, login activity, lockout) — DBMSDA-style
+    Route::prefix('security')->name('security.')->group(function () {
+        Route::get('login-activity', [LoginActivityController::class, 'index'])->name('login-activity.index');
+        Route::delete('login-activity/bulk', [LoginActivityController::class, 'bulkDestroy'])->name('login-activity.bulkDestroy');
+        Route::delete('login-activity/clear', [LoginActivityController::class, 'clear'])->name('login-activity.clear');
+        Route::delete('login-activity/{loginActivity}', [LoginActivityController::class, 'destroy'])->name('login-activity.destroy');
+
+        Route::get('login-lockout', [LoginLockoutController::class, 'index'])->name('login-lockout.index');
+        Route::delete('login-lockout/bulk', [LoginLockoutController::class, 'bulkDestroy'])->name('login-lockout.bulkDestroy');
+        Route::delete('login-lockout/{loginLockout}', [LoginLockoutController::class, 'destroy'])->name('login-lockout.destroy');
+
+        Route::get('audit-log', [AuditLogController::class, 'index'])->name('audit-log.index');
+        Route::get('audit-log/export-pdf', [AuditLogController::class, 'exportPdf'])->name('audit-log.exportPdf');
+        Route::delete('audit-log/bulk', [AuditLogController::class, 'bulkDestroy'])->name('audit-log.bulkDestroy');
+        Route::delete('audit-log/clear', [AuditLogController::class, 'clear'])->name('audit-log.clear');
+        Route::delete('audit-log/{auditLog}', [AuditLogController::class, 'destroy'])->name('audit-log.destroy');
+
+        Route::get('failed-login', [FailedLoginController::class, 'index'])->name('failed-login.index');
+        Route::delete('failed-login/bulk', [FailedLoginController::class, 'bulkDestroy'])->name('failed-login.bulkDestroy');
+        Route::delete('failed-login/clear', [FailedLoginController::class, 'clear'])->name('failed-login.clear');
+        Route::delete('failed-login/{failedLogin}', [FailedLoginController::class, 'destroy'])->name('failed-login.destroy');
+    });
 
     // Route::get('list-menu', [MenuGroupController::class, 'listMenu'])->name('list-menu');
 });

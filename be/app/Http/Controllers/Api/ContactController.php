@@ -47,7 +47,7 @@ class ContactController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Validasi gagal.',
+                'message' => 'Validation failed.',
                 'errors' => $validator->errors(),
             ], 422);
         }
@@ -59,7 +59,7 @@ class ContactController extends Controller
         if ($correctAnswer === null) {
             return response()->json([
                 'success' => false,
-                'message' => 'CAPTCHA sudah kedaluwarsa. Silakan muat ulang halaman.',
+                'message' => 'CAPTCHA has expired. Please reload the page.',
             ], 422);
         }
 
@@ -67,7 +67,7 @@ class ContactController extends Controller
         if ((int) $request->captcha_answer !== (int) $correctAnswer) {
             return response()->json([
                 'success' => false,
-                'message' => 'Jawaban CAPTCHA salah.',
+                'message' => 'Incorrect CAPTCHA answer.',
             ], 422);
         }
 
@@ -84,7 +84,7 @@ class ContactController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Pesan berhasil dikirim. Kami akan segera menghubungi Anda.',
+            'message' => 'Message sent successfully. We will contact you shortly.',
             'data' => $contact,
         ], 201);
     }

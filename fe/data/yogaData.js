@@ -1,3 +1,8 @@
+/**
+ * Data statis theme (non-CMS).
+ * Konten dinamis (kelas, paket, event, artikel, dst.) berasal dari backend via services/.
+ * Jangan taruh konten CMS di sini — file ini hanya untuk identitas & navigasi.
+ */
 export const yogaData = {
   site: {
     name: "Yoga Roots",
@@ -18,117 +23,6 @@ export const yogaData = {
     { key: "instructors", label: "Instructors", href: "/instructors" },
     { key: "events", label: "Events", href: "/event" },
   ],
-  hero: {
-    eyebrow: "BREATHE YOUR WAY TO PEACE",
-    title: "Let Go of Stress. Find Your Balance.",
-    subtitle:
-      "Push the off button on it. Burn your bridges with it. You don't have to live with stress, anxiety and pain. Living can be a joyful adventure instead, one where you're in control of how you meet the circumstances of your life. Armed with the knowledge of breath and meditation, you'll win your battles in no time!",
-    ctaPrimary: "Start Your Class",
-    ctaSecondary: "View Classes",
-    image: "img/sita-manwani.jpg",
-    floating: [
-      { label: "500+ Kelas / bulan", icon: "🧘" },
-      { label: "12K+ Member Bahagia", icon: "💫" },
-    ],
-  },
-  stats: [
-    { value: "12K+", label: "Member Aktif" },
-    { value: "18", label: "Instruktur Certified" },
-    { value: "500+", label: "Kelas per Bulan" },
-    { value: "4.8★", label: "Rating Google" },
-  ],
-  features: [
-    {
-      icon: "🌿",
-      title: "A Place to Pause",
-      desc: "Leave the noise behind and make space to breathe, move, and reconnect with yourself. Find your balance.",
-    },
-    {
-      icon: "🪷",
-      title: "Practice Your Way",
-      desc: "Whether you're new to yoga or ready to go deeper, find a practice that meets you exactly where you are.",
-    },
-    {
-      icon: "🤲",
-      title: "More Than a Studio",
-      desc: "Come for the practice, stay for the people. Build connections and share meaningful moments along the way.",
-    },
-    {
-      icon: "🧘",
-      title: "Move with Awareness",
-      desc: "Thoughtful guidance helps you understand your body, refine your practice, and find more ease in every movement.",
-    },
-  ],
-  categories: [
-    { slug: "all", label: "Semua Kelas" },
-    { slug: "hatha", label: "Hatha" },
-    { slug: "vinyasa", label: "Vinyasa" },
-    { slug: "yin", label: "Yin & Restoratif" },
-    { slug: "meditation", label: "Meditasi" },
-  ],
-  schedule: [
-    {
-      time: "06:00",
-      mon: "Ashtanga",
-      tue: "Hatha",
-      wed: "Ashtanga",
-      thu: "Vinyasa",
-      fri: "Ashtanga",
-      sat: "Vinyasa",
-      sun: "—",
-    },
-    {
-      time: "07:00",
-      mon: "Hatha Flow",
-      tue: "Hatha Flow",
-      wed: "Hatha Flow",
-      thu: "Hatha Flow",
-      fri: "Hatha Flow",
-      sat: "Hatha Flow",
-      sun: "Hatha Flow",
-    },
-    {
-      time: "10:00",
-      mon: "—",
-      tue: "Prenatal",
-      wed: "Prenatal",
-      thu: "—",
-      fri: "Yin",
-      sat: "Workshop",
-      sun: "Meditasi",
-    },
-    {
-      time: "17:00",
-      mon: "Vinyasa",
-      tue: "Yin",
-      wed: "Kundalini",
-      thu: "Vinyasa",
-      fri: "Yin",
-      sat: "Yin Yang",
-      sun: "—",
-    },
-    {
-      time: "18:30",
-      mon: "Power Vinyasa",
-      tue: "Hatha",
-      wed: "Power Vinyasa",
-      thu: "Restorative",
-      fri: "Sound Healing",
-      sat: "—",
-      sun: "—",
-    },
-    {
-      time: "19:30",
-      mon: "Yin",
-      tue: "Yin",
-      wed: "Meditasi",
-      thu: "Yin",
-      fri: "Yin",
-      sat: "—",
-      sun: "—",
-    },
-  ],
-
   contact: {
     mapEmbed:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.1610802006066!2d106.8327788!3d-6.2087284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f591a35191c3%3A0x255c635679625e83!2sYoga%20Roots!5e1!3m2!1sen!2sid!4v1787872983524!5m2!1sen!2sid",

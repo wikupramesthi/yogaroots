@@ -6,13 +6,13 @@
             @method('PUT')
 
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-form-view-faq-{{ $item->uuid }}-label">Detail FAQ & Answer</h5>
+                <h5 class="modal-title" id="modal-form-view-faq-{{ $item->uuid }}-label">FAQ & Answer Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
             </div>
 
             <div class="modal-body">
                 <div class="form-group mb-3">
-                    <label for="pertanyaan" class="mb-2">Pertanyaan :</label><br>
+                    <label for="pertanyaan" class="mb-2">Question:</label><br>
                     <span 
                         style="display: block; white-space: normal; word-break: break-word; overflow-wrap: break-word; max-width: 100%; color: #007bff;">
                         {{ $item->pertanyaan ?? '-' }}
@@ -20,7 +20,7 @@
                 </div>
 
                   <div class="form-group mb-3">
-                    <label for="jawaban" class="mb-2">Jawaban :</label><br>
+                    <label for="jawaban" class="mb-2">Answer:</label><br>
                     <span
                         style="display: block; white-space: normal; word-break: break-word; overflow-wrap: break-word; max-width: 100%; color: #007bff;">
                         {{ $item->jawaban ?? '-' }}
@@ -30,7 +30,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Keluar</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
             </div>
 
         </div><!-- /.modal-content -->

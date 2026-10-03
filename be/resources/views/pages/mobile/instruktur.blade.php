@@ -36,7 +36,7 @@
                 type="button"
                 class="filter active"
                 data-f="Semua">
-                Semua
+                All
             </button>
 
             @foreach($specializations as $specialization)

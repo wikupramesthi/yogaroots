@@ -216,7 +216,7 @@
       <h2 class="font-display text-3xl sm:text-4xl text-sand-900 mb-4"><%= t.readyTitle %> <span class="italic"><%= t.readyTitleItalic %></span>?</h2>
       <p class="text-sand-600 mb-8 max-w-lg mx-auto"><%= t.ctaDesc %></p>
       <div class="flex flex-wrap items-center justify-center gap-4">
-        <a href="https://wa.me/6281321221270" target="_blank" rel="noopener noreferrer" class="btn-primary group text-base px-8 py-3.5">
+        <a href="<%= contactLinks.whatsappShortLink %>" target="_blank" rel="noopener noreferrer" class="btn-primary group text-base px-8 py-3.5">
           <%= t.chatWhatsApp %>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
         </a>
@@ -231,6 +231,6 @@
 </main>
 
 <%- include('../partials/footer') %>
-<script src="/js/main.js"></script>
+<script src="/js/main.js?v=<%= assetV %>"></script>
 </body>
 </html>

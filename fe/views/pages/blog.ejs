@@ -40,6 +40,7 @@
             <img
               src="<%= p.image %>"
               alt="<%= p.title %>"
+              data-fallback="/img/yogaroots_about2.jpg"
               class="h-[180px] w-full object-cover group-hover:scale-[1.02] transition"
             >
           <% } %>
@@ -102,7 +103,7 @@
 
   <%- include('../partials/footer') %>
 
-  <script src="/js/main.js"></script>
+  <script src="/js/main.js?v=<%= assetV %>"></script>
 
   <script>
     const loadMoreBtn = document.getElementById("loadMoreBtn");

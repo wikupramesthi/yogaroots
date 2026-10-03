@@ -55,450 +55,130 @@
     </div>
     @endif
 
-    <div class="card">
+    {{-- Statistic cards: numbers follow the active filter --}}
+    <div class="row mb-4 g-3 ml-stats">
+        <div class="col-6 col-md-4 col-xl"><div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat"><div class="ml-stat-icon ic-primary"><i class="bx bx-dumbbell"></i></div><div><div class="ml-stat-value">{{ number_format($stats['total']) }}</div><div class="ml-stat-label">Total Classes</div></div></div></div></div></div>
+        <div class="col-6 col-md-4 col-xl"><div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat"><div class="ml-stat-icon ic-success"><i class="bx bx-check-circle"></i></div><div><div class="ml-stat-value">{{ number_format($stats['active']) }}</div><div class="ml-stat-label">Active</div></div></div></div></div></div>
+        <div class="col-6 col-md-4 col-xl"><div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat"><div class="ml-stat-icon ic-warning"><i class="bx bx-pause-circle"></i></div><div><div class="ml-stat-value">{{ number_format($stats['inactive']) }}</div><div class="ml-stat-label">Inactive</div></div></div></div></div></div>
+        <div class="col-6 col-md-4 col-xl"><div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat"><div class="ml-stat-icon ic-violet"><i class="bx bx-calendar-event"></i></div><div><div class="ml-stat-value">{{ number_format($stats['schedules']) }}</div><div class="ml-stat-label">Total Schedules</div></div></div></div></div></div>
+    </div>
 
-        <div class="card-header border-0 bg-white p-3 p-md-4">
-
-            <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
-
+    <div class="card shadow-sm mb-3">
+        <div class="card-body py-2 px-3">
+            <div class="d-flex flex-wrap align-items-end justify-content-between gap-3">
                 <form
                     action="{{ route('classes.index') }}"
                     method="GET"
-                    class="d-flex align-items-center gap-2 flex-wrap flex-grow-1">
-
-                    {{-- Level --}}
-                    <div class="input-group input-group-sm" style="width: 220px;">
-
-                        <span class="input-group-text bg-light">
-                            Level
-                        </span>
-
-                        <select
-                            name="level"
-                            class="form-select">
-
-                            <option value="">-- All --</option>
-
-                            <option
-                                value="foundation"
-                                {{ request('level') == 'foundation' ? 'selected' : '' }}>
-                                Foundation
-                            </option>
-
-                            <option
-                                value="intermediate"
-                                {{ request('level') == 'intermediate' ? 'selected' : '' }}>
-                                Intermediate
-                            </option>
-
-                            <option
-                                value="advance"
-                                {{ request('level') == 'advance' ? 'selected' : '' }}>
-                                Advance
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- Instructor --}}
+                    class="d-flex flex-wrap align-items-end gap-2">
+                    <div><label class="form-label small mb-0">Search</label><input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm" placeholder="Class name..." style="min-width:180px;" autocomplete="off"></div>
+                    <div><label class="form-label small mb-0">Level</label><select name="level" class="form-select form-select-sm" style="min-width:150px;"><option value="">All</option><option value="foundation" @selected($level==='foundation')>Foundation</option><option value="intermediate" @selected($level==='intermediate')>Intermediate</option><option value="advance" @selected($level==='advance')>Advance</option></select></div>
                     @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('superadmin'))
-
-                    <div
-                        class="input-group input-group-sm"
-                        style="width: 260px;">
-
-                        <span class="input-group-text bg-light">
-                            Instructor
-                        </span>
-
-                        <select
-                            name="instructor_uuid"
-                            class="form-select">
-
-                            <option value="">
-                                All Instructors
-                            </option>
-
-                            @foreach($instructors as $instructor)
-
-                            <option
-                                value="{{ $instructor->uuid }}"
-                                {{ request('instructor_uuid') == $instructor->uuid ? 'selected' : '' }}>
-
-                                {{ $instructor->name }}
-
-                            </option>
-
-                            @endforeach
-
-                        </select>
-
-                    </div>
-
+                    <div><label class="form-label small mb-0">Instructor</label><select name="instructor_uuid" class="form-select form-select-sm" style="min-width:160px;"><option value="">All Instructors</option>@foreach($instructors as $instructor)<option value="{{ $instructor->uuid }}" @selected($instructor_uuid==$instructor->uuid)>{{ $instructor->name }}</option>@endforeach</select></div>
                     @endif
-
-
-                    {{-- Status --}}
-                    <div
-                        class="input-group input-group-sm"
-                        style="width: 190px;">
-
-                        <span class="input-group-text bg-light">
-                            Status
-                        </span>
-
-                        <select
-                            name="is_active"
-                            class="form-select">
-
-                            <option value="">
-                                -- All --
-                            </option>
-
-                            <option
-                                value="active"
-                                {{ request('is_active') == 'active' ? 'selected' : '' }}>
-                                Active
-                            </option>
-
-                            <option
-                                value="inactive"
-                                {{ request('is_active') == 'inactive' ? 'selected' : '' }}>
-                                Inactive
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    {{-- Filter --}}
-                    <button
-                        type="submit"
-                        class="btn btn-sm btn-success px-3">
-
-                        <i class="bi bi-funnel me-1"></i>
-                        Filter
-
-                    </button>
-
-
-                    {{-- Reset --}}
-                    <a
-                        href="{{ route('classes.index') }}"
-                        class="btn btn-sm btn-secondary px-3">
-
-                        <i class="bi bi-arrow-counterclockwise me-1"></i>
-                        Reset
-
-                    </a>
-
+                    <div><label class="form-label small mb-0">Status</label><select name="is_active" class="form-select form-select-sm" style="min-width:130px;"><option value="">All</option><option value="active" @selected($is_active==='active')>Active</option><option value="inactive" @selected($is_active==='inactive')>Inactive</option></select></div>
+                    <div class="d-flex gap-1"><button type="submit" class="btn btn-sm btn-success"><i class="bi bi-funnel"></i> Filter</button><a href="{{ route('classes.index') }}" class="btn btn-sm btn-light">Reset</a></div>
                 </form>
-
-
-                {{-- =========================
-            ADD CLASS
-        ========================== --}}
-                <div class="flex-shrink-0">
-
-                    @can('classes.create')
-
-                    <a
-                        href="{{ route('classes.create') }}"
-                        class="btn btn-primary px-4">
-
-                        <i class="bi bi-plus-lg me-1"></i>
-                        Add Class
-
-                    </a>
-
-                    @endcan
-
-                </div>
-
+                @can('classes.create')
+                <a href="{{ route('classes.create') }}" class="btn btn-sm btn-primary"><i class="bi bi-plus-lg"></i> Add Class</a>
+                @endcan
             </div>
+        </div>
+    </div>
 
+    <div class="card shadow-sm">
+        <div class="card-header py-2 px-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div class="d-flex align-items-center gap-2">
+                <h6 class="mb-0">Classes</h6>
+                <span class="badge bg-primary-subtle text-primary">{{ number_format($stats['total']) }} classes</span>
+            </div>
         </div>
 
-        <div class="card-body">
-
-            <div class="table-responsive text-nowrap mx-2">
-
-                <table
-                    class="table table-bordered"
-                    id="table1">
-
-                    <thead>
-
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0" style="font-size:0.9rem;">
+                    <thead class="table-light">
                         <tr>
-
-                            <th>No.</th>
-                            <th>Class</th>
-                            <th>Level</th>
-                            <th>Duration</th>
-                            <th>Instructor</th>
-                            <th>Price</th>
-                            <th>Quota Cost</th>
-                            <th>Status</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-
+                            <th>No.</th><th>Class</th><th>Level</th><th class="hide-xs">Duration</th><th class="hide-sm">Instructor</th><th>Price</th><th class="hide-xs">Quota</th><th>Status</th><th>Actions</th>
                         </tr>
-
                     </thead>
-
                     <tbody>
-
-                        @foreach ($classes as $class)
-
+                        @forelse ($classes as $class)
                         <tr>
-
-                            {{-- No --}}
+                            <td>{{ $loop->iteration }}</td>
                             <td>
-                                {{ $loop->iteration }}
-                            </td>
-
-                            {{-- Class --}}
-                            <td>
-
                                 <div class="d-flex align-items-center gap-2">
-
                                     @if ($class->image)
-
-                                    <img
-                                        src="{{ asset('storage/' . $class->image) }}"
-                                        alt="{{ $class->name }}"
-                                        width="60"
-                                        height="60"
-                                        class="rounded"
-                                        style="object-fit: cover;">
-
+                                    <img src="{{ asset('storage/' . $class->image) }}" alt="{{ $class->name }}" class="rounded" style="width:48px;height:34px;object-fit:cover;" loading="lazy">
                                     @else
-
-                                    <div
-                                        class="bg-light rounded d-flex align-items-center justify-content-center"
-                                        style="width:60px;height:60px;">
-
-                                        <i class="bi bi-image text-muted fs-4"></i>
-
-                                    </div>
-
+                                    <span class="d-inline-flex align-items-center justify-content-center rounded bg-light text-muted" style="width:48px;height:34px;"><i class="bi bi-image"></i></span>
                                     @endif
-
                                     <div>
-
-                                        <strong>
-                                            {{ $class->name }}
-                                        </strong>
-
+                                        <span class="fw-semibold d-block" style="font-size:0.9rem;">{{ \Illuminate\Support\Str::limit($class->name, 40) }}</span>
                                         @if ($class->description)
-
-                                        <br>
-
-                                        <small class="text-muted">
-
-                                            {{ \Illuminate\Support\Str::limit($class->description, 80) }}
-
-                                        </small>
-
+                                        <small class="text-muted d-block">{{ \Illuminate\Support\Str::limit($class->description, 60) }}</small>
                                         @endif
-
                                     </div>
-
                                 </div>
-
                             </td>
-
-                            {{-- Level --}}
                             <td>
                                 @switch($class->level)
-
                                 @case('foundation')
-                                <span
-                                    class="badge bg-success"
-                                    role="button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal-change-level-{{ $class->uuid }}">
-                                    Foundation
-                                </span>
+                                <span class="badge bg-success" role="button" data-bs-toggle="modal" data-bs-target="#modal-change-level-{{ $class->uuid }}" title="Change level">Foundation</span>
                                 @break
-
                                 @case('intermediate')
-                                <span
-                                    class="badge bg-warning text-dark"
-                                    role="button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal-change-level-{{ $class->uuid }}">
-                                    Intermediate
-                                </span>
+                                <span class="badge bg-warning text-dark" role="button" data-bs-toggle="modal" data-bs-target="#modal-change-level-{{ $class->uuid }}" title="Change level">Intermediate</span>
                                 @break
-
                                 @case('advance')
-                                <span
-                                    class="badge bg-danger"
-                                    role="button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal-change-level-{{ $class->uuid }}">
-                                    Advance
-                                </span>
+                                <span class="badge bg-danger" role="button" data-bs-toggle="modal" data-bs-target="#modal-change-level-{{ $class->uuid }}" title="Change level">Advance</span>
                                 @break
-
                                 @default
-                                <span
-                                    class="badge bg-secondary"
-                                    role="button"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal-change-level-{{ $class->uuid }}">
-                                    -
-                                </span>
-
+                                <span class="badge bg-secondary" role="button" data-bs-toggle="modal" data-bs-target="#modal-change-level-{{ $class->uuid }}" title="Change level">-</span>
                                 @endswitch
                             </td>
-
-                            {{-- Duration --}}
-                            <td>
-
-                                @if ($class->duration)
-
-                                {{ $class->duration }} min
-
-                                @else
-
-                                -
-
-                                @endif
-
-                            </td>
-
-                            {{-- Instructor --}}
-                            <td>
-
+                            <td class="hide-xs"><small>{{ $class->duration ? $class->duration . ' min' : '-' }}</small></td>
+                            <td class="hide-sm">
                                 @if ($class->instructor)
-
                                 <div class="d-flex align-items-center gap-2">
-
                                     @if ($class->instructor->foto)
-
-                                    <img
-                                        src="{{ asset('storage/' . $class->instructor->foto) }}"
-                                        alt="{{ $class->instructor->name }}"
-                                        width="35"
-                                        height="35"
-                                        class="rounded-circle"
-                                        style="object-fit: cover;">
-
+                                    <img src="{{ asset('storage/' . $class->instructor->foto) }}" alt="{{ $class->instructor->name }}" class="rounded-circle" style="width:28px;height:28px;object-fit:cover;" loading="lazy">
                                     @endif
-
-                                    <span>
-                                        {{ $class->instructor->name }}
-                                    </span>
-
+                                    <small>{{ $class->instructor->name }}</small>
                                 </div>
-
                                 @else
-
-                                <span class="text-muted">
-                                    -
-                                </span>
-
+                                <span class="text-muted">-</span>
                                 @endif
-
                             </td>
-
-                            {{-- Price --}}
+                            <td><strong>Rp {{ number_format($class->price, 0, ',', '.') }}</strong></td>
+                            <td class="hide-xs"><span class="badge bg-secondary">{{ $class->quota_cost }}x</span></td>
                             <td>
-
-                                <strong>
-                                    Rp {{ number_format($class->price, 0, ',', '.') }}
-                                </strong>
-
-                            </td>
-
-                            {{-- Quota Cost --}}
-                            <td>
-
-                                <span class="badge bg-secondary">
-                                    {{ $class->quota_cost }}x
-                                </span>
-
-                            </td>
-
-                            {{-- Status --}}
-                            <td>
-
                                 @if ($class->is_active === 'active')
-
-                                <span class="badge bg-success">
-                                    Active
-                                </span>
-
+                                <span class="badge bg-success">Active</span>
                                 @else
-
-                                <span class="badge bg-secondary">
-                                    Inactive
-                                </span>
-
+                                <span class="badge bg-secondary">Inactive</span>
                                 @endif
-
                             </td>
-
-                            {{-- Edit --}}
                             <td>
-
-                                @can('classes.update')
-
-                                <a href="{{ route('classes.edit', $class->uuid) }}" title="Edit"
-                                    class="btn btn-icon btn-success text-white">
-                                    <i class="bi bi-pencil-square"></i> Edit
-                                </a>
-
-                                @endcan
-
+                                <div class="d-flex gap-1">
+                                    @can('classes.update')
+                                    <a href="{{ route('classes.edit', $class->uuid) }}" title="Edit" class="btn btn-sm btn-success"><i class="bi bi-pencil"></i></a>
+                                    @endcan
+                                    @can('classes.destroy')
+                                    <a onclick="showSweetAlert('{{ $class->uuid }}')" title="Delete" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></a>
+                                    <form id="deleteForm_{{ $class->uuid }}" action="{{ route('classes.destroy', $class->uuid) }}" method="POST" class="d-none">
+                                        @method('DELETE')
+                                        @csrf
+                                    </form>
+                                    @endcan
+                                </div>
                             </td>
-
-                            {{-- Delete --}}
-                            <td>
-
-                                @can('classes.destroy')
-
-                                <a
-                                    onclick="showSweetAlert('{{ $class->uuid }}')"
-                                    title="Delete"
-                                    class="btn btn-icon btn-danger text-white">
-
-                                    <i class="bi bi-x-square"></i>
-                                    Delete
-
-                                </a>
-
-                                <form
-                                    id="deleteForm_{{ $class->uuid }}"
-                                    action="{{ route('classes.destroy', $class->uuid) }}"
-                                    method="POST">
-
-                                    @method('DELETE')
-                                    @csrf
-
-                                </form>
-
-                                @endcan
-
-                            </td>
-
                         </tr>
-
-                        @endforeach
-
+                        @empty
+                        <tr><td colspan="9" class="text-center py-4 text-muted">No classes found.</td></tr>
+                        @endforelse
                     </tbody>
-
                 </table>
-
             </div>
-
         </div>
-
     </div>
 
 </section>

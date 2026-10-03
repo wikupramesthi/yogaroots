@@ -1,309 +1,286 @@
-// Mobile nav
-const btn = document.getElementById("mobileBtn");
-const drawer = document.getElementById("mobileNav");
-if (btn && drawer)
-  btn.addEventListener("click", () => drawer.classList.toggle("hidden"));
+/**
+ * YogaRoots theme interactions.
+ * Setiap blok dijaga oleh elemennya masing-masing — aman di semua halaman.
+ *
+ *   1. Navbar (mobile drawer, efek scroll, dropdown bahasa)
+ *   2. Modal (booking/login, event + tombol Escape)
+ *   3. Form kontak (fetch JSON + status pesan)
+ *   4. FAQ accordion
+ *   5. Lightbox galeri
+ *   6. Reveal on scroll
+ *   7. Fallback gambar backend yang 404
+ */
 
-// Navbar scroll effect (transparent → glass panel past 40px)
-// Inner pages stay in the "scrolled" glass state at all times
-const navbar = document.getElementById("navbar");
-if (navbar) {
-  const navPill = navbar.querySelector("nav");
-  const alwaysSolid = navbar.dataset.static === "true";
-  const updateNavbar = () => {
-    const scrolled = alwaysSolid || window.scrollY > 40;
-    navbar.classList.toggle("scrolled", scrolled);
-    if (scrolled) navPill?.classList.add("glass-panel-strong");
-    else navPill?.classList.remove("glass-panel-strong");
-  };
-  window.addEventListener("scroll", updateNavbar, { passive: true });
-  updateNavbar();
+"use strict";
+
+/* ---------- utils ---------- */
+
+const $ = (id) => document.getElementById(id);
+
+function escapeHtml(s) {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#x27;");
 }
 
-// Language dropdown
-const langToggle = document.getElementById("langToggle");
-const langDropdown = document.getElementById("langDropdown");
-if (langToggle && langDropdown) {
-  langToggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    langDropdown.classList.toggle("hidden");
+async function postJSON(url, body) {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify(body),
   });
-  document.addEventListener("click", (e) => {
-    if (!langDropdown.classList.contains("hidden") && !langToggle.contains(e.target)) {
-      langDropdown.classList.add("hidden");
-    }
-  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.message || "Gagal mengirim. Coba lagi.");
+  return data;
 }
 
-// Booking modal
-window.openBooking = (kelas = "") => {
-  const m = document.getElementById("bookingModal");
-  if (!m) return;
-  m.classList.remove("hidden");
-  if (kelas) {
-    const s = m.querySelector("select[name=kelas]");
-    if (s) s.value = kelas;
+function lockScroll() {
+  document.body.style.overflow = "hidden";
+}
+
+function unlockScroll() {
+  const anyOpen = ["bookingModal", "eventModal"].some(
+    (id) => $(id) && !$(id).classList.contains("hidden"),
+  );
+  if (!anyOpen) document.body.style.overflow = "";
+}
+
+/* ---------- 1. navbar ---------- */
+
+(() => {
+  $("mobileBtn")?.addEventListener("click", () =>
+    $("mobileNav")?.classList.toggle("hidden"),
+  );
+
+  const navbar = $("navbar");
+  if (navbar) {
+    const pill = navbar.querySelector("nav");
+    const alwaysSolid = navbar.dataset.static === "true";
+    const update = () => {
+      const scrolled = alwaysSolid || window.scrollY > 40;
+      navbar.classList.toggle("scrolled", scrolled);
+      pill?.classList.toggle("glass-panel-strong", scrolled);
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    update();
   }
-};
-window.closeBooking = () => {
-  document.getElementById("bookingModal")?.classList.add("hidden");
+
+  const toggle = $("langToggle");
+  const menu = $("langDropdown");
+  if (toggle && menu) {
+    toggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      menu.classList.toggle("hidden");
+    });
+    document.addEventListener("click", (e) => {
+      if (!menu.classList.contains("hidden") && !toggle.contains(e.target)) {
+        menu.classList.add("hidden");
+      }
+    });
+  }
+})();
+
+/* ---------- 2. modal ---------- */
+
+window.openBooking = () => {
+  const m = $("bookingModal");
+  if (!m) return false;
+  m.classList.remove("hidden");
+  lockScroll();
+  return false;
 };
 
-// Event modal (homepage events data)
-const eventsDataEl = document.getElementById("eventsData");
-const eventsData = eventsDataEl ? JSON.parse(eventsDataEl.textContent || "[]") : [];
-const eventModal = document.getElementById("eventModal");
+window.closeBooking = () => {
+  $("bookingModal")?.classList.add("hidden");
+  unlockScroll();
+};
+
+const eventModal = $("eventModal");
+let eventsData = [];
+try {
+  const raw = $("eventsData")?.textContent || "[]";
+  const parsed = JSON.parse(raw);
+  if (Array.isArray(parsed)) eventsData = parsed;
+} catch {
+  eventsData = [];
+}
+
+const META_ICONS = {
+  date: '<path d="M8 3v4m8-4v4M4 9h16M6 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path>',
+  time: '<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>',
+  place:
+    '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle>',
+};
+
+function metaItem(icon, text) {
+  return (
+    '<span class="flex items-center gap-1.5">' +
+    '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+    icon +
+    "</svg>" +
+    escapeHtml(text) +
+    "</span>"
+  );
+}
+
 window.openEvent = (i) => {
   const e = eventsData[i];
   if (!e || !eventModal) return;
-  document.getElementById("eventTitle").textContent = e.judul || "";
-  const meta = document.getElementById("eventMeta");
+  $("eventTitle").textContent = e.judul || "";
+
   let html = "";
-  if (e.tanggal)
-    html +=
-      '<span class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v4m8-4v4M4 9h16M6 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path></svg>' +
-      e.tanggal +
-      "</span>";
-  if (e.waktu_mulai)
-    html +=
-      '<span class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>' +
-      e.waktu_mulai.substring(0, 5) +
-      (e.waktu_selesai ? " - " + e.waktu_selesai.substring(0, 5) : "") +
-      "</span>";
-  if (e.lokasi)
-    html +=
-      '<span class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>' +
-      e.lokasi +
-      "</span>";
-  meta.innerHTML = html;
-  const desc = document.getElementById("eventDesc");
-  desc.innerHTML = e.deskripsi || "";
-  const wa = document.getElementById("eventWhatsApp");
-  if (e.judul) wa.href = "https://wa.me/6281321221270?text=" + encodeURIComponent("Hi, I want to book a spot for: " + e.judul);
+  if (e.tanggal) html += metaItem(META_ICONS.date, e.tanggal);
+  if (e.waktu_mulai) {
+    const range =
+      String(e.waktu_mulai).substring(0, 5) +
+      (e.waktu_selesai ? " - " + String(e.waktu_selesai).substring(0, 5) : "");
+    html += metaItem(META_ICONS.time, range);
+  }
+  if (e.lokasi) html += metaItem(META_ICONS.place, e.lokasi);
+  $("eventMeta").innerHTML = html;
+
+  // Deskripsi dari CMS backend (sudah disanitasi server-side bila lewat JSON ini).
+  $("eventDesc").innerHTML = e.deskripsi || "";
+
+  const wa = $("eventWhatsApp");
+  if (e.judul && wa) {
+    const base = wa.dataset.waBase || "https://wa.me/6281321221270";
+    wa.href =
+      base + "?text=" + encodeURIComponent("Hi, I want to book a spot for: " + e.judul);
+  }
   eventModal.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
+  lockScroll();
 };
+
 window.closeEvent = () => {
   eventModal?.classList.add("hidden");
-  document.body.style.overflow = "";
+  unlockScroll();
 };
+
 document.addEventListener("keydown", (ev) => {
   if (ev.key === "Escape") {
-    closeEvent();
-    closeBooking();
+    window.closeEvent();
+    window.closeBooking();
   }
 });
 
-// Booking form
-document
-  .getElementById("bookingForm")
-  ?.addEventListener("submit", async (e) => {
+/* ---------- 3. form kontak ---------- */
+
+(() => {
+  const form = $("contactForm");
+  if (!form) return;
+  const button = form.querySelector("button");
+  const message = $("contactMsg");
+  const idleLabel = button ? button.textContent : "";
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const fd = new FormData(e.target);
-    const body = Object.fromEntries(fd.entries());
-    const msg = document.getElementById("bookingMsg");
-    msg.className = "text-sm mt-3 p-3 rounded-xl bg-sage-50";
-    msg.textContent = "Mengirim...";
-    msg.classList.remove("hidden");
-    try {
-      const r = await fetch("/api/booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-      const j = await r.json();
-      msg.textContent = j.message;
-      msg.className =
-        "text-sm mt-3 p-3 rounded-xl " +
-        (j.success ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700");
-      if (j.success) e.target.reset();
-    } catch {
-      msg.textContent = "Gagal terhubung";
-      msg.className = "text-sm mt-3 p-3 rounded-xl bg-red-50 text-red-700";
+    if (button) {
+      button.disabled = true;
+      button.textContent = "Mengirim...";
     }
-  });
-
-// Newsletter
-document
-  .getElementById("newsletterForm")
-  ?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const msg = document.getElementById("newsletterMsg");
     try {
-      const r = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-      const j = await r.json();
-      msg.textContent = j.message;
-      msg.classList.remove("hidden");
-      msg.className =
-        "text-xs mt-2 " + (j.success ? "text-green-300" : "text-red-300");
-    } catch {
-      msg.textContent = "Gagal";
-      msg.classList.remove("hidden");
-    }
-  });
-
-// Contact form
-const contactForm = document.getElementById("contactForm");
-
-if (contactForm) {
-  contactForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const button = contactForm.querySelector("button");
-    const message = document.getElementById("contactMsg");
-
-    button.disabled = true;
-    button.textContent = "Mengirim...";
-
-    try {
-      const formData = new FormData(contactForm);
-
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(Object.fromEntries(formData.entries())),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.message || "Gagal mengirim pesan");
-      }
-
+      const result = await postJSON(
+        "/api/contact",
+        Object.fromEntries(new FormData(form).entries()),
+      );
       message.className = "text-sm p-3 rounded-xl bg-green-50 text-green-700";
-
       message.textContent = result.message;
       message.classList.remove("hidden");
-
-      contactForm.reset();
-    } catch (error) {
-      console.error("CONTACT ERROR:", error);
-
+      form.reset();
+    } catch (err) {
       message.className = "text-sm p-3 rounded-xl bg-red-50 text-red-700";
-
-      message.textContent = error.message;
+      message.textContent = err.message;
       message.classList.remove("hidden");
     } finally {
-      button.disabled = false;
-      button.textContent = "Kirim Pesan →";
+      if (button) {
+        button.disabled = false;
+        button.textContent = idleLabel;
+      }
     }
   });
-}
+})();
 
-// FAQ accordion
-document.querySelectorAll("[data-faq]")?.forEach((btn) => {
+/* ---------- 4. FAQ accordion ---------- */
+
+document.querySelectorAll("[data-faq]").forEach((btn) => {
   btn.addEventListener("click", () => {
     const content = btn.nextElementSibling;
-    const isOpen = !content.classList.contains("hidden");
+    const willOpen = content.classList.contains("hidden");
     document
       .querySelectorAll("[data-faq] + div")
       .forEach((d) => d.classList.add("hidden"));
-    if (!isOpen) content.classList.remove("hidden");
+    if (willOpen) content.classList.remove("hidden");
   });
 });
 
-// Pricing toggle
-const toggle = document.getElementById("pricingToggle");
-if (toggle) {
-  toggle.addEventListener("change", (e) => {
-    document.querySelectorAll("[data-price]").forEach((el) => {
-      const m = el.dataset.monthly,
-        y = el.dataset.yearly;
-      el.textContent = e.target.checked ? y : m;
-    });
-    document.querySelectorAll("[data-period]").forEach((el) => {
-      el.textContent = e.target.checked ? "/tahun" : "/bulan";
-    });
-  });
-}
+/* ---------- 5. lightbox galeri ---------- */
 
-// Category filter (classes page)
-document.querySelectorAll("[data-filter]")?.forEach((a) => {
-  a.addEventListener("click", (e) => {
-    // allow normal navigation; fallback JS filter for same-page
-  });
-});
-
-// Gallery lightbox
 let lightboxImgs = [];
+
 window.openLightbox = (src, idx) => {
   lightboxImgs = Array.from(document.querySelectorAll("[data-gallery]")).map(
-    (i) => i.src,
+    (img) => img.src,
   );
-  const lb = document.getElementById("lightbox");
+  const lb = $("lightbox");
   if (!lb) return;
   lb.querySelector("img").src = src;
   lb.classList.remove("hidden");
   lb.dataset.idx = idx;
 };
-window.closeLightbox = () =>
-  document.getElementById("lightbox")?.classList.add("hidden");
+
+window.closeLightbox = () => $("lightbox")?.classList.add("hidden");
+
 window.lightboxNav = (dir) => {
-  const lb = document.getElementById("lightbox");
-  let idx = parseInt(lb.dataset.idx || "0") + dir;
-  if (idx < 0) idx = lightboxImgs.length - 1;
-  if (idx >= lightboxImgs.length) idx = 0;
+  const lb = $("lightbox");
+  if (!lb || !lightboxImgs.length) return;
+  let idx = (parseInt(lb.dataset.idx || "0", 10) + dir) % lightboxImgs.length;
+  if (idx < 0) idx += lightboxImgs.length;
   lb.dataset.idx = idx;
   lb.querySelector("img").src = lightboxImgs[idx];
 };
 
-// Dark mode toggle
-const darkBtn = document.getElementById("darkToggle");
-function applyDark(isDark) {
-  document.documentElement.classList.toggle("dark", isDark);
-  try {
-    localStorage.setItem("serene-dark", isDark);
-  } catch (e) {}
-  if (darkBtn) darkBtn.textContent = isDark ? "☀" : "◐";
-}
-if (darkBtn) {
-  // init icon
-  darkBtn.textContent = document.documentElement.classList.contains("dark")
-    ? "☀"
-    : "◐";
-  darkBtn.addEventListener("click", () => {
-    const isDark = !document.documentElement.classList.contains("dark");
-    applyDark(isDark);
-  });
-}
+/* ---------- 6. reveal on scroll ---------- */
 
-// Reveal on scroll (stagger via data-delay, kannayoga easing)
-const revealEls = document.querySelectorAll(".reveal");
-function revealShow(el) {
-  el.classList.remove("reveal-hide");
-  el.classList.add("reveal-show");
-  const delay = parseInt(el.dataset.delay || "0", 10);
-  setTimeout(() => {
-    el.style.transitionDelay = "";
-  }, 850 + delay);
-}
-if ("IntersectionObserver" in window && revealEls.length) {
-  const revealObserver = new IntersectionObserver(
+(() => {
+  const els = document.querySelectorAll(".reveal");
+  if (!("IntersectionObserver" in window) || !els.length) {
+    els.forEach((el) => el.classList.add("reveal-show"));
+    return;
+  }
+  const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((ent) => {
-        if (ent.isIntersecting) {
-          revealShow(ent.target);
-          revealObserver.unobserve(ent.target);
-        }
+        if (!ent.isIntersecting) return;
+        ent.target.classList.remove("reveal-hide");
+        ent.target.classList.add("reveal-show");
+        const delay = parseInt(ent.target.dataset.delay || "0", 10);
+        setTimeout(() => {
+          ent.target.style.transitionDelay = "";
+        }, 850 + delay);
+        io.unobserve(ent.target);
       });
     },
-    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
   );
-  revealEls.forEach((el) => {
+  els.forEach((el) => {
     el.classList.add("reveal-hide");
-    const d = el.dataset.delay;
-    if (d) el.style.transitionDelay = d + "ms";
-    revealObserver.observe(el);
+    if (el.dataset.delay) el.style.transitionDelay = el.dataset.delay + "ms";
+    io.observe(el);
   });
-} else {
-  // Fallback: show everything immediately
-  revealEls.forEach((el) => el.classList.add("reveal-show"));
-}
+})();
+
+/* ---------- 7. fallback gambar ---------- */
+
+document.querySelectorAll("img[data-fallback]").forEach((img) => {
+  img.addEventListener("error", () => {
+    const fb = img.getAttribute("data-fallback");
+    if (fb && img.src !== fb && !img.dataset.fbk) {
+      img.dataset.fbk = "1";
+      img.src = fb;
+    }
+  });
+});

@@ -49,7 +49,7 @@ class PollController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Polling berhasil ditambahkan.');
+            return redirect()->back()->with('success', 'Poll added successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -94,7 +94,7 @@ class PollController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('poll.list')->with('success', 'Polling berhasil diperbarui.');
+            return redirect()->route('poll.list')->with('success', 'Poll updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -112,7 +112,7 @@ class PollController extends Controller
             $poll->delete();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Polling berhasil dihapus.');
+            return redirect()->back()->with('success', 'Poll deleted successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());

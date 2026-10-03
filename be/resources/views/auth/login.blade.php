@@ -124,22 +124,25 @@
 
                 <h2>Welcome Back</h2>
                 <p class="subtitle">Continue your yoga journey, find your balance, and nurture your well-being.</p>
+                @if ($errors->has('session_expired'))
+                    <p class="mb-2 text-sm text-danger">{{ $errors->first('session_expired') }}</p>
+                @endif
                 @if ($errors->has('email'))
                     <p class="mb-2 text-sm text-danger">The email address or password is incorrect.</p>
                 @endif
 
                 <div class="field">
-                    <label for="email">Alamat Email</label>
-                    <input name="email" id="email" type="email" placeholder="Email Anda" oninput="toggleBtn()"
+                    <label for="email">Email Address</label>
+                    <input name="email" id="email" type="email" placeholder="Your email" oninput="toggleBtn()"
                         required>
                 </div>
 
                 <div class="field">
-                    <label for="password">Kata Sandi</label>
+                    <label for="password">Password</label>
                     <div class="password-wrap">
-                        <input name="password" id="password" type="password" placeholder="Masukkan kata sandi"
+                        <input name="password" id="password" type="password" placeholder="Enter your password"
                             oninput="toggleBtn()" required>
-                        <button type="button" class="eye-btn" id="eyeBtn" aria-label="Tampilkan kata sandi">
+                        <button type="button" class="eye-btn" id="eyeBtn" aria-label="Show password">
                             <svg id="eyeIcon" width="19" height="19" viewBox="0 0 24 24" fill="none"
                                 stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12z" />
@@ -184,7 +187,7 @@
     <div class="modal-overlay" id="helpModal">
         <div class="modal">
             <div class="modal-header">
-                <h2>FAQ & ANSWES</h2>
+                <h2>FAQ & ANSWERS</h2>
                 <button class="modal-close" id="closeModal">&times;</button>
             </div>
             <div class="modal-body" id="faqList">

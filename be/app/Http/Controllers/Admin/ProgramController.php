@@ -26,21 +26,21 @@ class ProgramController extends Controller
         $user = Auth::user();
         $disabilities = Disability::all();
 
-        // Build query berdasarkan role
+        // Build query based on role
         if ($user->hasRole(['admin', 'super-admin'])) {
             $query = Program::with('user')->latest();
         } else {
             $query = Program::where('user_uuid', $user->uuid)->latest();
         }
 
-        // Filter status jika ada
+        // Filter by status when present
         if ($request->has('status') && in_array($request->status, ['pending', 'hadir', 'reschedule', 'diterima', 'ditolak'])) {
             $query->where('status', $request->status);
         }
 
         $programs = $query->get();
 
-        // Tandai program yang belum lengkap
+        // Flag programs that are still incomplete
         $programsIncomplete = [];
         foreach ($programs as $program) {
             $incomplete = 
@@ -64,7 +64,7 @@ class ProgramController extends Controller
         $showInitialProgramAlert = false;
 
         if ($program) {
-            // Jika sudah semua lengkap (final)
+            // When everything is complete (final)
             if (
                  $program->nama_anak &&
         $program->tempat_lahir &&
@@ -85,17 +85,17 @@ class ProgramController extends Controller
             }
         }
 
-        // Daftar field wajib
+        // List of required fields
         $requiredFields = [
-            'nama_anak'     => 'Nama Anak',
-            'tempat_lahir'     => 'Tempat Lahir',
-            'tanggal_lahir'     => 'Tanggal Lahir',
-            'jenis_kelamin' => 'Jenis Kelamin',
-            'anak_ke'              => 'Anak Ke',
-            'nama_ayah'    => 'Nama Ayah',
-            'nama_ibu'     => 'Nama Ibu',
-            'alamat'         => 'Alamat',
-            'no_hp'              => 'Nomor HP',
+            'nama_anak'     => 'Child Name',
+            'tempat_lahir'     => 'Place of Birth',
+            'tanggal_lahir'     => 'Date of Birth',
+            'jenis_kelamin' => 'Gender',
+            'anak_ke'              => 'Child Number',
+            'nama_ayah'    => "Father's Name",
+            'nama_ibu'     => "Mother's Name",
+            'alamat'         => 'Address',
+            'no_hp'              => 'Phone Number',
         ];
 
         $programsIncomplete = [];
@@ -131,7 +131,7 @@ class ProgramController extends Controller
         $program = Program::with(['user.kecamatan', 'user.kelurahan', 'portofolio'])->findOrFail($id);
 
         if ($program->user_uuid !== auth()->user()->uuid && !auth()->user()->hasRole(['admin', 'super-admin'])) {
-            abort(403, 'Anda tidak memiliki akses.');
+            abort(403, 'You do not have access.');
         }
 
         $pdf = Pdf::loadView('pages.program.cetak', compact('program'))->setPaper('A4', 'portrait');
@@ -149,7 +149,7 @@ class ProgramController extends Controller
         $program->status = 'hadir';
         $program->save();
 
-        return redirect()->route('program.index')->with('success', 'Anda telah berhasil mengajukan pendaftaran calon murid ke SLB Patriot Kota Bekasi. Silakan pantau informasi secara berkala untuk update status pendaftaran Anda.');
+        return redirect()->route('program.index')->with('success', 'You have successfully submitted the prospective student registration to SLB Patriot Bekasi. Please check back regularly for registration status updates.');
     }
 
 
@@ -194,14 +194,14 @@ class ProgramController extends Controller
             'agama'            => ['required', 'in:islam,kristen,katolik,hindu,buddha,konghucu'],
             'anak_ke'          => ['required', 'integer', 'min:1'],
 
-            // data orang tua
+            // parent data
             'nama_ayah'        => ['required', 'string', 'max:255'],
             'nama_ibu'         => ['required', 'string', 'max:255'],
             'alamat'           => ['required', 'string'],
             'no_hp'            => ['required', 'string', 'max:255'],
         ]);
 
-        // maksimal 1 pendaftaran per user
+        // maximum 1 registration per user
         $userProgramCount = Program::where(
             'user_uuid',
             auth()->user()->uuid
@@ -209,7 +209,7 @@ class ProgramController extends Controller
 
         if ($userProgramCount >= 1) {
             return redirect()->back()
-                ->with('error', 'Maksimal hanya boleh mendaftar 1 calon murid.');
+                ->with('error', 'You may only register 1 prospective student at most.');
         }
 
         DB::beginTransaction();
@@ -226,7 +226,7 @@ class ProgramController extends Controller
                 'agama'             => $validated['agama'],
                 'anak_ke'           => $validated['anak_ke'],
 
-                // data orang tua
+                // parent data
                 'nama_ayah'         => $validated['nama_ayah'],
                 'nama_ibu'          => $validated['nama_ibu'],
                 'alamat'            => $validated['alamat'],
@@ -239,7 +239,7 @@ class ProgramController extends Controller
 
             return redirect()
                 ->route('program.index')
-                ->with('success', 'Calon murid berhasil ditambahkan.');
+                ->with('success', 'Prospective student added successfully.');
                 
         } catch (\Throwable $th) {
 
@@ -247,7 +247,7 @@ class ProgramController extends Controller
 
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Terjadi kesalahan : ' . $th->getMessage());
+                ->with('error', 'An error occurred: ' . $th->getMessage());
         }
     }
     public function updateStatus(Request $request, $id)
@@ -262,7 +262,7 @@ class ProgramController extends Controller
         $program->catatan = $request->catatan;
         $program->save();
 
-        return redirect()->back()->with('success', 'Status pendaftaran murid berhasil diperbarui.');
+        return redirect()->back()->with('success', 'Student registration status updated successfully.');
     }
 
 
@@ -288,16 +288,16 @@ public function modalUpdate(Request $request, $uuid)
 
         $program = Program::where('uuid', $uuid)->firstOrFail();
 
-        // Validasi kepemilikan data
+        // Validate data ownership
         if ($program->user_uuid !== auth()->user()->uuid) {
 
             return redirect()->back()->with(
                 'error',
-                'Anda tidak memiliki izin untuk mengubah data ini.'
+                'You do not have permission to edit this data.'
             );
         }
 
-        // Ambil disability id berdasarkan uuid
+        // Look up the disability by uuid
         $disability = Disability::where(
             'uuid',
             $validated['disability_uuid']
@@ -325,7 +325,7 @@ public function modalUpdate(Request $request, $uuid)
             ->route('program.index')
             ->with(
                 'success',
-                'Data pendaftaran calon murid berhasil diperbarui.'
+                'Prospective student registration data updated successfully.'
             );
 
     } catch (\Throwable $th) {
@@ -336,13 +336,13 @@ public function modalUpdate(Request $request, $uuid)
             ->back()
             ->with(
                 'error',
-                'Terjadi kesalahan: ' . $th->getMessage()
+                'An error occurred: ' . $th->getMessage()
             );
     }
 }
 
     /**
-     * Display video komptisi.
+     * Display competition video.
      */
 
     public function videoStore(Request $request)
@@ -360,14 +360,14 @@ public function modalUpdate(Request $request, $uuid)
                 ]);
             });
 
-            return back()->with('success', 'Video kompetisi berhasil ditambahkan.');
+            return back()->with('success', 'Competition video added successfully.');
         } catch (\Throwable $th) {
-            return back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
+            return back()->with('error', 'An error occurred: ' . $th->getMessage());
         }
     }
 
     /**
-     * Display materi lomba.
+     * Display competition material.
      */
 
     public function presentasiStore(Request $request)
@@ -385,9 +385,9 @@ public function modalUpdate(Request $request, $uuid)
                 ]);
             });
 
-            return back()->with('success', 'Materi kompetisi berhasil ditambahkan.');
+            return back()->with('success', 'Competition material added successfully.');
         } catch (\Throwable $th) {
-            return back()->with('error', 'Terjadi kesalahan: ' . $th->getMessage());
+            return back()->with('error', 'An error occurred: ' . $th->getMessage());
         }
     }
 
@@ -409,10 +409,10 @@ public function modalUpdate(Request $request, $uuid)
     {
         $program = Program::where('id', $id)->firstOrFail();
 
-        // Super admin dan admin boleh akses tanpa cocokkan UUID
+        // Super admin and admin may access without matching UUID
         if (!auth()->user()->hasRole(['admin', 'super-admin'])) {
             if ($uuid !== auth()->user()->uuid || $program->user_uuid !== $uuid) {
-                abort(403, 'Akses ditolak');
+                abort(403, 'Access denied');
             }
         }
 
@@ -455,7 +455,7 @@ public function modalUpdate(Request $request, $uuid)
         $program->save();
 
         return redirect()->route('program.index', [$program->id, $program->user_uuid])
-            ->with('success', 'Program berhasil diperbarui.');
+            ->with('success', 'Program updated successfully.');
     }
 
     public function uploadFoto(Request $request)
@@ -488,9 +488,9 @@ public function modalUpdate(Request $request, $uuid)
 
             $program->delete();
 
-            return redirect()->route('program.index')->with('success', 'Data murid berhasil dihapus.');
+            return redirect()->route('program.index')->with('success', 'Student data deleted successfully.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to delete data: ' . $e->getMessage());
         }
     }
 }

@@ -23,27 +23,45 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
+        $search = trim((string) $request->get('search', ''));
         $start_date = $request->get('start_date');
         $end_date = $request->get('end_date');
+        $status = $request->get('status', '');
+        $status = in_array($status, ['draft', 'published', 'scheduled'], true) ? $status : '';
 
-        $articles = Article::query();
+        $baseQuery = Article::query()
+            ->when($start_date, fn ($query) => $query->whereDate('created_at', '>=', $start_date))
+            ->when($end_date, fn ($query) => $query->whereDate('created_at', '<=', $end_date))
+            ->when($status, fn ($query) => $query->where('status', $status))
+            ->when($search !== '', function ($query) use ($search) {
+                $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search) . '%';
+                $query->where(function ($w) use ($like) {
+                    $w->where('title', 'like', $like)->orWhere('slug', 'like', $like);
+                });
+            });
 
-        if ($start_date) {
-            $articles->whereDate('created_at', '>=', $start_date);
-        }
+        // Stats are computed from the filtered query (no pagination),
+        // so the cards always match the filtered data.
+        $stats = [
+            'total'     => (clone $baseQuery)->count(),
+            'published' => (clone $baseQuery)->where('status', 'published')->count(),
+            'draft'     => (clone $baseQuery)->where('status', 'draft')->count(),
+            'scheduled' => (clone $baseQuery)->where('status', 'scheduled')->count(),
+        ];
 
-        if ($end_date) {
-            $articles->whereDate('created_at', '<=', $end_date);
-        }
-
-        $articles = $articles
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $articles = $baseQuery
+            ->with(['user', 'category'])
+            ->latest('created_at')
+            ->paginate(15)
+            ->withQueryString();
 
         return view('pages.articles.index', compact(
             'articles',
+            'stats',
+            'search',
             'start_date',
-            'end_date'
+            'end_date',
+            'status'
         ));
     }
 
@@ -104,7 +122,7 @@ class ArticleController extends Controller
             'canonical_url' => route('articles.show', $article->slug),
         ]);
 
-        return redirect()->route('articles.index')->with('success', 'Berita berhasil disimpan.');
+        return redirect()->route('articles.index')->with('success', 'News saved successfully.');
     }
     /**
      * Display the specified resource.
@@ -163,7 +181,7 @@ class ArticleController extends Controller
                 'video' => $request->video,
                 'status' => $request->status,
                 'search_engine' => $request->search_engine ?? 'index',
-                'featured_image' => $article->featured_image, // path dari upload di atas
+                'featured_image' => $article->featured_image, // path from the upload above
             ]);
 
 
@@ -184,12 +202,48 @@ class ArticleController extends Controller
 
             DB::commit();
 
-            return redirect()->route('articles.index')->with('success', 'Artikel berhasil diperbarui.');
+            return redirect()->route('articles.index')->with('success', 'Article updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal mengupdate artikel: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'Failed to update article: ' . $th->getMessage());
         }
     }
+    /**
+     * Remove the selected articles along with their files.
+     */
+    public function bulkDestroy(Request $request)
+    {
+        $ids = $request->input('ids', []);
+
+        if (! is_array($ids) || empty($ids)) {
+            return back()->with('error', 'No articles selected.');
+        }
+
+        $ids = array_slice(array_values(array_unique(array_filter($ids))), 0, 100);
+
+        $articles = Article::whereIn('uuid', $ids)->get();
+
+        if ($articles->isEmpty()) {
+            return back()->with('error', 'Selected data not found.');
+        }
+
+        DB::beginTransaction();
+        try {
+            foreach ($articles as $article) {
+                if ($article->featured_image && Storage::disk('public')->exists($article->featured_image)) {
+                    Storage::disk('public')->delete($article->featured_image);
+                }
+                $article->delete();
+            }
+
+            DB::commit();
+            return back()->with('success', $articles->count() . ' articles deleted successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', 'Failed to delete: ' . $th->getMessage());
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -206,10 +260,10 @@ class ArticleController extends Controller
             $article->delete();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Berita berhasil dihapus.');
+            return redirect()->back()->with('success', 'News deleted successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
-            return redirect()->back()->with('error', 'Gagal menghapus: ' . $th->getMessage());
+            return redirect()->back()->with('error', 'Failed to delete: ' . $th->getMessage());
         }
     }
 }

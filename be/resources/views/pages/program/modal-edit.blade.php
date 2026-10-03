@@ -9,15 +9,15 @@
                 @method('PUT')
 
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-form-edit-program-{{ $item->id }}-label">Edit Kompetisi</h5>
+                    <h5 class="modal-title" id="modal-form-edit-program-{{ $item->id }}-label">Edit Competition</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
 
                 <div class="modal-body" style="text-align: left;">
 
                     <div class="alert alert-info mb-4">
-                        Perubahan data akan digunakan untuk proses
-                        verifikasi pendaftaran calon murid
+                        Data changes will be used for the
+                        prospective student registration verification
                         <strong>SLB Patriot Kota Bekasi</strong>.
                     </div>
 
@@ -25,7 +25,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            Kriteria Disabilitas
+                            Disability Criteria
                             <span class="text-danger">*</span>
                         </label>
 
@@ -33,7 +33,7 @@
                             class="form-control @error('disability_uuid') is-invalid @enderror" required>
 
                             <option value="">
-                                -- Pilih Disabilitas --
+                                -- Select Disability --
                             </option>
 
                             @foreach ($disabilities as $disability)
@@ -59,7 +59,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            Nama Anak
+                            Child Name
                             <span class="text-danger">*</span>
                         </label>
 
@@ -83,7 +83,7 @@
                             <div class="form-group mb-3">
 
                                 <label class="mb-2">
-                                    Tempat Lahir
+                                    Place of Birth
                                     <span class="text-danger">*</span>
                                 </label>
 
@@ -106,7 +106,7 @@
                             <div class="form-group mb-3">
 
                                 <label class="mb-2">
-                                    Tanggal Lahir
+                                    Date of Birth
                                     <span class="text-danger">*</span>
                                 </label>
 
@@ -130,7 +130,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            Jenis Kelamin
+                            Gender
                             <span class="text-danger">*</span>
                         </label>
 
@@ -138,15 +138,15 @@
                             required>
 
                             <option value="">
-                                -- Pilih Jenis Kelamin --
+                                -- Select Gender --
                             </option>
 
                             <option value="L" {{ $item->jenis_kelamin == 'L' ? 'selected' : '' }}>
-                                Laki-laki
+                                Male
                             </option>
 
                             <option value="P" {{ $item->jenis_kelamin == 'P' ? 'selected' : '' }}>
-                                Perempuan
+                                Female
                             </option>
 
                         </select>
@@ -163,13 +163,13 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            Agama
+                            Religion
                             <span class="text-danger">*</span>
                         </label>
 
                         <select name="agama" class="form-control @error('agama') is-invalid @enderror" required>
 
-                            <option value="">-- Pilih Agama --</option>
+                            <option value="">-- Select Religion --</option>
 
                             <option value="islam" {{ $item->agama == 'islam' ? 'selected' : '' }}>
                                 Islam
@@ -209,7 +209,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            Anak Ke
+                            Child Number
                             <span class="text-danger">*</span>
                         </label>
 
@@ -232,7 +232,7 @@
                             <div class="form-group mb-3">
 
                                 <label class="mb-2">
-                                    Nama Ayah
+                                    Father's Name
                                     <span class="text-danger">*</span>
                                 </label>
 
@@ -255,7 +255,7 @@
                             <div class="form-group mb-3">
 
                                 <label class="mb-2">
-                                    Nama Ibu
+                                    Mother's Name
                                     <span class="text-danger">*</span>
                                 </label>
 
@@ -279,7 +279,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            Alamat
+                            Address
                             <span class="text-danger">*</span>
                         </label>
 
@@ -297,7 +297,7 @@
                     <div class="form-group mb-3">
 
                         <label class="mb-2">
-                            No HP / WhatsApp
+                            Phone / WhatsApp No.
                             <span class="text-danger">*</span>
                         </label>
 
@@ -317,7 +317,7 @@
 
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal" class="btn btn-light" data-bs-dismiss="modal">Cancel</button></button>
                     <button type="submit" class="btn btn-primary ">Update</button>
                 </div>
             </form>

@@ -67,7 +67,7 @@
                             <td>
                                 @php
                                 $statusClass = $item->has_sidebar ? 'btn-info' : 'btn-danger';
-                                $statusText = $item->has_sidebar ? 'Ya' : 'Tidak';
+                                $statusText = $item->has_sidebar ? 'Yes' : 'No';
                                 @endphp
 
                                 <button type="button" class="btn {{ $statusClass }} btn-sm text-white"
@@ -78,7 +78,7 @@
                                 @include('pages.halaman.modal-update-sidebar')
                             </td>
                             <td>
-                                {{ $item->is_published ? 'Aktif' : 'Tidak Aktif' }}
+                                {{ $item->is_published ? 'Active' : 'Inactive' }}
                             </td>
                             <td> {{ $item->created_at->format('d-m-Y') }}</td>
 
@@ -94,7 +94,7 @@
                                 @can('pages.destroy')
                                 <a onclick="showSweetAlert('{{ $item->uuid }}')" title="Delete"
                                     class="btn btn-icon btn-danger text-white">
-                                    <i class="bi bi-x-square"></i> Hapus
+                                    <i class="bi bi-x-square"></i> Delete
                                 </a>
                                 <form id="deleteForm_{{ $item->uuid }}"
                                     action="{{ route('pages.destroy', $item->uuid) }}" method="POST">

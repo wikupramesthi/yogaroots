@@ -11,16 +11,16 @@ class MinifyHtml
     {
         $response = $next($request);
 
-        // Hanya proses HTML response
+        // Only process HTML responses
         if ($response instanceof Response && str_contains($response->headers->get('Content-Type'), 'text/html')) {
             $output = $response->getContent();
 
-            // Hapus whitespace dan line break
+            // Strip whitespace and line breaks
             $output = preg_replace([
-                '/<!--(?!\[if).*?-->/',     // hapus HTML comment kecuali IE conditional
-                '/\>[^\S ]+/s',             // hapus whitespace setelah tag
-                '/[^\S ]+\</s',             // hapus whitespace sebelum tag
-                '/(\s)+/s'                  // multiple whitespace
+                '/<!--(?!\[if).*?-->/',     // remove HTML comments except IE conditionals
+                '/\>[^\S ]+/s',             // remove whitespace after tags
+                '/[^\S ]+\</s',             // remove whitespace before tags
+                '/(\s)+/s'                  // collapse multiple whitespace
             ], [
                 '',
                 '>',

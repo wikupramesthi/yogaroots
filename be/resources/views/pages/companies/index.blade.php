@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('title', 'Profil Website')
+@section('title', 'Website Profile')
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Profil Website" page="Profil Website" active="Informasi Umum" route="{{ route('company.index') }}" />
+<x-breadcrumb title="Website Profile" page="Website Profile" active="General Information" route="{{ route('company.index') }}" />
 @endsection
 <!-- Content -->
 
@@ -20,7 +20,7 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-between align-items-center ">
-                <h4 class="fw-normal mb-0 text-body">Profil Website</h4>
+                <h4 class="fw-normal mb-0 text-body">Website Profile</h4>
                 <!-- @can('company.store')
                 <a href="{{ route('company.create') }}" class="btn btn-primary btn-md"><i class="bi bi-plus-lg"></i>
                     Tambah Baru</a>
@@ -33,11 +33,11 @@
                 <table class="table table-bordered">
                     <tr>
                         <th>No</th>
-                        <th>Visi</th>
-                        <th>Misi</th>
-                        <th>Kebijakan</th>
-                        <th>Jasa Pelayanan</th>
-                        <th>Aksi</th>
+                        <th>Vision</th>
+                        <th>Mission</th>
+                        <th>Policy</th>
+                        <th>Services</th>
+                        <th>Actions</th>
                     </tr>
 
                     @foreach ($companies as $company)

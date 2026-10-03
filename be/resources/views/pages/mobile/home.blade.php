@@ -92,9 +92,9 @@
                 <i class="bi bi-fire"></i>
             </div>
             <div class="flex-fill">
-                <p class="mb-0 small fw-semibold">Streak 12 hari</p>
+                <p class="mb-0 small fw-semibold">12-day streak</p>
                 <p class="mb-1 text-muted2" style="font-size: 12px">
-                    3 sesi lagi menuju badge Lotus
+                    3 more sessions to earn the Lotus badge
                 </p>
                 <div
                     class="progress"

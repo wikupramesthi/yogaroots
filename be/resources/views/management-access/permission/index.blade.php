@@ -3,7 +3,7 @@
 @section('content')
 
 @section('breadcrumb')
-<x-breadcrumb title="Module Role" page="Role & Akses" active="Module Role"
+<x-breadcrumb title="Module Role" page="Roles & Access" active="Module Role"
   route="{{ route('permission.index') }}" />
 @endsection
 <!-- Content -->
@@ -15,7 +15,7 @@
         @can('permission.store')
         <button type="button" class="btn btn-primary btn-md " data-bs-toggle="modal"
           data-bs-target="#modal-form-add-permission">
-          Tambah Data
+          Add Data
         </button>
         @endcan
       </div>

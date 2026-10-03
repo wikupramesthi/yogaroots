@@ -1,69 +1,61 @@
-# 🪷 Serene — Tema Yoga Lengkap (Tailwind CSS v4 + EJS + Express)
+# YogaRoots FE — Theme (Tailwind CSS v4 + EJS + Express)
 
-Tema yoga premium, siap pakai untuk studio wellness, meditation & fitness. Dibuat dengan **Tailwind CSS v4**, **EJS**, **Express**. Responsive, estetik earthy, dan fitur lengkap.
+Theme frontend YogaRoots. Konten dinamis diambil dari backend Laravel via `services/`.
 
-![Serene Yoga](https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&auto=format&fit=crop&q=60)
-
-## ✨ Fitur Lengkap
-
-| Fitur | Detail |
-|-------|--------|
-| **Desain** | Palette Sage + Terracotta + Cream, font Cormorant + Plus Jakarta Sans, rounded-3xl, glass-morphism |
-| **Halaman** | Home, Kelas (filter kategori), Detail Kelas, Jadwal Mingguan, Harga (toggle bulanan/tahunan), Instruktur (6), Blog (6), Detail Blog, Galeri (lightbox), Kontak (maps+form), 404 |
-| **Komponen** | Navbar sticky + hamburger, hero + stats, pricing 3 tier, FAQ accordion, testimonial, CTA, footer newsletter |
-| **Interaksi** | Booking modal (POST /api/booking), contact form, newsletter, lightbox gallery, reveal on scroll |
-| **Backend** | Express + EJS, data terpusat `data/yogaData.js`, API JSON `/api/classes` `/api/schedule` |
-| **Styling** | Tailwind v4 `@theme` tokens, `input.css` → `output.css` via `@tailwindcss/cli` |
-
-## 🚀 Cara Jalan
+## Cara jalan
 
 ```bash
+cp .env.example .env   # sesuaikan API_URL, SITE_URL, WHATSAPP_NUMBER
 npm install
 npm run build:css      # build sekali
-# atau
-npm run watch:css      # watch mode (terminal 1)
-npm run dev            # server (terminal 2)
-# atau sekaligus:
-npm run dev:all        # butuh concurrently
-
-# buka http://localhost:3000
+npm run dev            # server http://localhost:3000
 ```
 
-## 📁 Struktur
+## Struktur
 
 ```
-yoga_theme/
-├── server.js              # Express routes + API
-├── data/yogaData.js       # Semua konten (kelas, jadwal, harga, dll) — edit di sini!
+fe/
+├── server.js                 # bootstrap tipis (tidak ada logika route di sini)
+├── .env / .env.example      # API_URL, SITE_URL, GOOGLE_AUTH_URL, WHATSAPP_NUMBER
+├── src/
+│   ├── config/env.js         # env tervalidasi + link terpusat (WA, OAuth)
+│   ├── middleware/security.js# helmet CSP, rate limit, origin check
+│   ├── middleware/locals.js  # site/nav/contactLinks/currentUrl (anti host-injection)
+│   ├── middleware/i18n.js    # ?lang=en|id|ja|ko|zh, cookie HttpOnly
+│   ├── middleware/errors.js  # 404 + error handler
+│   ├── routes/pages.js       # semua GET halaman (validasi slug/query, sanitasi HTML)
+│   ├── routes/api.js         # /api/* (validasi body, rate-limit)
+│   └── utils/validate.js     # validator input
+│   └── utils/sanitize.js     # sanitasi HTML CMS (sanitize-html)
+├── services/                 # client backend (apiClient + per-resource)
+│   └── apiClient.js          # base URL dari env, timeout 10 dtk
+├── data/
+│   ├── yogaData.js           # HANYA site/nav/contact statis
+│   └── translations.js       # string i18n en|id|ja|ko|zh (tambah bahasa = tambah key + daftarkan di i18n.js)
 ├── views/
-│   ├── partials/ head.ejs, navbar.ejs, footer.ejs
-│   └── pages/ home.ejs, classes.ejs, schedule.ejs, pricing.ejs, ...
-├── public/
-│   ├── css/input.css → output.css
-│   └── js/main.js         # interaksi (modal, filter, lightbox, booking)
-└── package.json
+│   ├── partials/             # head, navbar, footer, cta-help, booking-modal,
+│   │                         # whatsapp-float, cookie-consent (masing2 1 tanggung jawab)
+│   └── pages/                # 14 halaman (full HTML + include partials)
+└── public/js/main.js         # interaksi (modal, form, lightbox, cookie consent)
 ```
 
-## 🎨 Kustomisasi Cepat
+## Aturan kerapian
 
-- **Warna**: edit `@theme` di `public/css/input.css`
-- **Konten**: edit `data/yogaData.js` (tambah kelas, harga, post)
-- **Gambar**: ganti URL Unsplash di data atau pakai `/public/images`
+- Tidak ada URL/nomor hardcode di views & services — lewat `contactLinks` / `env`.
+- Blok UI yang dipakai >1 halaman wajib jadi partial (`cta-help`, `booking-modal`, `whatsapp-float`).
+- Semua input (slug, query, body POST) wajib lewat `src/utils/validate.js`.
+- HTML dari CMS wajib lewat `sanitizeRichHtml()` sebelum `<%- ... %>`.
+- Tidak ada `console.log` debug di route — error masuk `errorHandler`.
 
-## 🔌 API
+## API internal
 
-- `GET /api/classes` → JSON kelas
-- `GET /api/schedule` → JSON jadwal
-- `POST /api/booking` `{name,email,kelas,date}` → konfirmasi
-- `POST /api/contact` `{name,email,message}`
+- `GET /api/classes` → proxy rapi ke backend
+- `POST /api/booking` `{name,email,kelas,date?}` → validasi ketat
+- `POST /api/contact` `{name,email,subject?,message,captcha?}` → teruskan ke backend
 - `POST /api/newsletter` `{email}`
 
-## 📱 Halaman & Route
+## Halaman & route
 
-`/`, `/classes`, `/classes/:slug`, `/schedule`, `/pricing`, `/instructors`, `/blog`, `/blog/:slug`, `/gallery`, `/contact`
-
-## 🧘 Filosofi
-
-> "Yoga bukan tentang menyentuh jari kaki, tapi tentang apa yang kamu pelajari dalam perjalanan ke sana."
-
-Dibuat dengan 🪷 di Jakarta — 2026
+`/`, `/about`, `/classes`, `/classes/:slug`, `/pages/:slug`, `/instructors`,
+`/blog`, `/blog/:slug`, `/packages`, `/packages/:slug`, `/event`,
+`/gallery`, `/contact`

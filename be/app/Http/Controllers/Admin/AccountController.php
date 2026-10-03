@@ -100,7 +100,7 @@ class AccountController extends Controller
         $user = Auth::user();
 
         if (!$user) {
-            return back()->with('error', 'User tidak ditemukan.');
+            return back()->with('error', 'User not found.');
         }
 
         /*

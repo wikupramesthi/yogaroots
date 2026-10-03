@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -33,9 +33,9 @@
 </head>
 
 <body>
-    <h3 style="text-align: center; margin-bottom: 5px;">📊 Laporan Data Pengguna</h3>
+    <h3 style="text-align: center; margin-bottom: 5px;">📊 User Data Report</h3>
     <p style="text-align: center; margin: 0;">
-        Dicetak pada: {{ now()->translatedFormat('d F Y') }}
+        Printed on: {{ now()->translatedFormat('d F Y') }}
     </p>
 
     {{-- Info filter --}}
@@ -43,20 +43,20 @@
         <p style="margin-top: 10px; font-size: 11px;">
             <strong>Filter:</strong>
             @if ($filters['start_date'])
-                Dari <u>{{ \Carbon\Carbon::parse($filters['start_date'])->format('d/m/Y') }}</u>
+                From <u>{{ \Carbon\Carbon::parse($filters['start_date'])->format('d/m/Y') }}</u>
             @endif
             @if ($filters['end_date'])
-                Sampai <u>{{ \Carbon\Carbon::parse($filters['end_date'])->format('d/m/Y') }}</u>
+                To <u>{{ \Carbon\Carbon::parse($filters['end_date'])->format('d/m/Y') }}</u>
             @endif
             @if ($filters['jenis_peserta'])
-                | Jenis Peserta:
-                <u>{{ $filters['jenis_peserta'] == 'user' ? 'Masyarakat' : 'Perangkat Daerah' }}</u>
+                | Participant Type:
+                <u>{{ $filters['jenis_peserta'] == 'user' ? 'General Public' : 'Regional Agency' }}</u>
             @endif
             @if ($filters['portofolio_id'])
                 @php
                     $portofolio = \App\Models\Portofolio::find($filters['portofolio_id']);
                 @endphp
-                | Dimensi: <u>{{ $portofolio ? $portofolio->nama : '-' }}</u>
+                | Dimension: <u>{{ $portofolio ? $portofolio->nama : '-' }}</u>
             @endif
         </p>
     @endif
@@ -66,11 +66,11 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama</th>
+                <th>Name</th>
                 <th>Email</th>
-                <th>No. Handphone</th>
-                <th>Dimensi</th>
-                <th>Tanggal Daftar</th>
+                <th>Phone No.</th>
+                <th>Dimension</th>
+                <th>Registration Date</th>
             </tr>
         </thead>
         <tbody>

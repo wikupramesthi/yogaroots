@@ -183,7 +183,7 @@
                                     accept="image/jpg,image/jpeg,image/png,image/webp">
 
                                 <small class="text-muted">
-                                    JPG, JPEG, PNG, WEBP. Maksimal 2MB.
+                                    JPG, JPEG, PNG, WEBP. Max 2MB.
                                 </small>
 
                                 @error('gambar')

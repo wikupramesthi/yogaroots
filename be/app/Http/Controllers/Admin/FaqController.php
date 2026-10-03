@@ -56,7 +56,7 @@ class FaqController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Faq dan Answer berhasil ditambahkan.');
+            return redirect()->back()->with('success', 'FAQ and answer created successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -104,7 +104,7 @@ class FaqController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->back()->with('success', 'Faq dan Answer berhasil diperbarui.');
+            return redirect()->back()->with('success', 'FAQ and answer updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -122,7 +122,7 @@ class FaqController extends Controller
             $item->delete();
 
             DB::commit();
-            return redirect()->back()->with('success', 'Faq dan Answer berhasil dihapus.');
+            return redirect()->back()->with('success', 'FAQ and answer deleted successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
@@ -148,7 +148,7 @@ class FaqController extends Controller
         } catch (\Throwable $th) {
             return redirect()
                 ->back()
-                ->with('error', 'Gagal menghapus pesan masuk.');
+                ->with('error', 'Failed to delete the incoming message.');
         }
     }
 }

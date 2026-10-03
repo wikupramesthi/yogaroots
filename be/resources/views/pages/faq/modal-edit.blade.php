@@ -15,9 +15,9 @@
 
                 <div class="modal-body">
                     <div class="form-group mb-3">
-                        <label for="pertanyaan" class="mb-2">Peryanyaan <span class="text-danger">*</span></label>
+                        <label for="pertanyaan" class="mb-2">Question <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('pertanyaan') is-invalid @enderror"
-                            id="pertanyaan" placeholder="Pertanyaan" name="pertanyaan"
+                            id="pertanyaan" placeholder="Question" name="pertanyaan"
                             value="{{ $item->pertanyaan ?? old('pertanyaan') }}" required>
                         @error('pertanyaan')
                             <div class="invalid-feedback">
@@ -27,9 +27,9 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="jawaban" class="mb-2">Jawaban <span class="text-danger">*</span></label>
+                        <label for="jawaban" class="mb-2">Answer <span class="text-danger">*</span></label>
                         <textarea class="form-control @error('jawaban') is-invalid @enderror" id="jawaban" rows="3"
-                            placeholder="Jawaban" name="jawaban" required>{{ $item->jawaban ?? old('jawaban') }}</textarea>
+                            placeholder="Answer" name="jawaban" required>{{ $item->jawaban ?? old('jawaban') }}</textarea>
                         @error('jawaban')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -38,9 +38,9 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="urutan" class="mb-2">Urutan <span class="text-danger">*</span></label>
+                        <label for="urutan" class="mb-2">Order <span class="text-danger">*</span></label>
                         <input type="number" class="form-control @error('urutan') is-invalid @enderror" id="urutan"
-                            placeholder="Urutan" name="urutan" value="{{ $item->urutan ?? old('urutan') }}" required>
+                            placeholder="Order" name="urutan" value="{{ $item->urutan ?? old('urutan') }}" required>
                         @error('urutan')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -52,13 +52,13 @@
                         <label for="status" class="mb-2">Status <span class="text-danger">*</span></label>
                         <select name="status" id="status" class="form-control @error('status') is-invalid @enderror"
                             required>
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Select --</option>
                             <option value="active"
                                 {{ (isset($item) && $item->status == 'active') || old('status') == 'active' ? 'selected' : '' }}>
-                                Aktif</option>
+                                Active</option>
                             <option value="inactive"
                                 {{ (isset($item) && $item->status == 'inactive') || old('status') == 'inactive' ? 'selected' : '' }}>
-                                Tidak Aktif</option>
+                                Inactive</option>
                         </select>
                         @error('status')
                             <div class="invalid-feedback">
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary ">Update</button>
                 </div>
             </form>

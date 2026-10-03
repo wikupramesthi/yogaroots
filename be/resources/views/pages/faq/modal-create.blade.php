@@ -5,15 +5,15 @@
             <form id="modal-form" action="{{ route('faq.store') }}" method="post">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal-form-add-faq-label">Tambah Baru</h5>
+                    <h5 class="modal-title" id="modal-form-add-faq-label">Add New</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
                 </div>
                 <div class="modal-body">
 
                     <div class="form-group mb-3">
-                        <label for="pertanyaan" class="mb-2">Pertanyaan <span class="text-danger">*</span></label>
+                        <label for="pertanyaan" class="mb-2">Question <span class="text-danger">*</span></label>
                         <input type="text" class="form-control @error('pertanyaan') is-invalid @enderror"
-                            id="pertanyaan" placeholder="Pertanyaan" name="pertanyaan" value="{{ old('pertanyaan') }}"
+                            id="pertanyaan" placeholder="Question" name="pertanyaan" value="{{ old('pertanyaan') }}"
                             required>
                         @error('pertanyaan')
                             <div class="invalid-feedback">
@@ -23,8 +23,8 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="jawaban" class="mb-2">Jawaban <span class="text-danger">*</span></label>
-                        <textarea class="form-control @error('jawaban') is-invalid @enderror" id="jawaban" placeholder="Jawaban"
+                        <label for="jawaban" class="mb-2">Answer <span class="text-danger">*</span></label>
+                        <textarea class="form-control @error('jawaban') is-invalid @enderror" id="jawaban" placeholder="Answer"
                             name="jawaban" required>{{ old('jawaban') }}</textarea>
                         @error('jawaban')
                             <div class="invalid-feedback">
@@ -34,9 +34,9 @@
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="urutan" class="mb-2">Urutan <span class="text-danger">*</span></label>
+                        <label for="urutan" class="mb-2">Order <span class="text-danger">*</span></label>
                         <input type="number" class="form-control @error('urutan') is-invalid @enderror" id="urutan"
-                            placeholder="Urutan" name="urutan" value="{{ old('urutan') }}">
+                            placeholder="Order" name="urutan" value="{{ old('urutan') }}">
                         @error('urutan')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -48,11 +48,11 @@
                         <label for="status" class="mb-2">Status <span class="text-danger">*</span></label>
                         <select name="status" id="status" class="form-control @error('status') is-invalid @enderror"
                             required>
-                            <option value="">-- Pilih --</option>
+                            <option value="">-- Select --</option>
                             <option value="active"
-                                {{ old('status', $item->status ?? '') === 'active' ? 'selected' : '' }}>Aktif</option>
+                                {{ old('status', $item->status ?? '') === 'active' ? 'selected' : '' }}>Active</option>
                             <option value="inactive"
-                                {{ old('status', $item->status ?? '') === 'inactive' ? 'selected' : '' }}>Tidak Aktif
+                                {{ old('status', $item->status ?? '') === 'inactive' ? 'selected' : '' }} >Inactive
                             </option>
                         </select>
                         @error('status')
@@ -64,8 +64,8 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                    <button type="submit" class="btn btn-primary ">Simpan</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary ">Save</button>
                 </div>
             </form>
 
