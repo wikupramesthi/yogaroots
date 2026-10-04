@@ -38,18 +38,6 @@ class MenuItemController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        // If user is not authorized, abort
-        // if (! Gate::allows('menu_item_index')) {
-        //     abort(403);
-        // }
-        return view('pages.management-access.menu.item.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreMenuItemRequest $request, MenuGroup $menu)

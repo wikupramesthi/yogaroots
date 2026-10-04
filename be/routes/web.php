@@ -11,9 +11,7 @@ use App\Http\Controllers\ManagementAccess\MenuItemController;
 use App\Http\Controllers\ManagementAccess\MenuGroupController;
 use App\Http\Controllers\ManagementAccess\PermissionController;
 
-use App\Http\Controllers\Admin\PortofolioController;
 use App\Http\Controllers\Admin\FaqController;
-use App\Http\Controllers\TentangPerusahaanController;
 use App\Http\Controllers\FeedController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\AccountController;
@@ -84,10 +82,8 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::resource('role', RoleController::class)->middleware([$superAdmin])->only('index', 'store', 'update', 'destroy');
     Route::resource('menu', MenuGroupController::class)->middleware($superAdmin)->only('index', 'store', 'update', 'destroy');
     Route::resource('menu.item', MenuItemController::class)->middleware($superAdmin)->only('index', 'store', 'update', 'destroy');
-    Route::resource('portofolio', PortofolioController::class);
     Route::resource('faq', FaqController::class);
     Route::resource('testimonial', TestimonialController::class);
-    Route::resource('company', TentangPerusahaanController::class);
     Route::get('banner/media', [BannerController::class, 'loadMore'])->name('banner.loadMore');
     Route::get('banner/foto-picker', [BannerController::class, 'fotoPicker'])->name('banner.fotoPicker');
     Route::get('banner/album-fotos/{album}', [BannerController::class, 'albumFotos'])->name('banner.albumFotos');

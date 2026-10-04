@@ -119,25 +119,10 @@ class ArticleController extends Controller
             'image'         => $article->featured_image,
             'author'        => auth()->user()->name,
             'robots'        => $request->search_engine ?? 'index, follow',
-            'canonical_url' => route('articles.show', $article->slug),
+            'canonical_url' => config('frontend.url') . '/blog/' . $article->slug,
         ]);
 
         return redirect()->route('articles.index')->with('success', 'News saved successfully.');
-    }
-    /**
-     * Display the specified resource.
-     */
-    public function show($slug)
-    {
-        $article = Article::where('slug', $slug)->firstOrFail();
-        $sessionKey = 'article_viewed_' . $article->uuid;
-
-        if (!session()->has($sessionKey)) {
-            $article->increment('views');
-            session()->put($sessionKey, true);
-        }
-
-        return view('articles.show', compact('article'));
     }
     /**
      * Show the form for editing the specified resource.
@@ -196,7 +181,7 @@ class ArticleController extends Controller
                     'image' => $article->featured_image, // path storage
                     'author' => auth()->user()->name,
                     'robots' => $request->search_engine ?? 'index, follow',
-                    'canonical_url' => route('articles.show', $article->slug),
+                    'canonical_url' => config('frontend.url') . '/blog/' . $article->slug,
                 ]
             );
 

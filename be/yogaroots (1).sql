@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2026 at 04:31 PM
+-- Generation Time: Oct 04, 2026 at 02:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `yogaroots`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `albums`
+--
+
+CREATE TABLE `albums` (
+  `uuid` char(36) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `cover` char(36) DEFAULT NULL,
+  `status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `album_foto`
+--
+
+CREATE TABLE `album_foto` (
+  `album_uuid` char(36) NOT NULL,
+  `banner_uuid` char(36) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -53,7 +82,117 @@ CREATE TABLE `articles` (
 --
 
 INSERT INTO `articles` (`uuid`, `user_uuid`, `category_uuid`, `title`, `slug`, `excerpt`, `content`, `featured_image`, `scheduled_at`, `views`, `tagging`, `status`, `search_engine`, `link`, `video`, `created_at`, `updated_at`, `deleted_at`) VALUES
-('63829ea9-8a32-4f82-94e1-7299120f822c', '787b72ea-59d0-4d54-848b-c200bddafdd2', '2162d145-9ef3-4e2f-8c55-81971a015bc5', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'pilates-vs-yoga-apa-bedanya-dan-mana-yang-cocok-untuk-anda', 'Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.', '<p><strong>Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?</strong></p>\r\n\r\n<p>Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.</p>\r\n\r\n<p>Namun, <strong>Pilates dan yoga memiliki beberapa perbedaan</strong>, mulai dari tujuan latihan, teknik gerakan, fokus tubuh, hingga pendekatan terhadap pernapasan. Lalu, mana yang lebih cocok untuk Anda?</p>\r\n\r\n<p>Berikut pembahasan lengkap mengenai perbedaan Pilates dan yoga agar Anda dapat menentukan jenis latihan yang sesuai dengan kebutuhan dan tujuan kebugaran Anda.</p>\r\n\r\n<p><strong>Apa Itu Yoga?</strong></p>\r\n\r\n<p>Yoga adalah latihan yang menggabungkan gerakan tubuh, pengaturan pernapasan, konsentrasi, dan relaksasi. Yoga memiliki berbagai jenis dan tingkat intensitas, mulai dari latihan yang lembut hingga latihan yang cukup dinamis.</p>\r\n\r\n<p>Selain membantu menjaga kebugaran tubuh, yoga dapat membantu meningkatkan fleksibilitas, keseimbangan, mobilitas, serta membantu tubuh menjadi lebih rileks.</p>\r\n\r\n<p>Beberapa jenis yoga yang populer antara lain:</p>\r\n\r\n<ul>\r\n    <li><strong>Hatha Yoga</strong>, dengan gerakan yang relatif terstruktur dan cocok untuk mengenal dasar-dasar yoga.</li>\r\n    <li><strong>Vinyasa Yoga</strong>, yang menghubungkan gerakan dengan ritme pernapasan secara lebih dinamis.</li>\r\n    <li><strong>Yin Yoga</strong>, yang menggunakan posisi tertentu dalam durasi lebih lama untuk melatih fleksibilitas.</li>\r\n    <li><strong>Restorative Yoga</strong>, yang berfokus pada relaksasi dengan gerakan yang lebih lembut.</li>\r\n</ul>\r\n\r\n<p><strong>Apa Itu Pilates?</strong></p>\r\n\r\n<p>Pilates merupakan latihan yang berfokus pada kontrol gerakan, stabilitas tubuh, kekuatan otot inti atau <strong>core</strong>, serta postur.</p>\r\n\r\n<p>Gerakan Pilates biasanya dilakukan secara terkontrol dan membutuhkan konsentrasi terhadap posisi tubuh serta teknik pernapasan.</p>\r\n\r\n<p>Pilates dapat dilakukan menggunakan matras maupun peralatan tertentu. Mat Pilates, misalnya, dapat dilakukan tanpa peralatan besar sehingga relatif mudah dimasukkan ke dalam rutinitas olahraga.</p>\r\n\r\n<p>Latihan Pilates banyak menekankan penggunaan otot core sehingga dapat membantu membangun kesadaran terhadap postur dan kontrol tubuh.</p>\r\n\r\n<p><strong>Perbedaan Yoga dan Pilates</strong></p>\r\n\r\n<p>Meskipun terlihat mirip, yoga dan Pilates memiliki fokus latihan yang berbeda. Berikut beberapa perbedaan utamanya.</p>\r\n\r\n<p><strong>1. Fokus Latihan</strong></p>\r\n\r\n<p>Yoga memiliki pendekatan yang lebih luas dengan menggabungkan latihan fisik, pernapasan, konsentrasi, relaksasi, dan kesadaran tubuh.</p>\r\n\r\n<p>Sementara itu, Pilates lebih menitikberatkan pada kontrol gerakan, stabilitas, kekuatan core, dan postur tubuh.</p>\r\n\r\n<p><strong>2. Fleksibilitas</strong></p>\r\n\r\n<p>Yoga umumnya sangat erat kaitannya dengan latihan fleksibilitas. Berbagai posisi yoga dapat membantu tubuh bergerak melalui rentang gerak yang lebih luas secara bertahap.</p>\r\n\r\n<p>Pilates juga melibatkan gerakan yang dapat membantu mobilitas dan fleksibilitas, tetapi fokus utamanya bukan hanya pada kelenturan tubuh.</p>\r\n\r\n<p><strong>3. Kekuatan Core</strong></p>\r\n\r\n<p>Pilates sangat dikenal dengan latihan yang melibatkan otot core. Banyak gerakannya membutuhkan stabilisasi bagian tengah tubuh agar gerakan dapat dilakukan dengan tepat.</p>\r\n\r\n<p>Yoga juga melatih core, terutama pada berbagai pose yang membutuhkan keseimbangan dan stabilitas. Namun, fokusnya dapat berbeda tergantung jenis yoga yang dilakukan.</p>\r\n\r\n<p><strong>4. Pernapasan</strong></p>\r\n\r\n<p>Pernapasan merupakan bagian penting dalam yoga. Pengaturan napas digunakan untuk membantu konsentrasi, mengontrol gerakan, dan menciptakan kondisi tubuh yang lebih rileks.</p>\r\n\r\n<p>Dalam Pilates, pernapasan juga penting dan digunakan untuk membantu kontrol serta koordinasi gerakan.</p>\r\n\r\n<p><strong>5. Relaksasi</strong></p>\r\n\r\n<p>Yoga umumnya memberikan perhatian lebih besar terhadap relaksasi, meditasi, dan kesadaran tubuh.</p>\r\n\r\n<p>Pilates lebih berorientasi pada latihan fisik dan kontrol gerakan, meskipun latihan yang dilakukan dengan fokus dan teratur juga dapat membantu tubuh terasa lebih rileks setelah berolahraga.</p>\r\n\r\n<p><strong>Pilates vs Yoga: Mana yang Lebih Baik?</strong></p>\r\n\r\n<p>Tidak ada jawaban bahwa Pilates selalu lebih baik daripada yoga, atau sebaliknya. Pilihan terbaik bergantung pada tujuan, preferensi, dan kebutuhan masing-masing orang.</p>\r\n\r\n<p>Jika Anda ingin meningkatkan fleksibilitas, melatih keseimbangan, sekaligus mendapatkan latihan yang menggabungkan gerakan dan relaksasi, <strong>yoga dapat menjadi pilihan yang menarik</strong>.</p>\r\n\r\n<p>Jika tujuan utama Anda adalah meningkatkan kekuatan core, kontrol tubuh, dan kesadaran terhadap postur, <strong>Pilates dapat menjadi pilihan yang sesuai</strong>.</p>\r\n\r\n<p>Namun, keduanya juga dapat dikombinasikan. Yoga dan Pilates memiliki karakteristik latihan yang berbeda sehingga dapat saling melengkapi dalam rutinitas kebugaran.</p>\r\n\r\n<p><strong>Yoga Cocok untuk Siapa?</strong></p>\r\n\r\n<p>Yoga dapat menjadi pilihan bagi Anda yang ingin:</p>\r\n\r\n<ul>\r\n    <li>Meningkatkan fleksibilitas tubuh.</li>\r\n    <li>Melatih keseimbangan dan mobilitas.</li>\r\n    <li>Meningkatkan kesadaran terhadap tubuh dan pernapasan.</li>\r\n    <li>Melakukan aktivitas fisik dengan intensitas yang dapat disesuaikan.</li>\r\n    <li>Menambahkan latihan relaksasi dalam rutinitas harian.</li>\r\n    <li>Memulai aktivitas olahraga secara bertahap.</li>\r\n</ul>\r\n\r\n<p><strong>Pilates Cocok untuk Siapa?</strong></p>\r\n\r\n<p>Pilates dapat menjadi pilihan bagi Anda yang ingin:</p>\r\n\r\n<ul>\r\n    <li>Melatih kekuatan otot core.</li>\r\n    <li>Meningkatkan kontrol gerakan.</li>\r\n    <li>Meningkatkan kesadaran terhadap postur tubuh.</li>\r\n    <li>Melatih stabilitas dan koordinasi.</li>\r\n    <li>Melakukan latihan dengan gerakan yang terkontrol.</li>\r\n</ul>\r\n\r\n<p><strong>Apakah Yoga dan Pilates Bisa Dilakukan Bersamaan?</strong></p>\r\n\r\n<p>Tentu saja. Yoga dan Pilates dapat menjadi kombinasi latihan yang menarik.</p>\r\n\r\n<p>Pilates dapat membantu melatih kekuatan dan stabilitas tubuh, sedangkan yoga dapat memberikan latihan fleksibilitas, keseimbangan, mobilitas, serta relaksasi.</p>\r\n\r\n<p>Anda dapat melakukan Pilates pada beberapa hari dalam seminggu dan menambahkan sesi yoga pada hari lainnya. Frekuensi dan intensitas latihan sebaiknya disesuaikan dengan kemampuan tubuh dan rutinitas masing-masing.</p>\r\n\r\n<p><strong>Tips Memilih Yoga atau Pilates</strong></p>\r\n\r\n<p>Sebelum memilih, coba tentukan tujuan utama Anda.</p>\r\n\r\n<p><strong>Pilih yoga jika Anda lebih tertarik pada:</strong></p>\r\n\r\n<ul>\r\n    <li>Fleksibilitas.</li>\r\n    <li>Keseimbangan.</li>\r\n    <li>Mobilitas.</li>\r\n    <li>Pernapasan.</li>\r\n    <li>Relaksasi dan mindfulness.</li>\r\n</ul>\r\n\r\n<p><strong>Pertimbangkan Pilates jika Anda lebih tertarik pada:</strong></p>\r\n\r\n<ul>\r\n    <li>Kekuatan core.</li>\r\n    <li>Stabilitas tubuh.</li>\r\n    <li>Kontrol gerakan.</li>\r\n    <li>Postur.</li>\r\n    <li>Latihan fisik yang terstruktur.</li>\r\n</ul>\r\n\r\n<p>Jika masih bingung, tidak ada salahnya mencoba keduanya. Pengalaman langsung dapat membantu Anda mengetahui latihan mana yang paling nyaman dan sesuai dengan kebutuhan Anda.</p>\r\n\r\n<p><strong>Kesimpulan</strong></p>\r\n\r\n<p>Jadi, <strong>apa perbedaan Pilates dan yoga?</strong> Secara sederhana, yoga memiliki pendekatan yang lebih luas dengan menggabungkan gerakan, pernapasan, keseimbangan, fleksibilitas, dan relaksasi. Sementara itu, Pilates lebih berfokus pada kontrol gerakan, stabilitas, kekuatan core, dan postur.</p>\r\n\r\n<p>Keduanya sama-sama dapat menjadi bagian dari gaya hidup aktif. Yang terpenting adalah memilih latihan yang sesuai dengan tujuan dan dapat dilakukan secara konsisten.</p>\r\n\r\n<p>Jika Anda ingin mencoba yoga, mulailah dari kelas yang sesuai dengan tingkat kemampuan Anda. Dengan instruktur yang tepat, Anda dapat mempelajari teknik dasar dengan lebih nyaman dan membangun kebiasaan latihan secara bertahap.</p>\r\n\r\n<p><strong>Siap Mencoba Yoga?</strong></p>\r\n\r\n<p>Temukan kelas yoga yang sesuai dengan kebutuhan dan tingkat kemampuan Anda. Mulai perjalanan menuju tubuh yang lebih aktif, fleksibel, dan seimbang bersama kelas yoga yang tepat.</p>', 'images/Q21BSTPfei8FVhkubCnpiCxQYWcL7P6XigMY6gBq.jpg', '2026-08-26 17:00:00', 38, 'yoga, tips yogaaa', 'published', 'index', NULL, NULL, '2026-08-27 04:59:46', '2026-09-10 20:03:07', NULL);
+('63829ea9-8a32-4f82-94e1-7299120f822c', '787b72ea-59d0-4d54-848b-c200bddafdd2', '2162d145-9ef3-4e2f-8c55-81971a015bc5', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', 'pilates-vs-yoga-apa-bedanya-dan-mana-yang-cocok-untuk-anda', 'Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.', '<p><strong>Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?</strong></p>\r\n\r\n<p>Pilates dan yoga sama-sama populer sebagai olahraga yang membantu meningkatkan kebugaran tubuh sekaligus memberikan manfaat bagi pikiran. Keduanya juga dapat dilakukan oleh pemula dan tidak selalu membutuhkan peralatan yang rumit.</p>\r\n\r\n<p>Namun, <strong>Pilates dan yoga memiliki beberapa perbedaan</strong>, mulai dari tujuan latihan, teknik gerakan, fokus tubuh, hingga pendekatan terhadap pernapasan. Lalu, mana yang lebih cocok untuk Anda?</p>\r\n\r\n<p>Berikut pembahasan lengkap mengenai perbedaan Pilates dan yoga agar Anda dapat menentukan jenis latihan yang sesuai dengan kebutuhan dan tujuan kebugaran Anda.</p>\r\n\r\n<p><strong>Apa Itu Yoga?</strong></p>\r\n\r\n<p>Yoga adalah latihan yang menggabungkan gerakan tubuh, pengaturan pernapasan, konsentrasi, dan relaksasi. Yoga memiliki berbagai jenis dan tingkat intensitas, mulai dari latihan yang lembut hingga latihan yang cukup dinamis.</p>\r\n\r\n<p>Selain membantu menjaga kebugaran tubuh, yoga dapat membantu meningkatkan fleksibilitas, keseimbangan, mobilitas, serta membantu tubuh menjadi lebih rileks.</p>\r\n\r\n<p>Beberapa jenis yoga yang populer antara lain:</p>\r\n\r\n<ul>\r\n    <li><strong>Hatha Yoga</strong>, dengan gerakan yang relatif terstruktur dan cocok untuk mengenal dasar-dasar yoga.</li>\r\n    <li><strong>Vinyasa Yoga</strong>, yang menghubungkan gerakan dengan ritme pernapasan secara lebih dinamis.</li>\r\n    <li><strong>Yin Yoga</strong>, yang menggunakan posisi tertentu dalam durasi lebih lama untuk melatih fleksibilitas.</li>\r\n    <li><strong>Restorative Yoga</strong>, yang berfokus pada relaksasi dengan gerakan yang lebih lembut.</li>\r\n</ul>\r\n\r\n<p><strong>Apa Itu Pilates?</strong></p>\r\n\r\n<p>Pilates merupakan latihan yang berfokus pada kontrol gerakan, stabilitas tubuh, kekuatan otot inti atau <strong>core</strong>, serta postur.</p>\r\n\r\n<p>Gerakan Pilates biasanya dilakukan secara terkontrol dan membutuhkan konsentrasi terhadap posisi tubuh serta teknik pernapasan.</p>\r\n\r\n<p>Pilates dapat dilakukan menggunakan matras maupun peralatan tertentu. Mat Pilates, misalnya, dapat dilakukan tanpa peralatan besar sehingga relatif mudah dimasukkan ke dalam rutinitas olahraga.</p>\r\n\r\n<p>Latihan Pilates banyak menekankan penggunaan otot core sehingga dapat membantu membangun kesadaran terhadap postur dan kontrol tubuh.</p>\r\n\r\n<p><strong>Perbedaan Yoga dan Pilates</strong></p>\r\n\r\n<p>Meskipun terlihat mirip, yoga dan Pilates memiliki fokus latihan yang berbeda. Berikut beberapa perbedaan utamanya.</p>\r\n\r\n<p><strong>1. Fokus Latihan</strong></p>\r\n\r\n<p>Yoga memiliki pendekatan yang lebih luas dengan menggabungkan latihan fisik, pernapasan, konsentrasi, relaksasi, dan kesadaran tubuh.</p>\r\n\r\n<p>Sementara itu, Pilates lebih menitikberatkan pada kontrol gerakan, stabilitas, kekuatan core, dan postur tubuh.</p>\r\n\r\n<p><strong>2. Fleksibilitas</strong></p>\r\n\r\n<p>Yoga umumnya sangat erat kaitannya dengan latihan fleksibilitas. Berbagai posisi yoga dapat membantu tubuh bergerak melalui rentang gerak yang lebih luas secara bertahap.</p>\r\n\r\n<p>Pilates juga melibatkan gerakan yang dapat membantu mobilitas dan fleksibilitas, tetapi fokus utamanya bukan hanya pada kelenturan tubuh.</p>\r\n\r\n<p><strong>3. Kekuatan Core</strong></p>\r\n\r\n<p>Pilates sangat dikenal dengan latihan yang melibatkan otot core. Banyak gerakannya membutuhkan stabilisasi bagian tengah tubuh agar gerakan dapat dilakukan dengan tepat.</p>\r\n\r\n<p>Yoga juga melatih core, terutama pada berbagai pose yang membutuhkan keseimbangan dan stabilitas. Namun, fokusnya dapat berbeda tergantung jenis yoga yang dilakukan.</p>\r\n\r\n<p><strong>4. Pernapasan</strong></p>\r\n\r\n<p>Pernapasan merupakan bagian penting dalam yoga. Pengaturan napas digunakan untuk membantu konsentrasi, mengontrol gerakan, dan menciptakan kondisi tubuh yang lebih rileks.</p>\r\n\r\n<p>Dalam Pilates, pernapasan juga penting dan digunakan untuk membantu kontrol serta koordinasi gerakan.</p>\r\n\r\n<p><strong>5. Relaksasi</strong></p>\r\n\r\n<p>Yoga umumnya memberikan perhatian lebih besar terhadap relaksasi, meditasi, dan kesadaran tubuh.</p>\r\n\r\n<p>Pilates lebih berorientasi pada latihan fisik dan kontrol gerakan, meskipun latihan yang dilakukan dengan fokus dan teratur juga dapat membantu tubuh terasa lebih rileks setelah berolahraga.</p>\r\n\r\n<p><strong>Pilates vs Yoga: Mana yang Lebih Baik?</strong></p>\r\n\r\n<p>Tidak ada jawaban bahwa Pilates selalu lebih baik daripada yoga, atau sebaliknya. Pilihan terbaik bergantung pada tujuan, preferensi, dan kebutuhan masing-masing orang.</p>\r\n\r\n<p>Jika Anda ingin meningkatkan fleksibilitas, melatih keseimbangan, sekaligus mendapatkan latihan yang menggabungkan gerakan dan relaksasi, <strong>yoga dapat menjadi pilihan yang menarik</strong>.</p>\r\n\r\n<p>Jika tujuan utama Anda adalah meningkatkan kekuatan core, kontrol tubuh, dan kesadaran terhadap postur, <strong>Pilates dapat menjadi pilihan yang sesuai</strong>.</p>\r\n\r\n<p>Namun, keduanya juga dapat dikombinasikan. Yoga dan Pilates memiliki karakteristik latihan yang berbeda sehingga dapat saling melengkapi dalam rutinitas kebugaran.</p>\r\n\r\n<p><strong>Yoga Cocok untuk Siapa?</strong></p>\r\n\r\n<p>Yoga dapat menjadi pilihan bagi Anda yang ingin:</p>\r\n\r\n<ul>\r\n    <li>Meningkatkan fleksibilitas tubuh.</li>\r\n    <li>Melatih keseimbangan dan mobilitas.</li>\r\n    <li>Meningkatkan kesadaran terhadap tubuh dan pernapasan.</li>\r\n    <li>Melakukan aktivitas fisik dengan intensitas yang dapat disesuaikan.</li>\r\n    <li>Menambahkan latihan relaksasi dalam rutinitas harian.</li>\r\n    <li>Memulai aktivitas olahraga secara bertahap.</li>\r\n</ul>\r\n\r\n<p><strong>Pilates Cocok untuk Siapa?</strong></p>\r\n\r\n<p>Pilates dapat menjadi pilihan bagi Anda yang ingin:</p>\r\n\r\n<ul>\r\n    <li>Melatih kekuatan otot core.</li>\r\n    <li>Meningkatkan kontrol gerakan.</li>\r\n    <li>Meningkatkan kesadaran terhadap postur tubuh.</li>\r\n    <li>Melatih stabilitas dan koordinasi.</li>\r\n    <li>Melakukan latihan dengan gerakan yang terkontrol.</li>\r\n</ul>\r\n\r\n<p><strong>Apakah Yoga dan Pilates Bisa Dilakukan Bersamaan?</strong></p>\r\n\r\n<p>Tentu saja. Yoga dan Pilates dapat menjadi kombinasi latihan yang menarik.</p>\r\n\r\n<p>Pilates dapat membantu melatih kekuatan dan stabilitas tubuh, sedangkan yoga dapat memberikan latihan fleksibilitas, keseimbangan, mobilitas, serta relaksasi.</p>\r\n\r\n<p>Anda dapat melakukan Pilates pada beberapa hari dalam seminggu dan menambahkan sesi yoga pada hari lainnya. Frekuensi dan intensitas latihan sebaiknya disesuaikan dengan kemampuan tubuh dan rutinitas masing-masing.</p>\r\n\r\n<p><strong>Tips Memilih Yoga atau Pilates</strong></p>\r\n\r\n<p>Sebelum memilih, coba tentukan tujuan utama Anda.</p>\r\n\r\n<p><strong>Pilih yoga jika Anda lebih tertarik pada:</strong></p>\r\n\r\n<ul>\r\n    <li>Fleksibilitas.</li>\r\n    <li>Keseimbangan.</li>\r\n    <li>Mobilitas.</li>\r\n    <li>Pernapasan.</li>\r\n    <li>Relaksasi dan mindfulness.</li>\r\n</ul>\r\n\r\n<p><strong>Pertimbangkan Pilates jika Anda lebih tertarik pada:</strong></p>\r\n\r\n<ul>\r\n    <li>Kekuatan core.</li>\r\n    <li>Stabilitas tubuh.</li>\r\n    <li>Kontrol gerakan.</li>\r\n    <li>Postur.</li>\r\n    <li>Latihan fisik yang terstruktur.</li>\r\n</ul>\r\n\r\n<p>Jika masih bingung, tidak ada salahnya mencoba keduanya. Pengalaman langsung dapat membantu Anda mengetahui latihan mana yang paling nyaman dan sesuai dengan kebutuhan Anda.</p>\r\n\r\n<p><strong>Kesimpulan</strong></p>\r\n\r\n<p>Jadi, <strong>apa perbedaan Pilates dan yoga?</strong> Secara sederhana, yoga memiliki pendekatan yang lebih luas dengan menggabungkan gerakan, pernapasan, keseimbangan, fleksibilitas, dan relaksasi. Sementara itu, Pilates lebih berfokus pada kontrol gerakan, stabilitas, kekuatan core, dan postur.</p>\r\n\r\n<p>Keduanya sama-sama dapat menjadi bagian dari gaya hidup aktif. Yang terpenting adalah memilih latihan yang sesuai dengan tujuan dan dapat dilakukan secara konsisten.</p>\r\n\r\n<p>Jika Anda ingin mencoba yoga, mulailah dari kelas yang sesuai dengan tingkat kemampuan Anda. Dengan instruktur yang tepat, Anda dapat mempelajari teknik dasar dengan lebih nyaman dan membangun kebiasaan latihan secara bertahap.</p>\r\n\r\n<p><strong>Siap Mencoba Yoga?</strong></p>\r\n\r\n<p>Temukan kelas yoga yang sesuai dengan kebutuhan dan tingkat kemampuan Anda. Mulai perjalanan menuju tubuh yang lebih aktif, fleksibel, dan seimbang bersama kelas yoga yang tepat.</p>', 'images/Q21BSTPfei8FVhkubCnpiCxQYWcL7P6XigMY6gBq.jpg', '2026-08-26 17:00:00', 46, 'yoga, tips yogaaa', 'published', 'index', NULL, NULL, '2026-08-27 04:59:46', '2026-10-04 12:12:53', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `audit_logs`
+--
+
+CREATE TABLE `audit_logs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_uuid` char(36) DEFAULT NULL,
+  `user_name` varchar(255) DEFAULT NULL,
+  `user_email` varchar(255) DEFAULT NULL,
+  `event` varchar(30) NOT NULL,
+  `auditable_type` varchar(255) DEFAULT NULL,
+  `auditable_id` varchar(255) DEFAULT NULL,
+  `auditable_label` varchar(255) DEFAULT NULL,
+  `old_values` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`old_values`)),
+  `new_values` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`new_values`)),
+  `url` text DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `audit_logs`
+--
+
+INSERT INTO `audit_logs` (`id`, `user_uuid`, `user_name`, `user_email`, `event`, `auditable_type`, `auditable_id`, `auditable_label`, `old_values`, `new_values`, `url`, `ip_address`, `user_agent`, `created_at`, `updated_at`) VALUES
+(35, NULL, NULL, NULL, 'created', 'App\\Models\\User', 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', NULL, '{\"name\":\"ESPRO Property\",\"email\":\"esproproperty.bekasi@gmail.com\",\"avatar\":\"https:\\/\\/lh3.googleusercontent.com\\/a\\/ACg8ocLitzhONjAN_zPOcC2rM16BHekNE3M2zU7C-e0d53-6M47R-PE=s96-c\",\"email_verified_at\":\"2026-10-02 14:44:00\",\"uuid\":\"c2187aff-68d0-40b9-a6f1-52738cee4ea4\",\"updated_at\":\"2026-10-02 14:44:01\",\"created_at\":\"2026-10-02 14:44:01\"}', 'http://localhost:8000/auth/google/callback?authuser=0&code=4%2F0AXlqoi4se13jSxyhha3hDQ7FxWdFdqc3M9i1t6UtTe4Iqztf7-q09u9LrB4C9SZHQyI1-Q&iss=https%3A%2F%2Faccounts.google.com&prompt=none&scope=email%20profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20openid', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-02 07:44:01', '2026-10-02 07:44:01'),
+(36, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'updated', 'App\\Models\\ManagementAccess\\MenuGroup', '24', 'Security', '{\"name\":\"Keamanan\"}', '{\"name\":\"Security\"}', 'http://localhost:8000/backend/menu/24', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-03 12:02:43', '2026-10-03 12:02:43'),
+(37, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\MenuItem', '60', 'Website Identitas', NULL, '{\"route\":\"website-identity.index\",\"menu_group_id\":3,\"name\":\"Website Identitas\",\"status\":true,\"permission_name\":\"website-identity.index\",\"position\":99,\"updated_at\":\"2026-10-03 19:18:10\",\"created_at\":\"2026-10-03 19:18:10\",\"id\":60}', NULL, NULL, NULL, '2026-10-03 12:18:10', '2026-10-03 12:18:10'),
+(38, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '213', 'Route #213', NULL, '{\"route\":\"website-identity.index\",\"permission_name\":\"website-identity.index\",\"status\":true,\"updated_at\":\"2026-10-03 19:18:10\",\"created_at\":\"2026-10-03 19:18:10\",\"id\":213}', NULL, NULL, NULL, '2026-10-03 12:18:10', '2026-10-03 12:18:10'),
+(39, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '214', 'Route #214', NULL, '{\"route\":\"website-identity.update\",\"permission_name\":\"website-identity.update\",\"status\":true,\"updated_at\":\"2026-10-03 19:18:10\",\"created_at\":\"2026-10-03 19:18:10\",\"id\":214}', NULL, NULL, NULL, '2026-10-03 12:18:10', '2026-10-03 12:18:10'),
+(40, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'created', 'App\\Models\\WebsiteIdentity', '579ceea1-db69-41cf-a389-e242c04a2ff8', 'WebsiteIdentity #579ceea1-db69-41cf-a389-e242c04a2ff8', NULL, '{\"nama_website\":\"Laravel\",\"uuid\":\"579ceea1-db69-41cf-a389-e242c04a2ff8\",\"updated_at\":\"2026-10-03 19:19:22\",\"created_at\":\"2026-10-03 19:19:22\"}', 'http://localhost:8000/backend/website-identity', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-03 12:19:22', '2026-10-03 12:19:22'),
+(41, NULL, NULL, NULL, 'created', 'App\\Models\\WebsiteIdentity', '39860859-6a83-4cae-aa27-659334baff1c', 'WebsiteIdentity #39860859-6a83-4cae-aa27-659334baff1c', NULL, '{\"site_name\":\"Laravel\",\"uuid\":\"39860859-6a83-4cae-aa27-659334baff1c\",\"updated_at\":\"2026-10-03 19:22:02\",\"created_at\":\"2026-10-03 19:22:02\"}', NULL, NULL, NULL, '2026-10-03 12:22:02', '2026-10-03 12:22:02'),
+(42, NULL, NULL, NULL, 'updated', 'App\\Models\\ManagementAccess\\MenuItem', '60', 'Website Identity', '{\"name\":\"Website Identitas\"}', '{\"name\":\"Website Identity\"}', NULL, NULL, NULL, '2026-10-03 12:24:24', '2026-10-03 12:24:24'),
+(43, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '215', 'Route #215', NULL, '{\"route\":\"banner.storeVideo\",\"permission_name\":\"banner.store\",\"status\":true,\"updated_at\":\"2026-10-03 19:35:43\",\"created_at\":\"2026-10-03 19:35:43\",\"id\":215}', NULL, NULL, NULL, '2026-10-03 12:35:43', '2026-10-03 12:35:43'),
+(44, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '216', 'Route #216', NULL, '{\"route\":\"banner.storeAlbum\",\"permission_name\":\"banner.store\",\"status\":true,\"updated_at\":\"2026-10-03 19:35:43\",\"created_at\":\"2026-10-03 19:35:43\",\"id\":216}', NULL, NULL, NULL, '2026-10-03 12:35:43', '2026-10-03 12:35:43'),
+(45, NULL, NULL, NULL, 'created', 'App\\Models\\Banner', '5a003ead-e4ea-425e-af93-b5b1c74c89aa', 'Banner #5a003ead-e4ea-425e-af93-b5b1c74c89aa', NULL, '{\"tipe\":\"video\",\"nama\":\"TEST VIDEO\",\"deskripsi\":null,\"link\":\"https:\\/\\/www.youtube.com\\/watch?v=dQw4w9WgXcQ\",\"gambar\":\"https:\\/\\/i.ytimg.com\\/vi\\/dQw4w9WgXcQ\\/hqdefault.jpg\",\"posisi\":\"galeri\",\"status\":\"active\",\"updated_at\":\"2026-10-03 19:36:03\",\"created_at\":\"2026-10-03 19:36:03\"}', NULL, NULL, NULL, '2026-10-03 12:36:03', '2026-10-03 12:36:03'),
+(46, NULL, NULL, NULL, 'created', 'App\\Models\\Banner', '8ddad511-e10e-4614-8d81-0c2e39c59ca6', 'Banner #8ddad511-e10e-4614-8d81-0c2e39c59ca6', NULL, '{\"tipe\":\"album\",\"nama\":\"TEST ALBUM\",\"deskripsi\":null,\"link\":null,\"gambar\":\"banners\\/LBLHrpzB2IC8qoETFsI6albxj4BsLEmoMmuT3kKo.png\",\"posisi\":\"galeri\",\"status\":\"active\",\"updated_at\":\"2026-10-03 19:36:04\",\"created_at\":\"2026-10-03 19:36:04\"}', NULL, NULL, NULL, '2026-10-03 12:36:04', '2026-10-03 12:36:04'),
+(47, NULL, NULL, NULL, 'created', 'App\\Models\\Banner', '0e5f5519-89a6-409b-a502-af2372df1b55', 'Banner #0e5f5519-89a6-409b-a502-af2372df1b55', NULL, '{\"tipe\":\"foto\",\"album_uuid\":\"8ddad511-e10e-4614-8d81-0c2e39c59ca6\",\"nama\":\"TEST FOTO\",\"deskripsi\":null,\"link\":null,\"gambar\":\"banners\\/kvEM7surOc2ew2ruOdLGrHFCg6sseGdVFfNtmUu6.png\",\"posisi\":\"galeri\",\"status\":\"active\",\"updated_at\":\"2026-10-03 19:36:04\",\"created_at\":\"2026-10-03 19:36:04\"}', NULL, NULL, NULL, '2026-10-03 12:36:04', '2026-10-03 12:36:04'),
+(48, NULL, NULL, NULL, 'deleted', 'App\\Models\\Banner', '8ddad511-e10e-4614-8d81-0c2e39c59ca6', 'Banner #8ddad511-e10e-4614-8d81-0c2e39c59ca6', '{\"uuid\":\"8ddad511-e10e-4614-8d81-0c2e39c59ca6\",\"tipe\":\"album\",\"album_uuid\":null,\"nama\":\"TEST ALBUM\",\"deskripsi\":null,\"link\":null,\"gambar\":\"banners\\/LBLHrpzB2IC8qoETFsI6albxj4BsLEmoMmuT3kKo.png\",\"posisi\":\"galeri\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:36:05', '2026-10-03 12:36:05'),
+(49, NULL, NULL, NULL, 'deleted', 'App\\Models\\Banner', '5a003ead-e4ea-425e-af93-b5b1c74c89aa', 'Banner #5a003ead-e4ea-425e-af93-b5b1c74c89aa', '{\"uuid\":\"5a003ead-e4ea-425e-af93-b5b1c74c89aa\",\"tipe\":\"video\",\"album_uuid\":null,\"nama\":\"TEST VIDEO\",\"deskripsi\":null,\"link\":\"https:\\/\\/www.youtube.com\\/watch?v=dQw4w9WgXcQ\",\"gambar\":\"https:\\/\\/i.ytimg.com\\/vi\\/dQw4w9WgXcQ\\/hqdefault.jpg\",\"posisi\":\"galeri\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:36:05', '2026-10-03 12:36:05'),
+(50, NULL, NULL, NULL, 'deleted', 'App\\Models\\Banner', '0e5f5519-89a6-409b-a502-af2372df1b55', 'Banner #0e5f5519-89a6-409b-a502-af2372df1b55', '{\"uuid\":\"0e5f5519-89a6-409b-a502-af2372df1b55\",\"tipe\":\"foto\",\"album_uuid\":null,\"nama\":\"TEST FOTO\",\"deskripsi\":null,\"link\":null,\"gambar\":\"banners\\/kvEM7surOc2ew2ruOdLGrHFCg6sseGdVFfNtmUu6.png\",\"posisi\":\"galeri\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:36:05', '2026-10-03 12:36:05'),
+(51, NULL, NULL, NULL, 'created', 'App\\Models\\Banner', '74b5678a-4b5f-49dd-800d-9fce55a188bb', 'Banner #74b5678a-4b5f-49dd-800d-9fce55a188bb', NULL, '{\"tipe\":\"foto\",\"album_uuid\":null,\"nama\":\"TEST KOMPRES\",\"deskripsi\":null,\"link\":null,\"gambar\":\"banners\\/95gmDoqPNzrJHZNVH2urILWmcK7xP1w6EjtqVA9r.jpg\",\"posisi\":\"galeri\",\"status\":\"active\",\"updated_at\":\"2026-10-03 19:39:09\",\"created_at\":\"2026-10-03 19:39:09\"}', NULL, NULL, NULL, '2026-10-03 12:39:09', '2026-10-03 12:39:09'),
+(52, NULL, NULL, NULL, 'deleted', 'App\\Models\\Banner', '74b5678a-4b5f-49dd-800d-9fce55a188bb', 'Banner #74b5678a-4b5f-49dd-800d-9fce55a188bb', '{\"uuid\":\"74b5678a-4b5f-49dd-800d-9fce55a188bb\",\"tipe\":\"foto\",\"album_uuid\":null,\"nama\":\"TEST KOMPRES\",\"deskripsi\":null,\"link\":null,\"gambar\":\"banners\\/95gmDoqPNzrJHZNVH2urILWmcK7xP1w6EjtqVA9r.jpg\",\"posisi\":\"galeri\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:39:09', '2026-10-03 12:39:09'),
+(53, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '217', 'Route #217', NULL, '{\"route\":\"banner.loadMore\",\"permission_name\":\"banner.index\",\"status\":true,\"updated_at\":\"2026-10-03 19:49:08\",\"created_at\":\"2026-10-03 19:49:08\",\"id\":217}', NULL, NULL, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(54, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '218', 'Route #218', NULL, '{\"route\":\"banner.fotoPicker\",\"permission_name\":\"banner.index\",\"status\":true,\"updated_at\":\"2026-10-03 19:49:08\",\"created_at\":\"2026-10-03 19:49:08\",\"id\":218}', NULL, NULL, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(55, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '219', 'Route #219', NULL, '{\"route\":\"banner.albumFotos\",\"permission_name\":\"banner.index\",\"status\":true,\"updated_at\":\"2026-10-03 19:49:08\",\"created_at\":\"2026-10-03 19:49:08\",\"id\":219}', NULL, NULL, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(56, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '220', 'Route #220', NULL, '{\"route\":\"banner.modal\",\"permission_name\":\"banner.index\",\"status\":true,\"updated_at\":\"2026-10-03 19:49:08\",\"created_at\":\"2026-10-03 19:49:08\",\"id\":220}', NULL, NULL, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(57, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '221', 'Route #221', NULL, '{\"route\":\"banner.updateAlbum\",\"permission_name\":\"banner.update\",\"status\":true,\"updated_at\":\"2026-10-03 19:49:08\",\"created_at\":\"2026-10-03 19:49:08\",\"id\":221}', NULL, NULL, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(58, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '222', 'Route #222', NULL, '{\"route\":\"banner.destroyAlbum\",\"permission_name\":\"banner.destroy\",\"status\":true,\"updated_at\":\"2026-10-03 19:49:08\",\"created_at\":\"2026-10-03 19:49:08\",\"id\":222}', NULL, NULL, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(59, NULL, NULL, NULL, 'created', 'App\\Models\\Banner', '8fb90e6a-c118-4540-bedc-8fbde8124b69', 'Banner #8fb90e6a-c118-4540-bedc-8fbde8124b69', NULL, '{\"tipe\":\"foto\",\"nama\":\"T Foto\",\"deskripsi\":null,\"status\":\"active\",\"link\":null,\"posisi\":\"galeri\",\"gambar\":\"banners\\/YRzPl6OJ1GnjRdWCW6vAmPYgLtwEG3VMm7d7sE8m.jpg\",\"updated_at\":\"2026-10-03 19:49:26\",\"created_at\":\"2026-10-03 19:49:26\"}', NULL, NULL, NULL, '2026-10-03 12:49:26', '2026-10-03 12:49:26'),
+(60, NULL, NULL, NULL, 'created', 'App\\Models\\Banner', 'aeec9934-304e-4415-99d9-9634472d4f16', 'Banner #aeec9934-304e-4415-99d9-9634472d4f16', NULL, '{\"tipe\":\"video\",\"nama\":\"T Video\",\"deskripsi\":null,\"status\":\"active\",\"link\":null,\"video_url\":\"https:\\/\\/www.youtube.com\\/watch?v=dQw4w9WgXcQ\",\"posisi\":\"lainnya\",\"gambar\":\"\",\"updated_at\":\"2026-10-03 19:49:26\",\"created_at\":\"2026-10-03 19:49:26\"}', NULL, NULL, NULL, '2026-10-03 12:49:26', '2026-10-03 12:49:26'),
+(61, NULL, NULL, NULL, 'created', 'App\\Models\\Album', 'da38da82-aa73-45cd-95b1-d121236e3835', 'Album #da38da82-aa73-45cd-95b1-d121236e3835', NULL, '{\"nama\":\"T Album\",\"deskripsi\":null,\"status\":\"active\",\"cover\":\"8fb90e6a-c118-4540-bedc-8fbde8124b69\",\"updated_at\":\"2026-10-03 19:49:26\",\"created_at\":\"2026-10-03 19:49:26\"}', NULL, NULL, NULL, '2026-10-03 12:49:26', '2026-10-03 12:49:26'),
+(62, NULL, NULL, NULL, 'deleted', 'App\\Models\\Album', 'da38da82-aa73-45cd-95b1-d121236e3835', 'Album #da38da82-aa73-45cd-95b1-d121236e3835', '{\"uuid\":\"da38da82-aa73-45cd-95b1-d121236e3835\",\"nama\":\"T Album\",\"deskripsi\":null,\"cover\":\"8fb90e6a-c118-4540-bedc-8fbde8124b69\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:49:26', '2026-10-03 12:49:26'),
+(63, NULL, NULL, NULL, 'deleted', 'App\\Models\\Banner', 'aeec9934-304e-4415-99d9-9634472d4f16', 'Banner #aeec9934-304e-4415-99d9-9634472d4f16', '{\"uuid\":\"aeec9934-304e-4415-99d9-9634472d4f16\",\"tipe\":\"video\",\"video_url\":\"https:\\/\\/www.youtube.com\\/watch?v=dQw4w9WgXcQ\",\"nama\":\"T Video\",\"deskripsi\":null,\"link\":null,\"gambar\":\"\",\"posisi\":\"lainnya\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:49:26', '2026-10-03 12:49:26'),
+(64, NULL, NULL, NULL, 'deleted', 'App\\Models\\Banner', '8fb90e6a-c118-4540-bedc-8fbde8124b69', 'Banner #8fb90e6a-c118-4540-bedc-8fbde8124b69', '{\"uuid\":\"8fb90e6a-c118-4540-bedc-8fbde8124b69\",\"tipe\":\"foto\",\"video_url\":null,\"nama\":\"T Foto\",\"deskripsi\":null,\"link\":null,\"gambar\":\"banners\\/YRzPl6OJ1GnjRdWCW6vAmPYgLtwEG3VMm7d7sE8m.jpg\",\"posisi\":\"galeri\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:49:26', '2026-10-03 12:49:26'),
+(65, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'created', 'App\\Models\\Banner', 'fead6d51-3ae1-463e-8f0f-2dbc5b0ea93f', 'Banner #fead6d51-3ae1-463e-8f0f-2dbc5b0ea93f', NULL, '{\"tipe\":\"foto\",\"nama\":\"QA Foto 1\",\"deskripsi\":null,\"status\":\"active\",\"link\":null,\"posisi\":\"galeri\",\"gambar\":\"banners\\/r34mlvwpIFQ8g6F5A30imDVUtyo3aU3ZxFhq9gAl.jpg\",\"updated_at\":\"2026-10-03 19:51:03\",\"created_at\":\"2026-10-03 19:51:03\"}', NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(66, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'created', 'App\\Models\\Banner', '844aab18-bf15-4daf-97d1-50286823f54e', 'Banner #844aab18-bf15-4daf-97d1-50286823f54e', NULL, '{\"tipe\":\"foto\",\"nama\":\"QA Foto 2\",\"deskripsi\":null,\"status\":\"active\",\"link\":null,\"posisi\":\"galeri\",\"gambar\":\"banners\\/iT6KTiSttcO9YsV7pjxltXD1XOoiZxKKuF4XWUjX.jpg\",\"updated_at\":\"2026-10-03 19:51:03\",\"created_at\":\"2026-10-03 19:51:03\"}', NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(67, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'created', 'App\\Models\\Album', '986f0b8a-49f9-40e6-8b68-f5ce0b180c02', 'Album #986f0b8a-49f9-40e6-8b68-f5ce0b180c02', NULL, '{\"nama\":\"QA Album\",\"deskripsi\":null,\"status\":\"active\",\"cover\":\"fead6d51-3ae1-463e-8f0f-2dbc5b0ea93f\",\"updated_at\":\"2026-10-03 19:51:03\",\"created_at\":\"2026-10-03 19:51:03\"}', NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(68, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'created', 'App\\Models\\Banner', '8815b64c-0949-4ffe-a614-1540b5451e32', 'Banner #8815b64c-0949-4ffe-a614-1540b5451e32', NULL, '{\"tipe\":\"foto\",\"nama\":\"QA Foto 3\",\"deskripsi\":null,\"status\":\"active\",\"link\":null,\"posisi\":\"galeri\",\"gambar\":\"banners\\/oyoD47E7DF3J6ol0B9uSY8UQQUbj5HtFDOvkvPAp.jpg\",\"updated_at\":\"2026-10-03 19:51:03\",\"created_at\":\"2026-10-03 19:51:03\"}', NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(69, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'updated', 'App\\Models\\Album', '986f0b8a-49f9-40e6-8b68-f5ce0b180c02', 'Album #986f0b8a-49f9-40e6-8b68-f5ce0b180c02', '{\"cover\":\"fead6d51-3ae1-463e-8f0f-2dbc5b0ea93f\"}', '{\"cover\":\"844aab18-bf15-4daf-97d1-50286823f54e\"}', NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(70, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'created', 'App\\Models\\Banner', 'f83ce68d-a62d-4421-b582-6461e859a25c', 'Banner #f83ce68d-a62d-4421-b582-6461e859a25c', NULL, '{\"uuid\":\"f83ce68d-a62d-4421-b582-6461e859a25c\",\"tipe\":\"video\",\"nama\":\"QA Vid\",\"video_url\":\"https:\\/\\/www.youtube.com\\/watch?v=dQw4w9WgXcQ\",\"gambar\":\"\",\"posisi\":\"lainnya\",\"status\":\"active\",\"updated_at\":\"2026-10-03 19:51:03\",\"created_at\":\"2026-10-03 19:51:03\"}', NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(71, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'updated', 'App\\Models\\Banner', 'f83ce68d-a62d-4421-b582-6461e859a25c', 'Banner #f83ce68d-a62d-4421-b582-6461e859a25c', '{\"video_url\":\"https:\\/\\/www.youtube.com\\/watch?v=dQw4w9WgXcQ\"}', '{\"video_url\":\"https:\\/\\/youtu.be\\/9bZkp7q19f0\"}', NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(72, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'deleted', 'App\\Models\\Album', '986f0b8a-49f9-40e6-8b68-f5ce0b180c02', 'Album #986f0b8a-49f9-40e6-8b68-f5ce0b180c02', '{\"uuid\":\"986f0b8a-49f9-40e6-8b68-f5ce0b180c02\",\"nama\":\"QA Album\",\"deskripsi\":null,\"cover\":\"844aab18-bf15-4daf-97d1-50286823f54e\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(73, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'deleted', 'App\\Models\\Banner', 'f83ce68d-a62d-4421-b582-6461e859a25c', 'Banner #f83ce68d-a62d-4421-b582-6461e859a25c', '{\"uuid\":\"f83ce68d-a62d-4421-b582-6461e859a25c\",\"tipe\":\"video\",\"video_url\":\"https:\\/\\/youtu.be\\/9bZkp7q19f0\",\"nama\":\"QA Vid\",\"deskripsi\":null,\"link\":null,\"gambar\":\"\",\"posisi\":\"lainnya\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(74, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'deleted', 'App\\Models\\Banner', 'fead6d51-3ae1-463e-8f0f-2dbc5b0ea93f', 'Banner #fead6d51-3ae1-463e-8f0f-2dbc5b0ea93f', '{\"uuid\":\"fead6d51-3ae1-463e-8f0f-2dbc5b0ea93f\",\"tipe\":\"foto\",\"video_url\":null,\"nama\":\"QA Foto 1\",\"deskripsi\":null,\"link\":null,\"gambar\":\"banners\\/r34mlvwpIFQ8g6F5A30imDVUtyo3aU3ZxFhq9gAl.jpg\",\"posisi\":\"galeri\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(75, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'deleted', 'App\\Models\\Banner', '844aab18-bf15-4daf-97d1-50286823f54e', 'Banner #844aab18-bf15-4daf-97d1-50286823f54e', '{\"uuid\":\"844aab18-bf15-4daf-97d1-50286823f54e\",\"tipe\":\"foto\",\"video_url\":null,\"nama\":\"QA Foto 2\",\"deskripsi\":null,\"link\":null,\"gambar\":\"banners\\/iT6KTiSttcO9YsV7pjxltXD1XOoiZxKKuF4XWUjX.jpg\",\"posisi\":\"galeri\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(76, '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', 'stella@yogaroots.id', 'deleted', 'App\\Models\\Banner', '8815b64c-0949-4ffe-a614-1540b5451e32', 'Banner #8815b64c-0949-4ffe-a614-1540b5451e32', '{\"uuid\":\"8815b64c-0949-4ffe-a614-1540b5451e32\",\"tipe\":\"foto\",\"video_url\":null,\"nama\":\"QA Foto 3\",\"deskripsi\":null,\"link\":null,\"gambar\":\"banners\\/oyoD47E7DF3J6ol0B9uSY8UQQUbj5HtFDOvkvPAp.jpg\",\"posisi\":\"galeri\",\"status\":\"active\"}', NULL, NULL, NULL, NULL, '2026-10-03 12:51:03', '2026-10-03 12:51:03'),
+(77, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '223', 'Route #223', NULL, '{\"route\":\"articles.bulkDestroy\",\"permission_name\":\"articles.destroy\",\"status\":true,\"updated_at\":\"2026-10-03 20:13:45\",\"created_at\":\"2026-10-03 20:13:45\",\"id\":223}', NULL, NULL, NULL, '2026-10-03 13:13:45', '2026-10-03 13:13:45'),
+(78, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'deleted', 'App\\Models\\ManagementAccess\\Route', '95', 'Route #95', '{\"id\":95,\"route\":\"program.create\",\"permission_name\":\"program.create\",\"status\":true,\"description\":null}', NULL, 'http://localhost:8000/backend/route/95', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-03 13:35:55', '2026-10-03 13:35:55'),
+(79, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'deleted', 'App\\Models\\ManagementAccess\\Route', '100', 'Route #100', '{\"id\":100,\"route\":\"program.destroy\",\"permission_name\":\"program.destroy\",\"status\":true,\"description\":null}', NULL, 'http://localhost:8000/backend/route/100', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-03 13:36:09', '2026-10-03 13:36:09'),
+(80, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'deleted', 'App\\Models\\ManagementAccess\\Route', '105', 'Route #105', '{\"id\":105,\"route\":\"program.index\",\"permission_name\":\"program.index\",\"status\":true,\"description\":null}', NULL, 'http://localhost:8000/backend/route/105', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-03 13:36:24', '2026-10-03 13:36:24'),
+(81, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'deleted', 'App\\Models\\ManagementAccess\\Route', '110', 'Route #110', '{\"id\":110,\"route\":\"program.store\",\"permission_name\":\"program.store\",\"status\":true,\"description\":null}', NULL, 'http://localhost:8000/backend/route/110', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-03 13:36:35', '2026-10-03 13:36:35'),
+(82, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'deleted', 'App\\Models\\ManagementAccess\\Route', '115', 'Route #115', '{\"id\":115,\"route\":\"program.update\",\"permission_name\":\"program.update\",\"status\":true,\"description\":null}', NULL, 'http://localhost:8000/backend/route/115', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-03 13:36:45', '2026-10-03 13:36:45'),
+(83, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'updated', 'App\\Models\\ManagementAccess\\MenuItem', '41', 'All Instructors', '{\"permission_name\":\"program.index\"}', '{\"permission_name\":\"instruktur.index\"}', 'http://localhost:8000/backend/menu/10/item/41', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-03 15:14:04', '2026-10-03 15:14:04'),
+(84, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', 'updated', 'App\\Models\\User', 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', '{\"no_hp\":null,\"sumber_informasi\":null}', '{\"no_hp\":\"43243277777\",\"sumber_informasi\":\"google\"}', 'http://localhost:8000/backend/dashboard/sumber-informasi', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-03 15:22:59', '2026-10-03 15:22:59'),
+(85, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', 'created', 'App\\Models\\Payment\\Order', '01a1049e-afda-7188-b2f9-9fa3b404f6d3', 'Order #01a1049e-afda-7188-b2f9-9fa3b404f6d3', NULL, '{\"user_uuid\":\"c2187aff-68d0-40b9-a6f1-52738cee4ea4\",\"order_number\":\"ORD-I5HKUWFTWJ\",\"type\":\"package\",\"package_uuid\":\"01a095f2-d286-7241-b566-8027529b8196\",\"package_option_uuid\":\"01a09966-2965-7201-ab57-9f085e23bbc7\",\"class_schedule_uuid\":null,\"amount\":210000,\"status\":\"pending\",\"expired_at\":\"2026-10-05 08:54:31\",\"paid_at\":null,\"uuid\":\"01a1049e-afda-7188-b2f9-9fa3b404f6d3\",\"updated_at\":\"2026-10-04 08:54:31\",\"created_at\":\"2026-10-04 08:54:31\"}', 'http://localhost:8000/backend/orders', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-04 01:54:31', '2026-10-04 01:54:31'),
+(86, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'updated', 'App\\Models\\Class\\ClassModel', '01a07699-0698-73e1-8251-7afede34bbb1', 'Yin Yoga', '{\"image\":\"classes\\/XrR7ox1BqBNUKzCmgh6WEhsjbkT50AMjYQ3uiJYh.jpg\"}', '{\"image\":\"classes\\/klSn534j2UGQDMi3KFBImTLGx63CNMBOdTllJlUj.jpg\"}', 'http://127.0.0.1:8000/backend/classes/01a07699-0698-73e1-8251-7afede34bbb1', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-04 02:04:07', '2026-10-04 02:04:07'),
+(87, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'updated', 'App\\Models\\Class\\ClassModel', '01a07699-0698-73e1-8251-7afede34bbb1', 'Yin Yoga', '{\"price\":\"1.00\"}', '{\"price\":\"0\"}', 'http://127.0.0.1:8000/backend/classes/01a07699-0698-73e1-8251-7afede34bbb1', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-04 02:04:18', '2026-10-04 02:04:18'),
+(88, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\MenuGroup', '26', 'Memberships', NULL, '{\"permission_name\":\"menu.memberships\",\"name\":\"Memberships\",\"icon\":\"bx-id-card\",\"status\":true,\"position\":55,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":26}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(89, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\MenuItem', '61', 'All Members', NULL, '{\"route\":\"memberships.index\",\"menu_group_id\":26,\"name\":\"All Members\",\"status\":true,\"permission_name\":\"memberships.index\",\"position\":1,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":61}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(90, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\MenuItem', '62', 'Bookings', NULL, '{\"route\":\"class-bookings.index\",\"menu_group_id\":26,\"name\":\"Bookings\",\"status\":true,\"permission_name\":\"class-bookings.index\",\"position\":2,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":62}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(91, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '224', 'Route #224', NULL, '{\"route\":\"memberships.index\",\"permission_name\":\"memberships.index\",\"status\":true,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":224}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(92, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '225', 'Route #225', NULL, '{\"route\":\"memberships.show\",\"permission_name\":\"memberships.show\",\"status\":true,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":225}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(93, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '226', 'Route #226', NULL, '{\"route\":\"class-bookings.index\",\"permission_name\":\"class-bookings.index\",\"status\":true,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":226}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(94, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '227', 'Route #227', NULL, '{\"route\":\"class-bookings.store\",\"permission_name\":\"class-bookings.store\",\"status\":true,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":227}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(95, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '228', 'Route #228', NULL, '{\"route\":\"class-bookings.checkin\",\"permission_name\":\"class-bookings.checkin\",\"status\":true,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":228}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(96, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '229', 'Route #229', NULL, '{\"route\":\"class-bookings.cancel\",\"permission_name\":\"class-bookings.cancel\",\"status\":true,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":229}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(97, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '230', 'Route #230', NULL, '{\"route\":\"class-bookings.directCheckin\",\"permission_name\":\"class-bookings.checkin\",\"status\":true,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":230}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(98, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '231', 'Route #231', NULL, '{\"route\":\"orders.approve\",\"permission_name\":\"orders.approve\",\"status\":true,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":231}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(99, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '232', 'Route #232', NULL, '{\"route\":\"orders.reject\",\"permission_name\":\"orders.reject\",\"status\":true,\"updated_at\":\"2026-10-04 09:13:11\",\"created_at\":\"2026-10-04 09:13:11\",\"id\":232}', NULL, NULL, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(100, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'updated', 'App\\Models\\ManagementAccess\\MenuGroup', '26', 'Memberships', '{\"permission_name\":\"menu.memberships\"}', '{\"permission_name\":\"memberships.index\"}', 'http://127.0.0.1:8000/backend/menu/26', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-04 02:23:55', '2026-10-04 02:23:55'),
+(101, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\MenuGroup', '27', 'Memberships', NULL, '{\"permission_name\":\"menu.memberships\",\"name\":\"Memberships\",\"icon\":\"bx-id-card\",\"status\":true,\"position\":55,\"updated_at\":\"2026-10-04 09:31:55\",\"created_at\":\"2026-10-04 09:31:55\",\"id\":27}', NULL, NULL, NULL, '2026-10-04 02:31:55', '2026-10-04 02:31:55'),
+(102, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\MenuItem', '63', 'All Members', NULL, '{\"route\":\"memberships.index\",\"menu_group_id\":27,\"name\":\"All Members\",\"status\":true,\"permission_name\":\"memberships.index\",\"position\":1,\"updated_at\":\"2026-10-04 09:31:55\",\"created_at\":\"2026-10-04 09:31:55\",\"id\":63}', NULL, NULL, NULL, '2026-10-04 02:31:55', '2026-10-04 02:31:55'),
+(103, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\MenuItem', '64', 'Bookings', NULL, '{\"route\":\"class-bookings.index\",\"menu_group_id\":27,\"name\":\"Bookings\",\"status\":true,\"permission_name\":\"class-bookings.index\",\"position\":2,\"updated_at\":\"2026-10-04 09:31:55\",\"created_at\":\"2026-10-04 09:31:55\",\"id\":64}', NULL, NULL, NULL, '2026-10-04 02:31:55', '2026-10-04 02:31:55'),
+(104, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '233', 'Route #233', NULL, '{\"route\":\"orders.proof\",\"permission_name\":\"orders.proof\",\"status\":true,\"updated_at\":\"2026-10-04 09:31:55\",\"created_at\":\"2026-10-04 09:31:55\",\"id\":233}', NULL, NULL, NULL, '2026-10-04 02:31:55', '2026-10-04 02:31:55'),
+(108, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', 'updated', 'App\\Models\\Payment\\Order', '01a1049e-afda-7188-b2f9-9fa3b404f6d3', 'Order #01a1049e-afda-7188-b2f9-9fa3b404f6d3', '{\"proof_image_path\":null,\"proof_uploaded_at\":null}', '{\"proof_image_path\":\"proofs\\/lTa9j1FbqtOaGW4LDEw95vVjQ9JDz24MwX2UnFMi.png\",\"proof_uploaded_at\":\"2026-10-04 09:48:54\"}', 'http://localhost:8000/backend/orders/01a1049e-afda-7188-b2f9-9fa3b404f6d3/proof', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-04 02:48:55', '2026-10-04 02:48:55'),
+(109, NULL, NULL, NULL, 'created', 'App\\Models\\ManagementAccess\\Route', '234', 'Route #234', NULL, '{\"route\":\"orders.proof.show\",\"permission_name\":\"orders.proof\",\"status\":true,\"updated_at\":\"2026-10-04 09:55:13\",\"created_at\":\"2026-10-04 09:55:13\",\"id\":234}', NULL, NULL, NULL, '2026-10-04 02:55:13', '2026-10-04 02:55:13'),
+(110, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'updated', 'App\\Models\\Payment\\Order', '01a1049e-afda-7188-b2f9-9fa3b404f6d3', 'Order #01a1049e-afda-7188-b2f9-9fa3b404f6d3', '{\"status\":\"pending\",\"paid_at\":null}', '{\"status\":\"paid\",\"paid_at\":\"2026-10-04 09:55:55\"}', 'http://127.0.0.1:8000/backend/orders/01a1049e-afda-7188-b2f9-9fa3b404f6d3/approve', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-04 02:55:55', '2026-10-04 02:55:55'),
+(111, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'created', 'App\\Models\\Payment\\Payment', '01a104d6-e859-7018-b76c-578ce8b292b2', 'Payment #01a104d6-e859-7018-b76c-578ce8b292b2', NULL, '{\"order_uuid\":\"01a1049e-afda-7188-b2f9-9fa3b404f6d3\",\"payment_gateway\":\"manual_transfer\",\"payment_type\":\"Bank Transfer\",\"gross_amount\":\"210000.00\",\"status\":\"paid\",\"paid_at\":\"2026-10-04 09:55:55\",\"uuid\":\"01a104d6-e859-7018-b76c-578ce8b292b2\",\"updated_at\":\"2026-10-04 09:55:55\",\"created_at\":\"2026-10-04 09:55:55\"}', 'http://127.0.0.1:8000/backend/orders/01a1049e-afda-7188-b2f9-9fa3b404f6d3/approve', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-04 02:55:55', '2026-10-04 02:55:55'),
+(112, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'created', 'App\\Models\\UserPackage', '01a104d6-e85f-71b4-b9b8-676004bc9a16', 'UserPackage #01a104d6-e85f-71b4-b9b8-676004bc9a16', NULL, '{\"user_uuid\":\"c2187aff-68d0-40b9-a6f1-52738cee4ea4\",\"package_uuid\":\"01a095f2-d286-7241-b566-8027529b8196\",\"order_uuid\":\"01a1049e-afda-7188-b2f9-9fa3b404f6d3\",\"quota\":50,\"started_at\":\"2026-10-04 09:55:55\",\"expired_at\":\"2026-10-11 09:55:55\",\"status\":\"active\",\"uuid\":\"01a104d6-e85f-71b4-b9b8-676004bc9a16\",\"updated_at\":\"2026-10-04 09:55:55\",\"created_at\":\"2026-10-04 09:55:55\"}', 'http://127.0.0.1:8000/backend/orders/01a1049e-afda-7188-b2f9-9fa3b404f6d3/approve', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-04 02:55:55', '2026-10-04 02:55:55'),
+(113, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'updated', 'App\\Models\\User', '57621d3c-c299-4cd2-b96a-9b887752cb73', 'Yogaroots.id', '{\"email_verified_at\":\"2026-09-11T07:41:34.000000Z\"}', '{\"email_verified_at\":\"2026-10-04 19:08:07\"}', 'http://127.0.0.1:8000/backend/user/57621d3c-c299-4cd2-b96a-9b887752cb73', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', '2026-10-04 12:08:07', '2026-10-04 12:08:07'),
+(114, NULL, NULL, NULL, 'updated', 'App\\Models\\Article', '63829ea9-8a32-4f82-94e1-7299120f822c', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', '{\"views\":42}', '{\"views\":43}', NULL, NULL, NULL, '2026-10-04 12:11:01', '2026-10-04 12:11:01'),
+(115, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', 'updated', 'App\\Models\\Article', '63829ea9-8a32-4f82-94e1-7299120f822c', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', '{\"views\":43}', '{\"views\":44}', NULL, NULL, NULL, '2026-10-04 12:12:38', '2026-10-04 12:12:38'),
+(116, '57621d3c-c299-4cd2-b96a-9b887752cb73', 'Yogaroots.id', 'tapayoga@yogaroots.id', 'updated', 'App\\Models\\Article', '63829ea9-8a32-4f82-94e1-7299120f822c', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', '{\"views\":44}', '{\"views\":45}', NULL, NULL, NULL, '2026-10-04 12:12:46', '2026-10-04 12:12:46'),
+(117, '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'Wiku Pramesthi Bagaswara', 'wikupb@gmail.com', 'updated', 'App\\Models\\Article', '63829ea9-8a32-4f82-94e1-7299120f822c', 'Pilates vs Yoga: Apa Bedanya dan Mana yang Cocok untuk Anda?', '{\"views\":45}', '{\"views\":46}', NULL, NULL, NULL, '2026-10-04 12:12:53', '2026-10-04 12:12:53');
 
 -- --------------------------------------------------------
 
@@ -63,6 +202,8 @@ INSERT INTO `articles` (`uuid`, `user_uuid`, `category_uuid`, `title`, `slug`, `
 
 CREATE TABLE `banner` (
   `uuid` char(36) NOT NULL,
+  `tipe` enum('foto','video','album') NOT NULL DEFAULT 'foto',
+  `video_url` varchar(500) DEFAULT NULL,
   `nama` varchar(255) NOT NULL,
   `deskripsi` text DEFAULT NULL,
   `link` varchar(255) DEFAULT NULL,
@@ -77,14 +218,14 @@ CREATE TABLE `banner` (
 -- Dumping data for table `banner`
 --
 
-INSERT INTO `banner` (`uuid`, `nama`, `deskripsi`, `link`, `gambar`, `posisi`, `status`, `created_at`, `updated_at`) VALUES
-('06c5d7af-ea7a-490a-8908-5aac3b6e20c1', 'Galeri 5', NULL, NULL, 'banners/l2ZIgA9SVhyhxnkTNdy8ljwvLVtmnJHouXmhekyg.jpg', 'galeri', 'active', '2026-09-11 00:06:22', '2026-09-11 00:06:22'),
-('47618df4-1983-4686-b9fd-f67aa7fae89f', 'galeri 6', NULL, NULL, 'banners/LmAdqgq38oIHGL7svW6sb4int8WW0v1b4pXoXO28.jpg', 'galeri', 'active', '2026-09-11 00:06:39', '2026-09-11 00:06:39'),
-('8da02e21-bc7f-4816-ac56-1d762d11a546', 'Galeri 4', NULL, NULL, 'banners/HPy5cA2nP4JOTZy02wkMUToZoNPHKcfD4277jlfg.jpg', 'galeri', 'active', '2026-09-11 00:06:01', '2026-09-11 00:06:01'),
-('9946050a-6755-4580-a102-d33fe42cea1b', 'galeri 7', NULL, NULL, 'banners/QTkrOknw5o4OcAQK3AdkDxPwZOX0TUlg37oENXGY.jpg', 'galeri', 'active', '2026-09-11 00:06:58', '2026-09-11 00:06:58'),
-('c72bd89f-0849-40a1-927c-b9774e84bd2b', 'galeri 3', NULL, NULL, 'banners/3Uiy3wdss9hUamammpQfS97jQiKZD3EQ0o9V8mS3.jpg', 'galeri', 'active', '2026-09-11 00:05:33', '2026-09-11 00:05:33'),
-('cd8f1370-54be-44de-94df-e0114b7d2f84', 'Banner slider', 'Find Balance in Every Breath', NULL, 'banners/ytsvrxIYf473coMMgB5x4Fl7xJhlTLskGuDuwvJ1.jpg', 'slider', 'active', '2026-09-12 02:13:04', '2026-09-12 02:13:04'),
-('f7bd2370-bdad-42dc-909b-1239c040d0d3', 'galeri 2', 'Galeri 2', NULL, 'banners/oAwFgPkCIzLItkoQcSMMBRrtz9whT5LKk4gicW39.jpg', 'galeri', 'active', '2026-08-27 07:30:55', '2026-09-11 00:05:13');
+INSERT INTO `banner` (`uuid`, `tipe`, `video_url`, `nama`, `deskripsi`, `link`, `gambar`, `posisi`, `status`, `created_at`, `updated_at`) VALUES
+('06c5d7af-ea7a-490a-8908-5aac3b6e20c1', 'foto', NULL, 'Galeri 5', NULL, NULL, 'banners/l2ZIgA9SVhyhxnkTNdy8ljwvLVtmnJHouXmhekyg.jpg', 'galeri', 'active', '2026-09-11 00:06:22', '2026-09-11 00:06:22'),
+('47618df4-1983-4686-b9fd-f67aa7fae89f', 'foto', NULL, 'galeri 6', NULL, NULL, 'banners/LmAdqgq38oIHGL7svW6sb4int8WW0v1b4pXoXO28.jpg', 'galeri', 'active', '2026-09-11 00:06:39', '2026-09-11 00:06:39'),
+('8da02e21-bc7f-4816-ac56-1d762d11a546', 'foto', NULL, 'Galeri 4', NULL, NULL, 'banners/HPy5cA2nP4JOTZy02wkMUToZoNPHKcfD4277jlfg.jpg', 'galeri', 'active', '2026-09-11 00:06:01', '2026-09-11 00:06:01'),
+('9946050a-6755-4580-a102-d33fe42cea1b', 'foto', NULL, 'galeri 7', NULL, NULL, 'banners/QTkrOknw5o4OcAQK3AdkDxPwZOX0TUlg37oENXGY.jpg', 'galeri', 'active', '2026-09-11 00:06:58', '2026-09-11 00:06:58'),
+('c72bd89f-0849-40a1-927c-b9774e84bd2b', 'foto', NULL, 'galeri 3', NULL, NULL, 'banners/3Uiy3wdss9hUamammpQfS97jQiKZD3EQ0o9V8mS3.jpg', 'galeri', 'active', '2026-09-11 00:05:33', '2026-09-11 00:05:33'),
+('cd8f1370-54be-44de-94df-e0114b7d2f84', 'foto', NULL, 'Banner slider', 'Start. Stabilize. Transform', NULL, 'banners/ytsvrxIYf473coMMgB5x4Fl7xJhlTLskGuDuwvJ1.jpg', 'slider', 'active', '2026-09-12 02:13:04', '2026-09-16 12:41:36'),
+('f7bd2370-bdad-42dc-909b-1239c040d0d3', 'foto', NULL, 'galeri 2', 'Galeri 2', NULL, 'banners/oAwFgPkCIzLItkoQcSMMBRrtz9whT5LKk4gicW39.jpg', 'galeri', 'active', '2026-08-27 07:30:55', '2026-09-11 00:05:13');
 
 -- --------------------------------------------------------
 
@@ -103,123 +244,26 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('contact_captcha_00a4e0c9-7a68-46bb-8abd-565f84b3d8b4', 'i:13;', 1787907197),
-('contact_captcha_014ef15c-1f57-4211-8768-cec662644d56', 'i:3;', 1787906060),
-('contact_captcha_01636375-9e8d-49a8-9f39-d02091077974', 'i:11;', 1787905160),
-('contact_captcha_01a883e5-667f-4742-8c95-6e4b4a5c1c0c', 'i:13;', 1787906301),
-('contact_captcha_0466e063-e584-4544-8b6c-eaa65fbd00f3', 'i:11;', 1789108134),
-('contact_captcha_04bfa788-8780-407a-810f-7fe014dbc05c', 'i:8;', 1787908679),
-('contact_captcha_069b30e2-2bd7-4d46-9ae1-250c70d7168e', 'i:4;', 1789108127),
-('contact_captcha_0c75fde7-c774-4f36-a929-00fdb67ccbe8', 'i:18;', 1789102137),
-('contact_captcha_0e678328-766a-46d9-b4b7-09abaa6f413b', 'i:15;', 1787908003),
-('contact_captcha_1135955f-4118-4386-a760-672633bf659e', 'i:4;', 1789106556),
-('contact_captcha_145f68e2-4302-470c-8b2e-e97107abcdcb', 'i:6;', 1787905809),
-('contact_captcha_14b0174b-d935-4015-bdda-36cb9eb5c954', 'i:13;', 1787908009),
-('contact_captcha_155d0b88-a534-44d6-8752-7170cb5a962b', 'i:15;', 1789095764),
-('contact_captcha_1657f8c9-43ae-44af-8114-2470cb67183c', 'i:8;', 1787905530),
-('contact_captcha_19a6661c-bbaa-4120-86a8-97aa51113af9', 'i:5;', 1789096409),
-('contact_captcha_1ac0546a-5062-48ff-bc8e-d8a04f240790', 'i:12;', 1787906051),
-('contact_captcha_2016209a-f0e4-4497-bb2b-bdb32ebb4d43', 'i:13;', 1787908431),
-('contact_captcha_215c87ff-aeee-4d21-9316-aa83f735ca8d', 'i:11;', 1789107127),
-('contact_captcha_26a02495-c8f6-4593-a622-d67e4ff7f8ca', 'i:7;', 1787906669),
-('contact_captcha_27ccb400-e616-483f-b018-1f47ca3f63be', 'i:14;', 1787905831),
-('contact_captcha_27dd7222-4437-49db-b966-f0a79c92e47f', 'i:11;', 1787905642),
-('contact_captcha_29377d09-d0fe-488f-b7b8-0c8d6e3b3ddc', 'i:10;', 1787907501),
-('contact_captcha_29e14e57-9cb2-40ec-9eed-6d4b464933e5', 'i:5;', 1788151098),
-('contact_captcha_317ececf-6fcb-4edb-8480-eaf8fff1ce28', 'i:14;', 1789108574),
-('contact_captcha_323babac-df26-4afa-aeb6-7502170c7e4c', 'i:8;', 1787906124),
-('contact_captcha_3344be3c-2382-4d5f-80ba-85ce00e7c1b9', 'i:14;', 1787907652),
-('contact_captcha_340232cd-a177-42d2-a6a2-f43c6f7ed037', 'i:11;', 1789108522),
-('contact_captcha_38647fb7-0cad-4ff1-b586-09d23b9c1ced', 'i:12;', 1789106605),
-('contact_captcha_3cd879c2-f953-432b-8a60-da8b536293cb', 'i:10;', 1789102217),
-('contact_captcha_3cee1c22-da17-4d4d-9f53-bfab6a056d79', 'i:15;', 1789085812),
-('contact_captcha_3d2adb9c-3a23-48a8-bd3d-a85f40503038', 'i:10;', 1789108214),
-('contact_captcha_3e0e851d-842b-4e82-9e1a-9031b061163a', 'i:7;', 1789107531),
-('contact_captcha_40115158-d8a2-4ed5-9bfe-9c07ecf9e04a', 'i:13;', 1789108682),
-('contact_captcha_40f7f294-6d3c-4013-9183-7e91caa369d6', 'i:7;', 1789091797),
-('contact_captcha_44815260-dadf-4407-84ed-cd1643699dab', 'i:6;', 1788230642),
-('contact_captcha_46c49dd2-0e53-448e-9086-6fad5514dff8', 'i:12;', 1789092541),
-('contact_captcha_486d66ef-0597-45c4-8c72-c2e8c74b90cc', 'i:12;', 1787908145),
-('contact_captcha_49b146e6-63b5-4c8a-b7b4-7917a3a1199e', 'i:9;', 1789285128),
-('contact_captcha_4cee10bb-7b3e-4252-9140-acc929083d06', 'i:6;', 1787906133),
-('contact_captcha_4f177724-b77d-419c-9c43-136fb1324db3', 'i:5;', 1789108755),
-('contact_captcha_538c3b0e-99b8-4db0-a7d8-99fede766012', 'i:11;', 1787909427),
-('contact_captcha_53c93b02-7dce-437c-bbd7-9950f8a1a653', 'i:9;', 1787908013),
-('contact_captcha_5ae42b93-8e7b-4e7f-9264-cfb44c0ada2c', 'i:3;', 1789102092),
-('contact_captcha_5d1b7b35-2557-4401-83f7-748900b25f7c', 'i:10;', 1789108587),
-('contact_captcha_61481d4a-377f-4825-b644-732777413cc7', 'i:7;', 1789085792),
-('contact_captcha_633cc133-187d-4a23-9af0-cc020a894c0a', 'i:16;', 1789107424),
-('contact_captcha_6768de24-f95f-4397-b75d-5ac7c8234713', 'i:3;', 1789107520),
-('contact_captcha_6932aa2b-c5b1-406a-a918-bade253ccf68', 'i:13;', 1789094954),
-('contact_captcha_697b5021-56b0-48d0-a0aa-fa7bc997218d', 'i:6;', 1787906479),
-('contact_captcha_69a415e1-1371-4a32-98f3-a98ae5209362', 'i:5;', 1787907056),
-('contact_captcha_748f4b15-f5b5-4c90-b1fa-e73c7b029b91', 'i:10;', 1789107408),
-('contact_captcha_75abd082-a77a-4035-bcfb-26eaf98f51a9', 'i:6;', 1787905802),
-('contact_captcha_7ab7ed39-99df-47c1-897c-ab3f89577d15', 'i:14;', 1787907703),
-('contact_captcha_7ba19807-07fd-4d15-b9c1-2a29763bacb3', 'i:14;', 1789107196),
-('contact_captcha_7bcee500-576f-4118-8b79-a66ee23e068f', 'i:13;', 1787906907),
-('contact_captcha_7bf99341-3026-46cf-b243-5bc5ba0aa556', 'i:6;', 1789107497),
-('contact_captcha_7d5cf84b-c466-41c5-b8ac-fefbe540440b', 'i:11;', 1789108460),
-('contact_captcha_807cee1e-2532-472c-84f0-61cf3ae453fb', 'i:3;', 1789108534),
-('contact_captcha_80b7f312-8ea3-42a4-915d-15e2a0dc5bc2', 'i:15;', 1789100431),
-('contact_captcha_83870c33-693c-4527-8349-b20694519b2e', 'i:9;', 1789108625),
-('contact_captcha_852ee308-ccff-4696-b0d8-936f9326dafd', 'i:13;', 1787906072),
-('contact_captcha_8589a410-0953-4423-96c1-3e4bb23f40a5', 'i:11;', 1789108711),
-('contact_captcha_858feebf-3da6-4e32-95d7-84011683c296', 'i:9;', 1788257525),
-('contact_captcha_86a15006-c41f-4c21-bd49-7b3e8257896f', 'i:14;', 1789108348),
-('contact_captcha_883de22c-be6b-4b65-924d-6e4090e9509a', 'i:10;', 1789108632),
-('contact_captcha_88e4616e-556f-486e-9fc5-3ec5773d51ad', 'i:7;', 1787908052),
-('contact_captcha_8f1f6892-2f36-4eb6-8037-3d28de3bf57b', 'i:10;', 1788628502),
-('contact_captcha_90fa29a3-7253-4763-b570-f9e3dabf7d48', 'i:11;', 1789111166),
-('contact_captcha_92714f45-4908-4178-9201-46fa62fb5f23', 'i:15;', 1787906680),
-('contact_captcha_94ea3740-c018-4f67-ab62-e1028af9ad46', 'i:13;', 1789112158),
-('contact_captcha_962fb69c-4297-4c46-bd85-84a23b0cdd84', 'i:13;', 1789108563),
-('contact_captcha_963d9a6e-c61c-45a7-bcdb-27c9c5de3e7a', 'i:18;', 1787907074),
-('contact_captcha_9b1607a6-b7ff-438c-a124-2be846023fe8', 'i:3;', 1789102189),
-('contact_captcha_9c2c24a7-0e67-403d-9a33-7da126a09e92', 'i:9;', 1787905028),
-('contact_captcha_9c4df6d0-38e1-4621-9ed8-fd9ec65a3f6b', 'i:7;', 1788628568),
-('contact_captcha_9f57162b-eed7-48b5-80eb-84d861f9c216', 'i:17;', 1789111269),
-('contact_captcha_a08f2e20-c1f8-466c-b595-cc165a1df0a4', 'i:10;', 1789107178),
-('contact_captcha_a38f5c01-1bb9-4052-8b74-066d8db3eaa5', 'i:2;', 1789090328),
-('contact_captcha_a64a8c56-d481-44f8-b3c3-c70a07f96798', 'i:12;', 1787906917),
-('contact_captcha_a9ebeb59-4444-4abd-98a9-7bb713ccbb26', 'i:8;', 1787906290),
-('contact_captcha_ae3b5c33-092f-4536-89be-451e67663d67', 'i:18;', 1789090655),
-('contact_captcha_b0064f18-ffb8-4cc4-8229-6b0988a3e84d', 'i:5;', 1788140990),
-('contact_captcha_b1c62ba0-6d07-4693-949a-45504bb9c583', 'i:6;', 1789107692),
-('contact_captcha_b57c73fd-311e-426e-841f-36a77c59de33', 'i:6;', 1787910304),
-('contact_captcha_b834817d-7fed-418e-94ca-195e6da43d92', 'i:14;', 1787907510),
-('contact_captcha_b9c68368-11a8-4041-8b1d-21f451fcca59', 'i:11;', 1789102042),
-('contact_captcha_bc693b13-1bb2-468d-8a43-efb731e61959', 'i:7;', 1788140618),
-('contact_captcha_bd3f1aa3-62b4-4b8b-89ca-50ba72dcac18', 'i:14;', 1788233761),
-('contact_captcha_bdfb783a-e545-4b03-8600-370328bcfec7', 'i:8;', 1787908048),
-('contact_captcha_be404286-3e71-4587-ba55-7876a0e98a3f', 'i:9;', 1787907417),
-('contact_captcha_c04243ff-6ddf-4da1-8263-c7d221e76018', 'i:9;', 1789108205),
-('contact_captcha_c0e1f0dd-a478-4947-8a5d-feb2a17042e2', 'i:10;', 1787906661),
-('contact_captcha_c24bdd35-edef-4972-8d80-efd649f185ad', 'i:10;', 1789096498),
-('contact_captcha_c3a906fb-e83d-40e7-a74d-a55af18cdcf9', 'i:14;', 1787906280),
-('contact_captcha_c74f2373-3f8d-434f-b77e-0dc49ed8701d', 'i:6;', 1787907857),
-('contact_captcha_d21c3925-4582-493d-9dc5-a1dab0948b4d', 'i:14;', 1789108550),
-('contact_captcha_d3315141-43e1-462a-9dc4-9c4e9272d176', 'i:10;', 1789108093),
-('contact_captcha_dbbca7ba-f20b-49e1-83b2-738bab1350e8', 'i:12;', 1789106581),
-('contact_captcha_dcdd67a7-1ff1-4319-b291-3752772c8ee8', 'i:4;', 1789272682),
-('contact_captcha_dd01883b-2ff4-426e-a602-44f2fb5c6131', 'i:10;', 1789090145),
-('contact_captcha_e0c95fe2-fcd6-4047-89a1-aead1cb1586b', 'i:15;', 1787905163),
-('contact_captcha_e804746f-e595-4e31-8ba6-9456aaf89ff2', 'i:8;', 1789107113),
-('contact_captcha_e9984b04-0531-44e3-8774-35d24eb9f898', 'i:6;', 1788142578),
-('contact_captcha_eb629b08-ba43-42e6-ad46-7f99413b7cb0', 'i:10;', 1787907395),
-('contact_captcha_eb84ec2e-de7c-45e2-8458-39ef8143f8aa', 'i:14;', 1789111049),
-('contact_captcha_f17ee4b8-2241-44cc-a1fd-0fae5e1eb67c', 'i:4;', 1789108084),
-('contact_captcha_f1e10ca3-4310-48d5-b4e4-67756ec3c572', 'i:13;', 1787906646),
-('contact_captcha_f1e9b783-cfd9-4620-860b-9623eab7280c', 'i:10;', 1787906469),
-('contact_captcha_f249ce9a-1379-4f51-85fe-38ef9e12ec91', 'i:9;', 1787907205),
-('contact_captcha_f479c0f5-45ba-46da-9e41-3b84468ea0f3', 'i:9;', 1788233777),
-('contact_captcha_f9ab098a-db6c-4013-a9fe-c228b880d5ac', 'i:4;', 1787905818),
-('contact_captcha_fa971475-fd33-42c3-b2e0-fbf825054a39', 'i:8;', 1789108371),
-('contact_captcha_fb670dbb-7ed4-4313-a201-72cc2e278545', 'i:5;', 1788231829),
-('contact_captcha_ff7714a8-919e-48d3-bc83-0ebdf9560beb', 'i:3;', 1789107916),
-('spatie.permission.cache', 'a:3:{s:5:\"alias\";a:4:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:117:{i:0;a:4:{s:1:\"a\";i:1;s:1:\"b\";s:14:\"menu.main-menu\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:1;a:4:{s:1:\"a\";i:2;s:1:\"b\";s:20:\"menu.role-permission\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:2;a:4:{s:1:\"a\";i:3;s:1:\"b\";s:22:\"menu.access-management\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:3;a:4:{s:1:\"a\";i:4;s:1:\"b\";s:15:\"dashboard.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:4;a:4:{s:1:\"a\";i:5;s:1:\"b\";s:10:\"user.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:4:{s:1:\"a\";i:6;s:1:\"b\";s:10:\"user.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:6;a:4:{s:1:\"a\";i:7;s:1:\"b\";s:11:\"user.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:7;a:4:{s:1:\"a\";i:8;s:1:\"b\";s:12:\"user.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:8;a:4:{s:1:\"a\";i:9;s:1:\"b\";s:16:\"menu-group.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:9;a:4:{s:1:\"a\";i:10;s:1:\"b\";s:16:\"menu-group.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:10;a:4:{s:1:\"a\";i:11;s:1:\"b\";s:17:\"menu-group.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:11;a:4:{s:1:\"a\";i:12;s:1:\"b\";s:18:\"menu-group.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:12;a:4:{s:1:\"a\";i:13;s:1:\"b\";s:15:\"menu-item.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:13;a:4:{s:1:\"a\";i:14;s:1:\"b\";s:15:\"menu-item.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:14;a:4:{s:1:\"a\";i:15;s:1:\"b\";s:16:\"menu-item.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:15;a:4:{s:1:\"a\";i:16;s:1:\"b\";s:17:\"menu-item.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:16;a:4:{s:1:\"a\";i:17;s:1:\"b\";s:11:\"route.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:17;a:4:{s:1:\"a\";i:18;s:1:\"b\";s:11:\"route.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:18;a:4:{s:1:\"a\";i:19;s:1:\"b\";s:12:\"route.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:19;a:4:{s:1:\"a\";i:20;s:1:\"b\";s:13:\"route.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:20;a:4:{s:1:\"a\";i:21;s:1:\"b\";s:10:\"role.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:21;a:4:{s:1:\"a\";i:22;s:1:\"b\";s:10:\"role.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:22;a:4:{s:1:\"a\";i:23;s:1:\"b\";s:11:\"role.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:23;a:4:{s:1:\"a\";i:24;s:1:\"b\";s:12:\"role.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:24;a:4:{s:1:\"a\";i:25;s:1:\"b\";s:16:\"permission.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:25;a:4:{s:1:\"a\";i:26;s:1:\"b\";s:16:\"permission.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:26;a:4:{s:1:\"a\";i:27;s:1:\"b\";s:17:\"permission.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:27;a:4:{s:1:\"a\";i:28;s:1:\"b\";s:18:\"permission.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:28;a:4:{s:1:\"a\";i:29;s:1:\"b\";s:11:\"faq.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:29;a:4:{s:1:\"a\";i:30;s:1:\"b\";s:9:\"faq.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:30;a:4:{s:1:\"a\";i:31;s:1:\"b\";s:9:\"faq.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:31;a:4:{s:1:\"a\";i:32;s:1:\"b\";s:10:\"faq.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:32;a:4:{s:1:\"a\";i:33;s:1:\"b\";s:20:\"menu.main-portofolio\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:33;a:4:{s:1:\"a\";i:35;s:1:\"b\";s:13:\"company.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:34;a:4:{s:1:\"a\";i:36;s:1:\"b\";s:13:\"company.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:35;a:4:{s:1:\"a\";i:37;s:1:\"b\";s:14:\"company.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:36;a:4:{s:1:\"a\";i:38;s:1:\"b\";s:18:\"categories.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:37;a:4:{s:1:\"a\";i:39;s:1:\"b\";s:16:\"categories.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:38;a:4:{s:1:\"a\";i:40;s:1:\"b\";s:16:\"categories.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:39;a:4:{s:1:\"a\";i:41;s:1:\"b\";s:17:\"categories.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:40;a:4:{s:1:\"a\";i:46;s:1:\"b\";s:14:\"banner.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:41;a:4:{s:1:\"a\";i:47;s:1:\"b\";s:12:\"banner.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:42;a:4:{s:1:\"a\";i:48;s:1:\"b\";s:12:\"banner.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:43;a:4:{s:1:\"a\";i:49;s:1:\"b\";s:13:\"banner.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:44;a:4:{s:1:\"a\";i:50;s:1:\"b\";s:16:\"articles.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:45;a:4:{s:1:\"a\";i:51;s:1:\"b\";s:15:\"articles.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:46;a:4:{s:1:\"a\";i:52;s:1:\"b\";s:14:\"articles.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:47;a:4:{s:1:\"a\";i:53;s:1:\"b\";s:14:\"articles.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:48;a:4:{s:1:\"a\";i:54;s:1:\"b\";s:15:\"articles.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:49;a:4:{s:1:\"a\";i:55;s:1:\"b\";s:14:\"dashboard.form\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:50;a:4:{s:1:\"a\";i:60;s:1:\"b\";s:12:\"poll.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:51;a:4:{s:1:\"a\";i:65;s:1:\"b\";s:10:\"poll.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:52;a:4:{s:1:\"a\";i:70;s:1:\"b\";s:10:\"poll.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:53;a:4:{s:1:\"a\";i:75;s:1:\"b\";s:11:\"poll.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:54;a:4:{s:1:\"a\";i:85;s:1:\"b\";s:13:\"account.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:55;a:4:{s:1:\"a\";i:90;s:1:\"b\";s:14:\"account.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:56;a:4:{s:1:\"a\";i:100;s:1:\"b\";s:15:\"program.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:57;a:4:{s:1:\"a\";i:105;s:1:\"b\";s:14:\"program.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:58;a:4:{s:1:\"a\";i:110;s:1:\"b\";s:13:\"program.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:59;a:4:{s:1:\"a\";i:115;s:1:\"b\";s:13:\"program.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:60;a:4:{s:1:\"a\";i:120;s:1:\"b\";s:14:\"program.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:61;a:3:{s:1:\"a\";i:125;s:1:\"b\";s:20:\"filedownload.destroy\";s:1:\"c\";s:3:\"web\";}i:62;a:4:{s:1:\"a\";i:130;s:1:\"b\";s:18:\"filedownload.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:2;i:1;i:5;}}i:63;a:3:{s:1:\"a\";i:135;s:1:\"b\";s:18:\"filedownload.store\";s:1:\"c\";s:3:\"web\";}i:64;a:3:{s:1:\"a\";i:140;s:1:\"b\";s:19:\"filedownload.update\";s:1:\"c\";s:3:\"web\";}i:65;a:4:{s:1:\"a\";i:145;s:1:\"b\";s:14:\"layanan.kontak\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:66;a:4:{s:1:\"a\";i:146;s:1:\"b\";s:16:\"instruktur.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:67;a:4:{s:1:\"a\";i:147;s:1:\"b\";s:12:\"pages.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:68;a:4:{s:1:\"a\";i:148;s:1:\"b\";s:13:\"pages.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:69;a:4:{s:1:\"a\";i:149;s:1:\"b\";s:11:\"pages.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:70;a:4:{s:1:\"a\";i:150;s:1:\"b\";s:11:\"pages.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:71;a:4:{s:1:\"a\";i:151;s:1:\"b\";s:12:\"pages.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:72;a:4:{s:1:\"a\";i:152;s:1:\"b\";s:18:\"instruktur.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:73;a:4:{s:1:\"a\";i:153;s:1:\"b\";s:16:\"instruktur.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:74;a:4:{s:1:\"a\";i:154;s:1:\"b\";s:17:\"instruktur.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:75;a:4:{s:1:\"a\";i:155;s:1:\"b\";s:19:\"testimonial.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:76;a:4:{s:1:\"a\";i:156;s:1:\"b\";s:17:\"testimonial.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:77;a:4:{s:1:\"a\";i:157;s:1:\"b\";s:18:\"testimonial.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:78;a:4:{s:1:\"a\";i:158;s:1:\"b\";s:17:\"testimonial.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:79;a:4:{s:1:\"a\";i:159;s:1:\"b\";s:12:\"events.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:80;a:4:{s:1:\"a\";i:160;s:1:\"b\";s:14:\"events.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:81;a:4:{s:1:\"a\";i:161;s:1:\"b\";s:12:\"events.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:82;a:4:{s:1:\"a\";i:162;s:1:\"b\";s:13:\"events.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:83;a:4:{s:1:\"a\";i:163;s:1:\"b\";s:21:\"specializations.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:84;a:4:{s:1:\"a\";i:164;s:1:\"b\";s:23:\"specializations.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:85;a:4:{s:1:\"a\";i:165;s:1:\"b\";s:22:\"specializations.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:86;a:4:{s:1:\"a\";i:166;s:1:\"b\";s:21:\"specializations.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:87;a:4:{s:1:\"a\";i:167;s:1:\"b\";s:15:\"package.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:88;a:4:{s:1:\"a\";i:168;s:1:\"b\";s:13:\"package.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:89;a:4:{s:1:\"a\";i:169;s:1:\"b\";s:14:\"package.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:90;a:4:{s:1:\"a\";i:170;s:1:\"b\";s:13:\"package.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:91;a:4:{s:1:\"a\";i:171;s:1:\"b\";s:14:\"package.member\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:92;a:4:{s:1:\"a\";i:172;s:1:\"b\";s:15:\"classes.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:93;a:4:{s:1:\"a\";i:173;s:1:\"b\";s:13:\"classes.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:94;a:4:{s:1:\"a\";i:174;s:1:\"b\";s:13:\"classes.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:95;a:4:{s:1:\"a\";i:175;s:1:\"b\";s:14:\"classes.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:96;a:4:{s:1:\"a\";i:176;s:1:\"b\";s:22:\"dashboard.submitSumber\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:2;}}i:97;a:4:{s:1:\"a\";i:177;s:1:\"b\";s:14:\"classes.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:98;a:4:{s:1:\"a\";i:178;s:1:\"b\";s:12:\"classes.edit\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:99;a:4:{s:1:\"a\";i:179;s:1:\"b\";s:20:\"classes.change-level\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:100;a:4:{s:1:\"a\";i:180;s:1:\"b\";s:23:\"class-schedules.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:101;a:4:{s:1:\"a\";i:181;s:1:\"b\";s:21:\"class-schedules.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:102;a:4:{s:1:\"a\";i:182;s:1:\"b\";s:21:\"class-schedules.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:103;a:4:{s:1:\"a\";i:183;s:1:\"b\";s:22:\"class-schedules.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:104;a:4:{s:1:\"a\";i:184;s:1:\"b\";s:21:\"class-schedules.print\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:105;a:4:{s:1:\"a\";i:185;s:1:\"b\";s:14:\"pengguna.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:106;a:4:{s:1:\"a\";i:186;s:1:\"b\";s:15:\"pengguna.export\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:107;a:4:{s:1:\"a\";i:187;s:1:\"b\";s:13:\"studios.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:108;a:4:{s:1:\"a\";i:188;s:1:\"b\";s:15:\"studios.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:109;a:4:{s:1:\"a\";i:189;s:1:\"b\";s:14:\"studios.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:110;a:4:{s:1:\"a\";i:190;s:1:\"b\";s:13:\"studios.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:111;a:4:{s:1:\"a\";i:191;s:1:\"b\";s:14:\"studios.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:112;a:4:{s:1:\"a\";i:192;s:1:\"b\";s:17:\"instruktur.mobile\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:2;}}i:113;a:4:{s:1:\"a\";i:193;s:1:\"b\";s:16:\"checkout.package\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:114;a:4:{s:1:\"a\";i:194;s:1:\"b\";s:12:\"orders.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:115;a:4:{s:1:\"a\";i:195;s:1:\"b\";s:11:\"orders.show\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:116;a:4:{s:1:\"a\";i:196;s:1:\"b\";s:12:\"orders.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}}s:5:\"roles\";a:4:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:11:\"super-admin\";s:1:\"c\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:3;s:1:\"b\";s:5:\"admin\";s:1:\"c\";s:3:\"web\";}i:2;a:3:{s:1:\"a\";i:2;s:1:\"b\";s:4:\"user\";s:1:\"c\";s:3:\"web\";}i:3;a:3:{s:1:\"a\";i:5;s:1:\"b\";s:10:\"instruktur\";s:1:\"c\";s:3:\"web\";}}}', 1789395938),
-('wikupb@gmail.com|192.168.1.34', 'i:1;', 1789137612),
-('wikupb@gmail.com|192.168.1.34:timer', 'i:1789137612;', 1789137612);
+('b507f4787ee3a8862579b95907c978e7a22fa811', 'i:1;', 1791082193),
+('b507f4787ee3a8862579b95907c978e7a22fa811:timer', 'i:1791082193;', 1791082193),
+('contact_captcha_047934be-4285-475a-8bb1-39248eb92aa7', 'i:10;', 1791099363),
+('contact_captcha_05fd4915-95bc-4f90-9f9c-c10d4f60c0e1', 'i:8;', 1791099579),
+('contact_captcha_0ccbea90-0cf3-4b81-a724-83bbb2d74bba', 'i:12;', 1789570170),
+('contact_captcha_0e4af02e-474c-408c-b307-cd3a1f159f79', 'i:12;', 1790906685),
+('contact_captcha_253e737c-61e4-4d43-bf4f-53aff18a212c', 'i:11;', 1790911817),
+('contact_captcha_334b84ff-65c7-463e-af0a-d870cceaf66a', 'i:4;', 1790910757),
+('contact_captcha_369ce291-3de1-4e58-af55-07a0322bc449', 'i:5;', 1790905758),
+('contact_captcha_42908502-2cd1-4b6b-b693-e9e63cbeaaa7', 'i:7;', 1790905642),
+('contact_captcha_5aea8fc5-9953-4c28-aa03-13db6b1a4b71', 'i:10;', 1790911944),
+('contact_captcha_786876db-c2b9-420a-a443-418216a9f8a9', 'i:6;', 1789570170),
+('contact_captcha_9617c905-981f-4ba6-956b-694b5670f7ff', 'i:12;', 1790909209),
+('contact_captcha_b47fb62d-82d0-42f6-994b-ed7de9833cac', 'i:3;', 1790909208),
+('contact_captcha_b887942d-71ec-4659-9865-ed9868244301', 'i:10;', 1790911362),
+('contact_captcha_be9f7e08-c859-435b-8958-4dfabaf45b57', 'i:4;', 1789572379),
+('contact_captcha_c1be82c3-036f-4c94-bde5-486025ae9fb7', 'i:5;', 1789570976),
+('contact_captcha_d0d5e4d9-a3f1-4efa-932a-66712d061e0b', 'i:10;', 1789572805),
+('contact_captcha_fd5023c8-3aff-428a-a3b8-4cff77e6ef90', 'i:11;', 1790907226),
+('spatie.permission.cache', 'a:3:{s:5:\"alias\";a:4:{s:1:\"a\";s:2:\"id\";s:1:\"b\";s:4:\"name\";s:1:\"c\";s:10:\"guard_name\";s:1:\"r\";s:5:\"roles\";}s:11:\"permissions\";a:132:{i:0;a:4:{s:1:\"a\";i:1;s:1:\"b\";s:14:\"menu.main-menu\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:1;a:4:{s:1:\"a\";i:2;s:1:\"b\";s:20:\"menu.role-permission\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:2;a:4:{s:1:\"a\";i:3;s:1:\"b\";s:22:\"menu.access-management\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:3;a:4:{s:1:\"a\";i:4;s:1:\"b\";s:15:\"dashboard.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:4;a:4:{s:1:\"a\";i:5;s:1:\"b\";s:10:\"user.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:5;a:4:{s:1:\"a\";i:6;s:1:\"b\";s:10:\"user.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:6;a:4:{s:1:\"a\";i:7;s:1:\"b\";s:11:\"user.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:7;a:4:{s:1:\"a\";i:8;s:1:\"b\";s:12:\"user.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:8;a:4:{s:1:\"a\";i:9;s:1:\"b\";s:16:\"menu-group.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:9;a:4:{s:1:\"a\";i:10;s:1:\"b\";s:16:\"menu-group.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:10;a:4:{s:1:\"a\";i:11;s:1:\"b\";s:17:\"menu-group.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:11;a:4:{s:1:\"a\";i:12;s:1:\"b\";s:18:\"menu-group.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:12;a:4:{s:1:\"a\";i:13;s:1:\"b\";s:15:\"menu-item.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:13;a:4:{s:1:\"a\";i:14;s:1:\"b\";s:15:\"menu-item.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:14;a:4:{s:1:\"a\";i:15;s:1:\"b\";s:16:\"menu-item.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:15;a:4:{s:1:\"a\";i:16;s:1:\"b\";s:17:\"menu-item.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:16;a:4:{s:1:\"a\";i:17;s:1:\"b\";s:11:\"route.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:17;a:4:{s:1:\"a\";i:18;s:1:\"b\";s:11:\"route.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:18;a:4:{s:1:\"a\";i:19;s:1:\"b\";s:12:\"route.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:19;a:4:{s:1:\"a\";i:20;s:1:\"b\";s:13:\"route.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:20;a:4:{s:1:\"a\";i:21;s:1:\"b\";s:10:\"role.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:21;a:4:{s:1:\"a\";i:22;s:1:\"b\";s:10:\"role.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:22;a:4:{s:1:\"a\";i:23;s:1:\"b\";s:11:\"role.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:23;a:4:{s:1:\"a\";i:24;s:1:\"b\";s:12:\"role.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:24;a:4:{s:1:\"a\";i:25;s:1:\"b\";s:16:\"permission.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:25;a:4:{s:1:\"a\";i:26;s:1:\"b\";s:16:\"permission.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:26;a:4:{s:1:\"a\";i:27;s:1:\"b\";s:17:\"permission.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:27;a:4:{s:1:\"a\";i:28;s:1:\"b\";s:18:\"permission.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:28;a:4:{s:1:\"a\";i:29;s:1:\"b\";s:11:\"faq.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:29;a:4:{s:1:\"a\";i:30;s:1:\"b\";s:9:\"faq.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:30;a:4:{s:1:\"a\";i:31;s:1:\"b\";s:9:\"faq.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:31;a:4:{s:1:\"a\";i:32;s:1:\"b\";s:10:\"faq.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:32;a:4:{s:1:\"a\";i:33;s:1:\"b\";s:20:\"menu.main-portofolio\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:33;a:4:{s:1:\"a\";i:35;s:1:\"b\";s:13:\"company.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:34;a:4:{s:1:\"a\";i:36;s:1:\"b\";s:13:\"company.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:35;a:4:{s:1:\"a\";i:37;s:1:\"b\";s:14:\"company.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:36;a:4:{s:1:\"a\";i:38;s:1:\"b\";s:18:\"categories.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:37;a:4:{s:1:\"a\";i:39;s:1:\"b\";s:16:\"categories.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:38;a:4:{s:1:\"a\";i:40;s:1:\"b\";s:16:\"categories.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:39;a:4:{s:1:\"a\";i:41;s:1:\"b\";s:17:\"categories.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:40;a:4:{s:1:\"a\";i:46;s:1:\"b\";s:14:\"banner.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:41;a:4:{s:1:\"a\";i:47;s:1:\"b\";s:12:\"banner.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:42;a:4:{s:1:\"a\";i:48;s:1:\"b\";s:12:\"banner.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:43;a:4:{s:1:\"a\";i:49;s:1:\"b\";s:13:\"banner.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:44;a:4:{s:1:\"a\";i:50;s:1:\"b\";s:16:\"articles.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:45;a:4:{s:1:\"a\";i:51;s:1:\"b\";s:15:\"articles.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:46;a:4:{s:1:\"a\";i:52;s:1:\"b\";s:14:\"articles.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:47;a:4:{s:1:\"a\";i:53;s:1:\"b\";s:14:\"articles.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:48;a:4:{s:1:\"a\";i:54;s:1:\"b\";s:15:\"articles.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:49;a:4:{s:1:\"a\";i:55;s:1:\"b\";s:14:\"dashboard.form\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:50;a:4:{s:1:\"a\";i:60;s:1:\"b\";s:12:\"poll.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:51;a:4:{s:1:\"a\";i:65;s:1:\"b\";s:10:\"poll.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:52;a:4:{s:1:\"a\";i:70;s:1:\"b\";s:10:\"poll.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:53;a:4:{s:1:\"a\";i:75;s:1:\"b\";s:11:\"poll.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:54;a:4:{s:1:\"a\";i:85;s:1:\"b\";s:13:\"account.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:55;a:4:{s:1:\"a\";i:90;s:1:\"b\";s:14:\"account.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:56;a:3:{s:1:\"a\";i:125;s:1:\"b\";s:20:\"filedownload.destroy\";s:1:\"c\";s:3:\"web\";}i:57;a:4:{s:1:\"a\";i:130;s:1:\"b\";s:18:\"filedownload.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:2;i:1;i:5;}}i:58;a:3:{s:1:\"a\";i:135;s:1:\"b\";s:18:\"filedownload.store\";s:1:\"c\";s:3:\"web\";}i:59;a:3:{s:1:\"a\";i:140;s:1:\"b\";s:19:\"filedownload.update\";s:1:\"c\";s:3:\"web\";}i:60;a:4:{s:1:\"a\";i:145;s:1:\"b\";s:14:\"layanan.kontak\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:61;a:4:{s:1:\"a\";i:146;s:1:\"b\";s:16:\"instruktur.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:62;a:4:{s:1:\"a\";i:147;s:1:\"b\";s:12:\"pages.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:63;a:4:{s:1:\"a\";i:148;s:1:\"b\";s:13:\"pages.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:64;a:4:{s:1:\"a\";i:149;s:1:\"b\";s:11:\"pages.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:65;a:4:{s:1:\"a\";i:150;s:1:\"b\";s:11:\"pages.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:66;a:4:{s:1:\"a\";i:151;s:1:\"b\";s:12:\"pages.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:67;a:4:{s:1:\"a\";i:152;s:1:\"b\";s:18:\"instruktur.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:68;a:4:{s:1:\"a\";i:153;s:1:\"b\";s:16:\"instruktur.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:69;a:4:{s:1:\"a\";i:154;s:1:\"b\";s:17:\"instruktur.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:70;a:4:{s:1:\"a\";i:155;s:1:\"b\";s:19:\"testimonial.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:71;a:4:{s:1:\"a\";i:156;s:1:\"b\";s:17:\"testimonial.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:72;a:4:{s:1:\"a\";i:157;s:1:\"b\";s:18:\"testimonial.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:73;a:4:{s:1:\"a\";i:158;s:1:\"b\";s:17:\"testimonial.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:74;a:4:{s:1:\"a\";i:159;s:1:\"b\";s:12:\"events.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:75;a:4:{s:1:\"a\";i:160;s:1:\"b\";s:14:\"events.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:76;a:4:{s:1:\"a\";i:161;s:1:\"b\";s:12:\"events.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:77;a:4:{s:1:\"a\";i:162;s:1:\"b\";s:13:\"events.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:78;a:4:{s:1:\"a\";i:163;s:1:\"b\";s:21:\"specializations.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:79;a:4:{s:1:\"a\";i:164;s:1:\"b\";s:23:\"specializations.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:80;a:4:{s:1:\"a\";i:165;s:1:\"b\";s:22:\"specializations.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:81;a:4:{s:1:\"a\";i:166;s:1:\"b\";s:21:\"specializations.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:82;a:4:{s:1:\"a\";i:167;s:1:\"b\";s:15:\"package.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:83;a:4:{s:1:\"a\";i:168;s:1:\"b\";s:13:\"package.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:84;a:4:{s:1:\"a\";i:169;s:1:\"b\";s:14:\"package.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:85;a:4:{s:1:\"a\";i:170;s:1:\"b\";s:13:\"package.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:86;a:4:{s:1:\"a\";i:171;s:1:\"b\";s:14:\"package.member\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:87;a:4:{s:1:\"a\";i:172;s:1:\"b\";s:15:\"classes.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:88;a:4:{s:1:\"a\";i:173;s:1:\"b\";s:13:\"classes.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:89;a:4:{s:1:\"a\";i:174;s:1:\"b\";s:13:\"classes.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:90;a:4:{s:1:\"a\";i:175;s:1:\"b\";s:14:\"classes.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:91;a:4:{s:1:\"a\";i:176;s:1:\"b\";s:22:\"dashboard.submitSumber\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:2;}}i:92;a:4:{s:1:\"a\";i:177;s:1:\"b\";s:14:\"classes.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:93;a:4:{s:1:\"a\";i:178;s:1:\"b\";s:12:\"classes.edit\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:3;i:2;i:5;}}i:94;a:4:{s:1:\"a\";i:179;s:1:\"b\";s:20:\"classes.change-level\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:95;a:4:{s:1:\"a\";i:180;s:1:\"b\";s:23:\"class-schedules.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:96;a:4:{s:1:\"a\";i:181;s:1:\"b\";s:21:\"class-schedules.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:97;a:4:{s:1:\"a\";i:182;s:1:\"b\";s:21:\"class-schedules.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:98;a:4:{s:1:\"a\";i:183;s:1:\"b\";s:22:\"class-schedules.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:99;a:4:{s:1:\"a\";i:184;s:1:\"b\";s:21:\"class-schedules.print\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:4:{i:0;i:1;i:1;i:2;i:2;i:3;i:3;i:5;}}i:100;a:4:{s:1:\"a\";i:185;s:1:\"b\";s:14:\"pengguna.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:101;a:4:{s:1:\"a\";i:186;s:1:\"b\";s:15:\"pengguna.export\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:102;a:4:{s:1:\"a\";i:187;s:1:\"b\";s:13:\"studios.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:2;}}i:103;a:4:{s:1:\"a\";i:188;s:1:\"b\";s:15:\"studios.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:104;a:4:{s:1:\"a\";i:189;s:1:\"b\";s:14:\"studios.create\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:105;a:4:{s:1:\"a\";i:190;s:1:\"b\";s:13:\"studios.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:106;a:4:{s:1:\"a\";i:191;s:1:\"b\";s:14:\"studios.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:1:{i:0;i:1;}}i:107;a:4:{s:1:\"a\";i:192;s:1:\"b\";s:17:\"instruktur.mobile\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:2;}}i:108;a:4:{s:1:\"a\";i:193;s:1:\"b\";s:16:\"checkout.package\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:109;a:4:{s:1:\"a\";i:194;s:1:\"b\";s:12:\"orders.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:110;a:4:{s:1:\"a\";i:195;s:1:\"b\";s:11:\"orders.show\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:111;a:4:{s:1:\"a\";i:196;s:1:\"b\";s:12:\"orders.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:112;a:4:{s:1:\"a\";i:197;s:1:\"b\";s:13:\"menu.keamanan\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:113;a:4:{s:1:\"a\";i:198;s:1:\"b\";s:20:\"login-activity.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:114;a:4:{s:1:\"a\";i:199;s:1:\"b\";s:22:\"login-activity.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:115;a:4:{s:1:\"a\";i:200;s:1:\"b\";s:19:\"login-lockout.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:116;a:4:{s:1:\"a\";i:201;s:1:\"b\";s:21:\"login-lockout.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:117;a:4:{s:1:\"a\";i:202;s:1:\"b\";s:15:\"audit-log.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:118;a:4:{s:1:\"a\";i:203;s:1:\"b\";s:17:\"audit-log.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:119;a:4:{s:1:\"a\";i:204;s:1:\"b\";s:18:\"failed-login.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:120;a:4:{s:1:\"a\";i:205;s:1:\"b\";s:20:\"failed-login.destroy\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:121;a:4:{s:1:\"a\";i:206;s:1:\"b\";s:22:\"website-identity.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:122;a:4:{s:1:\"a\";i:207;s:1:\"b\";s:23:\"website-identity.update\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:123;a:4:{s:1:\"a\";i:208;s:1:\"b\";s:17:\"memberships.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:124;a:4:{s:1:\"a\";i:209;s:1:\"b\";s:16:\"memberships.show\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:125;a:4:{s:1:\"a\";i:210;s:1:\"b\";s:20:\"class-bookings.index\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:126;a:4:{s:1:\"a\";i:211;s:1:\"b\";s:20:\"class-bookings.store\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:127;a:4:{s:1:\"a\";i:212;s:1:\"b\";s:22:\"class-bookings.checkin\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:128;a:4:{s:1:\"a\";i:213;s:1:\"b\";s:21:\"class-bookings.cancel\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}i:129;a:4:{s:1:\"a\";i:214;s:1:\"b\";s:14:\"orders.approve\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:130;a:4:{s:1:\"a\";i:215;s:1:\"b\";s:13:\"orders.reject\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:2:{i:0;i:1;i:1;i:3;}}i:131;a:4:{s:1:\"a\";i:216;s:1:\"b\";s:12:\"orders.proof\";s:1:\"c\";s:3:\"web\";s:1:\"r\";a:3:{i:0;i:1;i:1;i:2;i:2;i:3;}}}s:5:\"roles\";a:4:{i:0;a:3:{s:1:\"a\";i:1;s:1:\"b\";s:11:\"super-admin\";s:1:\"c\";s:3:\"web\";}i:1;a:3:{s:1:\"a\";i:3;s:1:\"b\";s:5:\"admin\";s:1:\"c\";s:3:\"web\";}i:2;a:3:{s:1:\"a\";i:2;s:1:\"b\";s:4:\"user\";s:1:\"c\";s:3:\"web\";}i:3;a:3:{s:1:\"a\";i:5;s:1:\"b\";s:10:\"instruktur\";s:1:\"c\";s:3:\"web\";}}}', 1791202208);
 
 -- --------------------------------------------------------
 
@@ -287,7 +331,9 @@ CREATE TABLE `classes` (
 --
 
 INSERT INTO `classes` (`uuid`, `name`, `slug`, `description`, `price`, `quota_cost`, `instructor_uuid`, `image`, `level`, `duration`, `is_active`, `created_at`, `updated_at`) VALUES
-('01a07699-0698-73e1-8251-7afede34bbb1', 'Wiku Pramesthi', 'wiku-pramesthi', 'dsada dasdas dasd', 1.00, 1, '95294c43-b3d8-4b46-b938-e4eea1f3a359', 'classes/XrR7ox1BqBNUKzCmgh6WEhsjbkT50AMjYQ3uiJYh.jpg', 'foundation', 60, 'active', '2026-09-06 05:02:15', '2026-09-06 05:02:15');
+('01a07699-0698-73e1-8251-7afede34bbb1', 'Yin Yoga', 'yin-yoga', 'Yin yoga is a style of yoga which targets the connective tissue through poses which are held for longer periods of time, typically 3-5 minutes.', 0.00, 1, '95294c43-b3d8-4b46-b938-e4eea1f3a359', 'classes/klSn534j2UGQDMi3KFBImTLGx63CNMBOdTllJlUj.jpg', 'foundation', 60, 'active', '2026-09-06 05:02:15', '2026-10-04 02:04:18'),
+('01a0aab9-cdc8-71d6-9dfc-bd30601b7ecb', 'Hatha', 'hatha', 'Grounding Hatha draws from the classical roots of Hatha yoga to create a steady, breath-centered practice that builds both physical awareness and inner stillness.', 0.00, 1, '787b72ea-59d0-4d54-848b-c200bddafdd2', NULL, 'foundation', 60, 'active', '2026-09-16 14:58:18', '2026-09-16 14:59:41'),
+('01a0aac6-831b-73b8-8746-869d56f563a4', 'Vinyasa', 'vinyasa', 'A dynamic, breath-led flow linking movement with breath to build strength, flexibility, and focus', 0.00, 1, '787b72ea-59d0-4d54-848b-c200bddafdd2', NULL, 'foundation', 60, 'active', '2026-09-16 15:12:11', '2026-09-16 15:12:11');
 
 -- --------------------------------------------------------
 
@@ -299,6 +345,7 @@ CREATE TABLE `class_bookings` (
   `uuid` char(36) NOT NULL,
   `user_uuid` char(36) NOT NULL,
   `class_schedule_uuid` char(36) NOT NULL,
+  `booking_date` date NOT NULL,
   `booking_type` enum('membership','direct') NOT NULL,
   `quota_used` int(10) UNSIGNED NOT NULL DEFAULT 0,
   `status` enum('booked','attended','cancelled','no_show') NOT NULL DEFAULT 'booked',
@@ -334,8 +381,8 @@ CREATE TABLE `class_schedules` (
 --
 
 INSERT INTO `class_schedules` (`uuid`, `class_uuid`, `studio_uuid`, `day`, `start_time`, `end_time`, `capacity`, `status`, `created_at`, `updated_at`) VALUES
-('01a07699-68e3-71cc-892a-e0557ae317ee', '01a07699-0698-73e1-8251-7afede34bbb1', NULL, 'tuesday', '19:02:00', '19:05:00', 20, 'active', '2026-09-06 05:02:40', '2026-09-06 05:02:40'),
-('01a07aba-eb15-700e-9ceb-7d37f2772c7e', '01a07699-0698-73e1-8251-7afede34bbb1', NULL, 'monday', '14:19:00', '14:20:00', 1, 'active', '2026-09-07 00:17:45', '2026-09-07 00:17:45'),
+('01a07699-68e3-71cc-892a-e0557ae317ee', '01a07699-0698-73e1-8251-7afede34bbb1', '363f49dc-b34f-4ac2-ad18-95b140c6335e', 'tuesday', '19:00:00', '20:00:00', 20, 'active', '2026-09-06 05:02:40', '2026-09-14 11:45:38'),
+('01a07aba-eb15-700e-9ceb-7d37f2772c7e', '01a07699-0698-73e1-8251-7afede34bbb1', '363f49dc-b34f-4ac2-ad18-95b140c6335e', 'monday', '14:00:00', '15:00:00', 1, 'active', '2026-09-07 00:17:45', '2026-09-14 11:46:23'),
 ('01a09092-6304-73de-bacb-ead567c883b5', '01a07699-0698-73e1-8251-7afede34bbb1', '363f49dc-b34f-4ac2-ad18-95b140c6335e', 'saturday', '20:04:00', '20:08:00', 10, 'inactive', '2026-09-11 06:05:07', '2026-09-11 06:15:47'),
 ('01a092b9-6448-7308-9328-96caf2fc5466', '01a07699-0698-73e1-8251-7afede34bbb1', '363f49dc-b34f-4ac2-ad18-95b140c6335e', 'saturday', '11:06:00', '11:18:00', 1, 'inactive', '2026-09-11 16:06:58', '2026-09-12 01:11:47');
 
@@ -363,26 +410,6 @@ INSERT INTO `disabilities` (`uuid`, `name`, `slug`, `description`, `created_at`,
 ('538deecf-f902-4394-bb11-ed55207e912e', 'Tunanetra (A)', 'tunanetra-a', 'Tunanetra adalah seseorang yang memiliki gangguan penglihatan, baik sebagian maupun total, yang menghabat aktivitas sehari-hari dengan tingkat gangguan totally blind yang tidak bisa melihat sama sekali dan low vision yang masih bisa  melihat sebagian baik dan ataupun tanpa alat bantu.', '2025-11-11 06:12:12', '2025-11-21 02:35:57'),
 ('7ae1645d-d10d-44e0-86be-22e44b1db039', 'Tunadaksa (D, D1)', 'tunadaksa-d-d1', 'Tunadaksa adalah kondisi fisik yang menyebabkan keterbatasan dalam mengendalikan gerakan tubuh akibat kelainan pada sistem otot, tulang atau saraf.', '2025-11-21 04:32:42', '2025-11-21 04:33:12'),
 ('e35fed39-3a2f-4a33-80f6-5820c71a7fd6', 'Tunagrahita (C, C1)', 'tunagrahita-c-c1', 'Tunagrahita adalah kondisi gangguan perkembangan intelektual yang mempengaruhi kemampuan belajar dan menyesuaikan diri.', '2025-11-21 04:16:12', '2025-11-21 04:33:25');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ebooks`
---
-
-CREATE TABLE `ebooks` (
-  `uuid` char(36) NOT NULL,
-  `judul` varchar(255) NOT NULL,
-  `kategori` enum('Buku Pelajaran','Buku Cerita Anak','Modul Guru','Panduan Orang Tua','Majalah Sekolah','Keterampilan & Kreativitas','Kesehatan & Terapi','Agama','Umum') DEFAULT NULL,
-  `deskripsi` text DEFAULT NULL,
-  `tahun_terbit` year(4) DEFAULT NULL,
-  `isbn` varchar(50) DEFAULT NULL,
-  `file_path` varchar(255) NOT NULL,
-  `cover_image` varchar(255) DEFAULT NULL,
-  `link` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -429,6 +456,24 @@ CREATE TABLE `failed_jobs` (
   `payload` longtext NOT NULL,
   `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `failed_logins`
+--
+
+CREATE TABLE `failed_logins` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `user_uuid` char(36) DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `reason` varchar(255) DEFAULT NULL,
+  `attempted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -639,6 +684,77 @@ CREATE TABLE `kontak` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `login_activities`
+--
+
+CREATE TABLE `login_activities` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_uuid` char(36) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `guard` varchar(50) DEFAULT NULL,
+  `logged_in_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `login_activities`
+--
+
+INSERT INTO `login_activities` (`id`, `user_uuid`, `name`, `email`, `ip_address`, `user_agent`, `guard`, `logged_in_at`, `created_at`, `updated_at`) VALUES
+(17, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-02 07:17:47', '2026-10-02 07:17:47', '2026-10-02 07:17:47'),
+(18, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-02 07:17:47', '2026-10-02 07:17:47', '2026-10-02 07:17:47'),
+(19, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-02 07:44:01', '2026-10-02 07:44:01', '2026-10-02 07:44:01'),
+(20, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-02 07:44:01', '2026-10-02 07:44:01', '2026-10-02 07:44:01'),
+(21, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-03 12:01:00', '2026-10-03 12:01:00', '2026-10-03 12:01:00'),
+(22, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-03 12:01:00', '2026-10-03 12:01:00', '2026-10-03 12:01:00'),
+(23, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-03 15:12:29', '2026-10-03 15:12:29', '2026-10-03 15:12:29'),
+(24, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-03 15:12:29', '2026-10-03 15:12:29', '2026-10-03 15:12:29'),
+(25, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-03 15:22:48', '2026-10-03 15:22:48', '2026-10-03 15:22:48'),
+(26, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-03 15:22:48', '2026-10-03 15:22:48', '2026-10-03 15:22:48'),
+(27, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 01:33:42', '2026-10-04 01:33:42', '2026-10-04 01:33:42'),
+(28, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 01:33:42', '2026-10-04 01:33:42', '2026-10-04 01:33:42'),
+(29, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 01:54:09', '2026-10-04 01:54:09', '2026-10-04 01:54:09'),
+(30, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 01:54:09', '2026-10-04 01:54:09', '2026-10-04 01:54:09'),
+(31, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 02:19:42', '2026-10-04 02:19:42', '2026-10-04 02:19:42'),
+(32, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 02:19:42', '2026-10-04 02:19:42', '2026-10-04 02:19:42'),
+(33, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 07:37:30', '2026-10-04 07:37:30', '2026-10-04 07:37:30'),
+(34, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 07:37:30', '2026-10-04 07:37:30', '2026-10-04 07:37:30'),
+(35, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 09:05:52', '2026-10-04 09:05:52', '2026-10-04 09:05:52'),
+(36, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 09:05:52', '2026-10-04 09:05:52', '2026-10-04 09:05:52'),
+(37, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'curl/8.21.0', 'web', '2026-10-04 10:53:14', '2026-10-04 10:53:14', '2026-10-04 10:53:14'),
+(38, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'curl/8.21.0', 'web', '2026-10-04 10:53:14', '2026-10-04 10:53:14', '2026-10-04 10:53:14'),
+(39, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'curl/8.21.0', 'web', '2026-10-04 11:20:18', '2026-10-04 11:20:18', '2026-10-04 11:20:18'),
+(40, '787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', 'super@admin.com', '127.0.0.1', 'curl/8.21.0', 'web', '2026-10-04 11:20:18', '2026-10-04 11:20:18', '2026-10-04 11:20:18'),
+(41, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 11:39:46', '2026-10-04 11:39:46', '2026-10-04 11:39:46'),
+(42, 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', 'esproproperty.bekasi@gmail.com', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 11:39:46', '2026-10-04 11:39:46', '2026-10-04 11:39:46'),
+(43, '57621d3c-c299-4cd2-b96a-9b887752cb73', 'Yogaroots.id', 'tapayoga@yogaroots.id', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 12:08:50', '2026-10-04 12:08:50', '2026-10-04 12:08:50'),
+(44, '57621d3c-c299-4cd2-b96a-9b887752cb73', 'Yogaroots.id', 'tapayoga@yogaroots.id', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'web', '2026-10-04 12:08:50', '2026-10-04 12:08:50', '2026-10-04 12:08:50');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_lockouts`
+--
+
+CREATE TABLE `login_lockouts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `type` varchar(10) NOT NULL,
+  `value` varchar(255) NOT NULL,
+  `attempts` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `reason` varchar(255) DEFAULT NULL,
+  `blocked_until` timestamp NULL DEFAULT NULL,
+  `last_attempt_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `menu_groups`
 --
 
@@ -658,17 +774,20 @@ CREATE TABLE `menu_groups` (
 --
 
 INSERT INTO `menu_groups` (`id`, `name`, `status`, `permission_name`, `icon`, `position`, `created_at`, `updated_at`) VALUES
-(2, 'Role dan Akses', 1, 'menu.role-permission', 'bx-shield-quarter', 10, '2024-09-26 23:27:05', '2024-09-26 23:56:50'),
-(3, 'Settings', 1, 'menu-item.index', 'bx-cog', 11, '2024-09-26 23:27:05', '2026-09-06 19:40:05'),
+(2, 'Role dan Akses', 1, 'menu.role-permission', 'bx-shield-quarter', 11, '2024-09-26 23:27:05', '2024-09-26 23:56:50'),
+(3, 'Settings', 1, 'menu-item.index', 'bx-cog', 12, '2024-09-26 23:27:05', '2026-09-06 19:40:05'),
 (4, 'Orders', 1, 'orders.index', 'bx-receipt', 3, '2024-09-26 23:35:30', '2026-09-13 14:27:12'),
-(7, 'Content', 1, 'articles.index', 'bxs-file', 7, '2024-09-29 12:37:06', '2026-09-07 20:02:14'),
-(8, 'Media Library', 1, 'banner.index', 'bx-camera', 8, '2024-10-13 22:33:06', '2026-09-06 21:51:58'),
-(9, 'Master Data', 1, 'testimonial.index', 'bx-folder-open', 9, '2025-07-21 17:56:19', '2026-08-30 19:07:27'),
-(10, 'Instructors', 1, 'instruktur.index', 'bx-user', 6, '2025-07-23 22:38:22', '2026-09-03 17:38:48'),
-(11, 'Events', 1, 'events.index', 'bxs-calendar', 4, '2025-07-25 16:53:44', '2026-09-11 00:30:47'),
+(7, 'Content', 1, 'articles.index', 'bxs-file', 9, '2024-09-29 12:37:06', '2026-09-07 20:02:14'),
+(8, 'Media Library', 1, 'banner.index', 'bx-camera', 9, '2024-10-13 22:33:06', '2026-09-06 21:51:58'),
+(9, 'Master Data', 1, 'testimonial.index', 'bx-folder-open', 10, '2025-07-21 17:56:19', '2026-08-30 19:07:27'),
+(10, 'Instructors', 1, 'instruktur.index', 'bx-user', 7, '2025-07-23 22:38:22', '2026-09-03 17:38:48'),
+(11, 'Events', 1, 'events.index', 'bxs-calendar', 5, '2025-07-25 16:53:44', '2026-09-11 00:30:47'),
 (12, 'Packages', 1, 'package.member', 'bx-package', 1, '2025-09-14 12:05:35', '2026-09-07 20:00:15'),
 (22, 'Classes', 1, 'class-schedules.index', 'bx-book', 2, '2026-09-02 15:16:09', '2026-09-06 03:39:03'),
-(23, 'Studios', 1, 'studios.index', 'bx-camera-home', 5, '2026-09-08 06:44:24', '2026-09-08 06:44:24');
+(23, 'Studios', 1, 'studios.index', 'bx-camera-home', 6, '2026-09-08 06:44:24', '2026-09-08 06:44:24'),
+(24, 'Security', 1, 'menu.keamanan', 'bx-shield-alt-2', 13, '2026-10-02 00:30:47', '2026-10-03 12:02:43'),
+(26, 'Memberships', 1, 'memberships.index', 'bx-id-card', 4, '2026-10-04 02:13:11', '2026-10-04 02:23:55'),
+(27, 'Memberships', 1, 'menu.memberships', 'bx-id-card', 55, '2026-10-04 02:31:55', '2026-10-04 02:31:55');
 
 -- --------------------------------------------------------
 
@@ -707,7 +826,7 @@ INSERT INTO `menu_items` (`id`, `name`, `icon`, `route`, `status`, `permission_n
 (13, 'Specialization', NULL, 'specializations.index', 1, 'specializations.index', 10, 1, '2025-07-23 23:12:46', '2026-09-03 15:02:16'),
 (14, 'All Events', NULL, 'events.index', 1, 'events.index', 11, 1, '2025-07-25 16:55:36', '2026-09-03 05:05:58'),
 (40, 'Static Pages', NULL, 'pages.index', 1, 'pages.index', 9, 3, '2025-10-21 03:46:02', '2026-09-03 15:13:56'),
-(41, 'All Instructors', NULL, 'instruktur.index', 1, 'program.index', 10, 2, '2025-11-12 04:02:59', '2026-09-03 17:40:35'),
+(41, 'All Instructors', NULL, 'instruktur.index', 1, 'instruktur.index', 10, 2, '2025-11-12 04:02:59', '2026-10-03 15:14:04'),
 (44, 'Packages', NULL, 'packages.index', 1, 'package.index', 12, 1, '2026-09-02 04:59:49', '2026-09-02 04:59:49'),
 (45, 'Browse Packages', NULL, 'packages.member', 1, 'package.member', 12, 2, '2026-09-02 05:52:23', '2026-09-07 20:00:31'),
 (46, 'Class List', NULL, 'classes.index', 1, 'classes.index', 22, 1, '2026-09-02 15:18:03', '2026-09-02 15:18:03'),
@@ -719,7 +838,16 @@ INSERT INTO `menu_items` (`id`, `name`, `icon`, `route`, `status`, `permission_n
 (52, 'All Studios', NULL, 'studios.index', 1, 'studios.index', 23, 1, '2026-09-08 07:14:52', '2026-09-08 07:14:52'),
 (53, 'Add Studio', NULL, 'studios.create', 1, 'studios.create', 23, 2, '2026-09-08 07:15:14', '2026-09-08 07:15:14'),
 (54, 'Order List', NULL, 'orders.index', 1, 'banner.index', 4, 1, '2026-09-13 14:23:49', '2026-09-13 14:23:49'),
-(55, 'My Orders', NULL, 'orders.index', 1, 'filedownload.index', 4, 2, '2026-09-13 14:27:33', '2026-09-13 14:27:33');
+(55, 'My Orders', NULL, 'orders.index', 1, 'filedownload.index', 4, 2, '2026-09-13 14:27:33', '2026-09-13 14:27:33'),
+(56, 'Login Activity', NULL, 'security.login-activity.index', 1, 'login-activity.index', 24, 1, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(57, 'Audit Log', NULL, 'security.audit-log.index', 1, 'audit-log.index', 24, 2, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(58, 'Failed Login', NULL, 'security.failed-login.index', 1, 'failed-login.index', 24, 3, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(59, 'Blokir Login', NULL, 'security.login-lockout.index', 1, 'login-lockout.index', 24, 4, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(60, 'Website Identity', NULL, 'website-identity.index', 1, 'website-identity.index', 3, 99, '2026-10-03 12:18:10', '2026-10-03 12:24:24'),
+(61, 'All Members', NULL, 'memberships.index', 1, 'memberships.index', 26, 1, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(62, 'Bookings', NULL, 'class-bookings.index', 1, 'class-bookings.index', 26, 2, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(63, 'All Members', NULL, 'memberships.index', 1, 'memberships.index', 27, 1, '2026-10-04 02:31:55', '2026-10-04 02:31:55'),
+(64, 'Bookings', NULL, 'class-bookings.index', 1, 'class-bookings.index', 27, 2, '2026-10-04 02:31:55', '2026-10-04 02:31:55');
 
 -- --------------------------------------------------------
 
@@ -784,14 +912,24 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (44, '2026_09_02_073943_create_classes_table', 13),
 (45, '2026_09_02_074219_create_class_schedules_table', 13),
 (46, '2026_09_02_074643_add_membership_fields_to_users_table', 13),
-(47, '2026_09_02_074803_create_orders_table', 13),
+(47, '2026_09_13_074803_create_orders_table', 13),
 (48, '2026_09_02_074832_create_payments_table', 13),
 (49, '2026_09_02_074849_create_class_bookings_table', 13),
 (50, '2026_09_06_222620_create_user_packages_table', 14),
 (51, '2026_09_08_131616_create_user_studios_table', 15),
 (52, '2026_09_08_131617_create_studios_table', 16),
-(53, '2026_09_12_195535_create_package_options_table', 17),
-(54, '2026_09_12_195536_create_package_options_table', 18);
+(54, '2026_09_12_195536_create_package_options_table', 18),
+(55, '2026_10_01_000001_create_login_activities_table', 19),
+(56, '2026_10_01_000002_create_failed_logins_table', 20),
+(57, '2026_10_01_000003_create_audit_logs_table', 21),
+(58, '2026_10_01_000004_create_login_lockouts_table', 22),
+(59, '2026_10_04_000000_create_website_identities_table', 23),
+(60, '2026_10_04_000001_rebuild_website_identities_for_dbmsda', 24),
+(61, '2026_10_04_000002_add_tipe_album_to_banner_table', 25),
+(62, '2026_10_04_000003_dbmsda_media_library', 26),
+(63, '2026_10_04_100000_add_admin_note_to_orders_table', 27),
+(64, '2026_10_04_110000_add_booking_date_to_class_bookings_table', 28),
+(65, '2026_10_04_120000_add_proof_to_orders_table', 29);
 
 -- --------------------------------------------------------
 
@@ -829,18 +967,19 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (2, 'App\\Models\\User', '130214ce-3612-455f-ae39-f6f2a5c2b90d'),
 (2, 'App\\Models\\User', '370a8be5-8531-453a-a504-2a610ed8538f'),
 (2, 'App\\Models\\User', '3e354d68-8b35-410c-9fd1-827ec786b007'),
-(2, 'App\\Models\\User', '57621d3c-c299-4cd2-b96a-9b887752cb73'),
 (2, 'App\\Models\\User', '6bdf7417-66c8-407c-828b-77577006dda2'),
 (2, 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5'),
 (2, 'App\\Models\\User', '95271004-d8a8-41a4-93eb-62a766c2758d'),
 (2, 'App\\Models\\User', 'a82db5a8-5d69-499b-a9a1-3d98ad0c47e4'),
 (2, 'App\\Models\\User', 'b5a9eb64-a547-4464-a576-e261ede0d4db'),
+(2, 'App\\Models\\User', 'c2187aff-68d0-40b9-a6f1-52738cee4ea4'),
 (2, 'App\\Models\\User', 'c4536499-9979-4be5-a0ad-775fe9bec19d'),
 (2, 'App\\Models\\User', 'd56cc48a-b1fa-4c03-9b72-c8f92766efb3'),
 (2, 'App\\Models\\User', 'd91ccba3-e95b-4692-8f8c-63d543549331'),
 (2, 'App\\Models\\User', 'dfd391fa-c167-4547-ad17-27d52d9ffc28'),
 (2, 'App\\Models\\User', 'e5a05967-00cb-49f6-97bf-95c1bccee6e0'),
 (3, 'App\\Models\\User', '44af87c7-cd3f-4f9d-af63-177da19727fb'),
+(3, 'App\\Models\\User', '57621d3c-c299-4cd2-b96a-9b887752cb73'),
 (3, 'App\\Models\\User', '57f63489-134b-498c-ad05-78a3652cb916'),
 (3, 'App\\Models\\User', 'e2c23ff6-eda1-4c5c-86a4-d2d1782ed930'),
 (5, 'App\\Models\\User', '0ba0b18a-64e7-44ce-8042-8b282ab9c5b3'),
@@ -891,9 +1030,16 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
+('1ef127f7-4089-43aa-a1f2-c4f2688a8280', 'App\\Notifications\\ProofUploadedNotification', 'App\\Models\\User', '787b72ea-59d0-4d54-848b-c200bddafdd2', '{\"judul_kegiatan\":\"Transfer proof uploaded\",\"message\":\"ORD-I5HKUWFTWJ \\u2014 ESPRO Property uploaded transfer proof (Rp 210.000). Please verify.\",\"path\":\"\\/backend\\/orders\\/01a1049e-afda-7188-b2f9-9fa3b404f6d3\",\"icon\":\"bi-file-earmark-check\"}', '2026-10-04 02:49:21', '2026-10-04 02:48:56', '2026-10-04 02:49:21'),
+('3042b54f-0eed-4e61-ad42-2def83dd9b3c', 'App\\Notifications\\OrderExpiredNotification', 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '{\"judul_kegiatan\":\"Order expired\",\"message\":\"ORD-FG2TCGJ55W was automatically cancelled after 24 hours without payment. Please place a new order if you still want the membership.\",\"path\":\"\\/backend\\/packages\\/members\",\"icon\":\"bi-hourglass-bottom\"}', NULL, '2026-10-04 02:48:58', '2026-10-04 02:48:58'),
 ('32e1f1c5-9072-4825-83cd-1018cb73d62f', 'App\\Notifications\\ProgramStatusChanged', 'App\\Models\\User', 'b5a9eb64-a547-4464-a576-e261ede0d4db', '{\"program_id\":null,\"judul_kegiatan\":null,\"old_status\":\"pending\",\"new_status\":\"hadir\",\"message\":\"Status program \'\' berubah dari \'pending\' menjadi \'hadir\'.\"}', '2026-06-17 19:03:03', '2026-06-17 19:02:26', '2026-06-17 19:03:03'),
+('5e0c56a7-c2b0-4fe2-9a1b-dbe081f039d2', 'App\\Notifications\\OrderExpiredNotification', 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '{\"judul_kegiatan\":\"Order expired\",\"message\":\"ORD-QCQL0MKBRP was automatically cancelled after 24 hours without payment. Please place a new order if you still want the membership.\",\"path\":\"\\/backend\\/packages\\/members\",\"icon\":\"bi-hourglass-bottom\"}', NULL, '2026-10-04 02:48:58', '2026-10-04 02:48:58'),
 ('6f95fb80-2e8d-441d-850a-741dcdc7d1bc', 'App\\Notifications\\ProgramStatusChanged', 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '{\"program_id\":null,\"judul_kegiatan\":null,\"old_status\":\"pending\",\"new_status\":\"hadir\",\"message\":\"Status program \'\' berubah dari \'pending\' menjadi \'hadir\'.\"}', '2026-09-02 06:50:51', '2026-05-24 21:21:26', '2026-09-02 06:50:51'),
+('89cd6964-dea1-44b8-9c8c-ff7886de4786', 'App\\Notifications\\OrderExpiredNotification', 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '{\"judul_kegiatan\":\"Order expired\",\"message\":\"ORD-9UJ1QLPEAW was automatically cancelled after 24 hours without payment. Please place a new order if you still want the membership.\",\"path\":\"\\/backend\\/packages\\/members\",\"icon\":\"bi-hourglass-bottom\"}', NULL, '2026-10-04 02:48:58', '2026-10-04 02:48:58'),
+('a2e5d335-3192-4c81-851a-c8b6ea33dabf', 'App\\Notifications\\MemberActiveNotification', 'App\\Models\\User', 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', '{\"judul_kegiatan\":\"Membership activated\",\"message\":\"Payment for ORD-I5HKUWFTWJ was verified. Your membership is now active. Active until 11 Oct 2026.\",\"path\":\"\\/backend\\/orders\\/01a1049e-afda-7188-b2f9-9fa3b404f6d3\",\"icon\":\"bi-check-circle\"}', '2026-10-04 10:01:41', '2026-10-04 02:55:55', '2026-10-04 10:01:41'),
 ('ac5b2d37-85ab-4267-b572-70b998039556', 'App\\Notifications\\ProgramStatusChanged', 'App\\Models\\User', 'dfd391fa-c167-4547-ad17-27d52d9ffc28', '{\"program_id\":null,\"judul_kegiatan\":null,\"old_status\":\"pending\",\"new_status\":\"hadir\",\"message\":\"Status program \'\' berubah dari \'pending\' menjadi \'hadir\'.\"}', '2026-05-24 21:51:12', '2026-05-24 21:48:19', '2026-05-24 21:51:12'),
+('b0274b03-ffaa-462e-9098-423fe6c82b13', 'App\\Notifications\\OrderExpiredNotification', 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '{\"judul_kegiatan\":\"Order expired\",\"message\":\"ORD-G07KVIJM1Y was automatically cancelled after 24 hours without payment. Please place a new order if you still want the membership.\",\"path\":\"\\/backend\\/packages\\/members\",\"icon\":\"bi-hourglass-bottom\"}', NULL, '2026-10-04 02:48:58', '2026-10-04 02:48:58'),
+('c0706708-ee37-4619-85c7-e8e3d71918e0', 'App\\Notifications\\OrderExpiredNotification', 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '{\"judul_kegiatan\":\"Order expired\",\"message\":\"ORD-C4LCIYGBRX was automatically cancelled after 24 hours without payment. Please place a new order if you still want the membership.\",\"path\":\"\\/backend\\/packages\\/members\",\"icon\":\"bi-hourglass-bottom\"}', NULL, '2026-10-04 02:48:58', '2026-10-04 02:48:58'),
 ('f071f5b7-d4aa-44ba-9449-cbd36724f7c8', 'App\\Notifications\\ProgramStatusChanged', 'App\\Models\\User', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '{\"program_id\":null,\"judul_kegiatan\":null,\"old_status\":\"pending\",\"new_status\":\"hadir\",\"message\":\"Status program \'\' berubah dari \'pending\' menjadi \'hadir\'.\"}', '2026-05-25 20:36:48', '2026-05-24 21:41:40', '2026-05-25 20:36:48');
 
 -- --------------------------------------------------------
@@ -914,6 +1060,9 @@ CREATE TABLE `orders` (
   `status` enum('pending','paid','failed','expired','cancelled') NOT NULL DEFAULT 'pending',
   `expired_at` timestamp NULL DEFAULT NULL,
   `paid_at` timestamp NULL DEFAULT NULL,
+  `admin_note` text DEFAULT NULL,
+  `proof_image_path` varchar(255) DEFAULT NULL,
+  `proof_uploaded_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -922,12 +1071,13 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`uuid`, `user_uuid`, `order_number`, `type`, `package_uuid`, `package_option_uuid`, `class_schedule_uuid`, `amount`, `status`, `expired_at`, `paid_at`, `created_at`, `updated_at`) VALUES
-('01a09b0a-4dd3-7318-9203-f08140b94b97', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'ORD-G07KVIJM1Y', 'package', '01a06234-aac1-722c-84d6-c46d4150e70f', '01a09966-af8f-73fd-94d6-680b288dd1ba', NULL, 878000.00, 'pending', '2026-09-14 13:52:18', NULL, '2026-09-13 13:52:18', '2026-09-13 13:52:18'),
-('01a09b11-520c-7314-bc73-86d595a54f57', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'ORD-FG2TCGJ55W', 'package', '01a06234-aac1-722c-84d6-c46d4150e70f', '01a09966-af8d-7252-bbf0-f1665358611d', NULL, 230000.00, 'pending', '2026-09-14 13:59:58', NULL, '2026-09-13 13:59:58', '2026-09-13 13:59:58'),
-('01a09b16-5931-73fb-866d-5e723294a477', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'ORD-C4LCIYGBRX', 'package', '01a06234-aac1-722c-84d6-c46d4150e70f', '01a09966-af8d-7252-bbf0-f1665358611d', NULL, 230000.00, 'pending', '2026-09-14 14:05:28', NULL, '2026-09-13 14:05:28', '2026-09-13 14:05:28'),
-('01a09b1e-7b00-7391-bb4a-a50a77fde0e4', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'ORD-9UJ1QLPEAW', 'package', '01a06234-aac1-722c-84d6-c46d4150e70f', '01a09966-af8d-7252-bbf0-f1665358611d', NULL, 230000.00, 'pending', '2026-09-14 14:14:21', NULL, '2026-09-13 14:14:21', '2026-09-13 14:14:21'),
-('01a09b1e-c44e-70ae-98b1-d19e19c7b4fe', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'ORD-QCQL0MKBRP', 'package', '01a06234-aac1-722c-84d6-c46d4150e70f', '01a09966-af8d-7252-bbf0-f1665358611d', NULL, 230000.00, 'pending', '2026-09-14 14:14:39', NULL, '2026-09-13 14:14:39', '2026-09-13 14:14:39');
+INSERT INTO `orders` (`uuid`, `user_uuid`, `order_number`, `type`, `package_uuid`, `package_option_uuid`, `class_schedule_uuid`, `amount`, `status`, `expired_at`, `paid_at`, `admin_note`, `proof_image_path`, `proof_uploaded_at`, `created_at`, `updated_at`) VALUES
+('01a09b0a-4dd3-7318-9203-f08140b94b97', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'ORD-G07KVIJM1Y', 'package', '01a06234-aac1-722c-84d6-c46d4150e70f', '01a09966-af8f-73fd-94d6-680b288dd1ba', NULL, 878000.00, 'expired', '2026-09-14 13:52:18', NULL, NULL, NULL, NULL, '2026-09-13 13:52:18', '2026-10-04 02:48:58'),
+('01a09b11-520c-7314-bc73-86d595a54f57', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'ORD-FG2TCGJ55W', 'package', '01a06234-aac1-722c-84d6-c46d4150e70f', '01a09966-af8d-7252-bbf0-f1665358611d', NULL, 230000.00, 'expired', '2026-09-14 13:59:58', NULL, NULL, NULL, NULL, '2026-09-13 13:59:58', '2026-10-04 02:48:58'),
+('01a09b16-5931-73fb-866d-5e723294a477', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'ORD-C4LCIYGBRX', 'package', '01a06234-aac1-722c-84d6-c46d4150e70f', '01a09966-af8d-7252-bbf0-f1665358611d', NULL, 230000.00, 'expired', '2026-09-14 14:05:28', NULL, NULL, NULL, NULL, '2026-09-13 14:05:28', '2026-10-04 02:48:58'),
+('01a09b1e-7b00-7391-bb4a-a50a77fde0e4', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'ORD-9UJ1QLPEAW', 'package', '01a06234-aac1-722c-84d6-c46d4150e70f', '01a09966-af8d-7252-bbf0-f1665358611d', NULL, 230000.00, 'expired', '2026-09-14 14:14:21', NULL, NULL, NULL, NULL, '2026-09-13 14:14:21', '2026-10-04 02:48:58'),
+('01a09b1e-c44e-70ae-98b1-d19e19c7b4fe', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'ORD-QCQL0MKBRP', 'package', '01a06234-aac1-722c-84d6-c46d4150e70f', '01a09966-af8d-7252-bbf0-f1665358611d', NULL, 230000.00, 'expired', '2026-09-14 14:14:39', NULL, NULL, NULL, NULL, '2026-09-13 14:14:39', '2026-10-04 02:48:58'),
+('01a1049e-afda-7188-b2f9-9fa3b404f6d3', 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ORD-I5HKUWFTWJ', 'package', '01a095f2-d286-7241-b566-8027529b8196', '01a09966-2965-7201-ab57-9f085e23bbc7', NULL, 210000.00, 'paid', '2026-10-05 01:54:31', '2026-10-04 02:55:55', NULL, 'proofs/lTa9j1FbqtOaGW4LDEw95vVjQ9JDz24MwX2UnFMi.png', '2026-10-04 02:48:54', '2026-10-04 01:54:31', '2026-10-04 02:55:55');
 
 -- --------------------------------------------------------
 
@@ -1134,6 +1284,13 @@ CREATE TABLE `payments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`uuid`, `order_uuid`, `payment_gateway`, `transaction_id`, `payment_type`, `gross_amount`, `status`, `paid_at`, `raw_response`, `created_at`, `updated_at`) VALUES
+('01a104d6-e859-7018-b76c-578ce8b292b2', '01a1049e-afda-7188-b2f9-9fa3b404f6d3', 'manual_transfer', NULL, 'Bank Transfer', 210000.00, 'paid', '2026-10-04 02:55:55', NULL, '2026-10-04 02:55:55', '2026-10-04 02:55:55');
+
 -- --------------------------------------------------------
 
 --
@@ -1209,11 +1366,6 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (75, 'poll.update', 'web', '2025-07-21 17:51:14', '2025-09-17 22:52:37'),
 (85, 'account.index', 'web', '2025-07-22 23:35:48', '2025-07-22 23:35:48'),
 (90, 'account.update', 'web', '2025-07-22 23:36:13', '2025-07-22 23:36:13'),
-(100, 'program.destroy', 'web', '2025-07-23 22:07:49', '2025-07-23 22:07:49'),
-(105, 'program.create', 'web', '2025-07-23 22:08:13', '2025-07-23 22:08:13'),
-(110, 'program.index', 'web', '2025-07-23 22:08:39', '2025-07-23 22:08:39'),
-(115, 'program.store', 'web', '2025-07-23 22:09:41', '2025-07-23 22:09:41'),
-(120, 'program.update', 'web', '2025-07-23 22:11:45', '2025-07-23 22:11:45'),
 (125, 'filedownload.destroy', 'web', '2025-07-25 16:48:18', '2025-07-25 16:48:18'),
 (130, 'filedownload.index', 'web', '2025-07-25 16:48:48', '2025-07-25 16:48:48'),
 (135, 'filedownload.store', 'web', '2025-07-25 16:49:09', '2025-07-25 16:49:09'),
@@ -1269,7 +1421,27 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (193, 'checkout.package', 'web', '2026-09-12 15:39:44', '2026-09-12 15:39:44'),
 (194, 'orders.index', 'web', '2026-09-13 13:23:41', '2026-09-13 13:23:41'),
 (195, 'orders.show', 'web', '2026-09-13 13:23:57', '2026-09-13 13:23:57'),
-(196, 'orders.store', 'web', '2026-09-13 13:24:11', '2026-09-13 13:24:11');
+(196, 'orders.store', 'web', '2026-09-13 13:24:11', '2026-09-13 13:24:11'),
+(197, 'menu.keamanan', 'web', '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(198, 'login-activity.index', 'web', '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(199, 'login-activity.destroy', 'web', '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(200, 'login-lockout.index', 'web', '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(201, 'login-lockout.destroy', 'web', '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(202, 'audit-log.index', 'web', '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(203, 'audit-log.destroy', 'web', '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(204, 'failed-login.index', 'web', '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(205, 'failed-login.destroy', 'web', '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(206, 'website-identity.index', 'web', '2026-10-03 12:18:10', '2026-10-03 12:18:10'),
+(207, 'website-identity.update', 'web', '2026-10-03 12:18:10', '2026-10-03 12:18:10'),
+(208, 'memberships.index', 'web', '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(209, 'memberships.show', 'web', '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(210, 'class-bookings.index', 'web', '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(211, 'class-bookings.store', 'web', '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(212, 'class-bookings.checkin', 'web', '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(213, 'class-bookings.cancel', 'web', '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(214, 'orders.approve', 'web', '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(215, 'orders.reject', 'web', '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(216, 'orders.proof', 'web', '2026-10-04 02:31:55', '2026-10-04 02:31:55');
 
 -- --------------------------------------------------------
 
@@ -1323,32 +1495,6 @@ CREATE TABLE `poll_votes` (
   `poll_uuid` char(36) NOT NULL,
   `option` varchar(255) NOT NULL,
   `ip_address` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `programs`
---
-
-CREATE TABLE `programs` (
-  `uuid` char(36) NOT NULL,
-  `user_uuid` char(36) NOT NULL,
-  `nama_anak` varchar(255) NOT NULL,
-  `tempat_lahir` varchar(255) NOT NULL,
-  `tanggal_lahir` date NOT NULL,
-  `jenis_kelamin` enum('L','P') NOT NULL,
-  `agama` enum('islam','kristen','katolik','hindu','buddha','konghucu') NOT NULL,
-  `anak_ke` int(11) NOT NULL,
-  `nama_ayah` varchar(255) NOT NULL,
-  `nama_ibu` varchar(255) NOT NULL,
-  `alamat` text NOT NULL,
-  `no_hp` varchar(255) NOT NULL,
-  `specializaty_uuid` char(36) DEFAULT NULL,
-  `status` enum('pending','hadir','reschedule','diterima','ditolak') NOT NULL DEFAULT 'pending',
-  `catatan` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1493,21 +1639,6 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (90, 2),
 (90, 3),
 (90, 5),
-(100, 1),
-(100, 2),
-(100, 3),
-(105, 1),
-(105, 2),
-(105, 3),
-(110, 1),
-(110, 2),
-(110, 3),
-(115, 1),
-(115, 2),
-(115, 3),
-(120, 1),
-(120, 2),
-(120, 3),
 (130, 2),
 (130, 5),
 (145, 1),
@@ -1577,6 +1708,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (175, 1),
 (175, 3),
 (175, 5),
+(176, 1),
 (176, 2),
 (177, 1),
 (177, 3),
@@ -1606,15 +1738,10 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (186, 3),
 (187, 1),
 (187, 2),
-(187, 3),
 (188, 1),
-(188, 3),
 (189, 1),
-(189, 3),
 (190, 1),
-(190, 3),
 (191, 1),
-(191, 3),
 (192, 1),
 (192, 2),
 (193, 1),
@@ -1628,7 +1755,54 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (195, 3),
 (196, 1),
 (196, 2),
-(196, 3);
+(196, 3),
+(197, 1),
+(197, 3),
+(198, 1),
+(198, 3),
+(199, 1),
+(199, 3),
+(200, 1),
+(200, 3),
+(201, 1),
+(201, 3),
+(202, 1),
+(202, 3),
+(203, 1),
+(203, 3),
+(204, 1),
+(204, 3),
+(205, 1),
+(205, 3),
+(206, 1),
+(206, 3),
+(207, 1),
+(207, 3),
+(208, 1),
+(208, 2),
+(208, 3),
+(209, 1),
+(209, 2),
+(209, 3),
+(210, 1),
+(210, 2),
+(210, 3),
+(211, 1),
+(211, 2),
+(211, 3),
+(212, 1),
+(212, 2),
+(212, 3),
+(213, 1),
+(213, 2),
+(213, 3),
+(214, 1),
+(214, 3),
+(215, 1),
+(215, 3),
+(216, 1),
+(216, 2),
+(216, 3);
 
 -- --------------------------------------------------------
 
@@ -1703,11 +1877,6 @@ INSERT INTO `routes` (`id`, `route`, `permission_name`, `status`, `description`,
 (75, 'poll.update', 'poll.update', 1, NULL, '2025-07-21 17:54:35', '2025-09-17 22:55:42'),
 (85, 'account.index', 'account.index', 1, NULL, '2025-07-22 23:36:37', '2025-07-22 23:36:37'),
 (90, 'account.update', 'account.update', 1, NULL, '2025-07-22 23:37:03', '2025-07-22 23:37:03'),
-(95, 'program.create', 'program.create', 1, NULL, '2025-07-23 22:33:56', '2025-07-23 22:33:56'),
-(100, 'program.destroy', 'program.destroy', 1, NULL, '2025-07-23 22:34:31', '2025-07-23 22:34:31'),
-(105, 'program.index', 'program.index', 1, NULL, '2025-07-23 22:34:58', '2025-07-23 22:34:58'),
-(110, 'program.store', 'program.store', 1, NULL, '2025-07-23 22:35:45', '2025-07-23 22:35:45'),
-(115, 'program.update', 'program.update', 1, NULL, '2025-07-23 22:36:15', '2025-07-23 22:36:15'),
 (120, 'filedownload.index', 'filedownload.index', 1, NULL, '2025-07-25 16:50:03', '2025-07-25 16:50:03'),
 (125, 'filedownload.destroy', 'filedownload.destroy', 1, NULL, '2025-07-25 16:50:24', '2025-07-25 16:50:24'),
 (130, 'filedownload.store', 'filedownload.store', 1, NULL, '2025-07-25 16:50:51', '2025-07-25 16:50:51'),
@@ -1746,7 +1915,7 @@ INSERT INTO `routes` (`id`, `route`, `permission_name`, `status`, `description`,
 (175, 'classes.store', 'classes.store', 1, NULL, '2026-09-02 15:13:40', '2026-09-02 15:13:40'),
 (176, 'dashboard.submitSumber', 'dashboard.submitSumber', 1, NULL, '2026-09-04 07:15:41', '2026-09-04 07:15:41'),
 (177, 'classes.create', 'classes.create', 1, NULL, '2026-09-05 23:56:12', '2026-09-05 23:56:12'),
-(178, 'classes.edit', 'classes.edit', 0, NULL, '2026-09-05 23:56:28', '2026-09-05 23:56:28'),
+(178, 'classes.edit', 'classes.edit', 1, NULL, '2026-09-05 23:56:28', '2026-09-14 11:42:35'),
 (179, 'classes.change-level', 'classes.change-level', 1, NULL, '2026-09-06 00:46:10', '2026-09-06 00:46:10'),
 (180, 'class-schedules.destroy', 'class-schedules.destroy', 1, NULL, '2026-09-06 03:37:54', '2026-09-06 03:37:54'),
 (181, 'class-schedules.index', 'class-schedules.index', 1, NULL, '2026-09-06 03:38:11', '2026-09-06 03:38:11'),
@@ -1764,7 +1933,45 @@ INSERT INTO `routes` (`id`, `route`, `permission_name`, `status`, `description`,
 (193, 'checkout.package', 'checkout.package', 1, NULL, '2026-09-12 15:40:03', '2026-09-12 15:40:03'),
 (194, 'orders.index', 'orders.index', 1, NULL, '2026-09-13 13:24:29', '2026-09-13 13:24:29'),
 (195, 'orders.store', 'orders.store', 1, NULL, '2026-09-13 13:24:43', '2026-09-13 13:24:43'),
-(196, 'orders.show', 'orders.show', 1, NULL, '2026-09-13 13:24:58', '2026-09-13 13:24:58');
+(196, 'orders.show', 'orders.show', 1, NULL, '2026-09-13 13:24:58', '2026-09-13 13:24:58'),
+(197, 'security.login-activity.index', 'login-activity.index', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(198, 'security.login-activity.bulkDestroy', 'login-activity.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(199, 'security.login-activity.clear', 'login-activity.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(200, 'security.login-activity.destroy', 'login-activity.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(201, 'security.login-lockout.index', 'login-lockout.index', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(202, 'security.login-lockout.bulkDestroy', 'login-lockout.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(203, 'security.login-lockout.destroy', 'login-lockout.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(204, 'security.audit-log.index', 'audit-log.index', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(205, 'security.audit-log.exportPdf', 'audit-log.index', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(206, 'security.audit-log.bulkDestroy', 'audit-log.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(207, 'security.audit-log.clear', 'audit-log.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(208, 'security.audit-log.destroy', 'audit-log.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(209, 'security.failed-login.index', 'failed-login.index', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(210, 'security.failed-login.bulkDestroy', 'failed-login.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(211, 'security.failed-login.clear', 'failed-login.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(212, 'security.failed-login.destroy', 'failed-login.destroy', 1, NULL, '2026-10-02 00:30:47', '2026-10-02 00:30:47'),
+(213, 'website-identity.index', 'website-identity.index', 1, NULL, '2026-10-03 12:18:10', '2026-10-03 12:18:10'),
+(214, 'website-identity.update', 'website-identity.update', 1, NULL, '2026-10-03 12:18:10', '2026-10-03 12:18:10'),
+(215, 'banner.storeVideo', 'banner.store', 1, NULL, '2026-10-03 12:35:43', '2026-10-03 12:35:43'),
+(216, 'banner.storeAlbum', 'banner.store', 1, NULL, '2026-10-03 12:35:43', '2026-10-03 12:35:43'),
+(217, 'banner.loadMore', 'banner.index', 1, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(218, 'banner.fotoPicker', 'banner.index', 1, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(219, 'banner.albumFotos', 'banner.index', 1, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(220, 'banner.modal', 'banner.index', 1, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(221, 'banner.updateAlbum', 'banner.update', 1, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(222, 'banner.destroyAlbum', 'banner.destroy', 1, NULL, '2026-10-03 12:49:08', '2026-10-03 12:49:08'),
+(223, 'articles.bulkDestroy', 'articles.destroy', 1, NULL, '2026-10-03 13:13:45', '2026-10-03 13:13:45'),
+(224, 'memberships.index', 'memberships.index', 1, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(225, 'memberships.show', 'memberships.show', 1, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(226, 'class-bookings.index', 'class-bookings.index', 1, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(227, 'class-bookings.store', 'class-bookings.store', 1, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(228, 'class-bookings.checkin', 'class-bookings.checkin', 1, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(229, 'class-bookings.cancel', 'class-bookings.cancel', 1, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(230, 'class-bookings.directCheckin', 'class-bookings.checkin', 1, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(231, 'orders.approve', 'orders.approve', 1, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(232, 'orders.reject', 'orders.reject', 1, NULL, '2026-10-04 02:13:11', '2026-10-04 02:13:11'),
+(233, 'orders.proof', 'orders.proof', 1, NULL, '2026-10-04 02:31:55', '2026-10-04 02:31:55'),
+(234, 'orders.proof.show', 'orders.proof', 1, NULL, '2026-10-04 02:55:13', '2026-10-04 02:55:13');
 
 -- --------------------------------------------------------
 
@@ -1873,9 +2080,13 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Br1ZzzXShVaioicPEsdcTrfaqF7WHyMiZBKZyKKr', '787b72ea-59d0-4d54-848b-c200bddafdd2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiakNwSlRuQTltNXJDZWR5OGdVUWFrRGdGTG1YWk90bnJRWjh3Tk1YViI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWNrZW5kL21lbnUvNC9pdGVtIjtzOjU6InJvdXRlIjtzOjE1OiJtZW51Lml0ZW0uaW5kZXgiO31zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO3M6MzY6Ijc4N2I3MmVhLTU5ZDAtNGQ1NC04NDhiLWMyMDBiZGRhZmRkMiI7fQ==', 1789309653),
-('qizAE5JB4AxQ7JH1SXIj5vjVh2qxjl6jB1NSYbLJ', '787b72ea-59d0-4d54-848b-c200bddafdd2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOGU5VURuaFVvYmdUZGNHR0xBZTloRVpBaWF3S0dka3JjaVhaMG9yZyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Nzc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9iYWNrZW5kL3BhZ2VzLzllNTU4MTVjLWE0ZGQtNGRmMi04Y2I1LTI3ZjdkZTcyNDlmZC9lZGl0IjtzOjU6InJvdXRlIjtzOjEwOiJwYWdlcy5lZGl0Ijt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO3M6MzY6Ijc4N2I3MmVhLTU5ZDAtNGQ1NC04NDhiLWMyMDBiZGRhZmRkMiI7fQ==', 1789303025),
-('sFt49PgM14HHh3wnHqsNAlh5J1XHj3E9mb915z0X', '70e15b9f-535a-42a2-8ea0-9a26ad7952e5', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiS2JmWW5kRWo1VlJxY2hUQjZHSmlTUm1sUlhWQTJ6dW02T1VHbWV4WCI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo4MzoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2JhY2tlbmQvY2hlY2tvdXQvcGFja2FnZS8wMWEwOTVmMi1kMjg2LTcyNDEtYjU2Ni04MDI3NTI5YjgxOTYiO31zOjk6Il9wcmV2aW91cyI7YToyOntzOjM6InVybCI7czozOToiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2JhY2tlbmQvZGFzaGJvYXJkIjtzOjU6InJvdXRlIjtzOjE1OiJkYXNoYm9hcmQuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7czozNjoiNzBlMTViOWYtNTM1YS00MmEyLThlYTAtOWEyNmFkNzk1MmU1Ijt9', 1789309680);
+('88xepXAsZ24z3x4p1pP4y6JUt6G5neXZkFpwQ6uf', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVnNIUlM0T3JJenZRV3poYmxmRWNWVzlIRXBHZkFuWHdEdnc4Z3laNiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hdXRoL2xvZ2luIjtzOjU6InJvdXRlIjtzOjU6ImxvZ2luIjt9fQ==', 1791115863),
+('dlVyJtdgCoOjwzYq9yGykQ0w6B6unFZ9R9cWghtP', NULL, '127.0.0.1', 'curl/8.21.0', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiMDhhUEN0SFJVazVvQmxOQ0poZjBlU2hJWHk0aDl3VmFwUDY2d0hhRCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1791111131),
+('fzfG4GBE7QNA4rr1lr5gLcYt1H52JuPibiFzOh3L', '787b72ea-59d0-4d54-848b-c200bddafdd2', '127.0.0.1', 'curl/8.21.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiYzluRWRHbGQ1TjYyQWtyUzM2OFRvSXpnWWROWEpRYUtiZ3lSYUltcSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWNrZW5kL2Rhc2hib2FyZCI7czo1OiJyb3V0ZSI7czoxNToiZGFzaGJvYXJkLmluZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO3M6MzY6Ijc4N2I3MmVhLTU5ZDAtNGQ1NC04NDhiLWMyMDBiZGRhZmRkMiI7czoxMzoibGFzdF9hY3Rpdml0eSI7aToxNzkxMTEyMTQ4O30=', 1791112149),
+('gHWaQWafmPXHGp7WpXK6HZgckpENUcfAtK3j249J', NULL, '127.0.0.1', 'curl/8.21.0', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiMTJFVklnaUNFRHNkeFlGM1V2S1VJbUdOUEdSVlZDM09wSUFQUm9KYiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1791111120),
+('hctLsON7zwmyuoS8TNeVjBKLyWqfG10tyvCc23YS', '787b72ea-59d0-4d54-848b-c200bddafdd2', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiTjM3a3JWNEVubGtaUDJsb0xMSG1Sb2RGaE9pdHU5OW96clpvWVNhUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWNrZW5kL2Rhc2hib2FyZCI7czo1OiJyb3V0ZSI7czoxNToiZGFzaGJvYXJkLmluZGV4Ijt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO3M6MzY6Ijc4N2I3MmVhLTU5ZDAtNGQ1NC04NDhiLWMyMDBiZGRhZmRkMiI7czoxMzoibGFzdF9hY3Rpdml0eSI7aToxNzkxMTE1ODc5O30=', 1791115880),
+('jveRWSSzaLnpr4WkcNYKPM76miG2NyQOWazulwyA', '787b72ea-59d0-4d54-848b-c200bddafdd2', '127.0.0.1', 'curl/8.21.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVWp5VGFXVlNjVEdOR3VDYVpPYzVpMWlXczFxdXRSWTl4OTNzUkVTQiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYWNrZW5kL2Rhc2hib2FyZCI7czo1OiJyb3V0ZSI7czoxNToiZGFzaGJvYXJkLmluZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO3M6MzY6Ijc4N2I3MmVhLTU5ZDAtNGQ1NC04NDhiLWMyMDBiZGRhZmRkMiI7czoxMzoibGFzdF9hY3Rpdml0eSI7aToxNzkxMTEzMzMzO30=', 1791113334),
+('rmtKhfIrVIjCHVjV5glh3qmxN8LugxEf2xPIwKCx', 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZWZEb0c4aDdCT1AzYnh4M1ZHYkNwa1VuWHpsNTc2RFlwSWw5SEdOcCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6NDQ6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9iYWNrZW5kL2NsYXNzLWJvb2tpbmdzIjtzOjU6InJvdXRlIjtzOjIwOiJjbGFzcy1ib29raW5ncy5pbmRleCI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtzOjM2OiJjMjE4N2FmZi02OGQwLTQwYjktYTZmMS01MjczOGNlZTRlYTQiO3M6MTM6Imxhc3RfYWN0aXZpdHkiO2k6MTc5MTExNDUzNzt9', 1791114537);
 
 -- --------------------------------------------------------
 
@@ -2010,14 +2221,15 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`uuid`, `name`, `no_hp`, `alamat`, `kecamatan_id`, `kelurahan_id`, `avatar`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `google_id`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `pengalaman`, `is_active`, `deleted_at`, `facebook`, `instagram`, `twitter`, `tiktok`, `youtube`, `biografi`, `package_uuid`, `sumber_informasi`) VALUES
 ('0ba0b18a-64e7-44ce-8042-8b282ab9c5b3', 'Stella', '6281321221189', NULL, NULL, NULL, 'avatars/9PmebLAmtzYHiguvCksa3jhkQXhIDZwzeOzA8Lkv.jpg', 'stella@yogaroots.id', '2026-09-10 19:16:05', '$2y$12$XTedTKKKf5hI8GCp6n9KQ.rMl9po5GSegd8GVucZUkef3lXRUHG1y', NULL, '2026-09-10 19:16:05', '2026-09-10 19:20:42', NULL, NULL, 'dasd', '2026-09-11', 'P', 'Lainnya', '5 years', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'With a practice spanning nearly three decades, Stella brings depth, versatility, and a deeply inclusive spirit to her teaching. Her Vinyasa classes flow with clarity and purpose, while her extensive training allows her to thoughtfully adapt yoga for different bodies, ages, and needs—from beginners and children to seniors, prenatal students, and those working with specific conditions. She believes yoga is ultimately about more than the body; it is a practice that can create meaningful and lasting change from within. Having first stepped onto a yoga mat in Jakarta in 1998, Stella has witnessed the practice evolve—and continues to share it with the same curiosity and dedication.', NULL, NULL),
 ('4a85c36a-caa6-4cc9-9ab6-47f77c0a9a67', 'Andrea', '6281321221270', NULL, NULL, NULL, 'avatars/NVMVFyR5dLWAggqVdWc1fMVclwK346qZrgu14qMo.png', 'andrea@yogaroots.id', '2026-09-10 19:18:50', '$2y$12$VOU976RIB.YtryiO5x/FLOUT3t4Y1F.lj157lKfmsfniGJdEuTrYq', NULL, '2026-09-10 19:18:50', '2026-09-10 19:20:27', NULL, NULL, 'dsad', '2026-09-11', 'P', 'Lainnya', '4 years', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Andrea’s yoga journey began as a personal quest to navigate life’s everyday pressures in her career as a researcher. She has experienced firsthand how mindfulness can nurture inner peace and a more compassionate, purpose-driven life—both on and off the mat.', NULL, NULL),
-('57621d3c-c299-4cd2-b96a-9b887752cb73', 'Yogaroots.id', NULL, NULL, NULL, NULL, NULL, 'tapayoga@yogaroots.id', '2026-09-11 07:41:34', '$2y$12$vgbZekTedJzp2ClDwMQrTOv4QFSMZuQBWukJ23jHyIwSfHx47jbNS', NULL, '2026-09-06 04:46:09', '2026-09-11 07:41:34', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('57621d3c-c299-4cd2-b96a-9b887752cb73', 'Yogaroots.id', '85691333321', NULL, NULL, NULL, NULL, 'tapayoga@yogaroots.id', '2026-10-04 12:08:07', '$2y$12$vgbZekTedJzp2ClDwMQrTOv4QFSMZuQBWukJ23jHyIwSfHx47jbNS', NULL, '2026-09-06 04:46:09', '2026-10-04 12:08:07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sosmed'),
 ('70e15b9f-535a-42a2-8ea0-9a26ad7952e5', 'Wiku Pramesthi Bagaswara', '085691333321', 'jalan gandaria selatan', NULL, NULL, 'avatars/r5YzPXmlkmO6PaSdbPUjr1dL5J9LoYUYVu5eWW9v.jpg', 'wikupb@gmail.com', '2026-09-04 07:49:02', '$2y$12$WXO13gY21gOqgS1s7M743.Oe5UdAxQDykEbmTf0xJ2LnyNdPMzsj6', NULL, '2025-11-12 03:39:36', '2026-09-12 12:28:04', NULL, NULL, 'Pati', '1992-03-30', 'L', 'Islam', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '01a06234-aac1-722c-84d6-c46d4150e70f', 'website'),
 ('755e0eaa-50e4-46db-9003-7c1fc6674876', 'Margaretta', NULL, NULL, NULL, NULL, 'avatars/5qVq34VWSWBHYl4FgxzeSZqIEYRFotuSvA6qswLA.jpg', 'margaretta@yogaroots.id', '2026-09-10 19:09:33', '$2y$12$QxXHeDYBv0huosR6U1kUEe2Hq4uDAsdqJlo98wJhBbMiYRpAeZqKu', NULL, '2026-09-10 19:09:33', '2026-09-10 19:21:22', NULL, NULL, 'dasdas', '2026-09-11', 'P', 'Lainnya', '5 years', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'With a practice grounded in Hatha and Ashtanga, and refined through the precision of Iyengar alignment, Margaretta brings a thoughtful and therapeutic approach to teaching. Her work is especially focused on supporting the body through injury, recovery, and the transformative journey of pregnancy. She believes yoga is not about performance, but about creating a deeper relationship with the body, breath, and mind—small practices that can quietly transform the way we move through everyday life. Beyond the mat, she continues to explore holistic approaches to wellbeing through Access Bars and Qi Gong.', NULL, NULL),
-('787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', NULL, 'Jl. Gandaria', 4, 17, 'avatars/u5KMRU9jG95SYcdq0vhxnksQ0EFatee9WxrPxrtH.jpg', 'super@admin.com', '2025-09-16 00:23:37', '$2y$12$PRZJcd.nlREU6NRq3jvIVemYmlwxVPTb7En4URyNgyQSfKjWUzwDi', 'OF0UtDzSMYlxuOaApsS5wkJLR03YOW611EG8zm0tj3G9tqwkqD7SD7L3957c', '2025-09-16 00:23:37', '2026-09-06 23:43:32', NULL, NULL, 'dasda', '2025-09-24', 'P', 'Lainnya', '10 tahun', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sdsddsad', NULL, NULL),
+('787b72ea-59d0-4d54-848b-c200bddafdd2', 'super-admin', NULL, 'Jl. Gandaria', 4, 17, 'avatars/u5KMRU9jG95SYcdq0vhxnksQ0EFatee9WxrPxrtH.jpg', 'super@admin.com', '2025-09-16 00:23:37', '$2y$12$PRZJcd.nlREU6NRq3jvIVemYmlwxVPTb7En4URyNgyQSfKjWUzwDi', 'pG9tLMPbgMKf76xGg3Tsb6yUb29u2g2mNtQo2IjSnUvzB41waXDglLDLThdc', '2025-09-16 00:23:37', '2026-09-06 23:43:32', NULL, NULL, 'dasda', '2025-09-24', 'P', 'Lainnya', '10 tahun', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'sdsddsad', NULL, NULL),
 ('95294c43-b3d8-4b46-b938-e4eea1f3a359', 'Soni', '8534324202', 'sdcsddfs', NULL, NULL, 'avatars/ImiYBm1Cjs7Sw0eCNBO1Dz6w5XDpNYBWnxoPy5Yc.jpg', 'soni@yogaroots.id', '2026-09-03 18:34:37', '$2y$12$jj/33jNGDxqzXGloYFeLMO5mozoP0v2atkzwf/S7ogXydL8n1hf4G', NULL, '2026-09-03 18:34:37', '2026-09-06 23:44:15', NULL, NULL, 'dasdas', '2026-09-04', 'L', 'Kristen', '20 years', '2026-09-04', NULL, NULL, NULL, NULL, NULL, NULL, 'Soni is a certified RIMYI Introductory Level 2 yoga teacher with over 20 years of experience. His athletic background includes sepak takraw and college hockey, which inspired his path to becoming a sports teacher. His extensive experience allows him to skillfully guide and mentor his students, nurturing them into better practitioners. Join him on a transformative yoga journey, where his years of experience and unwavering dedication are at your service, helping you thrive as a yoga student', NULL, NULL),
 ('b497082d-dd9f-4d1c-a611-9e1331eb5393', 'Ophellia', NULL, NULL, NULL, NULL, 'avatars/Mo3tGjHS10BSdIshei0ejPknsfvfxj0tiTxNg1xF.png', 'ophellia@yogaroots.id', '2026-09-10 19:24:15', '$2y$12$EYxioqiLzM1FKBBE0XsTzeEX41St.5ocxnaLflhUHOHd0JMAY.yX.', NULL, '2026-09-10 19:24:15', '2026-09-10 19:24:15', NULL, NULL, 'dsad', '2026-09-24', 'L', 'Lainnya', '4 years', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Rooted in mindful movement and conscious alignment, her teaching invites students to cultivate greater awareness, presence, and ease in their practice. With over 800 hours of yoga education and teacher training, she has studied Yoga Fundamentals at Iyengar Yoga Institute Indonesia. Since April 2024, she has been part of the Yoga Roots teaching community, offering a grounded and attentive approach to every practice.', NULL, NULL),
 ('b55eb675-019c-4fa5-936e-579e2835527d', 'Yuniar', NULL, NULL, NULL, NULL, 'avatars/XjtPl3c2Q5k9OB5ukHIJRmwX2o6vdiPX465T0uZy.jpg', 'yuniar@yogaroots.id', '2026-09-10 19:07:05', '$2y$12$10Z.D3afA7m8Dlt16WfINORNIOzHJadrDcJCx.RChxCnRvlm.oikO', NULL, '2026-09-10 19:07:05', '2026-09-10 19:07:05', NULL, NULL, 'dsad', '2026-09-11', 'P', 'Islam', '20 years', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'With a practice rooted in Iyengar Yoga, Yuniar brings warmth, clarity, and a natural sense of ease to her teaching. She began practising and teaching in 2007, and since then has dedicated her practice to helping students feel at home on the mat. With a particular strength in alignment and beginner guidance, her classes offer a welcoming space to begin—or begin again—with curiosity and confidence. Her teaching is natural, friendly, and joyful, inviting each student to discover that yoga can be both precise and deeply personal.', NULL, NULL),
-('beaaf326-874c-48c2-b6b8-6bbe655c4df2', 'Sita Manwani', NULL, NULL, NULL, NULL, 'avatars/5xS7NpjOu3vPmgLh75j4rPpNSRWDr2JDAxYD2v1c.jpg', 'sita@yogaroots.id', '2026-09-10 19:13:42', '$2y$12$D7l1Tg6O9KnxTkHWNKOsouAYcxoTVuqDxqg3Zi9LDtFibOdlO1lw6', NULL, '2026-09-10 19:13:42', '2026-09-10 23:58:20', NULL, NULL, 'dasdas', '2026-09-11', 'P', 'Lainnya', '10 years', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Sita is a dedicated and certified yoga teacher with a journey that began at the Art of Living Foundation in 2006. There, she completed the Sri Sri Yoga Teachers Training Course and subsequently became an Art of Living teacher, where she learned how to teach Sudarshan Kriya breathwork. She holds accreditation from the Iyengar Yoga Institute and certifications from both the Sri Sri School of Yoga and the Indian Yoga Association. Her strong belief in yoga\'s potential to unlock the meditative mind\'s power and enhance life drives her passion. As the senior instructor at Yoga Roots, she leads the beginner yoga classes and the SKY breath work classes.\r\n\r\nSita has just completed 100hour Advanced Yoga Teacher Training including Traditional Chinese Medicine Principles, 5 Elements Theory, applied Meridian Sequences for Mandala Vinyasa System and Osteo - Thai Massage.', NULL, NULL);
+('beaaf326-874c-48c2-b6b8-6bbe655c4df2', 'Sita Manwani', NULL, NULL, NULL, NULL, 'avatars/5xS7NpjOu3vPmgLh75j4rPpNSRWDr2JDAxYD2v1c.jpg', 'sita@yogaroots.id', '2026-09-10 19:13:42', '$2y$12$D7l1Tg6O9KnxTkHWNKOsouAYcxoTVuqDxqg3Zi9LDtFibOdlO1lw6', NULL, '2026-09-10 19:13:42', '2026-09-10 23:58:20', NULL, NULL, 'dasdas', '2026-09-11', 'P', 'Lainnya', '10 years', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Sita is a dedicated and certified yoga teacher with a journey that began at the Art of Living Foundation in 2006. There, she completed the Sri Sri Yoga Teachers Training Course and subsequently became an Art of Living teacher, where she learned how to teach Sudarshan Kriya breathwork. She holds accreditation from the Iyengar Yoga Institute and certifications from both the Sri Sri School of Yoga and the Indian Yoga Association. Her strong belief in yoga\'s potential to unlock the meditative mind\'s power and enhance life drives her passion. As the senior instructor at Yoga Roots, she leads the beginner yoga classes and the SKY breath work classes.\r\n\r\nSita has just completed 100hour Advanced Yoga Teacher Training including Traditional Chinese Medicine Principles, 5 Elements Theory, applied Meridian Sequences for Mandala Vinyasa System and Osteo - Thai Massage.', NULL, NULL),
+('c2187aff-68d0-40b9-a6f1-52738cee4ea4', 'ESPRO Property', '43243277777', NULL, NULL, NULL, 'https://lh3.googleusercontent.com/a/ACg8ocLitzhONjAN_zPOcC2rM16BHekNE3M2zU7C-e0d53-6M47R-PE=s96-c', 'esproproperty.bekasi@gmail.com', '2026-10-02 07:44:00', '$2y$12$qyrn4UD8fK4o9BJnKrDoxOH6BkCyZkyHhhlcU1/1rvohjf7NAUygW', NULL, '2026-10-02 07:44:01', '2026-10-03 15:22:59', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'google');
 
 -- --------------------------------------------------------
 
@@ -2037,6 +2249,13 @@ CREATE TABLE `user_packages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_packages`
+--
+
+INSERT INTO `user_packages` (`uuid`, `user_uuid`, `package_uuid`, `order_uuid`, `quota`, `started_at`, `expired_at`, `status`, `created_at`, `updated_at`) VALUES
+('01a104d6-e85f-71b4-b9b8-676004bc9a16', 'c2187aff-68d0-40b9-a6f1-52738cee4ea4', '01a095f2-d286-7241-b566-8027529b8196', '01a1049e-afda-7188-b2f9-9fa3b404f6d3', 50, '2026-10-04 02:55:55', '2026-10-11 02:55:55', 'active', '2026-10-04 02:55:55', '2026-10-04 02:55:55');
 
 -- --------------------------------------------------------
 
@@ -2072,9 +2291,61 @@ INSERT INTO `user_specialization` (`uuid`, `user_uuid`, `specialization_uuid`, `
 ('e78a95e8-373a-4d30-96ee-9eefb6494f78', '787b72ea-59d0-4d54-848b-c200bddafdd2', '2146b32e-85f3-4df1-b8c6-4718bd786114', NULL, NULL),
 ('eea1d83f-fdaa-4f95-9639-0ec981610d07', '755e0eaa-50e4-46db-9003-7c1fc6674876', 'cd60d5c4-b89e-42cd-bafb-b10ded0538ec', NULL, NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `website_identities`
+--
+
+CREATE TABLE `website_identities` (
+  `uuid` char(36) NOT NULL,
+  `site_name` varchar(255) NOT NULL DEFAULT 'YogaRoots',
+  `site_title` varchar(255) DEFAULT NULL,
+  `tagline` varchar(255) DEFAULT NULL,
+  `short_description` text DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `facebook_url` varchar(255) DEFAULT NULL,
+  `instagram_url` varchar(255) DEFAULT NULL,
+  `youtube_url` varchar(255) DEFAULT NULL,
+  `tiktok_url` varchar(255) DEFAULT NULL,
+  `meta_title` varchar(255) DEFAULT NULL,
+  `meta_description` text DEFAULT NULL,
+  `meta_keywords` text DEFAULT NULL,
+  `google_analytics_id` varchar(50) DEFAULT NULL,
+  `google_site_verification` varchar(255) DEFAULT NULL,
+  `logo` varchar(255) DEFAULT NULL,
+  `favicon` varchar(255) DEFAULT NULL,
+  `og_image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `website_identities`
+--
+
+INSERT INTO `website_identities` (`uuid`, `site_name`, `site_title`, `tagline`, `short_description`, `email`, `phone`, `address`, `facebook_url`, `instagram_url`, `youtube_url`, `tiktok_url`, `meta_title`, `meta_description`, `meta_keywords`, `google_analytics_id`, `google_site_verification`, `logo`, `favicon`, `og_image`, `created_at`, `updated_at`) VALUES
+('39860859-6a83-4cae-aa27-659334baff1c', 'Laravel', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2026-10-03 12:22:02', '2026-10-03 12:22:02');
+
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `albums`
+--
+ALTER TABLE `albums`
+  ADD PRIMARY KEY (`uuid`),
+  ADD KEY `albums_cover_index` (`cover`);
+
+--
+-- Indexes for table `album_foto`
+--
+ALTER TABLE `album_foto`
+  ADD PRIMARY KEY (`album_uuid`,`banner_uuid`),
+  ADD KEY `album_foto_banner_uuid_index` (`banner_uuid`);
 
 --
 -- Indexes for table `articles`
@@ -2084,6 +2355,16 @@ ALTER TABLE `articles`
   ADD UNIQUE KEY `articles_slug_unique` (`slug`),
   ADD KEY `articles_user_uuid_foreign` (`user_uuid`),
   ADD KEY `articles_category_uuid_foreign` (`category_uuid`);
+
+--
+-- Indexes for table `audit_logs`
+--
+ALTER TABLE `audit_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `audit_logs_auditable_type_auditable_id_index` (`auditable_type`,`auditable_id`),
+  ADD KEY `audit_logs_created_at_index` (`created_at`),
+  ADD KEY `audit_logs_user_uuid_index` (`user_uuid`),
+  ADD KEY `audit_logs_event_index` (`event`);
 
 --
 -- Indexes for table `banner`
@@ -2128,7 +2409,8 @@ ALTER TABLE `class_bookings`
   ADD KEY `class_bookings_user_uuid_status_index` (`user_uuid`,`status`),
   ADD KEY `class_bookings_class_schedule_uuid_status_index` (`class_schedule_uuid`,`status`),
   ADD KEY `class_bookings_package_uuid_index` (`package_uuid`),
-  ADD KEY `class_bookings_order_uuid_index` (`order_uuid`);
+  ADD KEY `class_bookings_order_uuid_index` (`order_uuid`),
+  ADD KEY `bookings_schedule_date_idx` (`class_schedule_uuid`,`booking_date`);
 
 --
 -- Indexes for table `class_schedules`
@@ -2147,12 +2429,6 @@ ALTER TABLE `disabilities`
   ADD UNIQUE KEY `disabilities_slug_unique` (`slug`);
 
 --
--- Indexes for table `ebooks`
---
-ALTER TABLE `ebooks`
-  ADD PRIMARY KEY (`uuid`);
-
---
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
@@ -2165,6 +2441,16 @@ ALTER TABLE `events`
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `failed_logins`
+--
+ALTER TABLE `failed_logins`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `failed_logins_email_index` (`email`),
+  ADD KEY `failed_logins_user_uuid_index` (`user_uuid`),
+  ADD KEY `failed_logins_ip_address_index` (`ip_address`),
+  ADD KEY `failed_logins_attempted_at_index` (`attempted_at`);
 
 --
 -- Indexes for table `faqs`
@@ -2209,6 +2495,24 @@ ALTER TABLE `kelurahans`
 --
 ALTER TABLE `kontak`
   ADD PRIMARY KEY (`uuid`);
+
+--
+-- Indexes for table `login_activities`
+--
+ALTER TABLE `login_activities`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `login_activities_user_uuid_index` (`user_uuid`),
+  ADD KEY `login_activities_email_index` (`email`),
+  ADD KEY `login_activities_logged_in_at_index` (`logged_in_at`);
+
+--
+-- Indexes for table `login_lockouts`
+--
+ALTER TABLE `login_lockouts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `login_lockouts_type_value_unique` (`type`,`value`),
+  ADD KEY `login_lockouts_value_index` (`value`),
+  ADD KEY `login_lockouts_blocked_until_index` (`blocked_until`);
 
 --
 -- Indexes for table `menu_groups`
@@ -2340,13 +2644,6 @@ ALTER TABLE `poll_votes`
   ADD KEY `poll_votes_poll_uuid_foreign` (`poll_uuid`);
 
 --
--- Indexes for table `programs`
---
-ALTER TABLE `programs`
-  ADD PRIMARY KEY (`uuid`),
-  ADD KEY `programs_disability_uuid_foreign` (`specializaty_uuid`);
-
---
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -2433,14 +2730,32 @@ ALTER TABLE `user_specialization`
   ADD KEY `user_specialization_specialization_uuid_foreign` (`specialization_uuid`);
 
 --
+-- Indexes for table `website_identities`
+--
+ALTER TABLE `website_identities`
+  ADD PRIMARY KEY (`uuid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `audit_logs`
+--
+ALTER TABLE `audit_logs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=118;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `failed_logins`
+--
+ALTER TABLE `failed_logins`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `file_downloads`
@@ -2467,28 +2782,40 @@ ALTER TABLE `kelurahans`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
+-- AUTO_INCREMENT for table `login_activities`
+--
+ALTER TABLE `login_activities`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+
+--
+-- AUTO_INCREMENT for table `login_lockouts`
+--
+ALTER TABLE `login_lockouts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `menu_groups`
 --
 ALTER TABLE `menu_groups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -2506,7 +2833,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `routes`
 --
 ALTER TABLE `routes`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=197;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
 -- AUTO_INCREMENT for table `seo`
@@ -2602,12 +2929,6 @@ ALTER TABLE `payments`
 --
 ALTER TABLE `poll_votes`
   ADD CONSTRAINT `poll_votes_poll_uuid_foreign` FOREIGN KEY (`poll_uuid`) REFERENCES `polls` (`uuid`) ON DELETE CASCADE;
-
---
--- Constraints for table `programs`
---
-ALTER TABLE `programs`
-  ADD CONSTRAINT `programs_disability_uuid_foreign` FOREIGN KEY (`specializaty_uuid`) REFERENCES `disabilities` (`uuid`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `role_has_permissions`

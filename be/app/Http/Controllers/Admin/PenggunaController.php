@@ -7,7 +7,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\PenggunaExport;
-use App\Models\Portofolio;
 
 class PenggunaController extends Controller
 {
