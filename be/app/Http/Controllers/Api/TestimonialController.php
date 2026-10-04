@@ -22,17 +22,17 @@ class TestimonialController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Daftar Testimoni berhasil diambil',
+                'message' => 'Testimonial list retrieved successfully',
                 'data' => TestimonialResource::collection($testimoni)
             ], 200);
 
         } catch (\Exception $e) {
-            // Log error supaya mudah debugging
-            Log::error('FAQ fetch error: '.$e->getMessage());
+            // Log error for easier debugging
+            Log::error('Testimonial fetch error: '.$e->getMessage());
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal mengambil FAQ',
+                'message' => 'Failed to fetch testimonials',
                 'data' => []
             ], 500);
         }

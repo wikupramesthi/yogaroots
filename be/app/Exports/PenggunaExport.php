@@ -13,7 +13,7 @@ class PenggunaExport implements FromView, WithTitle, ShouldAutoSize
     protected $request;
 
     /**
-     * Constructor untuk menerima filter.
+     * Constructor to receive filters.
      */
     public function __construct($request)
     {
@@ -21,7 +21,7 @@ class PenggunaExport implements FromView, WithTitle, ShouldAutoSize
     }
 
     /**
-     * Data yang akan diexport ke Excel.
+     * Data to be exported to Excel.
      */
     public function view(): View
     {
@@ -30,7 +30,7 @@ class PenggunaExport implements FromView, WithTitle, ShouldAutoSize
         ])
         ->role('user');
 
-        // Filter Tahun
+        // Year filter
         if ($this->request->filled('tahun')) {
             $query->whereYear(
                 'created_at',
@@ -38,7 +38,7 @@ class PenggunaExport implements FromView, WithTitle, ShouldAutoSize
             );
         }
 
-        // Filter Tanggal Mulai
+        // Start Date filter
         if ($this->request->filled('start_date')) {
             $query->whereDate(
                 'created_at',
@@ -47,7 +47,7 @@ class PenggunaExport implements FromView, WithTitle, ShouldAutoSize
             );
         }
 
-        // Filter Tanggal Akhir
+        // End Date filter
         if ($this->request->filled('end_date')) {
             $query->whereDate(
                 'created_at',
@@ -72,10 +72,10 @@ class PenggunaExport implements FromView, WithTitle, ShouldAutoSize
     }
 
     /**
-     * Nama sheet Excel.
+     * Excel sheet name.
      */
     public function title(): string
     {
-        return 'Data Pengguna';
+        return 'User Data';
     }
 }

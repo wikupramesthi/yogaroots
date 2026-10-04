@@ -33,7 +33,7 @@ async function postJSON(url, body) {
     body: JSON.stringify(body),
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.message || "Gagal mengirim. Coba lagi.");
+  if (!res.ok) throw new Error(data.message || "Failed to send. Please try again.");
   return data;
 }
 
@@ -180,7 +180,7 @@ document.addEventListener("keydown", (ev) => {
     e.preventDefault();
     if (button) {
       button.disabled = true;
-      button.textContent = "Mengirim...";
+      button.textContent = "Sending...";
     }
     try {
       const result = await postJSON(

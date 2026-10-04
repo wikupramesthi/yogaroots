@@ -96,6 +96,13 @@
                             @endforelse
                             </div>
 
+                            <li class="border-top">
+                                <a href="{{ route('notifications.index') }}"
+                                    class="d-block text-center text-decoration-none small fw-bold py-2">
+                                    View all notifications
+                                </a>
+                            </li>
+
                         </ul>
                     </li>
 

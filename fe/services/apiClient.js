@@ -3,10 +3,10 @@ import { env } from "../src/config/env.js";
 const TIMEOUT_MS = 10_000;
 
 /**
- * HTTP client terpusat ke backend Laravel.
- * - Base URL dari env (tidak ada hardcode)
- * - Timeout 10 detik agar request tidak menggantung
- * - Tidak membocorkan body backend mentah ke log
+ * Centralized HTTP client to Laravel backend.
+ * - Base URL from env (no hardcoding)
+ * - 10s timeout so requests don't hang
+ * - Does not leak raw backend body to logs
  */
 async function apiRequest(endpoint, options = {}) {
   const controller = new AbortController();
@@ -21,7 +21,7 @@ async function apiRequest(endpoint, options = {}) {
 
     const contentType = response.headers.get("content-type") || "";
     if (!contentType.includes("application/json")) {
-      const error = new Error(`Backend mengembalikan respons tak terduga (${response.status})`);
+      const error = new Error(`Backend returned an unexpected response (${response.status})`);
       error.status = response.status;
       throw error;
     }
@@ -38,7 +38,7 @@ async function apiRequest(endpoint, options = {}) {
     return result.data ?? result;
   } catch (err) {
     if (err.name === "AbortError") {
-      const timeout = new Error("Backend timeout — coba lagi sebentar.");
+      const timeout = new Error("Backend timed out — please try again shortly.");
       timeout.status = 504;
       throw timeout;
     }

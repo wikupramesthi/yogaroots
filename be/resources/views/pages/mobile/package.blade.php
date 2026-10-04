@@ -329,7 +329,7 @@
         </a>
 
         @if (request('filter') === 'unlimited')
-        <a href="{{ route('packages.member.mobile', [
+        <a href="{{ route('packages.member', [
                     'filter' => 'unlimited',
                     'sort' => request('sort')
                 ]) }}"

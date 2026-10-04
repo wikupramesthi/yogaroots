@@ -20,7 +20,6 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SpecializatyController;
-use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\FileDownloadController;
 use App\Http\Controllers\Admin\InstrukturController;
 use App\Http\Controllers\Admin\StudioController;
@@ -39,7 +38,8 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\ClassController;
 use App\Http\Controllers\Admin\ClassScheduleController;
 use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\PaymentController;
+use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\MembershipController;
 use App\Http\Controllers\Admin\ClassBookingController;
 use App\Http\Controllers\Admin\CheckoutController;
 use App\Http\Controllers\Admin\GlobalSearchController;
@@ -64,13 +64,11 @@ Route::middleware('auth')->group(function () {
         $request->session()->put('last_activity', time());
         return response()->json(['ok' => true]);
     })->name('keep-alive');
-});
 
-Route::post('/notifications/{id}/read', function ($id) {
-    $notification = auth()->user()->notifications()->findOrFail($id);
-    $notification->markAsRead();
-    return response()->json(['success' => true]);
-})->name('notifications.read');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.readAll');
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'read'])->name('notifications.read');
+});
 
 
 Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'], function () {
@@ -107,9 +105,8 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::resource('poll', PollController::class);
     Route::resource('pages', PagesController::class);
     Route::resource('events', EventsController::class);
-    Route::resource('program', ProgramController::class);
     Route::resource('filedownload', FileDownloadController::class);
-    // Website Identitas ala DBMSDA (singleton: satu form, tanpa CRUD tabel)
+    // Website Identity (singleton: single form, no table CRUD)
     Route::get('website-identity', [WebsiteIdentityController::class, 'index'])->name('website-identity.index');
     Route::put('website-identity', [WebsiteIdentityController::class, 'update'])->name('website-identity.update');
     Route::get('pengguna', [PenggunaController::class, 'index'])->name('pengguna.index');
@@ -137,13 +134,25 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     ])->name('checkout.package');
 
     Route::resource('class-schedules', ClassScheduleController::class);
-    Route::resource('orders', OrderController::class);
-
-
-    Route::resource('payments', PaymentController::class)
+    Route::get('orders/report', [OrderController::class, 'report'])->name('orders.report');
+    Route::get('orders/export-pdf', [OrderController::class, 'exportPdf'])->name('orders.exportPdf');
+    Route::post('orders/{order}/approve', [OrderController::class, 'approve'])->name('orders.approve');
+    Route::post('orders/{order}/reject', [OrderController::class, 'reject'])->name('orders.reject');
+    Route::get('orders/{order}/proof', [OrderController::class, 'showProof'])->name('orders.proof.show');
+    Route::post('orders/{order}/proof', [OrderController::class, 'uploadProof'])->name('orders.proof')->middleware('throttle:10,1');
+    Route::resource('orders', OrderController::class)
+        ->only(['index', 'show']);
+    Route::post('orders', [OrderController::class, 'store'])
+        ->name('orders.store')->middleware('throttle:30,1');
+    Route::resource('memberships', MembershipController::class)
         ->only(['index', 'show']);
     Route::resource('class-bookings', ClassBookingController::class)
-        ->only(['index', 'show', 'update']);
+        ->only(['index']);
+    Route::post('class-bookings', [ClassBookingController::class, 'store'])
+        ->name('class-bookings.store')->middleware('throttle:120,1');
+    Route::post('class-bookings/{booking}/check-in', [ClassBookingController::class, 'checkin'])->name('class-bookings.checkin')->middleware('throttle:120,1');
+    Route::post('class-bookings/{booking}/cancel', [ClassBookingController::class, 'cancel'])->name('class-bookings.cancel')->middleware('throttle:120,1');
+    Route::post('class-bookings/direct-check-in', [ClassBookingController::class, 'directCheckin'])->name('class-bookings.directCheckin')->middleware('throttle:120,1');
     // end payment
 
     Route::get('kontak', [FaqController::class, 'kontak'])->name('layanan.kontak');
@@ -155,21 +164,9 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::post('instruktur/restore', [InstrukturController::class, 'restore'])->name('instruktur.restore');
     Route::get('/mobile/instruktur', [InstrukturController::class, 'mobile'])
         ->name('instruktur.mobile');
-    Route::post('program/upload', [ProgramController::class, 'upload'])->name('program.upload');
-    Route::get('/program/{id}/edit/{uuid}', [ProgramController::class, 'edit'])->name('program.edit');
-    Route::patch('/program/update/{id}/{uuid}', [ProgramController::class, 'update'])->name('program.update');
-    Route::get('/program/cetak/{id}/{uuid}', [ProgramController::class, 'cetakPdf'])->name('program.cetak');
-    Route::post('/upload/foto-kegiatan', [ProgramController::class, 'uploadFoto'])->name('upload.foto.kegiatan');
-    Route::post('/program/modal-store', [ProgramController::class, 'modalStore'])->name('program.modalStore');
-    Route::put('/program/update/{id}', [ProgramController::class, 'modalUpdate'])->name('program.modalUpdate');
-    Route::put('/program/{id}/update-status', [ProgramController::class, 'updateStatus'])->name('program.updateStatus');
-    Route::patch('/program/{id}/verifikasi', [ProgramController::class, 'verifikasi'])->name('program.verifikasi');
-    Route::post('/program/video', [ProgramController::class, 'videoStore'])->name('program.videoStore');
-    Route::post('/program/presentasi', [ProgramController::class, 'presentasiStore'])->name('program.presentasiStore');
-
     Route::patch('/pages/{uuid}/sidebar', [PagesController::class, 'updateSidebar'])->name('pages.updateSidebar');
 
-    // Security (audit log, login activity, lockout) — DBMSDA-style
+    // Security (audit log, login activity, lockout)
     Route::prefix('security')->name('security.')->group(function () {
         Route::get('login-activity', [LoginActivityController::class, 'index'])->name('login-activity.index');
         Route::delete('login-activity/bulk', [LoginActivityController::class, 'bulkDestroy'])->name('login-activity.bulkDestroy');

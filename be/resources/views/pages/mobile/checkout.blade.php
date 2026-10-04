@@ -322,16 +322,35 @@
             </div>
 
 
-            <button
-                type="button"
-                id="continuePayment"
-                class="btn btn-warm checkout-button">
+            <form
+                action="{{ route('orders.store') }}"
+                method="POST"
+                id="checkoutForm"
+                class="m-0">
+                @csrf
 
-                Continue
+                <input
+                    type="hidden"
+                    name="type"
+                    value="package">
 
-                <i class="bi bi-arrow-right ms-1"></i>
+                <input
+                    type="hidden"
+                    name="package_option_uuid"
+                    id="packageOptionUuid">
 
-            </button>
+                <button
+                    type="submit"
+                    id="continuePayment"
+                    class="btn btn-warm checkout-button">
+
+                    Continue
+
+                    <i class="bi bi-arrow-right ms-1"></i>
+
+                </button>
+
+            </form>
 
         </div>
 
@@ -683,6 +702,12 @@
         const continuePayment =
             document.getElementById('continuePayment');
 
+        const checkoutForm =
+            document.getElementById('checkoutForm');
+
+        const packageOptionUuid =
+            document.getElementById('packageOptionUuid');
+
 
         function formatRupiah(value) {
 
@@ -717,6 +742,9 @@
             summaryOption.textContent =
                 name;
 
+            packageOptionUuid.value =
+                option.dataset.optionUuid;
+
         }
 
 
@@ -741,33 +769,22 @@
         }
 
 
-        continuePayment.addEventListener('click', function() {
+        checkoutForm.addEventListener('submit', function(event) {
 
             const selected =
                 document.querySelector('.package-option.selected');
 
             if (!selected) {
+                event.preventDefault();
                 return;
             }
 
-
-            const optionUuid =
-                selected.dataset.optionUuid;
-
-
-            console.log(
-                'Selected package option:',
-                optionUuid
-            );
-
-
             /*
-             * Nanti disambungkan ke:
-             *
-             * POST checkout
-             * -> create Order
-             * -> Midtrans
+             * Manual transfer: create Order, then upload
+             * proof on the order detail page.
              */
+            packageOptionUuid.value =
+                selected.dataset.optionUuid;
 
         });
 

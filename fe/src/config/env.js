@@ -2,11 +2,11 @@ import "dotenv/config";
 
 /**
  * Centralised & validated environment config.
- * Semua URL/nomor hanya didefinisikan di sini — tidak ada hardcode di views/services.
+ * All URLs/numbers are defined here only — no hardcoding in views/services.
  */
 function required(name, fallback = undefined) {
   const value = (process.env[name] ?? fallback ?? "").trim();
-  if (!value) throw new Error(`Missing required env: ${name} (lihat .env.example)`);
+  if (!value) throw new Error(`Missing required env: ${name} (see .env.example)`);
   return value;
 }
 
@@ -22,7 +22,7 @@ export const env = {
   IS_PROD: optional("NODE_ENV", "development") === "production",
   PORT: Number(optional("PORT", "3000")) || 3000,
 
-  // Tanpa trailing slash agar konsisten saat concat endpoint
+  // No trailing slash for consistent endpoint concat
   API_URL: rawApiUrl.replace(/\/+$/, ""),
   SITE_URL: rawSiteUrl.replace(/\/+$/, ""),
 

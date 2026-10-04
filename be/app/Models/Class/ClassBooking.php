@@ -22,6 +22,7 @@ class ClassBooking extends Model
     protected $fillable = [
         'user_uuid',
         'class_schedule_uuid',
+        'booking_date',
         'booking_type',
         'quota_used',
         'status',
@@ -33,6 +34,7 @@ class ClassBooking extends Model
 
     protected $casts = [
         'quota_used' => 'integer',
+        'booking_date' => 'date',
         'booked_at' => 'datetime',
         'attended_at' => 'datetime',
     ];

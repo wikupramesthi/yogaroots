@@ -9,7 +9,7 @@ import {
 
 const router = Router();
 
-// Daftar kelas (proxy rapi ke backend, bukan yogaData undefined)
+// Class list (clean proxy to backend, not undefined yogaData)
 router.get("/classes", async (req, res, next) => {
   try {
     const data = await getClasses({ per_page: 50 });
@@ -19,39 +19,39 @@ router.get("/classes", async (req, res, next) => {
   }
 });
 
-// Booking dummy theme — log server saja, validasi ketat
+// Dummy theme booking — server log only, strict validation
 router.post("/booking", (req, res) => {
   try {
     const { name, email, kelas, date } = validateBooking(req.body);
     console.log("[BOOKING]", { name, email, kelas, date, at: new Date().toISOString() });
     res.json({
       success: true,
-      message: `Terima kasih ${name}! Booking kelas ${kelas} berhasil. Kami kirim konfirmasi ke ${email}.`,
+      message: `Thank you ${name}! Your booking for ${kelas} was successful. We've sent a confirmation to ${email}.`,
     });
   } catch (err) {
     res.status(err.status || 400).json({ success: false, message: err.message });
   }
 });
 
-// Teruskan pesan kontak ke backend
+// Forward contact messages to backend
 router.post("/contact", async (req, res) => {
   try {
     const result = await sendContact(validateContact(req.body));
-    res.status(200).json({ success: true, message: result.message || "Pesan berhasil dikirim." });
+    res.status(200).json({ success: true, message: result.message || "Message sent successfully." });
   } catch (err) {
     res.status(err.status || 500).json({
       success: false,
-      message: err.status === 500 ? "Gagal mengirim pesan." : err.message || "Gagal mengirim pesan.",
+      message: err.status === 500 ? "Failed to send message." : err.message || "Failed to send message.",
       errors: err.errors || null,
     });
   }
 });
 
-// Newsletter dummy theme
+// Dummy theme newsletter
 router.post("/newsletter", (req, res) => {
   try {
     validateNewsletter(req.body);
-    res.json({ success: true, message: "Selamat! Kamu terdaftar di newsletter kami." });
+    res.json({ success: true, message: "You're subscribed to our newsletter!" });
   } catch (err) {
     res.status(400).json({ success: false, message: err.message });
   }

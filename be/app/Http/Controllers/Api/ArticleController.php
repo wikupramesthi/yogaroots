@@ -25,7 +25,7 @@ class ArticleController extends Controller
 
             return response()->json([
                 'status'  => 'success',
-                'message' => 'Daftar artikel berhasil diambil',
+                'message' => 'Article list retrieved successfully',
                 'data'    => ArticleResource::collection($articles)
             ], 200);
         } catch (\Exception $e) {
@@ -33,7 +33,7 @@ class ArticleController extends Controller
 
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Gagal mengambil artikel',
+                'message' => 'Failed to fetch articles',
                 'data'    => []
             ], 500);
         }
@@ -60,7 +60,7 @@ class ArticleController extends Controller
             if (!$article) {
                 return response()->json([
                     'status'  => 'error',
-                    'message' => 'Artikel tidak ditemukan',
+                    'message' => 'Article not found',
                     'data'    => null,
                 ], 404);
             }
@@ -69,7 +69,7 @@ class ArticleController extends Controller
 
             return response()->json([
                 'status'  => 'success',
-                'message' => 'Detail artikel berhasil diambil',
+                'message' => 'Article details retrieved successfully',
                 'data'    => new ArticleResource($article),
             ], 200);
         } catch (\Exception $e) {
@@ -77,7 +77,7 @@ class ArticleController extends Controller
 
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Gagal mengambil detail artikel',
+                'message' => 'Failed to fetch article details',
                 'data'    => null,
             ], 500);
         }
@@ -106,7 +106,7 @@ class ArticleController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Daftar kategori berhasil diambil',
+                'message' => 'Category list retrieved successfully',
                 'data' => CategoryResource::collection($categories),
             ], 200);
         } catch (\Exception $e) {
@@ -114,7 +114,7 @@ class ArticleController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal mengambil kategori',
+                'message' => 'Failed to fetch categories',
                 'data' => [],
             ], 500);
         }
@@ -123,18 +123,18 @@ class ArticleController extends Controller
     public function byCategory(string $slug): JsonResponse
     {
         try {
-            // Cari kategori
+            // Find category
             $category = Category::where('slug', $slug)->first();
 
             if (!$category) {
                 return response()->json([
                     'status'  => 'error',
-                    'message' => 'Kategori dengan slug "' . $slug . '" tidak ditemukan',
+                    'message' => 'Category with slug "' . $slug . '" not found',
                     'data'    => []
                 ], 404);
             }
 
-            // Ambil artikel via relasi
+            // Fetch articles via relation
             $articles = Article::with(['user', 'category'])
                 ->whereHas('category', function ($query) use ($slug) {
                     $query->where('slug', $slug);
@@ -145,14 +145,14 @@ class ArticleController extends Controller
             if ($articles->isEmpty()) {
                 return response()->json([
                     'status'  => 'success',
-                    'message' => 'Belum ada artikel di kategori "' . $slug . '"',
+                    'message' => 'No articles yet in category "' . $slug . '"',
                     'data'    => []
                 ], 200);
             }
 
             return response()->json([
                 'status'  => 'success',
-                'message' => 'Daftar artikel kategori "' . $slug . '" berhasil diambil',
+                'message' => 'Articles in category "' . $slug . '" retrieved successfully',
                 'data'    => ArticleResource::collection($articles)
             ], 200);
         } catch (\Exception $e) {
@@ -160,7 +160,7 @@ class ArticleController extends Controller
 
             return response()->json([
                 'status'  => 'error',
-                'message' => 'Gagal mengambil artikel kategori ' . $slug,
+                'message' => 'Failed to fetch articles in category ' . $slug,
                 'data'    => []
             ], 500);
         }

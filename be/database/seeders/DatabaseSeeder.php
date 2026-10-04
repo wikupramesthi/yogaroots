@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(RouteSeeder::class);
         $this->call(SecuritySeeder::class);
+        $this->call(MembershipSeeder::class);
         $this->call(BannerMediaSeeder::class);
         $this->call(WebsiteIdentitySeeder::class);
     }

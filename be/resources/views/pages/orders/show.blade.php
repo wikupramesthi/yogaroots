@@ -28,6 +28,156 @@
         </div>
 
 
+        {{-- Admin verification (manual transfer) --}}
+        @if ($isAdmin && $order->status === 'pending')
+            <div class="card border-warning mb-4">
+                <div class="card-header bg-warning bg-opacity-10 fw-bold">
+                    <i class="bi bi-shield-check me-1"></i> Admin Verification
+                </div>
+                <div class="card-body">
+                    <p class="text-muted small">
+                        Verify the manual bank transfer for <strong>{{ $order->order_number }}</strong>.
+                        Approving marks the order as paid and activates the membership automatically.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <form action="{{ route('orders.approve', $order->uuid) }}" method="POST">
+                                @csrf
+                                <label class="form-label small fw-semibold" for="approveNote">Note (optional)</label>
+                                <textarea name="admin_note" id="approveNote" rows="2" class="form-control mb-2"
+                                    placeholder="e.g. Transfer verified, BCA ...1234"></textarea>
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="bi bi-check-lg me-1"></i> Approve — Mark as Paid
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <form action="{{ route('orders.reject', $order->uuid) }}" method="POST">
+                                @csrf
+                                <label class="form-label small fw-semibold" for="rejectNote">Rejection reason</label>
+                                <textarea name="admin_note" id="rejectNote" rows="2" class="form-control mb-2"
+                                    placeholder="e.g. No transfer received"></textarea>
+                                <button type="submit" class="btn btn-outline-danger w-100"
+                                    onclick="return confirm('Reject this order?')">
+                                    <i class="bi bi-x-lg me-1"></i> Reject Order
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        @if ($isAdmin && $order->admin_note)
+            <div class="alert alert-info">
+                <strong>Admin note:</strong> {{ $order->admin_note }}
+            </div>
+        @endif
+
+        @if ($userPackage)
+            <div class="alert alert-success d-flex align-items-center gap-2">
+                <i class="bi bi-check-circle-fill"></i>
+                <div>
+                    Membership active
+                    @if ($userPackage->quota === null)
+                        (Unlimited)
+                    @else
+                        ({{ $userPackage->quota }} classes left)
+                    @endif
+                    until {{ $userPackage->expired_at?->format('d M Y') ?? '-' }}.
+                </div>
+            </div>
+        @endif
+
+
+        @if ($order->status === 'pending')
+            @php
+                $isOwner = $order->user_uuid === auth()->user()->uuid;
+                $bankName = config('manual_payment.bank_name');
+                $bankAccount = config('manual_payment.bank_account');
+                $bankHolder = config('manual_payment.bank_holder');
+                $waNumber = preg_replace('/\D/', '', (string) config('manual_payment.admin_whatsapp'));
+                $waText = 'Hello YogaRoots Admin, I have transferred Rp ' . number_format($order->amount, 0, ',', '.') . ' for order ' . $order->order_number . ' (' . ($order->user?->name ?? '') . '). Thank you.';
+            @endphp
+            <div class="card border-primary mb-4">
+                <div class="card-header bg-primary bg-opacity-10 fw-bold">
+                    <i class="bi bi-bank me-1"></i> Complete Your Payment — Manual Transfer
+                </div>
+                <div class="card-body">
+                    <ol class="small mb-3 ps-3">
+                        <li>Transfer the exact amount below to our bank account.</li>
+                        <li>Upload your transfer proof (or confirm via WhatsApp).</li>
+                        <li>Admin verifies it — your membership activates automatically.</li>
+                    </ol>
+
+                    @if ($bankAccount)
+                        <div class="p-3 rounded-3 bg-light mb-3">
+                            <div class="small text-muted">BANK</div>
+                            <div class="fw-bold fs-5">{{ $bankName }}</div>
+                            <div class="d-flex align-items-center gap-2 mt-1">
+                                <span class="font-monospace fs-5 fw-bold" id="bankAccountNumber">{{ $bankAccount }}</span>
+                            </div>
+                            @if ($bankHolder)
+                                <div class="small text-muted">Account holder: {{ $bankHolder }}</div>
+                            @endif
+                            <div class="d-flex flex-wrap gap-3 mt-2">
+                                <span>Amount: <strong>Rp {{ number_format($order->amount, 0, ',', '.') }}</strong></span>
+                                <span>Order: <strong>{{ $order->order_number }}</strong></span>
+                            </div>
+                        </div>
+                    @endif
+
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        @if ($waNumber)
+                            <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode($waText) }}" target="_blank"
+                                rel="noopener" class="btn btn-success">
+                                <i class="bi bi-whatsapp me-1"></i> Confirm via WhatsApp
+                            </a>
+                        @endif
+                    </div>
+
+                    @if ($order->proof_image_path)
+                        <div class="d-flex align-items-center gap-3 p-3 rounded-3 bg-light mb-3">
+                            <a href="{{ $order->proofUrl() }}" target="_blank" rel="noopener">
+                                <img src="{{ $order->proofUrl() }}" alt="Transfer proof"
+                                    class="rounded-3 border" style="height:110px;width:auto;object-fit:cover;">
+                            </a>
+                            <div class="small">
+                                <div class="fw-bold text-success">
+                                    <i class="bi bi-check-circle me-1"></i>Proof uploaded
+                                </div>
+                                <div class="text-muted">
+                                    {{ $order->proof_uploaded_at?->format('d M Y H:i') ?? '' }} — waiting for admin verification.
+                                </div>
+                                @if ($isOwner)
+                                    <div class="text-muted">Upload again below to replace it.</div>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($isOwner)
+                        <form action="{{ route('orders.proof', $order->uuid) }}" method="POST"
+                            enctype="multipart/form-data" class="d-flex flex-wrap align-items-end gap-2">
+                            @csrf
+                            <div class="flex-fill" style="min-width: 220px;">
+                                <label class="form-label small fw-semibold" for="proofInput">
+                                    Upload transfer proof (JPG/PNG/WebP, max {{ number_format(config('manual_payment.proof_max_kb', 3072) / 1024, 1) }} MB)
+                                </label>
+                                <input type="file" name="proof" id="proofInput" class="form-control"
+                                    accept="image/jpeg,image/png,image/webp" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-upload me-1"></i>
+                                {{ $order->proof_image_path ? 'Replace Proof' : 'Upload Proof' }}
+                            </button>
+                        </form>
+                    @endif
+                </div>
+            </div>
+        @endif
+
+
         {{-- Receipt --}}
         <div class="receipt-card">
 
@@ -270,7 +420,7 @@
                         </div>
 
                         <div class="payment-value">
-                            {{ $order->payment?->payment_type ?? 'Midtrans' }}
+                            {{ $order->payment?->payment_type ?? 'Manual Transfer' }}
                         </div>
 
                     </div>

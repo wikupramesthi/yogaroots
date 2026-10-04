@@ -5,10 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Package\PackageOption;
 use App\Models\Payment\Order;
+use App\Models\Payment\Payment;
+use App\Models\User;
+use App\Models\UserPackage;
+use App\Notifications\MemberActiveNotification;
+use App\Notifications\OrderBaruNotification;
+use App\Notifications\ProofUploadedNotification;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
@@ -19,81 +30,21 @@ class OrderController extends Controller
     {
         $user = Auth::user();
 
-        $query = Order::with([
-            'user',
-            'package',
-            'packageOption',
-            'payment',
-        ]);
+        $query = $this->filteredOrders($request, $user);
 
         /*
         |--------------------------------------------------------------------------
-        | User Scope
+        | Stats (respect current scope + filters)
         |--------------------------------------------------------------------------
         */
 
-        if (!$user->hasAnyRole(['super-admin', 'admin'])) {
-            $query->where('user_uuid', $user->uuid);
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Filter
-        |--------------------------------------------------------------------------
-        */
-
-        if ($request->filled('type')) {
-            $query->where('type', $request->type);
-        }
-
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
-        }
-
-        /*
-        |--------------------------------------------------------------------------
-        | Search
-        |--------------------------------------------------------------------------
-        */
-
-        if (
-            $request->filled('search') &&
-            $user->hasAnyRole(['super-admin', 'admin'])
-        ) {
-            $search = $request->search;
-
-            $query->where(function ($query) use ($search) {
-
-                $query->where(
-                    'order_number',
-                    'like',
-                    "%{$search}%"
-                )
-
-                    ->orWhereHas('user', function ($query) use ($search) {
-
-                        $query->where(
-                            'name',
-                            'like',
-                            "%{$search}%"
-                        )
-                            ->orWhere(
-                                'email',
-                                'like',
-                                "%{$search}%"
-                            );
-                    })
-
-                    ->orWhereHas('package', function ($query) use ($search) {
-
-                        $query->where(
-                            'name',
-                            'like',
-                            "%{$search}%"
-                        );
-                    });
-            });
-        }
+        $stats = (clone $query)->selectRaw("
+            COUNT(*) as total,
+            SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as pending,
+            SUM(CASE WHEN status = 'paid' THEN 1 ELSE 0 END) as paid,
+            SUM(CASE WHEN status IN ('failed', 'expired', 'cancelled') THEN 1 ELSE 0 END) as others,
+            COALESCE(SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END), 0) as revenue
+        ")->first();
 
         /*
         |--------------------------------------------------------------------------
@@ -102,14 +53,29 @@ class OrderController extends Controller
         */
 
         $orders = $query
+            ->with([
+                'user',
+                'package',
+                'packageOption',
+                'payment',
+            ])
             ->latest()
             ->paginate(10)
             ->withQueryString();
 
-        return view(
-            'pages.orders.index',
-            compact('orders')
-        );
+        return view('pages.orders.index', [
+            'orders' => $orders,
+            'stats' => $stats,
+            'isAdmin' => $user->hasAnyRole(['super-admin', 'admin']),
+            'filters' => [
+                'search' => $request->input('search'),
+                'type' => $request->input('type'),
+                'status' => $request->input('status'),
+                'proof' => $request->input('proof'),
+                'start_date' => $request->input('start_date'),
+                'end_date' => $request->input('end_date'),
+            ],
+        ]);
     }
 
 
@@ -142,10 +108,238 @@ class OrderController extends Controller
             abort(403);
         }
 
+        $isAdmin = $user->hasAnyRole(['super-admin', 'admin']);
+
+        $userPackage = UserPackage::where('order_uuid', $order->uuid)
+            ->with('package')
+            ->first();
+
         return view(
             'pages.orders.show',
-            compact('order')
+            compact('order', 'isAdmin', 'userPackage')
         );
+    }
+
+
+    /**
+     * Mark a pending order as paid and activate the membership.
+     * Admin only (manual transfer verification).
+     */
+    public function approve(Request $request, string $order)
+    {
+        abort_unless(
+            Auth::user()->hasAnyRole(['super-admin', 'admin']),
+            403
+        );
+
+        $validated = $request->validate([
+            'admin_note' => ['nullable', 'string', 'max:1000'],
+        ]);
+
+        $orderUuid = $order;
+
+        try {
+            [$order, $userPackage] = DB::transaction(function () use ($orderUuid, $validated) {
+                // Row lock + re-check inside the transaction so two
+                // concurrent approvals can never activate twice.
+                $order = Order::with(['packageOption', 'user'])
+                    ->where('uuid', $orderUuid)
+                    ->lockForUpdate()
+                    ->firstOrFail();
+
+                if ($order->status !== 'pending') {
+                    throw ValidationException::withMessages([
+                        'order' => 'Only pending orders can be approved.',
+                    ]);
+                }
+
+                if (!$order->package_option_uuid || !$order->packageOption) {
+                    throw ValidationException::withMessages([
+                        'order' => 'This order has no package option to activate.',
+                    ]);
+                }
+
+                $order->update([
+                    'status' => 'paid',
+                    'paid_at' => now(),
+                    'admin_note' => $validated['admin_note'] ?? null,
+                ]);
+
+                Payment::create([
+                    'order_uuid' => $order->uuid,
+                    'payment_gateway' => 'manual_transfer',
+                    'payment_type' => 'Bank Transfer',
+                    'gross_amount' => $order->amount,
+                    'status' => 'paid',
+                    'paid_at' => now(),
+                ]);
+
+                $option = $order->packageOption;
+                $started = now();
+
+                $expired = match ($option->duration_unit) {
+                    'day' => (clone $started)->addDays($option->duration),
+                    'week' => (clone $started)->addWeeks($option->duration),
+                    'year' => (clone $started)->addYears($option->duration),
+                    default => (clone $started)->addMonths($option->duration),
+                };
+
+                $userPackage = UserPackage::create([
+                    'user_uuid' => $order->user_uuid,
+                    'package_uuid' => $order->package_uuid,
+                    'order_uuid' => $order->uuid,
+                    'quota' => $option->quota,
+                    'started_at' => $started,
+                    'expired_at' => $expired,
+                    'status' => 'active',
+                ]);
+
+                return [$order, $userPackage];
+            });
+        } catch (ValidationException $e) {
+            return back()->with('error', $e->getMessage());
+        }
+
+        try {
+            $order->user?->notify(new MemberActiveNotification(
+                $order->uuid,
+                $order->order_number,
+                $userPackage->expired_at,
+            ));
+        } catch (\Throwable $e) {
+            Log::error('Membership activation notification failed: ' . $e->getMessage());
+        }
+
+        return redirect()
+            ->route('orders.show', $order->uuid)
+            ->with('success', 'Order marked as paid. Membership activated.');
+    }
+
+    /**
+     * Reject a pending order (manual transfer verification failed).
+     * Admin only.
+     */
+    public function reject(Request $request, string $order)
+    {
+        abort_unless(
+            Auth::user()->hasAnyRole(['super-admin', 'admin']),
+            403
+        );
+
+        $order = Order::where('uuid', $order)->firstOrFail();
+
+        if ($order->status !== 'pending') {
+            return back()->with('error', 'Only pending orders can be rejected.');
+        }
+
+        $validated = $request->validate([
+            'admin_note' => ['nullable', 'string', 'max:1000'],
+        ]);
+
+        DB::transaction(function () use ($order, $validated) {
+            $order->update([
+                'status' => 'failed',
+                'admin_note' => $validated['admin_note'] ?? null,
+            ]);
+
+            $order->payment?->update(['status' => 'failed']);
+        });
+
+        return back()->with('success', 'Order rejected.');
+    }
+
+    /**
+     * Member uploads manual transfer proof (owner only, pending only).
+     */
+    public function uploadProof(Request $request, string $order)
+    {
+        $order = Order::where('uuid', $order)->firstOrFail();
+
+        if ($order->user_uuid !== Auth::user()->uuid) {
+            abort(403);
+        }
+
+        if ($order->status !== 'pending') {
+            return back()->with('error', 'Proof can only be uploaded for pending orders.');
+        }
+
+        $validated = $request->validate([
+            'proof' => [
+                'required',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:' . config('manual_payment.proof_max_kb', 3072),
+            ],
+        ]);
+
+        $disk = config('manual_payment.proof_disk', 'public');
+        $dir = config('manual_payment.proof_dir', 'proofs');
+
+        $path = $request->file('proof')->store($dir, $disk);
+
+        if ($order->proof_image_path) {
+            Storage::disk($disk)->delete($order->proof_image_path);
+        }
+
+        $order->update([
+            'proof_image_path' => $path,
+            'proof_uploaded_at' => now(),
+        ]);
+
+        try {
+            $order->loadMissing('user');
+
+            $admins = User::role(['super-admin', 'admin'])
+                ->where('uuid', '!=', $order->user_uuid)
+                ->get();
+
+            if ($admins->isNotEmpty()) {
+                Notification::send($admins, new ProofUploadedNotification(
+                    $order->uuid,
+                    $order->order_number,
+                    $order->user?->name ?? '-',
+                    (float) $order->amount,
+                ));
+            }
+        } catch (\Throwable $e) {
+            Log::error('Proof upload notification failed: ' . $e->getMessage());
+        }
+
+        return back()->with('success', 'Transfer proof uploaded. Please wait for admin verification.');
+    }
+
+    /**
+     * Serve the transfer proof file (owner or admin only).
+     * Never exposed as a guessable public URL.
+     */
+    public function showProof(Request $request, string $order)
+    {
+        $order = Order::where('uuid', $order)->firstOrFail();
+
+        $user = Auth::user();
+        $isAdmin = $user->hasAnyRole(['super-admin', 'admin']);
+
+        if (!$isAdmin && $order->user_uuid !== $user->uuid) {
+            abort(403);
+        }
+
+        if (!$order->proof_image_path) {
+            abort(404);
+        }
+
+        $diskName = config('manual_payment.proof_disk', 'local');
+        $disk = Storage::disk($diskName);
+
+        // Backward compatibility with proofs stored on the public disk.
+        if (!$disk->exists($order->proof_image_path) && $diskName !== 'public') {
+            $disk = Storage::disk('public');
+        }
+
+        if (!$disk->exists($order->proof_image_path)) {
+            abort(404);
+        }
+
+        return response()->file($disk->path($order->proof_image_path));
     }
 
 
@@ -230,6 +424,32 @@ class OrderController extends Controller
 
         /*
         |--------------------------------------------------------------------------
+        | Reuse Recent Pending Order (anti spam + anti notif flood)
+        |--------------------------------------------------------------------------
+        */
+
+        $existingPending = Order::where('user_uuid', $user->uuid)
+            ->where('type', 'package')
+            ->where('package_option_uuid', $option->uuid)
+            ->where('status', 'pending')
+            ->where('created_at', '>', now()->subHour())
+            ->latest()
+            ->first();
+
+        if ($existingPending) {
+            return redirect()
+                ->route(
+                    'orders.show',
+                    $existingPending->uuid
+                )
+                ->with(
+                    'success',
+                    'You already have a pending order for this option. Please complete the payment.'
+                );
+        }
+
+        /*
+        |--------------------------------------------------------------------------
         | Create Order
         |--------------------------------------------------------------------------
         */
@@ -279,12 +499,20 @@ class OrderController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Redirect
+        | Notify Admins
         |--------------------------------------------------------------------------
         |
-        | For now we redirect to order detail.
-        | Later this will continue to Midtrans payment.
+        | Manual transfer: admins verify the order and
+        | activate the membership from the order detail.
         |
+        */
+
+        $this->notifyAdmins($order);
+
+        /*
+        |--------------------------------------------------------------------------
+        | Redirect
+        |--------------------------------------------------------------------------
         */
 
         return redirect()
@@ -296,5 +524,225 @@ class OrderController extends Controller
                 'success',
                 'Order created successfully.'
             );
+    }
+
+    /**
+     * Professional order report (screen preview + print).
+     */
+    public function report(Request $request)
+    {
+        $user = Auth::user();
+
+        $orders = $this->filteredOrders($request, $user)
+            ->with([
+                'user',
+                'package',
+                'packageOption',
+                'payment',
+            ])
+            ->latest()
+            ->limit(1000)
+            ->get();
+
+        return view('pages.orders.report', array_merge(
+            $this->reportData($orders, $request, $user),
+            ['isScreen' => true]
+        ));
+    }
+
+    /**
+     * Download order report as PDF.
+     */
+    public function exportPdf(Request $request)
+    {
+        $user = Auth::user();
+
+        $orders = $this->filteredOrders($request, $user)
+            ->with([
+                'user',
+                'package',
+                'packageOption',
+                'payment',
+            ])
+            ->latest()
+            ->limit(1000)
+            ->get();
+
+        $pdf = Pdf::loadView(
+            'pages.orders.laporan',
+            $this->reportData($orders, $request, $user)
+        )->setPaper('a4', 'landscape');
+
+        return $pdf->download('order-report-' . now()->format('Ymd-His') . '.pdf');
+    }
+
+    /**
+     * Shared scoped + filtered orders query (no eager loads, no ordering).
+     */
+    private function filteredOrders(Request $request, $user)
+    {
+        $query = Order::query();
+
+        /*
+        |--------------------------------------------------------------------------
+        | User Scope
+        |--------------------------------------------------------------------------
+        */
+
+        if (!$user->hasAnyRole(['super-admin', 'admin'])) {
+            $query->where('user_uuid', $user->uuid);
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Filter
+        |--------------------------------------------------------------------------
+        */
+
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        if ($request->input('proof') === 'uploaded') {
+            $query->whereNotNull('proof_image_path');
+        } elseif ($request->input('proof') === 'missing') {
+            $query->whereNull('proof_image_path');
+        }
+
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->input('start_date'));
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->input('end_date'));
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Search
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            $request->filled('search') &&
+            $user->hasAnyRole(['super-admin', 'admin'])
+        ) {
+            $search = $request->input('search');
+
+            $query->where(function ($query) use ($search) {
+
+                $query->where(
+                    'order_number',
+                    'like',
+                    "%{$search}%"
+                )
+
+                    ->orWhereHas('user', function ($query) use ($search) {
+
+                        $query->where(
+                            'name',
+                            'like',
+                            "%{$search}%"
+                        )
+                            ->orWhere(
+                                'email',
+                                'like',
+                                "%{$search}%"
+                            );
+                    })
+
+                    ->orWhereHas('package', function ($query) use ($search) {
+
+                        $query->where(
+                            'name',
+                            'like',
+                            "%{$search}%"
+                        );
+                    });
+            });
+        }
+
+        return $query;
+    }
+
+    /**
+     * Shared report summary + meta.
+     */
+    private function reportData($orders, Request $request, $user): array
+    {
+        $paid = $orders->where('status', 'paid');
+
+        return [
+            'orders' => $orders,
+            'total' => $orders->count(),
+            'pendingCount' => $orders->where('status', 'pending')->count(),
+            'paidCount' => $paid->count(),
+            'failedCount' => $orders->whereIn('status', ['failed', 'expired', 'cancelled'])->count(),
+            'revenue' => $paid->sum('amount'),
+            'periode' => $this->reportPeriod($request),
+            'filterStatus' => $request->input('status', 'All'),
+            'filterType' => $request->input('type', 'All'),
+            'search' => $request->input('search'),
+            'isAdmin' => $user->hasAnyRole(['super-admin', 'admin']),
+            'dicetakOleh' => $user->name ?? 'System',
+            'waktuCetak' => now()->translatedFormat('d F Y H:i'),
+        ];
+    }
+
+    /**
+     * Human readable report period label.
+     */
+    private function reportPeriod(Request $request): string
+    {
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            return $request->input('start_date') . ' to ' . $request->input('end_date');
+        }
+
+        if ($request->filled('start_date')) {
+            return 'Since ' . $request->input('start_date');
+        }
+
+        if ($request->filled('end_date')) {
+            return 'Until ' . $request->input('end_date');
+        }
+
+        return 'All Periods';
+    }
+
+    /**
+     * Notify all admins about a new order (never breaks checkout).
+     */
+    private function notifyAdmins(Order $order): void
+    {
+        try {
+            $order->loadMissing(['user', 'package', 'packageOption']);
+
+            $admins = User::role(['super-admin', 'admin'])
+                ->where('uuid', '!=', $order->user_uuid)
+                ->get();
+
+            if ($admins->isEmpty()) {
+                return;
+            }
+
+            $packageName = $order->package?->name ?? '-';
+            if ($order->packageOption?->name) {
+                $packageName .= ' — ' . $order->packageOption->name;
+            }
+
+            Notification::send($admins, new OrderBaruNotification(
+                $order->uuid,
+                $order->order_number,
+                $order->user?->name ?? '-',
+                $packageName,
+                (float) $order->amount,
+            ));
+        } catch (\Throwable $e) {
+            Log::error('Order admin notification failed: ' . $e->getMessage());
+        }
     }
 }

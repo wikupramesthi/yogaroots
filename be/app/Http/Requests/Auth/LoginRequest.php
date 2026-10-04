@@ -40,7 +40,7 @@ class LoginRequest extends FormRequest
      */
     public function authenticate(): void
     {
-        // Blokir sementara ala DBMSDA: cek lockout IP/email sebelum mencoba.
+        // Temporary block: check IP/email lockout before attempting.
         $protector = app(BruteForceProtector::class);
         $lockout = $protector->isLocked($this->ip(), $this->input('email'));
 
@@ -55,8 +55,8 @@ class LoginRequest extends FormRequest
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
-            // Listener RecordFailedLogin mencatat ke DB via event Failed.
-            // Jika percobaan ini memicu lockout, tampilkan pesan blokir langsung.
+            // Listener RecordFailedLogin records to DB via Failed event.
+            // If this attempt triggers a lockout, show the block message immediately.
             $freshLockout = $protector->isLocked($this->ip(), $this->input('email'));
 
             if ($freshLockout) {
@@ -69,7 +69,7 @@ class LoginRequest extends FormRequest
 
             throw ValidationException::withMessages([
                 'email' => $remaining > 0
-                    ? trans('auth.failed') . " Sisa kesempatan: {$remaining} kali sebelum akun/IP diblokir sementara."
+                    ? trans('auth.failed') . " {$remaining} attempt(s) remaining before your account/IP is temporarily blocked."
                     : trans('auth.failed'),
             ]);
         }

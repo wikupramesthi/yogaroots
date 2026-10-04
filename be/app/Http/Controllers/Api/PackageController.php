@@ -14,7 +14,7 @@ use Illuminate\Validation\ValidationException;
 class PackageController extends Controller
 {
     /**
-     * Menampilkan daftar package.
+     * Display package list.
      *
      * Query:
      *
@@ -131,10 +131,10 @@ class PackageController extends Controller
             /*
              * SORT
              *
-             * Harga menggunakan FINAL PRICE:
+             * Price uses FINAL PRICE:
              *
-             * discount_price jika lebih kecil dari price,
-             * jika tidak menggunakan price.
+             * discount_price if smaller than price,
+             * otherwise uses price.
              */
             $priceSubquery = "
                 (
@@ -158,9 +158,9 @@ class PackageController extends Controller
                 /*
                  * POPULAR
                  *
-                 * Popular di atas.
-                 * Jika sama-sama popular,
-                 * harga terendah di atas.
+                 * Popular first.
+                 * If equally popular,
+                 * lowest price first.
                  */
                 case 'popular':
 
@@ -190,8 +190,8 @@ class PackageController extends Controller
                 /*
                  * DEFAULT
                  *
-                 * Popular terlebih dahulu,
-                 * kemudian harga terendah.
+                 * Popular first,
+                 * then lowest price.
                  */
                 default:
 
@@ -262,7 +262,7 @@ class PackageController extends Controller
                 'status' => 'error',
 
                 'message' =>
-                'Parameter yang dikirim tidak valid',
+                'Invalid request parameters',
 
                 'errors' => $e->errors(),
 
@@ -287,7 +287,7 @@ class PackageController extends Controller
                 'status' => 'error',
 
                 'message' =>
-                'Gagal mengambil data package',
+                'Failed to fetch package data',
 
                 'data' => [],
 
@@ -297,7 +297,7 @@ class PackageController extends Controller
 
 
     /**
-     * Detail package berdasarkan slug.
+     * Package details by slug.
      */
     public function show(string $slug): JsonResponse
     {
@@ -338,7 +338,7 @@ class PackageController extends Controller
                 'status' => 'success',
 
                 'message' =>
-                'Detail package berhasil diambil',
+                'Package details retrieved successfully',
 
                 'data' =>
                 new PackageResource($package),
@@ -351,7 +351,7 @@ class PackageController extends Controller
                 'status' => 'error',
 
                 'message' =>
-                'Package tidak ditemukan',
+                'Package not found',
 
                 'data' => null,
 
@@ -373,7 +373,7 @@ class PackageController extends Controller
                 'status' => 'error',
 
                 'message' =>
-                'Terjadi kesalahan saat mengambil detail package',
+                'An error occurred while fetching package details',
 
                 'data' => null,
 

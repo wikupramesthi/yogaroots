@@ -192,6 +192,32 @@
                         </span>
                         @endif
 
+                @php $myBooking = ($myBookings ?? collect())->get($schedule->uuid . '|' . ($todayDate ?? now()->format('Y-m-d'))); @endphp
+
+                @if ($myBooking && $myBooking->status === 'attended')
+                    <span class="badge rounded-pill bg-success-subtle text-success-emphasis flex-shrink-0">
+                        Done
+                    </span>
+                @elseif ($myBooking && $myBooking->status === 'waiting_list')
+                    <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis flex-shrink-0">
+                        Waiting
+                    </span>
+                @elseif ($myBooking && $myBooking->status === 'confirmed')
+                    <form action="{{ route('class-bookings.checkin', $myBooking->uuid) }}" method="POST" class="m-0 flex-shrink-0">
+                        @csrf
+                        <button type="submit" class="btn btn-warm btn-sm">Check In</button>
+                    </form>
+                @elseif (!empty($activePackage))
+                    <form action="{{ route('class-bookings.store') }}" method="POST" class="m-0 flex-shrink-0">
+                        @csrf
+                        <input type="hidden" name="class_schedule_uuid" value="{{ $schedule->uuid }}">
+                        <input type="hidden" name="booking_date" value="{{ $todayDate ?? now()->format('Y-m-d') }}">
+                        <button type="submit" class="btn btn-warm btn-sm">{{ $remaining <= 0 ? 'Waitlist' : 'Book' }}</button>
+                    </form>
+                @else
+                    <a href="{{ route('packages.member') }}" class="btn btn-sm btn-outline-secondary flex-shrink-0">Join</a>
+                @endif
+
             </div>
 
             @empty
@@ -279,9 +305,30 @@
                         </p>
 
                     </div>
-                    <button class="btn-pill flex-shrink-0">
-                        Join
-                    </button>
+                    @php $upBooking = ($myBookings ?? collect())->get($schedule->uuid . '|' . ($tomorrowDate ?? now()->addDay()->format('Y-m-d'))); @endphp
+
+                    @if ($upBooking && $upBooking->status === 'attended')
+                        <span class="badge rounded-pill bg-success-subtle text-success-emphasis flex-shrink-0">
+                            Done
+                        </span>
+                    @elseif ($upBooking && $upBooking->status === 'waiting_list')
+                        <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis flex-shrink-0">
+                            Waiting
+                        </span>
+                    @elseif ($upBooking && $upBooking->status === 'confirmed')
+                        <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis flex-shrink-0">
+                            Booked
+                        </span>
+                    @elseif (!empty($activePackage))
+                        <form action="{{ route('class-bookings.store') }}" method="POST" class="m-0 flex-shrink-0">
+                            @csrf
+                            <input type="hidden" name="class_schedule_uuid" value="{{ $schedule->uuid }}">
+                            <input type="hidden" name="booking_date" value="{{ $tomorrowDate ?? now()->addDay()->format('Y-m-d') }}">
+                            <button type="submit" class="btn-pill flex-shrink-0">Join</button>
+                        </form>
+                    @else
+                        <a href="{{ route('packages.member') }}" class="btn-pill flex-shrink-0 text-decoration-none text-center">Join</a>
+                    @endif
 
                 </div>
 

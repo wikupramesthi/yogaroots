@@ -8,9 +8,9 @@ use Illuminate\Database\Seeder;
 class BannerMediaSeeder extends Seeder
 {
     /**
-     * Route guard untuk Media Library ala DBMSDA.
-     * Memakai ulang permission banner.* agar role lama tetap bisa akses.
-     * Idempotent: aman dijalankan ulang.
+     * Route guard for Media Library.
+     * Reuses banner.* permissions so existing roles keep access.
+     * Idempotent: safe to re-run.
      */
     public function run(): void
     {

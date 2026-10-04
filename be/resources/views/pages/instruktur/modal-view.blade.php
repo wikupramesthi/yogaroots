@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-form-view-faq-{{ $user->uuid }}" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="modal-form-view-instruktur-{{ $user->uuid }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content shadow-lg border-0 rounded-3">
             <div class="modal-header">
@@ -55,7 +55,7 @@
                             <tr>
                                 <th class="text-muted">Biography</th>
                                 <td class="text-wrap" style="white-space: normal; word-break: break-word;">
-                                    {{ $user->biografi }},
+                                    {{ $user->biografi ?? '-' }}
                                 </td>
                             </tr>
                         </table>

@@ -15,6 +15,7 @@ use App\Models\Kontak;
 use App\Models\Poll;
 use App\Models\Testimonial;
 use App\Models\Banner;
+use App\Models\Class\ClassBooking;
 use App\Models\Class\ClassSchedule;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +46,18 @@ class DashboardController extends Controller
         $totalPesan = Kontak::count();
         $totalTestimonial = Testimonial::count();
 
+        // =========================
+        // ACTIVE MEMBERSHIP
+        // =========================
+
+        $activePackage = $user->userPackages()
+            ->with('package')
+            ->where('status', 'active')
+            ->where(function ($q) {
+                $q->whereNull('expired_at')->orWhere('expired_at', '>=', now());
+            })
+            ->latest('started_at')
+            ->first();
 
         // =========================
         // ACTIVE BANNER
@@ -91,7 +104,11 @@ class DashboardController extends Controller
         $todaySchedules = ClassSchedule::with([
             'class.instructor'
         ])
-            ->withCount('bookings')
+            ->withCount([
+                'bookings as bookings_count' => function ($q) {
+                    $q->whereIn('status', ['confirmed', 'attended']);
+                },
+            ])
             ->where('status', 'active')
             ->where('day', $today)
             ->orderBy('start_time')
@@ -178,6 +195,16 @@ class DashboardController extends Controller
 
         if ($user->hasRole('user') && $isMobile) {
 
+            $todayDate = now()->format('Y-m-d');
+            $tomorrowDate = now()->addDay()->format('Y-m-d');
+            $scheduleUuids = $todaySchedules->pluck('uuid')->merge($upcomingClasses->pluck('uuid'));
+
+            $myBookings = ClassBooking::where('user_uuid', $user->uuid)
+                ->whereIn('class_schedule_uuid', $scheduleUuids)
+                ->where('status', '!=', 'cancelled')
+                ->get()
+                ->keyBy(fn ($b) => $b->class_schedule_uuid . '|' . $b->booking_date?->format('Y-m-d'));
+
             return view('pages.mobile.home', compact(
                 'user',
 
@@ -196,6 +223,12 @@ class DashboardController extends Controller
                 'events',
                 'todaySchedules',
                 'upcomingClasses',
+
+                // Membership & bookings
+                'activePackage',
+                'myBookings',
+                'todayDate',
+                'tomorrowDate',
 
                 // API Courses
                 'courses'
@@ -228,7 +261,10 @@ class DashboardController extends Controller
             'upcomingClasses',
 
             // API Courses
-            'courses'
+            'courses',
+
+            // Membership
+            'activePackage'
         ));
     }
 

@@ -24,14 +24,14 @@ class PegawaiController extends Controller
             if ($pegawai->isEmpty()) {
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Tidak ada data pegawai dengan role guru saat ini',
+                    'message' => 'No staff with teacher role currently available',
                     'data' => []
                 ], 200);
             }
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Data pegawai tenaga pendidik berhasil diambil',
+                'message' => 'Teaching staff data retrieved successfully',
                 'data' => PegawaiResource::collection($pegawai)
             ], 200);
         } catch (\Throwable $e) {
@@ -39,7 +39,7 @@ class PegawaiController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Gagal mengambil data pegawai',
+                'message' => 'Failed to fetch staff data',
                 'data' => []
             ], 500);
         }
@@ -52,20 +52,20 @@ class PegawaiController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Detail pegawai berhasil diambil',
+                'message' => 'Staff details retrieved successfully',
                 'data' => new PegawaiResource($pegawai)
             ], 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Pegawai tidak ditemukan',
+                'message' => 'Staff not found',
                 'data' => null
             ], 404);
         } catch (\Throwable $e) {
             Log::error('Pegawai show error: ' . $e->getMessage());
             return response()->json([
                 'status' => 'error',
-                'message' => 'Terjadi kesalahan saat mengambil data pegawai',
+                'message' => 'An error occurred while fetching staff data',
                 'data' => null
             ], 500);
         }

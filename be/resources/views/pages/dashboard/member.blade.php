@@ -166,6 +166,31 @@
         height: auto;
     }
 
+    .course-date-badge {
+        width: 58px;
+        height: 58px;
+        border-radius: 14px;
+        background: #eef6f1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .course-date-day {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--bs-success);
+    }
+
+    .course-date-month {
+        font-size: 9px;
+        text-transform: uppercase;
+        color: var(--bs-secondary-color);
+        margin-top: 4px;
+    }
+
     .membership-button:hover {
         color: #fff;
         transform: translateY(-1px);
@@ -196,86 +221,30 @@
     </div>
 
     <!-- Stats -->
-    <div class="row">
-
+    <div class="row g-3 mb-4 ml-stats">
         <div class="col-6 col-lg-3 col-md-6">
-            <div class="card">
-                <div class="card-body px-4 py-4-5">
-                    <div class="row">
-                        <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                            <div class="stats-icon blue mb-2">
-                                <i class='bx bx-news'></i>
-                            </div>
-                        </div>
-                        <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                            <h6 class="text-muted font-semibold">Total Member</h6>
-                            <a href="{{ route('articles.index') }}" class="text-decoration-none">
-                                <h6 class="font-extrabold mb-0">{{ $jumlahMembers }}</h6>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat">
+                <div class="ml-stat-icon ic-primary"><i class="bx bx-group"></i></div>
+                <div><div class="ml-stat-value">{{ $jumlahMembers }}</div><div class="ml-stat-label">Total Members</div></div>
+            </div></div></div>
         </div>
-
         <div class="col-6 col-lg-3 col-md-6">
-            <div class="card">
-                <div class="card-body px-4 py-4-5">
-                    <div class="row">
-                        <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                            <div class="stats-icon green mb-2">
-                                <i class='bx bxs-calendar'></i>
-                            </div>
-                        </div>
-                        <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                            <h6 class="text-muted font-semibold">Total Events</h6>
-                            <span class="text-decoration-none">
-                                <h6 class="font-extrabold mb-0">{{ $totalEvents }}</h6>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat">
+                <div class="ml-stat-icon ic-success"><i class="bx bx-calendar-event"></i></div>
+                <div><div class="ml-stat-value">{{ $totalEvents }}</div><div class="ml-stat-label">Total Events</div></div>
+            </div></div></div>
         </div>
-
         <div class="col-6 col-lg-3 col-md-6">
-            <div class="card">
-                <div class="card-body px-4 py-4-5">
-                    <div class="row">
-                        <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                            <div class="stats-icon red mb-2">
-                                <i class='bx bx-user'></i>
-                            </div>
-                        </div>
-                        <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                            <h6 class="text-muted font-semibold">Total Instructors</h6>
-                            <span class="text-decoration-none">
-                                <h6 class="font-extrabold mb-0">{{ $jumlahInstruktur }}</h6>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat">
+                <div class="ml-stat-icon ic-warning"><i class="bx bx-user-voice"></i></div>
+                <div><div class="ml-stat-value">{{ $jumlahInstruktur }}</div><div class="ml-stat-label">Total Instructors</div></div>
+            </div></div></div>
         </div>
-
         <div class="col-6 col-lg-3 col-md-6">
-            <div class="card">
-                <div class="card-body px-4 py-4-5">
-                    <div class="row">
-                        <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                            <div class="stats-icon yellow mb-2">
-                                <i class='bx bx-book'></i>
-                            </div>
-                        </div>
-                        <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                            <h6 class="text-muted font-semibold">Total Class</h6>
-                            <span class="text-decoration-none">
-                                <h6 class="font-extrabold mb-0">{{ $totalClasses }}</h6>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="card shadow-sm h-100"><div class="card-body py-2 px-3"><div class="ml-stat">
+                <div class="ml-stat-icon ic-violet"><i class="bx bx-dumbbell"></i></div>
+                <div><div class="ml-stat-value">{{ $totalClasses }}</div><div class="ml-stat-label">Total Classes</div></div>
+            </div></div></div>
         </div>
     </div>
 
@@ -397,7 +366,7 @@
 
                     <span class="membership-status">
                         <i class="bi bi-check-circle me-1"></i>
-                        Active
+                        {{ $activePackage ? ucfirst($activePackage->status) : 'No Plan' }}
                     </span>
                 </div>
 
@@ -405,7 +374,7 @@
                     <div>
                         <small class="text-secondary">Current Plan</small>
                         <div class="membership-plan-name">
-                            Premium Monthly
+                            {{ $activePackage?->package?->name ?? 'No Active Plan' }}
                         </div>
                     </div>
 
@@ -413,7 +382,11 @@
 
                     <div class="small text-secondary mt-2">
                         <i class="bi bi-calendar3 me-1"></i>
-                        Valid until 28 September 2026
+                        @if ($activePackage?->expired_at)
+                        Valid until {{ $activePackage->expired_at->format('d F Y') }}
+                        @else
+                        No expiry date
+                        @endif
                     </div>
                 </div>
 
@@ -421,24 +394,24 @@
                     <div class="d-flex justify-content-between small mb-2">
                         <span class="text-secondary">
                             <i class="bi bi-ticket-perforated me-1"></i>
-                            Class credits used
+                            Status
                         </span>
 
-                        <span class="fw-bold">8 / 12</span>
-                    </div>
-
-                    <div class="membership-progress">
-                        <div class="membership-progress-bar"></div>
+                        <span class="fw-bold">{{ $activePackage ? ucfirst($activePackage->status) : 'Inactive' }}</span>
                     </div>
 
                     <div class="small text-secondary mt-2">
-                        4 class credits remaining
+                        @if ($activePackage)
+                        {{ $activePackage->quota ?? 0 }} class credits remaining
+                        @else
+                        Choose a plan to start your yoga journey
+                        @endif
                     </div>
                 </div>
 
-                <a href="#" class="membership-button">
+                <a href="{{ route('packages.member') }}" class="membership-button">
                     <i class="bi bi-arrow-repeat me-2 spin-icon"></i>
-                    Renew Membership
+                    {{ $activePackage ? 'Renew Membership' : 'Choose Membership' }}
                 </a>
             </div>
         </div>
@@ -712,41 +685,13 @@
                         <div class="d-flex align-items-center gap-3">
 
                             {{-- DATE --}}
-                            <div
-                                class="d-flex flex-column align-items-center justify-content-center flex-shrink-0"
-                                style="
-                                width:58px;
-                                height:58px;
-                                border-radius:14px;
-                                background:#eef6f1;
-                            ">
-
+                            <div class="course-date-badge flex-shrink-0">
                                 @if ($startDate)
-
-                                <span
-                                    class="fw-bold"
-                                    style="
-                                        font-size:18px;
-                                        line-height:1;
-                                        color:var(--bs-success);
-                                    ">
-                                    {{ $startDate->format('d') }}
-                                </span>
-
-                                <span
-                                    class="text-secondary text-uppercase mt-1"
-                                    style="font-size:9px;">
-                                    {{ $startDate->format('M') }}
-                                </span>
-
+                                <span class="course-date-day">{{ $startDate->format('d') }}</span>
+                                <span class="course-date-month">{{ $startDate->format('M') }}</span>
                                 @else
-
-                                <span class="fw-bold text-secondary">
-                                    -
-                                </span>
-
+                                <span class="fw-bold text-secondary">-</span>
                                 @endif
-
                             </div>
 
 

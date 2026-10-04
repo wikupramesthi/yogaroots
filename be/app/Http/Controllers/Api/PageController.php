@@ -56,7 +56,7 @@ class PageController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Halaman tidak ditemukan',
+                'message' => 'Page not found',
                 'data' => null
             ], 404);
         } catch (\Throwable $e) {
@@ -65,7 +65,7 @@ class PageController extends Controller
 
             return response()->json([
                 'status' => 'error',
-                'message' => 'Terjadi kesalahan saat mengambil detail halaman',
+                'message' => 'An error occurred while fetching page details',
                 'data' => null
             ], 500);
         }

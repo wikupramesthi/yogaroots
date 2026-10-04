@@ -12,8 +12,8 @@ use Spatie\Permission\Models\Role;
 class WebsiteIdentitySeeder extends Seeder
 {
     /**
-     * Seed permissions, menu, dan route guard untuk modul
-     * Website Identitas (ala DBMSDA). Idempotent: aman dijalankan ulang.
+     * Seed permissions, menu, and route guard for the
+     * Website Identity module. Idempotent: safe to re-run.
      */
     public function run(): void
     {
@@ -28,12 +28,12 @@ class WebsiteIdentitySeeder extends Seeder
             Permission::firstOrCreate(['name' => $permission, 'guard_name' => 'web']);
         }
 
-        // Tempel ke grup "Settings" bila ada, kalau tidak buat grup "Pengaturan".
+        // Attach to "Settings" group if it exists, otherwise create it.
         $menuGroup = MenuGroup::where('name', 'Settings')->first()
             ?? MenuGroup::firstOrCreate(
                 ['permission_name' => 'menu.pengaturan'],
                 [
-                    'name' => 'Pengaturan',
+                    'name' => 'Settings',
                     'icon' => 'bx-cog',
                     'status' => true,
                     'position' => 90,

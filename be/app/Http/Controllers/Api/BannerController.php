@@ -17,7 +17,7 @@ class BannerController extends Controller
     public function index(Request $request): JsonResponse
     {
         try {
-            // Hanya ambil banner yang aktif
+            // Only fetch active banners
             $query = Banner::where('status', 'active');
 
             $allowedKategori = ['slider', 'pengumuman', 'infografis', 'galeri', 'popup', 'mitra', 'lainnya'];

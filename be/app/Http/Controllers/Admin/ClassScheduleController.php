@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Class\ClassModel;
 use App\Models\Class\ClassSchedule;
+use App\Models\Payment\Order;
 use App\Models\Studio;
+use App\Services\MembershipService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -16,21 +19,35 @@ class ClassScheduleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $classes = ClassModel::where('is_active', true)
-            ->orderBy('name')
-            ->get();
+        $search = trim((string) $request->get('search', ''));
+        $day = (string) $request->get('day', '');
+        $days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $day = in_array($day, $days, true) ? $day : '';
+        $studioUuid = (string) $request->get('studio_uuid', '');
 
-        $studios = Studio::where('status', 'active')
-            ->orderBy('name')
-            ->get();
-
-        $schedules = ClassSchedule::with([
+        $query = ClassSchedule::with([
             'class.instructor',
             'studio'
-        ])
-            ->where('status', 'active')
+        ])->where('status', 'active');
+
+        if ($search !== '') {
+            $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search) . '%';
+            $query->whereHas('class', function ($q) use ($like) {
+                $q->where('name', 'like', $like);
+            });
+        }
+
+        if ($day !== '') {
+            $query->where('day', $day);
+        }
+
+        if ($studioUuid !== '') {
+            $query->where('studio_uuid', $studioUuid);
+        }
+
+        $schedules = (clone $query)
             ->orderByRaw("
             FIELD(
                 day,
@@ -46,12 +63,53 @@ class ClassScheduleController extends Controller
             ->orderBy('start_time')
             ->get();
 
+        $stats = [
+            'total' => (clone $query)->count(),
+            'monday_friday' => (clone $query)->whereIn('day', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'])->count(),
+            'weekend' => (clone $query)->whereIn('day', ['saturday', 'sunday'])->count(),
+            'studios' => (clone $query)->distinct('studio_uuid')->count('studio_uuid'),
+        ];
+
+        $classes = ClassModel::where('is_active', true)
+            ->orderBy('name')
+            ->get();
+
+        $studios = Studio::where('status', 'active')
+            ->orderBy('name')
+            ->get();
+
+        /*
+        |--------------------------------------------------------------------------
+        | Member membership status (paywall banner)
+        |--------------------------------------------------------------------------
+        */
+
+        $authUser = Auth::user();
+        $isMember = $authUser && $authUser->hasRole('user');
+        $activePackage = null;
+        $pendingOrder = null;
+
+        if ($isMember) {
+            $activePackage = MembershipService::activePackage($authUser);
+            $pendingOrder = Order::where('user_uuid', $authUser->uuid)
+                ->where('status', 'pending')
+                ->latest()
+                ->first();
+        }
+
         return view(
             'pages.class-schedule.index',
             compact(
                 'schedules',
                 'classes',
-                'studios'
+                'studios',
+                'stats',
+                'search',
+                'day',
+                'studioUuid',
+                'isMember',
+                'activePackage',
+                'pendingOrder'
             )
         );
     }

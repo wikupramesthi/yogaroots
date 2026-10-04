@@ -52,7 +52,7 @@ class ContactController extends Controller
             ], 422);
         }
 
-        // Ambil jawaban CAPTCHA dari cache
+        // Retrieve CAPTCHA answer from cache
         $cacheKey = 'contact_captcha_' . $request->captcha_id;
         $correctAnswer = Cache::get($cacheKey);
 
@@ -63,7 +63,7 @@ class ContactController extends Controller
             ], 422);
         }
 
-        // Cek jawaban
+        // Verify answer
         if ((int) $request->captcha_answer !== (int) $correctAnswer) {
             return response()->json([
                 'success' => false,
@@ -71,10 +71,10 @@ class ContactController extends Controller
             ], 422);
         }
 
-        // CAPTCHA benar → hapus supaya tidak bisa dipakai ulang
+        // CAPTCHA correct -> delete so it cannot be reused
         Cache::forget($cacheKey);
 
-        // Simpan ke database
+        // Save to database
         $contact = Kontak::create([
             'nama' => $request->nama,
             'email' => $request->email,

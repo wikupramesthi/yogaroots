@@ -3,51 +3,51 @@ import rateLimit from "express-rate-limit";
 import { env } from "../config/env.js";
 
 /**
- * Security headers untuk theme EJS + Tailwind + Google Fonts.
- * - CSP longgar untuk img (backend storage + CMS) tapi ketat untuk script.
+ * Security headers for EJS + Tailwind + Google Fonts theme.
+ * - Loose CSP for img (backend storage + CMS) but strict for scripts.
  */
 export function securityHeaders() {
   return helmet({
     contentSecurityPolicy: {
-      // Kontrol penuh (tanpa default helmet) agar tidak ada direktif kejutan.
-      // upgrade-insecure-requests hanya di production (backend dev masih http).
+      // Full control (no helmet defaults) to avoid surprise directives.
+      // upgrade-insecure-requests only in production (dev backend still http).
       useDefaults: false,
       directives: {
         defaultSrc: ["'self'"],
         baseUri: ["'self'"],
         frameAncestors: ["'none'"],
         objectSrc: ["'none'"],
-        // Inline <script> kecil dipakai theme (dark-mode init, modal fallback)
-        // + JSON blob event. 'unsafe-inline' diterima; tanpa 'unsafe-eval'.
+        // Small inline <script> used by theme (dark-mode init, modal fallback)
+        // + JSON event blob. 'unsafe-inline' accepted; no 'unsafe-eval'.
         scriptSrc: ["'self'", "'unsafe-inline'"],
-        // Helmet memisahkan attr handler (onclick=...): tanpa ini modal/lightbox mati
+        // Helmet separates attr handlers (onclick=...): modals/lightbox break without this
         scriptSrcAttr: ["'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
-        // 'http:' WAJIB untuk backend lokal (http://127.0.0.1:8000/storage/...)
+        // 'http:' REQUIRED for local backend (http://127.0.0.1:8000/storage/...)
         imgSrc: ["'self'", "data:", "https:", "http:"],
         connectSrc: ["'self'", env.API_URL],
         formAction: ["'self'"],
         ...(env.IS_PROD ? { upgradeInsecureRequests: [] } : {}),
       },
     },
-    crossOriginEmbedderPolicy: false, // gambar CMS lintas origin
+    crossOriginEmbedderPolicy: false, // cross-origin CMS images
     referrerPolicy: { policy: "strict-origin-when-cross-origin" },
   });
 }
 
-/** Rate limit umum untuk endpoint tulis (anti spam bot). */
+/** General rate limit for write endpoints (anti spam bots). */
 export function writeLimiter() {
   return rateLimit({
     windowMs: 60 * 1000,
     max: 20,
     standardHeaders: "draft-7",
     legacyHeaders: false,
-    message: { success: false, message: "Terlalu banyak permintaan, coba lagi sebentar." },
+    message: { success: false, message: "Too many requests, please try again shortly." },
   });
 }
 
-/** Tolak POST lintas origin (CSRF sederhana untuk fetch JSON). */
+/** Reject cross-origin POSTs (simple CSRF for JSON fetch). */
 export function sameOriginOnly(req, res, next) {
   const origin = req.get("origin");
   if (origin && req.method !== "GET" && req.method !== "HEAD") {
@@ -55,10 +55,10 @@ export function sameOriginOnly(req, res, next) {
       const expectedHost = req.get("host");
       const originHost = new URL(origin).host;
       if (originHost !== expectedHost) {
-        return res.status(403).json({ success: false, message: "Origin tidak diizinkan." });
+        return res.status(403).json({ success: false, message: "Origin not allowed." });
       }
     } catch {
-      return res.status(403).json({ success: false, message: "Origin tidak valid." });
+      return res.status(403).json({ success: false, message: "Invalid origin." });
     }
   }
   next();

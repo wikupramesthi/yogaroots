@@ -12,8 +12,8 @@ use Spatie\Permission\Models\Role;
 class SecuritySeeder extends Seeder
 {
     /**
-     * Seed permissions, menu, and route guard for the Security (Keamanan) module.
-     * Idempotent: aman dijalankan ulang.
+     * Seed permissions, menu, and route guard for the Security module.
+     * Idempotent: safe to re-run.
      */
     public function run(): void
     {
@@ -38,7 +38,7 @@ class SecuritySeeder extends Seeder
         $menuGroup = MenuGroup::firstOrCreate(
             ['permission_name' => 'menu.keamanan'],
             [
-                'name' => 'Keamanan',
+                'name' => 'Security',
                 'icon' => 'bx-shield-alt-2',
                 'status' => true,
                 'position' => 99,
@@ -49,7 +49,7 @@ class SecuritySeeder extends Seeder
             ['name' => 'Login Activity', 'route' => 'security.login-activity.index', 'permission_name' => 'login-activity.index', 'position' => 1],
             ['name' => 'Audit Log', 'route' => 'security.audit-log.index', 'permission_name' => 'audit-log.index', 'position' => 2],
             ['name' => 'Failed Login', 'route' => 'security.failed-login.index', 'permission_name' => 'failed-login.index', 'position' => 3],
-            ['name' => 'Blokir Login', 'route' => 'security.login-lockout.index', 'permission_name' => 'login-lockout.index', 'position' => 4],
+            ['name' => 'Login Blocks', 'route' => 'security.login-lockout.index', 'permission_name' => 'login-lockout.index', 'position' => 4],
         ];
 
         foreach ($items as $item) {

@@ -11,8 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use App\Models\Program;
-use App\Observers\ProgramObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,8 +27,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Program::observe(ProgramObserver::class);
-
         // Security module (DBMSDA-style): record successful/failed logins.
         Event::listen(Login::class, RecordLoginActivity::class);
         Event::listen(Failed::class, RecordFailedLogin::class);

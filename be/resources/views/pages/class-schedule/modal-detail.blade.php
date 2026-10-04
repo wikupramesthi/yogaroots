@@ -53,12 +53,13 @@
 
                     {{-- Close Button --}}
                     <button type="button"
-                        class="btn btn-light position-absolute top-0 end-0 m-3 rounded-circle shadow-sm"
+                        class="btn btn-light position-absolute top-0 end-0 m-3 rounded-circle shadow-sm d-inline-flex align-items-center justify-content-center"
                         data-bs-dismiss="modal" aria-label="Close"
                         style="
                             width: 40px;
                             height: 40px;
                             padding: 0;
+                            line-height: 1;
                         ">
 
                         <i class="bi bi-x-lg"></i>

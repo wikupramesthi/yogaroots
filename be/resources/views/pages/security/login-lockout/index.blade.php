@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Blokir Login')
+@section('title', 'Login Blocks')
 
 @section('content')
 

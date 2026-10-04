@@ -29,7 +29,7 @@ class FileDownloadApiController extends Controller
         if (!$item) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Data tidak ditemukan'
+                'message' => 'Data not found'
             ], 404);
         }
 

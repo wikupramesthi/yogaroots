@@ -25,12 +25,6 @@ class Specializaty extends Model
         'description',
     ];
 
-    public function programs()
-    {
-        return $this->hasMany(Program::class, 'specializaty_uuid', 'uuid');
-    }
-
-
     protected static function boot()
     {
         parent::boot();

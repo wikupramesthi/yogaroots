@@ -19,35 +19,65 @@ class InstrukturController extends Controller
 
     public function index(Request $request)
     {
-        $users = User::whereHas('roles', function ($query) {
+        $search = trim((string) $request->get('search', ''));
+        $jenisKelamin = (string) $request->get('jenis_kelamin', '');
+        $jenisKelamin = in_array($jenisKelamin, ['L', 'P'], true) ? $jenisKelamin : '';
+        $specializationUuid = (string) $request->get('specialization', '');
+        $startDate = $request->get('start_date');
+        $endDate = $request->get('end_date');
+
+        $query = User::whereHas('roles', function ($query) {
             $query->where('name', 'instruktur');
-        })
-            ->when($request->filled('start_date'), function ($query) use ($request) {
-                $query->whereDate('created_at', '>=', $request->start_date);
-            })
-            ->when($request->filled('end_date'), function ($query) use ($request) {
-                $query->whereDate('created_at', '<=', $request->end_date);
-            })
-            ->when($request->filled('jenis_kelamin'), function ($query) use ($request) {
-                $query->where('jenis_kelamin', $request->jenis_kelamin);
-            })
-            ->when($request->filled('specialization'), function ($query) use ($request) {
-                $query->whereHas('specializations', function ($q) use ($request) {
-                    $q->where('specializations.uuid', $request->specialization);
-                });
-            })
-            ->with('specializations')
-            ->latest()
-            ->get();
+        })->with('specializations');
+
+        if ($search !== '') {
+            $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search) . '%';
+            $query->where(function ($q) use ($like) {
+                $q->where('name', 'like', $like)->orWhere('email', 'like', $like);
+            });
+        }
+
+        if ($startDate) {
+            $query->whereDate('created_at', '>=', $startDate);
+        }
+
+        if ($endDate) {
+            $query->whereDate('created_at', '<=', $endDate);
+        }
+
+        if ($jenisKelamin !== '') {
+            $query->where('jenis_kelamin', $jenisKelamin);
+        }
+
+        if ($specializationUuid !== '') {
+            $query->whereHas('specializations', function ($q) use ($specializationUuid) {
+                $q->where('specializations.uuid', $specializationUuid);
+            });
+        }
+
+        $users = (clone $query)->latest()->get();
+
+        $stats = [
+            'total' => (clone $query)->count(),
+            'male' => (clone $query)->where('jenis_kelamin', 'L')->count(),
+            'female' => (clone $query)->where('jenis_kelamin', 'P')->count(),
+            'new_month' => (clone $query)->where('created_at', '>=', now()->startOfMonth())->count(),
+        ];
 
         $specializations = Specializaty::where('is_active', 'active')
             ->orderBy('name')
             ->get();
 
-        return view('pages.instruktur.index', compact(
-            'users',
-            'specializations'
-        ));
+        return view('pages.instruktur.index', [
+            'users' => $users,
+            'specializations' => $specializations,
+            'stats' => $stats,
+            'search' => $search,
+            'jenisKelamin' => $jenisKelamin,
+            'specializationUuid' => $specializationUuid,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+        ]);
     }
 
     /**

@@ -131,11 +131,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Kelurahan::class);
     }
 
-    public function programs()
-    {
-        return $this->hasMany(Program::class, 'user_uuid', 'uuid');
-    }
-
     public function specializations()
     {
         return $this->belongsToMany(

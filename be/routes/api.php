@@ -41,24 +41,28 @@ Route::get('/contact/captcha', [ContactController::class, 'captcha']);
 Route::post('/contact', [ContactController::class, 'store']);
 Route::get('/banners', [BannerController::class, 'index']);
 
-// Artikel
+// Articles
 Route::prefix('articles')->group(function () {
     Route::get('/', [ArticleController::class, 'index']);
     Route::get('category/{slug}', [ArticleController::class, 'byCategory']);
     Route::get('{slug}', [ArticleController::class, 'show']);
 });
 
-//pegawai
+// Staff (legacy alias 'pegawai' kept for backward compatibility)
 Route::prefix('pegawai')->group(function () {
     Route::get('/', [PegawaiController::class, 'index']);
     Route::get('{uuid}', [PegawaiController::class, 'show']);
 });
+Route::prefix('staff')->group(function () {
+    Route::get('/', [PegawaiController::class, 'index']);
+    Route::get('{uuid}', [PegawaiController::class, 'show']);
+});
 
-// halaman statis
+// Static pages
 Route::get('/pages', [PageController::class, 'index']);
 Route::get('/pages/{slug}', [PageController::class, 'show']);
 
-// halaman event
+// Events page
 Route::get('/events', [EventController::class, 'index']);
 Route::get('/events/{slug}', [EventController::class, 'show']);
 

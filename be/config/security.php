@@ -7,8 +7,8 @@ return [
     | Brute-force protection
     |--------------------------------------------------------------------------
     |
-    | Setelah jumlah percobaan login gagal melewati batas di bawah ini dalam
-    | rentang waktu tertentu, alamat IP dan/atau email akan diblokir sementara.
+    | After failed login attempts exceed the threshold below within a
+    | given time window, the IP address and/or email will be temporarily blocked.
     |
     */
     'brute_force' => [
@@ -22,8 +22,8 @@ return [
     | Anomaly detection
     |--------------------------------------------------------------------------
     |
-    | Ambang batas untuk menandai aktivitas login yang mencurigakan pada
-    | halaman Login Activity dan Failed Login.
+    | Thresholds for flagging suspicious login activity on the
+    | Login Activity and Failed Login pages.
     |
     */
     'anomaly' => [

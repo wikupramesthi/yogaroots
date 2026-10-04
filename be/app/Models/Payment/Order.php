@@ -33,12 +33,16 @@ class Order extends Model
         'status',
         'expired_at',
         'paid_at',
+        'admin_note',
+        'proof_image_path',
+        'proof_uploaded_at',
     ];
 
     protected $casts = [
         'amount' => 'decimal:2',
         'expired_at' => 'datetime',
         'paid_at' => 'datetime',
+        'proof_uploaded_at' => 'datetime',
     ];
 
     public function user(): BelongsTo
@@ -93,5 +97,17 @@ class Order extends Model
             'order_uuid',
             'uuid'
         );
+    }
+
+    /**
+     * Route URL of the uploaded transfer proof, if any.
+     * Served through the app (owner/admin only), never a
+     * guessable public URL. Relative so it works on any host.
+     */
+    public function proofUrl(): ?string
+    {
+        return $this->proof_image_path
+            ? route('orders.proof.show', $this->uuid, false)
+            : null;
     }
 }
