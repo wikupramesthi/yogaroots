@@ -105,15 +105,14 @@
                 @endrole
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link nav-link" href="{{ route('logout') }}"
-                        onclick="event.preventDefault(); document.getElementById('logout-form-sidebar').submit();">
-                        <div class="icon icon-shape icon-sm">
-                            <i class="bi bi-arrow-bar-left"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Logout</span>
-                    </a>
-                    <form id="logout-form-sidebar" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf
+                        <button type="submit" class="sidebar-link nav-link">
+                            <div class="icon icon-shape icon-sm">
+                                <i class="bi bi-arrow-bar-left"></i>
+                            </div>
+                            <span class="nav-link-text ms-1">Logout</span>
+                        </button>
                     </form>
                 </li>
                 @endif

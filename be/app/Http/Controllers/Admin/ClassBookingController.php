@@ -131,13 +131,12 @@ class ClassBookingController extends Controller
 
                 $existing = ClassBooking::where('user_uuid', $member->uuid)
                     ->where('class_schedule_uuid', $schedule->uuid)
-                    ->whereDate('booking_date', $date)
                     ->where('status', '!=', 'cancelled')
                     ->first();
 
                 if ($existing) {
                     throw ValidationException::withMessages([
-                        'booking' => 'You already booked this class session.',
+                        'booking' => 'You already booked this class schedule.',
                     ]);
                 }
 

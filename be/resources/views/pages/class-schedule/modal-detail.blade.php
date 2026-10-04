@@ -413,6 +413,60 @@
 
                     </div>
 
+                    {{-- Member booking / check-in --}}
+                    @if (!empty($isMember))
+                        @php
+                            $myBooking = ($myBookings ?? collect())->first(function ($b) use ($schedule) {
+                                if ($b->class_schedule_uuid !== $schedule->uuid) {
+                                    return false;
+                                }
+                                if (in_array($b->status, ['confirmed', 'waiting_list'], true)) {
+                                    return true;
+                                }
+                                return $b->status === 'attended'
+                                    && $b->booking_date?->format('Y-m-d') === now()->format('Y-m-d');
+                            });
+                        @endphp
+
+                        <div class="mt-4 p-3 p-md-4 rounded-4 d-flex align-items-center justify-content-between gap-3" style="background:#f8f9fa;border:1px solid #eee;">
+                            @if ($myBooking && $myBooking->status === 'attended')
+                                <span class="badge bg-success-subtle text-success"><i class="bi bi-check2-circle me-1"></i>Checked in</span>
+                            @elseif ($myBooking && $myBooking->status === 'waiting_list')
+                                <span class="badge bg-warning-subtle text-warning">On waiting list</span>
+                            @elseif ($myBooking && $myBooking->status === 'confirmed' && $myBooking->booking_date?->format('Y-m-d') === now()->format('Y-m-d'))
+                                <form action="{{ route('class-bookings.checkin', $myBooking->uuid) }}" method="POST" class="m-0 ms-auto">
+                                    @csrf
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="bi bi-check2-circle me-1"></i>Check In
+                                    </button>
+                                </form>
+                            @elseif ($myBooking && $myBooking->status === 'confirmed')
+                                <span class="badge bg-primary-subtle text-primary">Booked for {{ $myBooking->booking_date?->format('d M Y') }}</span>
+                            @elseif (!empty($activePackage))
+                                <form action="{{ route('class-bookings.store') }}" method="POST" class="m-0 ms-auto">
+                                    @csrf
+                                    <input type="hidden" name="class_schedule_uuid" value="{{ $schedule->uuid }}">
+                                    @php
+                                        $nextDate = now()->startOfDay();
+                                        $maxChecks = 0;
+                                        while (strtolower($nextDate->format('l')) !== strtolower($schedule->day) && $maxChecks < 7) {
+                                            $nextDate->addDay();
+                                            $maxChecks++;
+                                        }
+                                    @endphp
+                                    <input type="hidden" name="booking_date" value="{{ $nextDate->format('Y-m-d') }}">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="bi bi-calendar-plus me-1"></i>Book Class — {{ $nextDate->format('d M Y') }}
+                                    </button>
+                                </form>
+                            @else
+                                <a href="{{ route('packages.member') }}" class="btn btn-outline-secondary btn-sm ms-auto">
+                                    <i class="bi bi-credit-card me-1"></i>Join a Package to Book
+                                </a>
+                            @endif
+                        </div>
+                    @endif
+
                 </div>
 
                 @can('class-schedules.update')

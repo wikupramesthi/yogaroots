@@ -97,6 +97,16 @@ class ClassScheduleController extends Controller
                 ->first();
         }
 
+        $myBookings = collect();
+        $todayDate = now()->format('Y-m-d');
+
+        if ($isMember) {
+            $myBookings = \App\Models\Class\ClassBooking::where('user_uuid', $authUser->uuid)
+                ->where('status', '!=', 'cancelled')
+                ->get()
+                ->keyBy(fn ($b) => $b->class_schedule_uuid . '|' . $b->booking_date?->format('Y-m-d'));
+        }
+
         return view(
             'pages.class-schedule.index',
             compact(
@@ -109,7 +119,9 @@ class ClassScheduleController extends Controller
                 'studioUuid',
                 'isMember',
                 'activePackage',
-                'pendingOrder'
+                'pendingOrder',
+                'myBookings',
+                'todayDate'
             )
         );
     }

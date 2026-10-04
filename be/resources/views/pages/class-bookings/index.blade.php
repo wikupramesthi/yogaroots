@@ -51,11 +51,11 @@
                         <select name="class_schedule_uuid" id="directSchedule" class="form-select" required>
                             <option value="">Select schedule...</option>
                             @foreach ($schedules as $schedule)
-                                <option value="{{ $schedule->uuid }}">
-                                    {{ $schedule->class?->name ?? '-' }} —
-                                    {{ ucfirst($schedule->day) }}
-                                    {{ substr((string) $schedule->start_time, 0, 5) }}
-                                </option>
+                            <option value="{{ $schedule->uuid }}" data-day="{{ strtolower($schedule->day) }}">
+                                {{ $schedule->class?->name ?? '-' }} —
+                                {{ ucfirst($schedule->day) }}
+                                {{ substr((string) $schedule->start_time, 0, 5) }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -73,6 +73,31 @@
             </div>
         </div>
     @endif
+
+    <script>
+        (function () {
+            const scheduleSelect = document.getElementById('directSchedule');
+            const dateInput = document.getElementById('directDate');
+            if (!scheduleSelect || !dateInput) return;
+
+            const dayIndex = { sunday: 0, monday: 1, tuesday: 2, wednesday: 3, thursday: 4, friday: 5, saturday: 6 };
+
+            scheduleSelect.addEventListener('change', function () {
+                const opt = scheduleSelect.options[scheduleSelect.selectedIndex];
+                const target = dayIndex[opt.dataset.day];
+                if (target === undefined) return;
+
+                const d = new Date();
+                d.setHours(0, 0, 0, 0);
+                while (d.getDay() !== target) d.setDate(d.getDate() - 1);
+                const yyyy = d.getFullYear();
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const dd = String(d.getDate()).padStart(2, '0');
+
+                dateInput.value = `${yyyy}-${mm}-${dd}`;
+            });
+        })();
+    </script>
 
     <div class="card ml-toolbar security-toolbar mb-4">
         <div class="card-body">
@@ -182,6 +207,12 @@
                                 </td>
                                 <td class="text-end">
                                     <div class="d-inline-flex gap-1">
+                                        @if ($booking->status === 'attended')
+                                            <button type="button" class="btn btn-sm btn-outline-success"
+                                                data-bs-toggle="modal" data-bs-target="#modal-checkin-{{ $booking->uuid }}">
+                                                <i class="bi bi-info-circle"></i> Detail Check-in
+                                            </button>
+                                        @endif
                                         @if ($booking->status === 'confirmed')
                                             <form action="{{ route('class-bookings.checkin', $booking->uuid) }}"
                                                 method="POST" class="m-0">
@@ -229,5 +260,40 @@
         </div>
     </div>
 </section>
+
+@foreach ($bookings as $booking)
+    @if ($booking->status === 'attended')
+        <div class="modal fade" id="modal-checkin-{{ $booking->uuid }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Check-in Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <dl class="row mb-0">
+                            @if ($isAdmin)
+                                <dt class="col-sm-4">Member</dt>
+                                <dd class="col-sm-8">{{ $booking->user?->name ?? '-' }}</dd>
+                            @endif
+                            <dt class="col-sm-4">Class</dt>
+                            <dd class="col-sm-8">{{ $booking->schedule?->class?->name ?? '-' }}</dd>
+                            <dt class="col-sm-4">Schedule</dt>
+                            <dd class="col-sm-8">{{ ucfirst($booking->schedule?->day ?? '-') }} {{ substr((string) $booking->schedule?->start_time, 0, 5) }}</dd>
+                            <dt class="col-sm-4">Session Date</dt>
+                            <dd class="col-sm-8">{{ $booking->booking_date?->format('d M Y') ?? '-' }}</dd>
+                            <dt class="col-sm-4">Checked In At</dt>
+                            <dd class="col-sm-8">{{ $booking->attended_at?->format('d M Y H:i') ?? '-' }}</dd>
+                            <dt class="col-sm-4">Quota Used</dt>
+                            <dd class="col-sm-8">{{ $booking->quota_used ?? 0 }}</dd>
+                            <dt class="col-sm-4">Booking Type</dt>
+                            <dd class="col-sm-8">{{ ucfirst($booking->booking_type ?? '-') }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+@endforeach
 
 @endsection
