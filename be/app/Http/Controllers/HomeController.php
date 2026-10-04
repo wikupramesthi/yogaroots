@@ -15,7 +15,10 @@ class HomeController extends Controller
          if (auth()->check()) {
         return redirect('/backend/dashboard');
     }
-        return view('auth.login');
+
+        // Halaman publik ada di aplikasi frontend, backend hanya melayani
+        // admin panel & auth. Jadi arahkan tamu ke form login.
+        return redirect()->route('login');
     }
 
 }

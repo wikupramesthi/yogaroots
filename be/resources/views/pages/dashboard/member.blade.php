@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+{{-- Member dashboard (dilibatkan oleh pages.dashboard.index saat role user) --}}
 <style>
     .hero-panel {
         background: var(--brand-gradient);
@@ -401,10 +399,12 @@
                     </div>
 
                     <div class="small text-secondary mt-2">
-                        @if ($activePackage)
-                        {{ $activePackage->quota ?? 0 }} class credits remaining
-                        @else
+                        @if (! $activePackage)
                         Choose a plan to start your yoga journey
+                        @elseif (is_null($activePackage->quota))
+                        Unlimited class credits
+                        @else
+                        {{ $activePackage->quota }} class credits remaining
                         @endif
                     </div>
                 </div>
@@ -952,5 +952,3 @@
     });
 </script>
 @endif
-
-@endsection
