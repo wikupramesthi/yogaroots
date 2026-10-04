@@ -46,9 +46,9 @@
 </head>
 
 <body class="min-h-screen bg-white selection:bg-primary/10 selection:text-primary dark:bg-gray-900">
-    <x-partial.header />
+    <x-web.header />
     @yield('content')
-    <x-partial.footer />
+    <x-footer />
 
     @stack('before-script')
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>

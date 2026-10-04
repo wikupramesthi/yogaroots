@@ -19,9 +19,15 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center gap-3 mb-4">
                         <div class="avatar avatar-xl">
-                            <span class="avatar-initial rounded-circle bg-primary">
-                                {{ strtoupper(substr($membership->user?->name ?? '?', 0, 1)) }}
-                            </span>
+                            @if ($membership->user?->avatar)
+                                <img src="{{ \Illuminate\Support\Str::startsWith($membership->user->avatar, 'http') ? $membership->user->avatar : asset('storage/' . $membership->user->avatar) }}"
+                                     alt="{{ $membership->user->name }}" class="rounded-circle"
+                                     style="width:100%;height:100%;object-fit:cover;">
+                            @else
+                                <span class="avatar-initial rounded-circle bg-primary">
+                                    {{ strtoupper(substr($membership->user?->name ?? '?', 0, 1)) }}
+                                </span>
+                            @endif
                         </div>
                         <div>
                             <h5 class="mb-0">{{ $membership->user?->name ?? '-' }}</h5>

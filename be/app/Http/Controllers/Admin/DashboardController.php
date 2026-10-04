@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Payment\Order;
+use App\Models\UserPackage;
 use App\Models\Article;
 use App\Models\Event;
 use App\Models\Class\ClassModel;
@@ -26,25 +28,88 @@ use Illuminate\Support\Facades\Cache;
 class DashboardController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
+
+        $startDate = $request->query('start_date');
+        $endDate = $request->query('end_date');
+
+        $applyPeriod = function ($query, string $column = 'created_at') use ($startDate, $endDate) {
+            if ($startDate) {
+                $query->whereDate($column, '>=', $startDate);
+            }
+            if ($endDate) {
+                $query->whereDate($column, '<=', $endDate);
+            }
+            return $query;
+        };
 
         // =========================
         // DASHBOARD STATISTICS
         // =========================
 
-        $jumlahInstruktur = User::role('instruktur')->count();
-        $jumlahMembers = User::role('user')->count();
+        $jumlahInstruktur = $applyPeriod(User::role('instruktur'))->count();
+        $jumlahMembers = $applyPeriod(User::role('user'))->count();
 
-        $totalClasses = ClassModel::count();
-        $totalPackages = Package::count();
-        $totalArticles = Article::count();
-        $totalEvents = Event::count();
-        $totalFaq = Faq::count();
-        $totalPolling = Poll::count();
-        $totalPesan = Kontak::count();
-        $totalTestimonial = Testimonial::count();
+        $totalClasses = $applyPeriod(ClassModel::query())->count();
+        $totalPackages = $applyPeriod(Package::query())->count();
+        $totalArticles = $applyPeriod(Article::query())->count();
+        $totalEvents = $applyPeriod(Event::query())->count();
+        $totalFaq = $applyPeriod(Faq::query())->count();
+        $totalPolling = $applyPeriod(Poll::query())->count();
+        $totalPesan = $applyPeriod(Kontak::query())->count();
+        $totalTestimonial = $applyPeriod(Testimonial::query())->count();
+
+        // =========================
+        // ORDERS & MEMBERSHIP & REVENUE
+        // =========================
+
+        $newOrdersCount = $applyPeriod(Order::where('status', 'pending'))->count();
+        $newMembershipCount = $applyPeriod(UserPackage::where('status', 'active'), 'started_at')->count();
+
+        $revenuePaid = $applyPeriod(Order::where('status', 'paid'), 'paid_at');
+        $revenueMonth = (clone $revenuePaid)->sum('amount');
+        $revenueTotal = Order::where('status', 'paid')->sum('amount');
+
+        $orderPaidByDay = Order::where('status', 'paid')
+            ->whereNotNull('paid_at')
+            ->selectRaw('DATE(paid_at) as day_date, SUM(amount) as total')
+            ->groupBy('day_date')
+            ->orderBy('day_date')
+            ->pluck('total', 'day_date');
+
+        $days = collect(range(0, 6))->map(fn ($i) => now()->subDays(6 - $i)->format('Y-m-d'));
+        $revenueDailyLabels = $days->map(fn ($d) => \Carbon\Carbon::parse($d)->format('d M'))->all();
+        $revenueDaily = $days->map(fn ($d) => (float) ($orderPaidByDay[$d] ?? 0))->all();
+
+        $monthStart = now()->startOfMonth();
+        $monthDays = collect(range(0, now()->daysInMonth - 1))->map(fn ($i) => $monthStart->copy()->addDays($i)->format('Y-m-d'));
+        $revenueMonthLabels = $monthDays->map(fn ($d) => \Carbon\Carbon::parse($d)->format('d'))->all();
+        $revenueMonthDaily = $monthDays->map(fn ($d) => (float) ($orderPaidByDay[$d] ?? 0))->all();
+
+        $orderPaidByMonth = Order::where('status', 'paid')
+            ->whereNotNull('paid_at')
+            ->whereYear('paid_at', now()->year)
+            ->selectRaw('MONTH(paid_at) as m, SUM(amount) as total')
+            ->groupBy('m')
+            ->pluck('total', 'm');
+        $revenueYearLabels = [];
+        $revenueYear = [];
+        for ($m = 1; $m <= 12; $m++) {
+            $revenueYearLabels[] = now()->startOfYear()->addMonths($m - 1)->format('M');
+            $revenueYear[] = (float) ($orderPaidByMonth[$m] ?? 0);
+        }
+
+        $revenueAllDaily = $orderPaidByDay->mapWithKeys(fn ($total, $day) => [$day => (float) $total]);
+
+        $recentOrders = $applyPeriod(Order::with('user', 'package')->latest())
+            ->take(5)
+            ->get();
+
+        $recentMemberships = $applyPeriod(UserPackage::with('user', 'package')->latest(), 'started_at')
+            ->take(5)
+            ->get();
 
         // =========================
         // ACTIVE MEMBERSHIP
@@ -264,7 +329,24 @@ class DashboardController extends Controller
             'courses',
 
             // Membership
-            'activePackage'
+            'activePackage',
+
+            // Orders, Membership, Revenue
+            'newOrdersCount',
+            'newMembershipCount',
+            'revenueMonth',
+            'revenueTotal',
+            'recentOrders',
+            'recentMemberships',
+
+            // Revenue chart
+            'revenueDailyLabels',
+            'revenueDaily',
+            'revenueMonthLabels',
+            'revenueMonthDaily',
+            'revenueYearLabels',
+            'revenueYear',
+            'revenueAllDaily',
         ));
     }
 

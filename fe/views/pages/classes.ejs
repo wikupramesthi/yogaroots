@@ -7,7 +7,7 @@
   <body class="antialiased bg-cream">
     <%- include('../partials/navbar') %>
 
-    <section class="bg-cream pt-12 pb-6">
+    <section class="bg-cream pt-10 pb-8">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           class="flex flex-col md:flex-row md:items-end md:justify-between gap-4"
@@ -32,127 +32,10 @@
     </section>
 
     <!-- ========================================= -->
-    <!-- DATE SELECTOR -->
-    <!-- ========================================= -->
-
-    <section class="bg-cream pb-8">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          class="bg-white rounded-[24px] border border-sage-100 p-3 shadow-sm"
-        >
-          <div class="flex items-center gap-2 overflow-x-auto">
-            <!-- PREVIOUS -->
-            <button
-              type="button"
-              class="shrink-0 w-10 h-10 rounded-full border border-sage-100 flex items-center justify-center hover:bg-sage-50 transition"
-            >
-              <span class="text-lg">‹</span>
-            </button>
-
-            <!-- DATE -->
-            <div class="flex gap-2 flex-1 min-w-max">
-              <!-- DATE 1 -->
-              <button
-                type="button"
-                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
-              >
-                <div class="text-xs text-stone-warm">Sun</div>
-
-                <div class="text-xl font-bold mt-1">13</div>
-
-                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
-              </button>
-
-              <!-- DATE 2 -->
-              <button
-                type="button"
-                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
-              >
-                <div class="text-xs text-stone-warm">Mon</div>
-
-                <div class="text-xl font-bold mt-1">14</div>
-
-                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
-              </button>
-
-              <!-- SELECTED -->
-              <button
-                type="button"
-                class="min-w-[76px] px-3 py-3 rounded-2xl text-center bg-sage-700 text-white shadow-sm"
-              >
-                <div class="text-xs opacity-80">Tue</div>
-
-                <div class="text-xl font-bold mt-1">15</div>
-
-                <div class="text-[11px] opacity-80 mt-0.5">Sep</div>
-              </button>
-
-              <!-- DATE 4 -->
-              <button
-                type="button"
-                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
-              >
-                <div class="text-xs text-stone-warm">Wed</div>
-
-                <div class="text-xl font-bold mt-1">16</div>
-
-                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
-              </button>
-
-              <!-- DATE 5 -->
-              <button
-                type="button"
-                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
-              >
-                <div class="text-xs text-stone-warm">Thu</div>
-
-                <div class="text-xl font-bold mt-1">17</div>
-
-                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
-              </button>
-
-              <!-- DATE 6 -->
-              <button
-                type="button"
-                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
-              >
-                <div class="text-xs text-stone-warm">Fri</div>
-
-                <div class="text-xl font-bold mt-1">18</div>
-
-                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
-              </button>
-
-              <!-- DATE 7 -->
-              <button
-                type="button"
-                class="date-item min-w-[76px] px-3 py-3 rounded-2xl text-center transition hover:bg-sage-50"
-              >
-                <div class="text-xs text-stone-warm">Sat</div>
-
-                <div class="text-xl font-bold mt-1">19</div>
-
-                <div class="text-[11px] text-stone-warm mt-0.5">Sep</div>
-              </button>
-            </div>
-
-            <!-- NEXT -->
-            <button
-              type="button"
-              class="shrink-0 w-10 h-10 rounded-full border border-sage-100 flex items-center justify-center hover:bg-sage-50 transition"
-            >
-              <span class="text-lg">›</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================= -->
     <!-- MAIN CONTENT -->
     <!-- ========================================= -->
 
-    <section class="bg-cream pb-16">
+    <section class="bg-cream pb-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-[240px_1fr] gap-8">
           <!-- ===================================== -->
@@ -161,12 +44,13 @@
 
           <aside>
             <div
-              class="bg-white rounded-[24px] border border-sage-100 p-5 sticky top-6"
+              class="bg-white rounded-[24px] border border-sage-100 p-5 lg:sticky lg:top-28"
             >
               <div class="flex items-center justify-between mb-5">
                 <h3 class="font-semibold">Filter</h3>
 
                 <button
+                  id="resetFilters"
                   type="button"
                   class="text-xs text-sage-700 font-semibold"
                 >
@@ -183,33 +67,42 @@
                   Level
                 </h4>
 
-                <div class="space-y-2">
+                <div class="space-y-2" data-filter-group="level">
                   <label class="flex items-center gap-3 cursor-pointer">
                     <input
                       type="checkbox"
+                      value=""
                       checked
                       class="w-4 h-4 accent-sage-700"
                     />
-
-                    <span class="text-sm"> All Levels </span>
+                    <span class="text-sm">All Levels</span>
                   </label>
 
                   <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
-
-                    <span class="text-sm"> Foundation </span>
+                    <input
+                      type="checkbox"
+                      value="foundation"
+                      class="w-4 h-4 accent-sage-700"
+                    />
+                    <span class="text-sm">Foundation</span>
                   </label>
 
                   <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
-
-                    <span class="text-sm"> Intermediate </span>
+                    <input
+                      type="checkbox"
+                      value="intermediate"
+                      class="w-4 h-4 accent-sage-700"
+                    />
+                    <span class="text-sm">Intermediate</span>
                   </label>
 
                   <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
-
-                    <span class="text-sm"> Advance </span>
+                    <input
+                      type="checkbox"
+                      value="advance"
+                      class="w-4 h-4 accent-sage-700"
+                    />
+                    <span class="text-sm">Advance</span>
                   </label>
                 </div>
               </div>
@@ -223,23 +116,42 @@
                   Time
                 </h4>
 
-                <div class="space-y-2">
+                <div class="space-y-2" data-filter-group="time">
                   <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
-
-                    <span class="text-sm"> Morning </span>
+                    <input
+                      type="checkbox"
+                      value=""
+                      checked
+                      class="w-4 h-4 accent-sage-700"
+                    />
+                    <span class="text-sm">All Times</span>
                   </label>
 
                   <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
-
-                    <span class="text-sm"> Afternoon </span>
+                    <input
+                      type="checkbox"
+                      value="morning"
+                      class="w-4 h-4 accent-sage-700"
+                    />
+                    <span class="text-sm">Morning</span>
                   </label>
 
                   <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
+                    <input
+                      type="checkbox"
+                      value="afternoon"
+                      class="w-4 h-4 accent-sage-700"
+                    />
+                    <span class="text-sm">Afternoon</span>
+                  </label>
 
-                    <span class="text-sm"> Evening </span>
+                  <label class="flex items-center gap-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      value="evening"
+                      class="w-4 h-4 accent-sage-700"
+                    />
+                    <span class="text-sm">Evening</span>
                   </label>
                 </div>
               </div>
@@ -253,33 +165,19 @@
                   Studio
                 </h4>
 
-                <div class="space-y-2">
+                <div
+                  id="studioFilters"
+                  class="space-y-2"
+                  data-filter-group="studio"
+                >
                   <label class="flex items-center gap-3 cursor-pointer">
                     <input
                       type="checkbox"
+                      value=""
                       checked
                       class="w-4 h-4 accent-sage-700"
                     />
-
-                    <span class="text-sm"> All Studios </span>
-                  </label>
-
-                  <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
-
-                    <span class="text-sm"> Studio Chandra </span>
-                  </label>
-
-                  <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
-
-                    <span class="text-sm"> Studio Surya </span>
-                  </label>
-
-                  <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" class="w-4 h-4 accent-sage-700" />
-
-                    <span class="text-sm"> Studio Lotus </span>
+                    <span class="text-sm">All Studios</span>
                   </label>
                 </div>
               </div>
@@ -291,401 +189,59 @@
           <!-- ===================================== -->
 
           <main>
-            <!-- SCHEDULE HEADER -->
+            <!-- DATE SELECTOR -->
+            <div
+              class="bg-white rounded-[24px] border border-sage-100 p-3 shadow-sm mb-5"
+            >
+              <div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+                <button
+                  id="weekPrev"
+                  type="button"
+                  aria-label="Previous week"
+                  class="shrink-0 w-10 h-10 rounded-full border border-sage-100 flex items-center justify-center hover:bg-sage-50 transition"
+                >
+                  <span class="text-lg">‹</span>
+                </button>
+
+                <div id="dateRow" class="flex gap-2 flex-1"></div>
+
+                <button
+                  id="weekNext"
+                  type="button"
+                  aria-label="Next week"
+                  class="shrink-0 w-10 h-10 rounded-full border border-sage-100 flex items-center justify-center hover:bg-sage-50 transition"
+                >
+                  <span class="text-lg">›</span>
+                </button>
+
+                <button
+                  id="todayBtn"
+                  type="button"
+                  class="shrink-0 px-3 h-10 rounded-full border border-sage-100 text-xs font-semibold text-sage-700 hover:bg-sage-50 transition"
+                >
+                  Today
+                </button>
+              </div>
+            </div>
 
             <div
               class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-5"
             >
               <div>
-                <h2 class="text-xl font-bold">Tuesday, September 15</h2>
+                <h2 id="scheduleTitle" class="text-xl font-bold"></h2>
 
-                <p class="text-sm text-stone-warm mt-1">5 classes available</p>
+                <p id="scheduleCount" class="text-sm text-stone-warm mt-1"></p>
               </div>
 
-              <div class="text-sm text-stone-warm">Showing all classes</div>
-            </div>
-
-            <!-- ================================= -->
-            <!-- CLASS 1 -->
-            <!-- ================================= -->
-
-            <div
-              class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition"
-            >
-              <div class="flex flex-col md:flex-row md:items-center gap-5">
-                <!-- TIME -->
-
-                <div class="md:w-[120px] shrink-0">
-                  <div class="text-xl font-bold">07:30</div>
-
-                  <div class="text-sm text-stone-warm">08:45</div>
-
-                  <div class="text-xs text-stone-warm mt-1">75 min</div>
-                </div>
-
-                <!-- CLASS INFO -->
-
-                <div class="flex-1">
-                  <div class="flex flex-wrap items-center gap-2 mb-2">
-                    <span
-                      class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold"
-                    >
-                      Foundation
-                    </span>
-
-                    <span
-                      class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs"
-                    >
-                      Morning
-                    </span>
-                  </div>
-
-                  <h3 class="text-lg font-bold">Morning Flow</h3>
-
-                  <p class="text-sm text-stone-warm mt-1">
-                    A gentle and energizing practice to start your day.
-                  </p>
-
-                  <div
-                    class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm"
-                  >
-                    <span>
-                      <span class="mr-1">●</span>
-                      Kiki
-                    </span>
-
-                    <span>
-                      <span class="mr-1">⌖</span>
-                      Studio Chandra
-                    </span>
-                  </div>
-                </div>
-
-                <!-- AVAILABILITY -->
-
-                <div class="md:w-[150px] shrink-0">
-                  <div class="text-sm font-semibold">8 spots left</div>
-
-                  <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
-                    <div
-                      class="h-1.5 bg-sage-600 rounded-full"
-                      style="width: 35%"
-                    ></div>
-                  </div>
-                </div>
-
-                <!-- ACTION -->
-
-                <div class="md:w-[120px] shrink-0">
-                  <a
-                    href="#"
-                    class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition"
-                  >
-                    Book Class
-                  </a>
-                </div>
+              <div
+                id="scheduleFilterNote"
+                class="text-sm text-stone-warm"
+              >
+                Showing all classes
               </div>
             </div>
 
-            <!-- ================================= -->
-            <!-- CLASS 2 -->
-            <!-- ================================= -->
-
-            <div
-              class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition"
-            >
-              <div class="flex flex-col md:flex-row md:items-center gap-5">
-                <div class="md:w-[120px] shrink-0">
-                  <div class="text-xl font-bold">09:00</div>
-
-                  <div class="text-sm text-stone-warm">10:15</div>
-
-                  <div class="text-xs text-stone-warm mt-1">75 min</div>
-                </div>
-
-                <div class="flex-1">
-                  <div class="flex flex-wrap items-center gap-2 mb-2">
-                    <span
-                      class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold"
-                    >
-                      Intermediate
-                    </span>
-
-                    <span
-                      class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs"
-                    >
-                      Morning
-                    </span>
-                  </div>
-
-                  <h3 class="text-lg font-bold">Hatha Yoga</h3>
-
-                  <p class="text-sm text-stone-warm mt-1">
-                    Build strength, balance, and awareness through mindful
-                    movement.
-                  </p>
-
-                  <div
-                    class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm"
-                  >
-                    <span>
-                      <span class="mr-1">●</span>
-                      Sarah
-                    </span>
-
-                    <span>
-                      <span class="mr-1">⌖</span>
-                      Studio Surya
-                    </span>
-                  </div>
-                </div>
-
-                <div class="md:w-[150px] shrink-0">
-                  <div class="text-sm font-semibold">5 spots left</div>
-
-                  <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
-                    <div
-                      class="h-1.5 bg-sage-600 rounded-full"
-                      style="width: 60%"
-                    ></div>
-                  </div>
-                </div>
-
-                <div class="md:w-[120px] shrink-0">
-                  <a
-                    href="#"
-                    class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition"
-                  >
-                    Book Class
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- ================================= -->
-            <!-- CLASS 3 -->
-            <!-- ================================= -->
-
-            <div
-              class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition"
-            >
-              <div class="flex flex-col md:flex-row md:items-center gap-5">
-                <div class="md:w-[120px] shrink-0">
-                  <div class="text-xl font-bold">12:30</div>
-
-                  <div class="text-sm text-stone-warm">13:45</div>
-
-                  <div class="text-xs text-stone-warm mt-1">75 min</div>
-                </div>
-
-                <div class="flex-1">
-                  <div class="flex flex-wrap items-center gap-2 mb-2">
-                    <span
-                      class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold"
-                    >
-                      Foundation
-                    </span>
-
-                    <span
-                      class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs"
-                    >
-                      Afternoon
-                    </span>
-                  </div>
-
-                  <h3 class="text-lg font-bold">Gentle Yoga</h3>
-
-                  <p class="text-sm text-stone-warm mt-1">
-                    Slow-paced movement designed to relax the body and mind.
-                  </p>
-
-                  <div
-                    class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm"
-                  >
-                    <span>
-                      <span class="mr-1">●</span>
-                      Ayu
-                    </span>
-
-                    <span>
-                      <span class="mr-1">⌖</span>
-                      Studio Chandra
-                    </span>
-                  </div>
-                </div>
-
-                <div class="md:w-[150px] shrink-0">
-                  <div class="text-sm font-semibold">10 spots left</div>
-
-                  <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
-                    <div
-                      class="h-1.5 bg-sage-600 rounded-full"
-                      style="width: 20%"
-                    ></div>
-                  </div>
-                </div>
-
-                <div class="md:w-[120px] shrink-0">
-                  <a
-                    href="#"
-                    class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition"
-                  >
-                    Book Class
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- ================================= -->
-            <!-- CLASS 4 -->
-            <!-- ================================= -->
-
-            <div
-              class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition"
-            >
-              <div class="flex flex-col md:flex-row md:items-center gap-5">
-                <div class="md:w-[120px] shrink-0">
-                  <div class="text-xl font-bold">17:30</div>
-
-                  <div class="text-sm text-stone-warm">18:45</div>
-
-                  <div class="text-xs text-stone-warm mt-1">75 min</div>
-                </div>
-
-                <div class="flex-1">
-                  <div class="flex flex-wrap items-center gap-2 mb-2">
-                    <span
-                      class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold"
-                    >
-                      Intermediate
-                    </span>
-
-                    <span
-                      class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs"
-                    >
-                      Evening
-                    </span>
-                  </div>
-
-                  <h3 class="text-lg font-bold">Yin Yoga</h3>
-
-                  <p class="text-sm text-stone-warm mt-1">
-                    A calming practice focused on deep stretching and
-                    relaxation.
-                  </p>
-
-                  <div
-                    class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm"
-                  >
-                    <span>
-                      <span class="mr-1">●</span>
-                      Yusak
-                    </span>
-
-                    <span>
-                      <span class="mr-1">⌖</span>
-                      Studio Lotus
-                    </span>
-                  </div>
-                </div>
-
-                <div class="md:w-[150px] shrink-0">
-                  <div class="text-sm font-semibold">3 spots left</div>
-
-                  <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
-                    <div
-                      class="h-1.5 bg-terracotta-500 rounded-full"
-                      style="width: 85%"
-                    ></div>
-                  </div>
-                </div>
-
-                <div class="md:w-[120px] shrink-0">
-                  <a
-                    href="#"
-                    class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition"
-                  >
-                    Book Class
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- ================================= -->
-            <!-- CLASS 5 - FULL -->
-            <!-- ================================= -->
-
-            <div
-              class="bg-white rounded-[24px] border border-sage-100 p-5 opacity-70"
-            >
-              <div class="flex flex-col md:flex-row md:items-center gap-5">
-                <div class="md:w-[120px] shrink-0">
-                  <div class="text-xl font-bold">19:00</div>
-
-                  <div class="text-sm text-stone-warm">20:15</div>
-
-                  <div class="text-xs text-stone-warm mt-1">75 min</div>
-                </div>
-
-                <div class="flex-1">
-                  <div class="flex flex-wrap items-center gap-2 mb-2">
-                    <span
-                      class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold"
-                    >
-                      Advance
-                    </span>
-
-                    <span
-                      class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs"
-                    >
-                      Evening
-                    </span>
-                  </div>
-
-                  <h3 class="text-lg font-bold">Power Yoga</h3>
-
-                  <p class="text-sm text-stone-warm mt-1">
-                    A dynamic practice for building strength and endurance.
-                  </p>
-
-                  <div
-                    class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm"
-                  >
-                    <span>
-                      <span class="mr-1">●</span>
-                      Dina
-                    </span>
-
-                    <span>
-                      <span class="mr-1">⌖</span>
-                      Studio Surya
-                    </span>
-                  </div>
-                </div>
-
-                <div class="md:w-[150px] shrink-0">
-                  <div class="text-sm font-semibold text-terracotta-600">
-                    Class Full
-                  </div>
-
-                  <div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">
-                    <div
-                      class="h-1.5 bg-terracotta-500 rounded-full w-full"
-                    ></div>
-                  </div>
-                </div>
-
-                <div class="md:w-[120px] shrink-0">
-                  <button
-                    type="button"
-                    disabled
-                    class="w-full text-center bg-stone-100 text-stone-400 rounded-full px-5 py-2.5 text-sm font-semibold cursor-not-allowed"
-                  >
-                    Full
-                  </button>
-                </div>
-              </div>
-            </div>
+            <div id="scheduleList"></div>
           </main>
         </div>
 
@@ -696,5 +252,407 @@
     <%- include('../partials/footer') %>
 
     <script src="/js/main.js?v=<%= assetV %>"></script>
+    <script>
+      (function () {
+        "use strict";
+
+        var LEVELS = ["foundation", "intermediate", "advance"];
+
+        var state = {
+          selected: startOfDay(new Date()),
+          weekStart: startOfWeek(new Date()),
+          level: "",
+          time: "",
+          studio: "",
+        };
+
+        var dateRow = document.getElementById("dateRow");
+        var scheduleList = document.getElementById("scheduleList");
+        var scheduleTitle = document.getElementById("scheduleTitle");
+        var scheduleCount = document.getElementById("scheduleCount");
+        var scheduleFilterNote = document.getElementById("scheduleFilterNote");
+        var studioFilters = document.getElementById("studioFilters");
+
+        function startOfDay(d) {
+          return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        }
+
+        function startOfWeek(d) {
+          var day = d.getDay();
+          return new Date(d.getFullYear(), d.getMonth(), d.getDate() - day);
+        }
+
+        function fmtISO(d) {
+          var y = d.getFullYear();
+          var m = String(d.getMonth() + 1).padStart(2, "0");
+          var da = String(d.getDate()).padStart(2, "0");
+          return y + "-" + m + "-" + da;
+        }
+
+        function escapeHtml(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#x27;");
+        }
+
+        function sameDay(a, b) {
+          return a.getTime() === b.getTime();
+        }
+
+        /* ---------- date selector ---------- */
+
+        function renderDates() {
+          var html = "";
+          for (var i = 0; i < 7; i++) {
+            var d = new Date(state.weekStart);
+            d.setDate(d.getDate() + i);
+            var isSelected = sameDay(d, state.selected);
+            var isToday = sameDay(d, startOfDay(new Date()));
+            html +=
+              '<button type="button" data-date="' +
+              fmtISO(d) +
+              '" class="date-item flex-1 min-w-[76px] px-3 py-3 rounded-2xl text-center transition ' +
+              (isSelected
+                ? "bg-sage-700 text-white shadow-sm"
+                : "hover:bg-sage-50 " + (isToday ? "border border-sage-300" : "")) +
+              '">' +
+              '<div class="text-xs ' +
+              (isSelected ? "opacity-80" : "text-stone-warm") +
+              '">' +
+              d.toLocaleDateString("en-US", { weekday: "short" }) +
+              "</div>" +
+              '<div class="text-xl font-bold mt-1">' +
+              d.getDate() +
+              "</div>" +
+              '<div class="text-[11px] ' +
+              (isSelected ? "opacity-80" : "text-stone-warm") +
+              ' mt-0.5">' +
+              d.toLocaleDateString("en-US", { month: "short" }) +
+              "</div></button>";
+          }
+          dateRow.innerHTML = html;
+
+          dateRow.querySelectorAll("[data-date]").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              state.selected = new Date(btn.getAttribute("data-date") + "T00:00:00");
+              renderDates();
+              loadAll();
+            });
+          });
+        }
+
+        document.getElementById("todayBtn").addEventListener("click", function () {
+          state.selected = startOfDay(new Date());
+          state.weekStart = startOfWeek(new Date());
+          renderDates();
+          loadAll();
+        });
+
+        document.getElementById("weekPrev").addEventListener("click", function () {
+          state.weekStart.setDate(state.weekStart.getDate() - 7);
+          state.selected.setDate(state.selected.getDate() - 7);
+          renderDates();
+          loadAll();
+        });
+
+        document.getElementById("weekNext").addEventListener("click", function () {
+          state.weekStart.setDate(state.weekStart.getDate() + 7);
+          state.selected.setDate(state.selected.getDate() + 7);
+          renderDates();
+          loadAll();
+        });
+
+        /* ---------- filters ---------- */
+
+        function groupValue(name) {
+          var group = document.querySelector(
+            '[data-filter-group="' + name + '"]',
+          );
+          var boxes = group.querySelectorAll('input[type="checkbox"]');
+          var checked = Array.prototype.filter.call(boxes, function (b) {
+            return b.checked && b.value !== "";
+          });
+          return checked.length ? checked[0].value : "";
+        }
+
+        function bindGroup(name) {
+          var group = document.querySelector(
+            '[data-filter-group="' + name + '"]',
+          );
+          group.addEventListener("change", function (e) {
+            var boxes = group.querySelectorAll('input[type="checkbox"]');
+            if (e.target.value === "") {
+              boxes.forEach(function (b) {
+                b.checked = b === e.target;
+              });
+            } else {
+              boxes.forEach(function (b) {
+                if (b.value === "") b.checked = false;
+                if (b !== e.target) b.checked = false;
+              });
+              e.target.checked = true;
+            }
+            state.level = groupValue("level");
+            state.time = groupValue("time");
+            state.studio = groupValue("studio");
+            loadSchedules();
+          });
+        }
+
+        document.getElementById("resetFilters").addEventListener("click", function () {
+          document.querySelectorAll("[data-filter-group]").forEach(function (g) {
+            g.querySelectorAll('input[type="checkbox"]').forEach(function (b) {
+              b.checked = b.value === "";
+            });
+          });
+          state.level = "";
+          state.time = "";
+          state.studio = "";
+          loadSchedules();
+        });
+
+        function renderStudioOptions(studios) {
+          var exists = studios.some(function (s) {
+            return s.uuid === state.studio;
+          });
+          if (state.studio && !exists) state.studio = "";
+          var current = state.studio;
+          var html =
+            '<label class="flex items-center gap-3 cursor-pointer">' +
+            '<input type="checkbox" value="" ' +
+            (current === "" ? "checked" : "") +
+            ' class="w-4 h-4 accent-sage-700" />' +
+            '<span class="text-sm">All Studios</span></label>';
+          studios.forEach(function (s) {
+            html +=
+              '<label class="flex items-center gap-3 cursor-pointer">' +
+              '<input type="checkbox" value="' +
+              escapeHtml(s.uuid) +
+              '" ' +
+              (current === s.uuid ? "checked" : "") +
+              ' class="w-4 h-4 accent-sage-700" />' +
+              '<span class="text-sm">' +
+              escapeHtml(s.name) +
+              "</span></label>";
+          });
+          studioFilters.innerHTML = html;
+          if (!studios.length) {
+            studioFilters.innerHTML =
+              '<p class="text-sm text-stone-warm">No studios scheduled for this date.</p>';
+          }
+        }
+
+        /* ---------- fetch ---------- */
+
+        function timeLabel(start) {
+          var h = parseInt(String(start).split(":")[0], 10);
+          if (h < 12) return "Morning";
+          if (h < 17) return "Afternoon";
+          return "Evening";
+        }
+
+        function levelLabel(level) {
+          if (!level) return "";
+          return level.charAt(0).toUpperCase() + level.slice(1);
+        }
+
+        async function fetchJSON(url) {
+          var res = await fetch(url, { headers: { Accept: "application/json" } });
+          var data = await res.json().catch(function () {
+            return [];
+          });
+          if (!res.ok) throw new Error("Failed to load data");
+          return Array.isArray(data) ? data : [];
+        }
+
+        async function loadStudios() {
+          try {
+            var all = await fetchJSON(
+              "/api/class-schedules?date=" + fmtISO(state.selected),
+            );
+            var seen = {};
+            var studios = [];
+            all.forEach(function (s) {
+              var st = s.studio;
+              if (st && st.uuid && !seen[st.uuid]) {
+                seen[st.uuid] = true;
+                studios.push(st);
+              }
+            });
+            renderStudioOptions(studios);
+          } catch (e) {
+            renderStudioOptions([]);
+          }
+        }
+
+        async function emptyState() {
+          var next = new Date(state.selected);
+          var found = null;
+          for (var i = 1; i <= 14; i++) {
+            next.setDate(next.getDate() + 1);
+            try {
+              var list = await fetchJSON(
+                "/api/class-schedules?date=" + fmtISO(next) + "&per_page=1",
+              );
+              if (list.length) {
+                found = new Date(next);
+                break;
+              }
+            } catch (e) {
+              break;
+            }
+          }
+          var msg =
+            'No classes found for this date and filter selection.';
+          var btn = found
+            ? '<button type="button" id="nextAvailable" data-date="' +
+              fmtISO(found) +
+              '" class="block mx-auto mt-4 px-5 py-2.5 rounded-full bg-sage-700 text-white text-sm font-semibold hover:bg-sage-800 transition">See ' +
+              found.toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "long",
+                day: "numeric",
+              }) +
+              "</button>"
+            : "";
+          scheduleList.innerHTML =
+            '<div class="bg-white rounded-[24px] border border-sage-100 p-10 text-center text-stone-warm">' +
+            '<p class="text-stone-warm">' + msg + "</p>" + btn +
+            "</div>";
+          var b = document.getElementById("nextAvailable");
+          if (b) {
+            b.addEventListener("click", function () {
+              state.selected = new Date(b.getAttribute("data-date") + "T00:00:00");
+              state.weekStart = startOfWeek(state.selected);
+              renderDates();
+              loadAll();
+            });
+          }
+        }
+
+        function renderSchedules(list) {
+          scheduleTitle.textContent = state.selected.toLocaleDateString(
+            "en-US",
+            { weekday: "long", month: "long", day: "numeric" },
+          );
+          scheduleCount.textContent =
+            list.length + (list.length === 1 ? " class" : " classes") + " available";
+
+          var active = [];
+          if (state.level) active.push(levelLabel(state.level));
+          if (state.time) active.push(levelLabel(state.time));
+          if (state.studio) {
+            var st = document.querySelector(
+              '[data-filter-group="studio"] input[value="' + state.studio + '"]',
+            );
+            var label = st ? st.closest("label").querySelector("span").textContent : "";
+            active.push(label);
+          }
+          scheduleFilterNote.textContent = active.length
+            ? "Filtered: " + active.join(", ")
+            : "Showing all classes";
+
+          if (!list.length) {
+            scheduleList.innerHTML =
+              '<div class="bg-white rounded-[24px] border border-sage-100 p-10 text-center text-stone-warm">Checking upcoming days...</div>';
+            emptyState();
+            return;
+          }
+
+          scheduleList.innerHTML = list
+            .map(function (s) {
+              var startH = parseInt(String(s.start_time).split(":")[0], 10);
+              var duration = s.duration ? s.duration + " min" : "";
+              var capacity = s.capacity != null ? s.capacity : "—";
+              var barWidth =
+                typeof s.capacity === "number"
+                  ? Math.min(100, Math.max(10, s.capacity * 5))
+                  : 0;
+
+              return (
+                '<div class="bg-white rounded-[24px] border border-sage-100 p-5 mb-4 hover:shadow-lg transition">' +
+                '<div class="flex flex-col md:flex-row md:items-center gap-5">' +
+                '<div class="md:w-[120px] shrink-0">' +
+                '<div class="text-xl font-bold">' +
+                escapeHtml(s.start_time) +
+                "</div>" +
+                '<div class="text-sm text-stone-warm">' +
+                escapeHtml(s.end_time || "—") +
+                "</div>" +
+                '<div class="text-xs text-stone-warm mt-1">' +
+                escapeHtml(duration) +
+                "</div></div>" +
+                '<div class="flex-1">' +
+                '<div class="flex flex-wrap items-center gap-2 mb-2">' +
+                '<span class="px-2.5 py-1 rounded-full bg-sage-50 text-sage-700 text-xs font-semibold">' +
+                escapeHtml(levelLabel(s.class && s.class.level)) +
+                "</span>" +
+                '<span class="px-2.5 py-1 rounded-full bg-stone-50 text-stone-warm text-xs">' +
+                escapeHtml(timeLabel(s.start_time)) +
+                "</span></div>" +
+                '<h3 class="text-lg font-bold">' +
+                escapeHtml(s.class && s.class.name) +
+                "</h3>" +
+                '<p class="text-sm text-stone-warm mt-1">' +
+                escapeHtml((s.class && s.class.description) || "") +
+                "</p>" +
+                '<div class="flex flex-wrap gap-x-5 gap-y-2 mt-3 text-sm text-stone-warm">' +
+                "<span>" +
+                escapeHtml((s.instructor && s.instructor.name) || "—") +
+                "</span>" +
+                "<span>" +
+                escapeHtml((s.studio && s.studio.name) || "—") +
+                "</span></div></div>" +
+                '<div class="md:w-[150px] shrink-0">' +
+                '<div class="text-sm font-semibold">' +
+                escapeHtml(capacity) +
+                " spots capacity</div>" +
+                '<div class="w-full h-1.5 bg-stone-100 rounded-full mt-2">' +
+                '<div class="h-1.5 bg-sage-600 rounded-full" style="width: ' +
+                barWidth +
+                '%"></div></div></div>' +
+                '<div class="md:w-[120px] shrink-0">' +
+                '<a href="#" onclick="openBooking();return false;" class="block text-center bg-sage-700 text-white rounded-full px-5 py-2.5 text-sm font-semibold hover:bg-sage-800 transition">Book Class</a>' +
+                "</div>" +
+                "</div></div>"
+              );
+            })
+            .join("");
+        }
+
+        async function loadSchedules() {
+          scheduleList.innerHTML =
+            '<div class="bg-white rounded-[24px] border border-sage-100 p-10 text-center text-stone-warm">Loading classes...</div>';
+          try {
+            var params =
+              "?date=" + fmtISO(state.selected) + "&per_page=50";
+            if (state.level) params += "&level=" + encodeURIComponent(state.level);
+            if (state.time) params += "&time=" + encodeURIComponent(state.time);
+            if (state.studio)
+              params += "&studio_uuid=" + encodeURIComponent(state.studio);
+            var list = await fetchJSON("/api/class-schedules" + params);
+            renderSchedules(list);
+          } catch (e) {
+            scheduleList.innerHTML =
+              '<div class="bg-white rounded-[24px] border border-sage-100 p-10 text-center text-terracotta-600">Failed to load classes. Please try again.</div>';
+          }
+        }
+
+        function loadAll() {
+          loadStudios();
+          loadSchedules();
+        }
+
+        bindGroup("level");
+        bindGroup("time");
+        bindGroup("studio");
+
+        renderDates();
+        loadAll();
+      })();
+    </script>
   </body>
 </html>

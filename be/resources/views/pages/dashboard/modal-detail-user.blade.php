@@ -11,14 +11,17 @@
                 <div class="d-flex align-items-center gap-3">
 
                     {{-- Avatar --}}
-                    <div class="rounded-circle bg-primary-subtle
-                                d-flex align-items-center justify-content-center"
-                        style="width: 52px; height: 52px;">
-
-                        <span class="fw-bold text-primary fs-5">
-                            {{ strtoupper(substr($user->name, 0, 1)) }}
-                        </span>
-
+                    <div class="rounded-circle bg-primary-subtle overflow-hidden d-flex align-items-center justify-content-center"
+                        style="width:52px;height:52px;">
+                        @if($user->avatar)
+                            <img src="{{ \Illuminate\Support\Str::startsWith($user->avatar, 'http') ? $user->avatar : asset('storage/' . $user->avatar) }}"
+                                 alt="{{ $user->name }}"
+                                 style="width:100%;height:100%;object-fit:cover;">
+                        @else
+                            <span class="fw-bold text-primary fs-5">
+                                {{ strtoupper(substr($user->name, 0, 1)) }}
+                            </span>
+                        @endif
                     </div>
 
                     <div>

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { sendContact } from "../../services/contactService.js";
 import { getClasses } from "../../services/classService.js";
+import { getClassSchedules } from "../../services/classScheduleService.js";
 import {
   validateBooking,
   validateContact,
@@ -14,6 +15,22 @@ router.get("/classes", async (req, res, next) => {
   try {
     const data = await getClasses({ per_page: 50 });
     res.json(data?.data || data || []);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Class schedules (clean proxy: forwards date/level/time/studio filters)
+router.get("/class-schedules", async (req, res, next) => {
+  try {
+    const params = {};
+    if (req.query.date) params.date = req.query.date;
+    if (req.query.level) params.level = req.query.level;
+    if (req.query.time) params.time = req.query.time;
+    if (req.query.studio_uuid) params.studio_uuid = req.query.studio_uuid;
+    params.per_page = Math.min(parseInt(req.query.per_page, 10) || 50, 50);
+    const data = await getClassSchedules(params);
+    res.json(Array.isArray(data) ? data : data?.data || []);
   } catch (err) {
     next(err);
   }

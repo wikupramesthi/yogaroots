@@ -29,11 +29,6 @@ use App\Http\Controllers\Api\PackageController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-
 Route::get('/faqs', [FaqController::class, 'index']);
 Route::get('/testimonials', [TestimonialController::class, 'index']);
 Route::get('/categories', [ArticleController::class, 'category']);

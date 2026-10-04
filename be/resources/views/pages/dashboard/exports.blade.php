@@ -39,24 +39,17 @@
     </p>
 
     {{-- Info filter --}}
-    @if ($filters['start_date'] || $filters['end_date'] || $filters['jenis_peserta'] || $filters['portofolio_id'])
+    @if (! empty($filters['start_date']) || ! empty($filters['end_date']) || ! empty($filters['tahun']))
         <p style="margin-top: 10px; font-size: 11px;">
             <strong>Filter:</strong>
-            @if ($filters['start_date'])
-                From <u>{{ \Carbon\Carbon::parse($filters['start_date'])->format('d/m/Y') }}</u>
+            @if (! empty($filters['tahun']))
+                Year <u>{{ $filters['tahun'] }}</u>
             @endif
-            @if ($filters['end_date'])
-                To <u>{{ \Carbon\Carbon::parse($filters['end_date'])->format('d/m/Y') }}</u>
+            @if (! empty($filters['start_date']))
+                | From <u>{{ \Carbon\Carbon::parse($filters['start_date'])->format('d/m/Y') }}</u>
             @endif
-            @if ($filters['jenis_peserta'])
-                | Participant Type:
-                <u>{{ $filters['jenis_peserta'] == 'user' ? 'General Public' : 'Regional Agency' }}</u>
-            @endif
-            @if ($filters['portofolio_id'])
-                @php
-                    $portofolio = \App\Models\Portofolio::find($filters['portofolio_id']);
-                @endphp
-                | Dimension: <u>{{ $portofolio ? $portofolio->nama : '-' }}</u>
+            @if (! empty($filters['end_date']))
+                | To <u>{{ \Carbon\Carbon::parse($filters['end_date'])->format('d/m/Y') }}</u>
             @endif
         </p>
     @endif
@@ -69,7 +62,6 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone No.</th>
-                <th>Dimension</th>
                 <th>Registration Date</th>
             </tr>
         </thead>

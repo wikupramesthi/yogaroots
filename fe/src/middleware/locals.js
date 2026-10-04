@@ -13,7 +13,7 @@ export function appLocals(req, res, next) {
   res.locals.currentPath = req.path;
   res.locals.currentUrl = `${env.SITE_URL}${req.path}`;
   // Versi asset untuk cache-busting (?v=) — naikkan tiap rilis statis
-  res.locals.assetV = "20261002b";
+  res.locals.assetV = "20261004c";
   // `title` default — setiap halaman boleh override via render()
   if (res.locals.title === undefined) res.locals.title = "YogaRoots — Yoga, Meditation & Wellness";
   next();

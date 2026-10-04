@@ -234,6 +234,8 @@
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   background: rgba(250, 248, 245, 0.92);
+  border: 1px solid rgba(221, 210, 192, 0.6);
+  box-shadow: 0 4px 24px rgba(30, 24, 16, 0.08);
 }
 
 /* =========================

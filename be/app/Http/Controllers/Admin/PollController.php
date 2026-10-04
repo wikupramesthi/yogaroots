@@ -94,7 +94,7 @@ class PollController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route('poll.list')->with('success', 'Poll updated successfully.');
+            return redirect()->route('poll.index')->with('success', 'Poll updated successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());

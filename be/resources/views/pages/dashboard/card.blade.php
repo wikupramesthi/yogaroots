@@ -1,402 +1,457 @@
-@extends('layouts.app')
+{{-- Admin dashboard (dilibatkan oleh pages.dashboard.index saat bukan role user) --}}
+<div class="d-grid gap-4">
 
-@section('content')
-
-<div class="card text-white mb-3" style="background: var(--brand-gradient);">
-    <div class="card-body p-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
-        <div>
-            <span class="badge bg-white text-dark mb-2"> {{ now()->translatedFormat('l, j F Y') }}</span>
-            <h3 class="text-white fw-bold mb-1">Hi, {{ auth()->user()->name }} 🌿</h3>
-            <div class="text-white-50">A quick overview of today’s studio activities and performance.</div>
+    {{-- HERO --}}
+    <div class="dash-hero">
+        <div class="hero-content d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <span class="hero-date"><i class="bi bi-calendar3"></i> {{ now()->translatedFormat('l, j F Y') }}</span>
+                <h3>Welcome back, {{ auth()->user()->name }} 🌿</h3>
+                <p>A quick overview of studio activities and performance.</p>
+            </div>
+            <div class="hero-action d-flex gap-2">
+                <a href="{{ route('orders.report') }}" class="btn btn-light"><i class="bi bi-bar-chart me-1"></i> Reports</a>
+                <a href="{{ route('class-schedules.index') }}" class="btn btn-light"><i class="bi bi-calendar-week me-1"></i> Schedule</a>
+            </div>
         </div>
-        <button class="btn btn-light"><i class="bi bi-bar-chart me-1"></i> View Reports</button>
     </div>
-</div>
 
-<div class="row">
-    <div class="col-6 col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body px-4 py-4-5">
-                <div class="row">
-                    <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                        <div class="stats-icon purple mb-2">
-                            <i class='bx bx-user'></i>
+    {{-- FILTER TANGGAL --}}
+    <div class="card mb-2">
+        <div class="card-body">
+            <form action="{{ route('dashboard.index') }}" method="GET" class="row g-2 align-items-end">
+                <div class="col-md-auto col-12">
+                    <label class="form-label small fw-semibold mb-1">From Date</label>
+                    <input type="date" name="start_date" value="{{ request('start_date') }}" class="form-control form-control-sm">
+                </div>
+                <div class="col-md-auto col-12">
+                    <label class="form-label small fw-semibold mb-1">To Date</label>
+                    <input type="date" name="end_date" value="{{ request('end_date') }}" class="form-control form-control-sm">
+                </div>
+                <div class="col-md-auto col-12 d-flex gap-2">
+                    <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-funnel"></i> Filter</button>
+                    <a href="{{ route('dashboard.index') }}" class="btn btn-sm btn-secondary">Reset</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {{-- STAT CARDS --}}
+    @php
+        $stats = [
+            ['label' => 'Active Members', 'value' => $jumlahMembers, 'icon' => 'bi bi-people', 'class' => 'purple', 'route' => route('pengguna.index')],
+            ['label' => 'Instructors', 'value' => $jumlahInstruktur, 'icon' => 'bi bi-person-badge', 'class' => 'blue', 'route' => route('instruktur.index')],
+            ['label' => 'Packages', 'value' => $totalPackages, 'icon' => 'bi bi-box-seam', 'class' => 'green', 'route' => route('packages.index')],
+            ['label' => 'Classes', 'value' => $totalClasses, 'icon' => 'bi bi-book', 'class' => 'red', 'route' => route('classes.index')],
+            ['label' => 'Events', 'value' => $totalEvents, 'icon' => 'bi bi-calendar-event', 'class' => 'cyan', 'route' => route('events.index')],
+            ['label' => 'Articles', 'value' => $totalArticles, 'icon' => 'bi bi-file-earmark-text', 'class' => 'yellow', 'route' => route('articles.index')],
+            ['label' => 'FAQ', 'value' => $totalFaq, 'icon' => 'bi bi-question-circle', 'class' => 'pink', 'route' => route('faq.index')],
+            ['label' => 'Incoming Messages', 'value' => $totalPesan, 'icon' => 'bi bi-envelope', 'class' => 'turquoise', 'route' => route('layanan.kontak')],
+        ];
+    @endphp
+
+    <div class="row g-4">
+        @foreach ($stats as $s)
+            <div class="col-6 col-md-4 col-xl-3">
+                <div class="card h-100">
+                    <div class="card-body d-flex align-items-center gap-3">
+                        <div class="stats-icon {{ $s['class'] }}">
+                            <i class="{{ $s['icon'] }}"></i>
+                        </div>
+                        <div class="min-w-0">
+                            <h6 class="text-muted font-semibold mb-0 text-truncate">{{ $s['label'] }}</h6>
+                            <a href="{{ $s['route'] }}" class="text-decoration-none">
+                                <h4 class="font-extrabold mb-0">{{ $s['value'] }}</h4>
+                            </a>
                         </div>
                     </div>
-                    <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                        <h6 class="text-muted font-semibold">Total Member</h6>
-                        <a href="{{ route('pengguna.index') }}" class="text-decoration-none">
-                            <h6 class="font-extrabold mb-0">{{ $jumlahMembers }}</h6>
+                </div>
+            </div>
+        @endforeach
+    </div>
+
+    {{-- ORDER, MEMBERSHIP & REVENUE --}}
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stats-icon yellow"><i class="bi bi-bag-plus"></i></div>
+                    <div class="min-w-0">
+                        <h6 class="text-muted font-semibold mb-0">New Orders (Pending)</h6>
+                        <a href="{{ route('orders.index') }}" class="text-decoration-none">
+                            <h4 class="font-extrabold mb-0">{{ $newOrdersCount }}</h4>
                         </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stats-icon green"><i class="bi bi-person-plus"></i></div>
+                    <div class="min-w-0">
+                        <h6 class="text-muted font-semibold mb-0">New Memberships</h6>
+                        <a href="{{ route('memberships.index') }}" class="text-decoration-none">
+                            <h4 class="font-extrabold mb-0">{{ $newMembershipCount }}</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body d-flex align-items-center gap-3">
+                    <div class="stats-icon blue"><i class="bi bi-cash-stack"></i></div>
+                    <div class="min-w-0">
+                        <h6 class="text-muted font-semibold mb-0">Revenue</h6>
+                        <h4 class="font-extrabold mb-0 text-success">Rp {{ number_format($revenueMonth, 0, ',', '.') }}</h4>
+                        <small class="text-muted">Total: Rp {{ number_format($revenueTotal, 0, ',', '.') }}</small>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-6 col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body px-4 py-4-5">
-                <div class="row">
-                    <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                        <div class="stats-icon blue mb-2">
-                            <i class='bx bi-people'></i>
-                        </div>
+    {{-- REVENUE CHART --}}
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="card h-100">
+                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Revenue</h5>
+                    <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end">
+                        <input type="date" id="revenueFrom" class="form-control form-control-sm" style="width:auto" value="{{ now()->subDays(6)->format('Y-m-d') }}">
+                        <input type="date" id="revenueTo" class="form-control form-control-sm" style="width:auto" value="{{ now()->format('Y-m-d') }}">
+                        <select id="revenueChartRange" class="form-select form-select-sm" style="width:auto">
+                            <option value="daily">Per Day</option>
+                            <option value="monthly">This Month</option>
+                            <option value="yearly">This Year</option>
+                        </select>
+                        <button id="revenueApply" class="btn btn-sm btn-primary"><i class="bi bi-funnel"></i></button>
                     </div>
-                    <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                        <h6 class="text-muted font-semibold">Total Instructors</h6>
-                        <a href="{{ route('instruktur.index') }}" class="text-decoration-none">
-                            <h6 class="font-extrabold mb-0">{{ $jumlahInstruktur }}</h6>
-                        </a>
+                </div>
+                <div class="card-body">
+                    <div style="position:relative;height:300px;">
+                        <canvas id="revenueChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-6 col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body px-4 py-4-5">
-                <div class="row">
-                    <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                        <div class="stats-icon green mb-2">
-                            <i class='bx bx-package'></i>
+    {{-- ORDER & MEMBERSHIP TERBARU --}}
+    <div class="row g-4">
+        <div class="col-lg-7">
+            <div class="card h-100">
+                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Recent Orders</h5>
+                    <a href="{{ route('orders.index') }}" class="small text-decoration-none text-primary fw-semibold">View All</a>
+                </div>
+                <div class="card-body table-responsive">
+                    @if ($recentOrders->count())
+                        <table class="table align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Order No.</th>
+                                    <th>Member</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($recentOrders as $order)
+                                    <tr>
+                                        <td class="fw-semibold">{{ $order->order_number }}</td>
+                                        <td>{{ $order->user->name ?? '-' }}</td>
+                                        <td>Rp {{ number_format($order->amount, 0, ',', '.') }}</td>
+                                        <td>
+                                            @php
+                                                $badge = match ($order->status) {
+                                                    'paid' => 'bg-light-success',
+                                                    'pending' => 'bg-light-warning',
+                                                    default => 'bg-light-danger',
+                                                };
+                                            @endphp
+                                            <span class="badge {{ $badge }}">{{ ucfirst($order->status) }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="text-center text-muted py-4">No orders yet.</div>
+                    @endif
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card h-100">
+                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Recent Memberships</h5>
+                    <a href="{{ route('memberships.index') }}" class="small text-decoration-none text-primary fw-semibold">View All</a>
+                </div>
+                <div class="card-body">
+                    @forelse ($recentMemberships as $membership)
+                        <div class="d-flex align-items-center gap-3 {{ $loop->last ? '' : 'border-bottom pb-3 mb-3' }}">
+                            <div class="avatar avatar-md2">
+                                <div class="avatar-content bg-light-success">
+                                    <i class="bi bi-person-badge"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 min-w-0">
+                                <div class="fw-semibold small text-truncate">{{ $membership->user->name ?? '-' }}</div>
+                                <div class="small text-muted text-truncate">{{ $membership->package->name ?? '-' }} · {{ \Carbon\Carbon::parse($membership->started_at)->format('d M Y') }}</div>
+                            </div>
+                            <span class="badge {{ $membership->status === 'active' ? 'bg-light-success' : 'bg-light-secondary' }}">{{ ucfirst($membership->status) }}</span>
                         </div>
-                    </div>
-                    <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                        <h6 class="text-muted font-semibold">Total Packages</h6>
-                        <a href="{{ route('packages.index') }}" class="text-decoration-none">
-                            <h6 class="font-extrabold mb-0">{{ $totalPackages }}</h6>
-                        </a>
-                    </div>
+                    @empty
+                        <div class="text-center text-muted py-4">No memberships yet.</div>
+                    @endforelse
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-6 col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body px-4 py-4-5">
-                <div class="row">
-                    <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                        <div class="stats-icon red mb-2">
-                            <i class='bx bx-book'></i>
+    {{-- JADWAL HARI INI & EVENT --}}
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card h-100">
+                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Today's Schedule</h5>
+                    <a href="{{ route('class-schedules.index') }}" class="small text-decoration-none text-primary fw-semibold">View All</a>
+                </div>
+                <div class="card-body table-responsive">
+                    @if ($todaySchedules->count())
+                        <table class="table align-middle mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Time</th>
+                                    <th>Instructor</th>
+                                    <th>Level</th>
+                                    <th>Attendees</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($todaySchedules as $schedule)
+                                    <tr>
+                                        <td class="fw-semibold">{{ $schedule->class->name ?? '-' }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($schedule->start_time)->format('H:i') }}</td>
+                                        <td>{{ $schedule->class->instructor->name ?? '-' }}</td>
+                                        <td><span class="badge bg-light-secondary">{{ $schedule->class->level ?? '-' }}</span></td>
+                                        <td>
+                                            @if (($schedule->bookings_count ?? 0) >= ($schedule->capacity ?? PHP_INT_MAX))
+                                                <span class="badge bg-light-danger">Full</span>
+                                            @else
+                                                <span class="badge bg-light-success">{{ $schedule->bookings_count ?? 0 }} / {{ $schedule->capacity ?? '∞' }}</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="text-center text-muted py-4">
+                            <i class="bi bi-calendar-x fs-3 d-block mb-2"></i>
+                            No classes scheduled today.
                         </div>
-                    </div>
-                    <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                        <h6 class="text-muted font-semibold">Total Class</h6>
-                        <a href="{{ route('classes.index') }}" class="text-decoration-none">
-                            <h6 class="font-extrabold mb-0">{{ $totalClasses }}</h6>
-                        </a>
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-6 col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body px-4 py-4-5">
-                <div class="row">
-                    <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                        <div class="stats-icon yellow mb-2">
-                            <i class='bx bx-help-circle'></i>
-                        </div>
-                    </div>
-                    <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                        <h6 class="text-muted font-semibold">Total FAQ</h6>
-                        <a href="{{ route('faq.index') }}" class="text-decoration-none">
-                            <h6 class="font-extrabold mb-0">{{ $totalFaq }}</h6>
-                        </a>
-                    </div>
+        <div class="col-lg-4">
+            <div class="card h-100">
+                <div class="card-header bg-transparent">
+                    <h5 class="card-title mb-0">Upcoming Events</h5>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body px-4 py-4-5">
-                <div class="row">
-                    <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                        <div class="stats-icon cyan mb-2">
-                            <i class='bx bx-file'></i>
-                        </div>
-                    </div>
-                    <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                        <h6 class="text-muted font-semibold">Total Articles</h6>
-                        <a href="{{ route('articles.index') }}" class="text-decoration-none">
-                            <h6 class="font-extrabold mb-0">{{ $totalArticles }}</h6>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body px-4 py-4-5">
-                <div class="row">
-                    <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                        <div class="stats-icon pink mb-2">
-                            <i class='bx bx-envelope'></i>
-                        </div>
-                    </div>
-                    <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                        <h6 class="text-muted font-semibold">Total Messages</h6>
-                        <a href="{{ route('layanan.kontak') }}" class="text-decoration-none">
-                            <h6 class="font-extrabold mb-0">{{ $totalPesan }}</h6>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body px-4 py-4-5">
-                <div class="row">
-                    <div class="col-md-3 col-lg-12 col-xl-12 col-xxl-4 d-flex justify-content-start">
-                        <div class="stats-icon turquoise mb-2">
-                            <i class='bx bx-comment-detail'></i>
-                        </div>
-                    </div>
-                    <div class="col-md-9 col-lg-12 col-xl-12 col-xxl-8">
-                        <h6 class="text-muted font-semibold">Testimonials</h6>
-                        <a href="{{ route('testimonial.index') }}" class="text-decoration-none">
-                            <h6 class="font-extrabold mb-0">{{ $totalTestimonial }}</h6>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-8">
-        <div class="card">
-            <div class="card-header bg-transparent">
-                <h5 class="card-title mb-0">Today's Bookings</h5>
-            </div>
-
-            <div class="card-body">
-                <div class="list-group list-group-flush">
-
-                    <div class="list-group-item d-flex align-items-center gap-3 px-0">
-                        <div class="fw-bold text-primary" style="width:56px;">06:00</div>
-
-                        <div class="flex-grow-1">
-                            <div class="fw-semibold">Morning Hatha Yoga</div>
-                            <div class="small text-muted">
-                                Dewi Anggraini · Studio 1
+                <div class="card-body">
+                    @forelse ($events as $event)
+                        <div class="d-flex gap-3 {{ $loop->last ? '' : 'border-bottom pb-3 mb-3' }}">
+                            <div class="text-center" style="min-width:52px;">
+                                <div class="fw-extrabold fs-4 lh-1">{{ \Carbon\Carbon::parse($event->tanggal)->format('d') }}</div>
+                                <div class="small text-muted text-uppercase">{{ \Carbon\Carbon::parse($event->tanggal)->translatedFormat('M') }}</div>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="fw-semibold small text-truncate">{{ $event->judul ?? $event->title ?? '-' }}</div>
+                                <div class="small text-muted">{{ $event->waktu_mulai ?? '' }}</div>
                             </div>
                         </div>
-
-                        <span class="badge bg-light-secondary">14 / 18</span>
-                    </div>
-
-                    <div class="list-group-item d-flex align-items-center gap-3 px-0">
-                        <div class="fw-bold text-primary" style="width:56px;">08:00</div>
-
-                        <div class="flex-grow-1">
-                            <div class="fw-semibold">Vinyasa Flow</div>
-                            <div class="small text-muted">
-                                Bagus Prasetyo · Studio 2
-                            </div>
-                        </div>
-
-                        <span class="badge bg-light-danger">Full</span>
-                    </div>
-
-                    <div class="list-group-item d-flex align-items-center gap-3 px-0">
-                        <div class="fw-bold text-primary" style="width:56px;">10:30</div>
-
-                        <div class="flex-grow-1">
-                            <div class="fw-semibold">Prenatal Yoga</div>
-                            <div class="small text-muted">
-                                Dewi Anggraini · Studio 1
-                            </div>
-                        </div>
-
-                        <span class="badge bg-light-secondary">9 / 12</span>
-                    </div>
-
-                    <div class="list-group-item d-flex align-items-center gap-3 px-0">
-                        <div class="fw-bold text-primary" style="width:56px;">17:00</div>
-
-                        <div class="flex-grow-1">
-                            <div class="fw-semibold">Yin Yoga & Relaxation</div>
-                            <div class="small text-muted">
-                                Rangga Kusuma · Studio 2
-                            </div>
-                        </div>
-
-                        <span class="badge bg-light-secondary">16 / 18</span>
-                    </div>
-
+                    @empty
+                        <div class="text-center text-muted py-4">No upcoming events.</div>
+                    @endforelse
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-lg-4">
-        <div class="card">
-            <div class="card-body">
-
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                    <div class="d-flex gap-2 align-items-center">
-
-                        <div class="avatar avatar-md2">
-                            <div class="avatar-content bg-primary">
-                                <i class="bi bi-journal-check"></i>
+    {{-- KELAS BERIKUTNYA & AKSES CEPAT --}}
+    <div class="row g-4">
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-header bg-transparent">
+                    <h5 class="card-title mb-0">Upcoming Classes</h5>
+                </div>
+                <div class="card-body">
+                    @forelse ($upcomingClasses as $kelas)
+                        <div class="d-flex align-items-center gap-3 {{ $loop->last ? '' : 'border-bottom pb-3 mb-3' }}">
+                            <div class="avatar avatar-md2">
+                                <div class="avatar-content bg-light-primary">
+                                    <i class="bi bi-activity"></i>
+                                </div>
                             </div>
+                            <div class="flex-grow-1 min-w-0">
+                                <div class="fw-semibold small text-truncate">{{ $kelas->class->name ?? '-' }}</div>
+                                <div class="small text-muted">{{ ucfirst($kelas->day) }} · {{ \Carbon\Carbon::parse($kelas->start_time)->format('H:i') }}</div>
+                            </div>
+                            <span class="badge bg-light-primary">{{ $kelas->class->level ?? '-' }}</span>
                         </div>
-
-                        <div>
-                            <h6 class="mb-0">Booking Summary</h6>
-                            <div class="small text-muted">Today</div>
-                        </div>
-
-                    </div>
-
-                    <span class="badge bg-light-primary">37 Total</span>
+                    @empty
+                        <div class="text-center text-muted py-4">No upcoming classes.</div>
+                    @endforelse
                 </div>
-
-                <div class="list-group list-group-flush mb-3">
-
-                    <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                        <span>
-                            <i class="bi bi-check-circle text-success me-2"></i>
-                            Confirmed
-                        </span>
-                        <span class="fw-bold">28</span>
-                    </div>
-
-                    <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                        <span>
-                            <i class="bi bi-clock text-warning me-2"></i>
-                            Pending
-                        </span>
-                        <span class="fw-bold">6</span>
-                    </div>
-
-                    <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                        <span>
-                            <i class="bi bi-x-circle text-danger me-2"></i>
-                            Cancelled
-                        </span>
-                        <span class="fw-bold">3</span>
-                    </div>
-
-                </div>
-
-                <button class="btn btn-primary w-100">
-                    <i class="bi bi-journal-check me-1"></i>
-                    View All Bookings
-                </button>
-
             </div>
         </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-lg-8">
-        <div class="card">
-
-            <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0">Today's Class Schedule</h5>
-
-                <a href="#" class="small text-decoration-none text-primary fw-semibold">
-                    View All
-                </a>
-            </div>
-
-            <div class="card-body table-responsive">
-                <table class="table align-middle mb-0">
-
-                    <thead>
-                        <tr>
-                            <th>CLASS</th>
-                            <th>TIME</th>
-                            <th>INSTRUCTOR</th>
-                            <th>LEVEL</th>
-                            <th>STATUS</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        <tr>
-                            <td>Morning Hatha Yoga</td>
-                            <td>Tuesday, 06:00</td>
-                            <td>Dewi Anggraini</td>
-                            <td>Beginner</td>
-                            <td class="fw-bold">Available</td>
-                        </tr>
-
-                        <tr>
-                            <td>Vinyasa Flow</td>
-                            <td>Tuesday, 08:00</td>
-                            <td>Bagus Prasetyo</td>
-                            <td>Intermediate</td>
-                            <td class="fw-bold">Full</td>
-                        </tr>
-
-                        <tr>
-                            <td>Prenatal Yoga</td>
-                            <td>Tuesday, 10:30</td>
-                            <td>Dewi Anggraini</td>
-                            <td>Beginner</td>
-                            <td class="fw-bold">Available</td>
-                        </tr>
-                    </tbody>
-
-                </table>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="col-lg-4">
-        <div class="card">
-
-            <div class="card-header bg-transparent">
-                <h5 class="card-title mb-0">Recent Activity</h5>
-            </div>
-
-            <div class="card-body">
-
-                <div class="d-flex justify-content-between align-items-start border-bottom pb-3 mb-3">
-                    <div>
-                        <div class="fw-semibold small">New Member</div>
-                        <div class="small text-muted">
-                            Fajar Nugroho joined at 09:12
+        <div class="col-lg-6">
+            <div class="card h-100">
+                <div class="card-header bg-transparent">
+                    <h5 class="card-title mb-0">Quick Access</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-6 col-md-4">
+                            <a href="{{ route('class-bookings.index') }}" class="text-decoration-none">
+                                <div class="border rounded-3 p-3 text-center h-100">
+                                    <i class="bi bi-journal-check fs-4 text-primary"></i>
+                                    <div class="small fw-semibold mt-2">Bookings</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <a href="{{ route('orders.index') }}" class="text-decoration-none">
+                                <div class="border rounded-3 p-3 text-center h-100">
+                                    <i class="bi bi-credit-card fs-4 text-success"></i>
+                                    <div class="small fw-semibold mt-2">Orders</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <a href="{{ route('banner.index') }}" class="text-decoration-none">
+                                <div class="border rounded-3 p-3 text-center h-100">
+                                    <i class="bi bi-images fs-4 text-warning"></i>
+                                    <div class="small fw-semibold mt-2">Banners</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <a href="{{ route('testimonial.index') }}" class="text-decoration-none">
+                                <div class="border rounded-3 p-3 text-center h-100">
+                                    <i class="bi bi-chat-quote fs-4 text-info"></i>
+                                    <div class="small fw-semibold mt-2">Testimonials</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <a href="{{ route('website-identity.index') }}" class="text-decoration-none">
+                                <div class="border rounded-3 p-3 text-center h-100">
+                                    <i class="bi bi-globe fs-4 text-danger"></i>
+                                    <div class="small fw-semibold mt-2">Website</div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-4">
+                            <a href="{{ route('security.audit-log.index') }}" class="text-decoration-none">
+                                <div class="border rounded-3 p-3 text-center h-100">
+                                    <i class="bi bi-shield-check fs-4 text-secondary"></i>
+                                    <div class="small fw-semibold mt-2">Audit Log</div>
+                                </div>
+                            </a>
                         </div>
                     </div>
-
-                    <a href="#" class="btn btn-outline-primary btn-sm">
-                        View
-                    </a>
                 </div>
-
-                <div class="d-flex justify-content-between align-items-start">
-                    <div>
-                        <div class="fw-semibold small">Payment Received</div>
-                        <div class="small text-muted">
-                            Andra Wijaya · Premium Monthly
-                        </div>
-                    </div>
-
-                    <a href="#" class="btn btn-outline-primary btn-sm">
-                        View
-                    </a>
-                </div>
-
             </div>
         </div>
     </div>
 </div>
-@endsection
+
+@push('after-script')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+(function () {
+    const dailyLabels = @json($revenueDailyLabels);
+    const daily = @json($revenueDaily);
+    const monthLabels = @json($revenueMonthLabels);
+    const monthDaily = @json($revenueMonthDaily);
+    const yearLabels = @json($revenueYearLabels);
+    const year = @json($revenueYear);
+    const allDaily = @json($revenueAllDaily);
+
+    function dailyRangeSeries(from, to) {
+        const keys = Object.keys(allDaily).sort().filter(d => d >= from && d <= to);
+        if (keys.length === 0) return { labels: [], data: [] };
+        const start = new Date(from);
+        const end = new Date(to);
+        const labels = [];
+        const data = [];
+        for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+            const key = d.toISOString().slice(0, 10);
+            labels.push(d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short' }));
+            data.push(Number(allDaily[key] || 0));
+        }
+        return { labels, data };
+    }
+
+    function currentSet() {
+        const mode = document.getElementById('revenueChartRange').value;
+        if (mode === 'monthly') return { labels: monthLabels, data: monthDaily };
+        if (mode === 'yearly') return { labels: yearLabels, data: year };
+        const from = document.getElementById('revenueFrom').value;
+        const to = document.getElementById('revenueTo').value;
+        if (from && to) return dailyRangeSeries(from, to);
+        return { labels: dailyLabels, data: daily };
+    }
+
+    const ctx = document.getElementById('revenueChart');
+    if (!ctx || typeof Chart === 'undefined') return;
+
+    const chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dailyLabels,
+            datasets: [{
+                label: 'Revenue (Rp)',
+                data: daily,
+                borderColor: '#2f7d4f',
+                backgroundColor: 'rgba(47,125,79,0.12)',
+                fill: true,
+                tension: 0.3,
+            }],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: {
+                    ticks: {
+                        callback: (v) => 'Rp ' + Number(v).toLocaleString('id-ID'),
+                    },
+                },
+            },
+        },
+    });
+
+    function refresh() {
+        const set = currentSet();
+        chart.data.labels = set.labels;
+        chart.data.datasets[0].data = set.data;
+        chart.update();
+    }
+
+    document.getElementById('revenueChartRange').addEventListener('change', refresh);
+    document.getElementById('revenueApply').addEventListener('click', refresh);
+})();
+</script>
+@endpush
+

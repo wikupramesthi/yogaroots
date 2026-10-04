@@ -27,5 +27,10 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (\Illuminate\Session\TokenMismatchException $e, \Illuminate\Http\Request $request) {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Sesi berakhir. Silakan login kembali.'], 419);
+            }
+            return redirect()->route('login')->withErrors(['session_expired' => 'Sesi Anda telah berakhir. Silakan login kembali.']);
+        });
     })->create();

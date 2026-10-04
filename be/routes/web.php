@@ -97,15 +97,15 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
     Route::put('banner/album/{album}', [BannerController::class, 'updateAlbum'])->name('banner.updateAlbum');
     Route::delete('banner/album/{album}', [BannerController::class, 'destroyAlbum'])->name('banner.destroyAlbum');
     Route::resource('categories', CategoryController::class);
-    Route::resource('specializations', SpecializatyController::class);
+    Route::resource('specializations', SpecializatyController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::delete('articles/bulk', [ArticleController::class, 'bulkDestroy'])->name('articles.bulkDestroy');
-    Route::resource('articles', ArticleController::class);
+    Route::resource('articles', ArticleController::class)->except(['show']);
     Route::resource('account', AccountController::class);
     Route::get('/get-kelurahan/{kecamatan_id}', [AccountController::class, 'getKelurahan']);
     Route::resource('poll', PollController::class);
     Route::resource('pages', PagesController::class);
     Route::resource('events', EventsController::class);
-    Route::resource('filedownload', FileDownloadController::class);
+    Route::resource('filedownload', FileDownloadController::class)->only(['index', 'store', 'update', 'destroy']);
     // Website Identity (singleton: single form, no table CRUD)
     Route::get('website-identity', [WebsiteIdentityController::class, 'index'])->name('website-identity.index');
     Route::put('website-identity', [WebsiteIdentityController::class, 'update'])->name('website-identity.update');
@@ -118,8 +118,8 @@ Route::group(['middleware' => ['web', 'auth', 'verified'], 'prefix' => 'backend'
         [PackageController::class, 'members']
     )->name('packages.member');
     Route::resource('packages', PackageController::class);
-    Route::resource('studios', StudioController::class);
-    Route::resource('classes', ClassController::class);
+Route::resource('studios', StudioController::class)->except(['show']);
+Route::resource('classes', ClassController::class)->except(['show']);
     Route::patch(
         '/classes/{uuid}/level',
         [ClassController::class, 'changeLevel']

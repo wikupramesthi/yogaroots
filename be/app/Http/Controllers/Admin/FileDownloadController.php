@@ -50,7 +50,7 @@ class FileDownloadController extends Controller
             FileDownload::create($data);
             DB::commit();
 
-            return redirect()->route('filedownloads.index')->with('success', 'School document added successfully.');
+            return redirect()->route('filedownload.index')->with('success', 'School document added successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', 'An error occurred: ' . $th->getMessage());
@@ -120,7 +120,7 @@ class FileDownloadController extends Controller
             $item->delete();
             DB::commit();
 
-            return redirect()->route('filedownloads.index')->with('success', 'School document deleted successfully.');
+            return redirect()->route('filedownload.index')->with('success', 'School document deleted successfully.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('error', 'Failed to delete file: ' . $th->getMessage());
