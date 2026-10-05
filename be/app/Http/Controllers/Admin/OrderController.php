@@ -8,6 +8,7 @@ use App\Models\Payment\Order;
 use App\Models\Payment\Payment;
 use App\Models\User;
 use App\Models\UserPackage;
+use App\Services\MembershipService;
 use App\Notifications\MemberActiveNotification;
 use App\Notifications\OrderBaruNotification;
 use App\Notifications\ProofUploadedNotification;
@@ -177,22 +178,62 @@ class OrderController extends Controller
                 $option = $order->packageOption;
                 $started = now();
 
-                $expired = match ($option->duration_unit) {
-                    'day' => (clone $started)->addDays($option->duration),
-                    'week' => (clone $started)->addWeeks($option->duration),
-                    'year' => (clone $started)->addYears($option->duration),
-                    default => (clone $started)->addMonths($option->duration),
-                };
+                $existing = UserPackage::where('user_uuid', $order->user_uuid)
+                    ->where('package_uuid', $order->package_uuid)
+                    ->where('status', 'active')
+                    ->where(function ($q) {
+                        $q->whereNull('expired_at')->orWhere('expired_at', '>', now());
+                    })
+                    ->lockForUpdate()
+                    ->first();
 
-                $userPackage = UserPackage::create([
-                    'user_uuid' => $order->user_uuid,
-                    'package_uuid' => $order->package_uuid,
-                    'order_uuid' => $order->uuid,
-                    'quota' => $option->quota,
-                    'started_at' => $started,
-                    'expired_at' => $expired,
-                    'status' => 'active',
-                ]);
+                if ($existing) {
+                    // Same package bought again: extend time and add quota
+                    // to the active membership instead of creating a new one.
+                    $base = $existing->expired_at && $existing->expired_at->isFuture()
+                        ? $existing->expired_at->copy()
+                        : $started->copy();
+
+                    $expired = match ($option->duration_unit) {
+                        'day' => $base->addDays($option->duration),
+                        'week' => $base->addWeeks($option->duration),
+                        'year' => $base->addYears($option->duration),
+                        default => $base->addMonths($option->duration),
+                    };
+
+                    $quota = $existing->quota;
+                    if (!is_null($quota) && !is_null($option->quota)) {
+                        $quota += $option->quota;
+                    } elseif (is_null($existing->quota)) {
+                        $quota = null;
+                    } else {
+                        $quota = $option->quota;
+                    }
+
+                    $existing->update([
+                        'expired_at' => $expired,
+                        'quota' => $quota,
+                    ]);
+
+                    $userPackage = $existing->fresh();
+                } else {
+                    $expired = match ($option->duration_unit) {
+                        'day' => (clone $started)->addDays($option->duration),
+                        'week' => (clone $started)->addWeeks($option->duration),
+                        'year' => (clone $started)->addYears($option->duration),
+                        default => (clone $started)->addMonths($option->duration),
+                    };
+
+                    $userPackage = UserPackage::create([
+                        'user_uuid' => $order->user_uuid,
+                        'package_uuid' => $order->package_uuid,
+                        'order_uuid' => $order->uuid,
+                        'quota' => $option->quota,
+                        'started_at' => $started,
+                        'expired_at' => $expired,
+                        'status' => 'active',
+                    ]);
+                }
 
                 return [$order, $userPackage];
             });
@@ -406,6 +447,18 @@ class OrderController extends Controller
                 ->withErrors([
                     'package_option_uuid' =>
                     'The selected package is not available.',
+                ])
+                ->withInput();
+        }
+
+        // Reject buying a different package while one is still active.
+        $activePackage = MembershipService::activePackage($user);
+
+        if ($activePackage && $activePackage->package_uuid !== $option->package_uuid) {
+            return back()
+                ->withErrors([
+                    'package_option_uuid' =>
+                    'You still have an active package. You can only buy the same package again until it expires.',
                 ])
                 ->withInput();
         }
