@@ -72,7 +72,7 @@
                     class="d-flex flex-wrap align-items-end gap-2">
                     <div><label class="form-label small mb-0">Search</label><input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm" placeholder="Class name..." style="min-width:180px;" autocomplete="off"></div>
                     <div><label class="form-label small mb-0">Level</label><select name="level" class="form-select form-select-sm" style="min-width:150px;"><option value="">All</option><option value="foundation" @selected($level==='foundation')>Foundation</option><option value="intermediate" @selected($level==='intermediate')>Intermediate</option><option value="advance" @selected($level==='advance')>Advance</option></select></div>
-                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('superadmin'))
+                    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('super-admin'))
                     <div><label class="form-label small mb-0">Instructor</label><select name="instructor_uuid" class="form-select form-select-sm" style="min-width:160px;"><option value="">All Instructors</option>@foreach($instructors as $instructor)<option value="{{ $instructor->uuid }}" @selected($instructor_uuid==$instructor->uuid)>{{ $instructor->name }}</option>@endforeach</select></div>
                     @endif
                     <div><label class="form-label small mb-0">Status</label><select name="is_active" class="form-select form-select-sm" style="min-width:130px;"><option value="">All</option><option value="active" @selected($is_active==='active')>Active</option><option value="inactive" @selected($is_active==='inactive')>Inactive</option></select></div>

@@ -146,8 +146,9 @@ window.openEvent = (i) => {
   $("eventDesc").innerHTML = e.deskripsi || "";
 
   const wa = $("eventWhatsApp");
-  if (e.judul && wa) {
-    const base = wa.dataset.waBase || "https://wa.me/6281321221270";
+  // No hardcoded WA number — base wajib dari server via data-wa-base (contactLinks).
+  if (e.judul && wa && wa.dataset.waBase) {
+    const base = wa.dataset.waBase;
     wa.href =
       base + "?text=" + encodeURIComponent("Hi, I want to book a spot for: " + e.judul);
   }
@@ -227,9 +228,14 @@ window.openLightbox = (src, idx) => {
   );
   const lb = $("lightbox");
   if (!lb) return;
+  // Cari indeks dari src (aman walau sebagian gambar gagal dimuat & terhapus)
+  let at = parseInt(idx, 10);
+  if (!Number.isInteger(at) || lightboxImgs[at] !== src) {
+    at = lightboxImgs.indexOf(src);
+  }
   lb.querySelector("img").src = src;
   lb.classList.remove("hidden");
-  lb.dataset.idx = idx;
+  lb.dataset.idx = at >= 0 ? at : 0;
 };
 
 window.closeLightbox = () => $("lightbox")?.classList.add("hidden");

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\WebsiteIdentity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -96,6 +97,9 @@ class WebsiteIdentityController extends Controller
             $identitas->update($data);
 
             DB::commit();
+
+            // Segarkan cache API publik agar frontend langsung membaca data baru.
+            Cache::forget('website-identity:public');
 
             return redirect()->route('website-identity.index')->with('success', 'Website identity saved successfully.');
         } catch (\Throwable $th) {

@@ -112,7 +112,7 @@ class ClassController extends Controller
 
         if (
             auth()->user()->hasRole('admin') ||
-            auth()->user()->hasRole('superadmin')
+            auth()->user()->hasRole('super-admin')
         ) {
             $request->validate([
                 'instructor_uuid' => 'required|uuid|exists:users,uuid',
@@ -224,7 +224,7 @@ class ClassController extends Controller
         // Admin & Superadmin boleh mengganti instructor
         if (
             $user->hasRole('admin') ||
-            $user->hasRole('superadmin')
+            $user->hasRole('super-admin')
         ) {
             $request->validate([
                 'instructor_uuid' => 'required|uuid|exists:users,uuid',
@@ -278,7 +278,7 @@ class ClassController extends Controller
             // Admin & Superadmin boleh mengganti instructor
             if (
                 $user->hasRole('admin') ||
-                $user->hasRole('superadmin')
+                $user->hasRole('super-admin')
             ) {
                 $instructor = User::role('instruktur')
                     ->where('uuid', $request->instructor_uuid)

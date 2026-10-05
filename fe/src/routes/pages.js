@@ -1,15 +1,16 @@
 import { Router } from "express";
-import { yogaData } from "../../data/yogaData.js";
-import { getTestimonials } from "../../services/testimonialService.js";
-import { getArticles, getArticle } from "../../services/articleService.js";
-import { getBanners } from "../../services/bannerService.js";
-import { getContactCaptcha } from "../../services/contactService.js";
-import { getEvents } from "../../services/eventService.js";
-import { getClasses, getClass } from "../../services/classService.js";
-import { getInstructors } from "../../services/instructorService.js";
-import { getFaqs } from "../../services/faqService.js";
-import { getPackages, getPackage } from "../../services/packageService.js";
-import { getPage } from "../../services/pageService.js";
+import { yogaData } from "../data/yogaData.js";
+import { getTestimonials } from "../services/testimonialService.js";
+import { getArticles, getArticle } from "../services/articleService.js";
+import { getBanners } from "../services/bannerService.js";
+import { getContactCaptcha } from "../services/contactService.js";
+import { getEvents } from "../services/eventService.js";
+import { getClasses, getClass } from "../services/classService.js";
+import { getInstructors } from "../services/instructorService.js";
+import { getFaqs } from "../services/faqService.js";
+import { getPackages, getPackage } from "../services/packageService.js";
+import { getSiteStats, formatStatCount } from "../services/siteStatsService.js";
+import { getPage } from "../services/pageService.js";
 import { cleanSlug, cleanText, cleanPage, cleanDate } from "../utils/validate.js";
 import { sanitizeRichHtml } from "../utils/sanitize.js";
 
@@ -38,23 +39,54 @@ router.get("/", async (req, res, next) => {
 });
 
 // ---------- Static ----------
-router.get("/about", (req, res) => {
-  res.render("pages/about", { title: "About YogaRoots — Our Story & Practice" });
+router.get("/about", async (req, res, next) => {
+  try {
+    const [stats, posts] = await Promise.all([
+      getSiteStats().catch(() => null),
+      getArticles(res.locals.lang).then((r) => (Array.isArray(r) ? r.slice(0, 3) : [])).catch(() => []),
+    ]);
+    res.render("pages/about", {
+      title: "About YogaRoots — Our Story & Practice",
+      liveStats: stats,
+      formatStat: (v) => formatStatCount(v, res.locals.lang),
+      posts,
+    });
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.get("/classes", (req, res) => {
-  res.render("pages/classes", { title: "YogaRoots — Yoga Classes for All Levels" });
+router.get("/classes", async (req, res, next) => {
+  try {
+    const response = await getClasses({ per_page: 50 }).catch(() => []);
+    const classes = Array.isArray(response) ? response : response?.data || [];
+    res.render("pages/classes", {
+      title: "YogaRoots — Class Guide",
+      metaDescription: res.locals.t.classGuideDesc,
+      classes,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// ---------- Schedules (weekly timetable) ----------
+router.get("/schedules", (req, res) => {
+  res.render("pages/schedules", {
+    title: "YogaRoots — Class Schedules",
+    metaDescription: res.locals.t.classesDesc,
+  });
 });
 
 // ---------- Class detail ----------
 router.get("/classes/:slug", async (req, res, next) => {
   try {
     const cls = await getClass(cleanSlug(req.params.slug, "class"));
-    if (!cls) return res.status(404).render("pages/404", { title: "Class Not Found" });
+    if (!cls) return res.status(404).render("pages/404", { title: "Class Not Found", robots: "noindex, nofollow", heroNav: true });
     res.render("pages/class-detail", { title: cls.name, cls });
   } catch (err) {
     if (err.status === 404 || err.status === 400) {
-      return res.status(404).render("pages/404", { title: "Class Not Found" });
+      return res.status(404).render("pages/404", { title: "Class Not Found", robots: "noindex, nofollow", heroNav: true });
     }
     next(err);
   }
@@ -99,15 +131,30 @@ router.get("/blog", async (req, res, next) => {
 
 router.get("/blog/:slug", async (req, res, next) => {
   try {
-    const post = await getArticle(cleanSlug(req.params.slug, "article"), res.locals.lang);
-    if (!post) return res.status(404).render("pages/404", { title: "Article Not Found" });
+    const slug = cleanSlug(req.params.slug, "article");
+    const [post, all] = await Promise.all([
+      getArticle(slug, res.locals.lang),
+      getArticles(res.locals.lang).catch(() => []),
+    ]);
+    if (!post) return res.status(404).render("pages/404", { title: "Article Not Found", robots: "noindex, nofollow", heroNav: true });
+    const others = (Array.isArray(all) ? all : []).filter((a) => a.slug && a.slug !== post.slug);
+    const related = [
+      ...others.filter((a) => post.category && a.category === post.category),
+      ...others.filter((a) => !post.category || a.category !== post.category),
+    ].slice(0, 3);
+    const latestClasses = await getClasses({ per_page: 3 }).then((r) => {
+      const list = Array.isArray(r) ? r : r?.data || [];
+      return list.slice(0, 3);
+    }).catch(() => []);
     res.render("pages/blog-detail", {
       title: post.title,
       post: { ...post, content: sanitizeRichHtml(post.content) },
+      related,
+      latestClasses,
     });
   } catch (err) {
     if (err.status === 404 || err.status === 400) {
-      return res.status(404).render("pages/404", { title: "Article Not Found" });
+      return res.status(404).render("pages/404", { title: "Article Not Found", robots: "noindex, nofollow", heroNav: true });
     }
     next(err);
   }
@@ -183,10 +230,12 @@ router.get("/event", async (req, res, next) => {
   }
 });
 
-// ---------- Gallery ----------
+// ---------- Gallery (hanya foto asli API; tanpa placeholder) ----------
 router.get("/gallery", async (req, res, next) => {
   try {
-    const gallery = await getBanners("galeri");
+    const response = await getBanners("galeri").catch(() => []);
+    const list = Array.isArray(response) ? response : response?.data || [];
+    const gallery = list.filter((g) => g && g.gambar && !String(g.gambar).includes("default.png"));
     res.render("pages/gallery", { title: "Our Gallery", gallery });
   } catch (err) {
     next(err);

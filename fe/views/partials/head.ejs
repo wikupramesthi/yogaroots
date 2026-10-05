@@ -1,50 +1,114 @@
+<% /* ============================================================
+   SEO <head> — standar Google (dinamis dari API identitas website)
+   - title & description unik per halaman (boleh override via render)
+   - canonical absolut, robots, hreflang (multibahasa ?lang=)
+   - Open Graph + Twitter Card absolut, favicon dinamis
+   - JSON-LD Organization & WebSite, GA4 & site-verification opsional
+   ============================================================ */ %>
+<%
+const _site = typeof site !== "undefined" && site ? site : {};
+const _seo = typeof seo !== "undefined" && seo ? seo : {};
+const _siteUrl = typeof siteUrl !== "undefined" ? siteUrl : "";
+const _pageTitle = typeof title !== "undefined" && title ? title : ((_site.metaTitle || _site.name || "YogaRoots") + " — " + (_site.tagline || "Yoga, Meditation & Wellness"));
+const _description = (typeof metaDescription !== "undefined" && metaDescription ? metaDescription : (_seo.description || _site.metaDescription || _site.description || "")).toString().slice(0, 160);
+const _keywords = typeof metaKeywords !== "undefined" && metaKeywords ? metaKeywords : (_seo.keywords || _site.metaKeywords || "");
+const _robots = typeof robots !== "undefined" && robots ? robots : (_seo.robots || "index, follow");
+const _canonical = typeof currentUrl !== "undefined" ? currentUrl : _siteUrl;
+const _ogImageRaw = _seo.ogImage || _site.ogImage || "/img/yogaroots_about1.jpg";
+const _ogImage = /^https?:\/\//i.test(_ogImageRaw) ? _ogImageRaw : (_siteUrl + _ogImageRaw);
+const _faviconRaw = _site.faviconUrl || "/img/fav.png";
+const _favicon = /^https?:\/\//i.test(_faviconRaw) ? _faviconRaw : (_siteUrl + _faviconRaw);
+const _lang = typeof lang !== "undefined" && lang ? lang : "en";
+const _jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": _siteUrl + "/#organization",
+      "name": _site.name || "YogaRoots",
+      "url": _siteUrl,
+      "slogan": _site.tagline || "",
+      "description": _site.description || "",
+      "logo": /^https?:\/\//i.test(_site.logoUrl || "") ? _site.logoUrl : (_siteUrl + (_site.logoUrl || "/img/logo.png")),
+      "image": _ogImage,
+      "email": _site.email || undefined,
+      "telephone": _site.phoneTel || undefined,
+      "address": _site.address ? { "@type": "PostalAddress", "streetAddress": _site.address } : undefined,
+      "sameAs": [_site.facebookHref, _site.instagramHref, _site.youtubeHref, _site.tiktokHref].filter(Boolean)
+    },
+    {
+      "@type": "WebSite",
+      "@id": _siteUrl + "/#website",
+      "url": _siteUrl,
+      "name": _site.name || "YogaRoots",
+      "inLanguage": ["en", "id", "ja", "ko", "zh"]
+    }
+  ]
+};
+%>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title><%= typeof title !== "undefined" && title ? title : "YogaRoots — Yoga, Meditation & Wellness" %></title>
-<meta
-  name="description"
-  content="Discover yoga, meditation, and wellness classes at YogaRoots. Practice with experienced instructors and find greater balance, strength, and peace of mind."
-/>
+<title><%= _pageTitle %></title>
+<meta name="description" content="<%= _description %>" />
+<% if (_keywords) { %>
+<meta name="keywords" content="<%= _keywords %>" />
+<% } %>
+<meta name="robots" content="<%= _robots %>" />
+<meta name="author" content="<%= _site.name || "YogaRoots" %>" />
+<meta name="theme-color" content="#524330" />
 
-<meta
-  name="keywords"
-  content="Yoga Roots, yoga classes, yoga studio, yoga meditation, wellness, yoga instructors, yoga for beginners, yoga classes Indonesia"
-/>
+<link rel="canonical" href="<%= _canonical %>" />
 
-<meta name="robots" content="index, follow" />
-<meta name="author" content="YogaRoots" />
-
-<link rel="canonical" href="<%= currentUrl %>" />
+<!-- Hreflang: versi bahasa via ?lang= (standar Google multibahasa) -->
+<link rel="alternate" hreflang="x-default" href="<%= _canonical %>" />
+<link rel="alternate" hreflang="en" href="<%= _canonical %>?lang=en" />
+<link rel="alternate" hreflang="id" href="<%= _canonical %>?lang=id" />
+<link rel="alternate" hreflang="ja" href="<%= _canonical %>?lang=ja" />
+<link rel="alternate" hreflang="ko" href="<%= _canonical %>?lang=ko" />
+<link rel="alternate" hreflang="zh" href="<%= _canonical %>?lang=zh" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="YogaRoots" />
-<meta property="og:title" content="<%= typeof title !== "undefined" && title ? title : "YogaRoots — Yoga, Meditation & Wellness" %>" />
-<meta
-  property="og:description"
-  content="Discover yoga, meditation, and wellness classes at YogaRoots. Practice with experienced instructors and find greater balance, strength, and peace of mind."
-/>
-<meta property="og:url" content="<%= currentUrl %>" />
-<meta property="og:image" content="/img/yogaroots_about1.jpg" />
-<meta
-  property="og:image:alt"
-  content="YogaRoots — Yoga, Meditation & Wellness"
-/>
+<meta property="og:locale" content="<%= _lang %>" />
+<meta property="og:site_name" content="<%= _site.name || "YogaRoots" %>" />
+<meta property="og:title" content="<%= _pageTitle %>" />
+<meta property="og:description" content="<%= _description %>" />
+<meta property="og:url" content="<%= _canonical %>" />
+<meta property="og:image" content="<%= _ogImage %>" />
+<meta property="og:image:alt" content="<%= _pageTitle %>" />
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="<%= typeof title !== "undefined" && title ? title : "YogaRoots — Yoga, Meditation & Wellness" %>" />
-<meta
-  name="twitter:description"
-  content="Discover yoga, meditation, and wellness classes at YogaRoots. Practice with experienced instructors and find greater balance, strength, and peace of mind."
-/>
-<meta name="twitter:image" content="/img/yogaroots_about1.jpg" />
+<meta name="twitter:title" content="<%= _pageTitle %>" />
+<meta name="twitter:description" content="<%= _description %>" />
+<meta name="twitter:image" content="<%= _ogImage %>" />
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="/img/fav.png" />
+<!-- Favicon dinamis (dari Identitas Website) -->
+<link rel="icon" href="<%= _favicon %>" />
+<link rel="apple-touch-icon" href="<%= _favicon %>" />
+
+<% if (_site.siteVerification) { %>
+<!-- Google Search Console verification (dari Identitas Website) -->
+<meta name="google-site-verification" content="<%= _site.siteVerification %>" />
+<% } %>
+
+<!-- Structured data: Organization & WebSite -->
+<script type="application/ld+json"><%- JSON.stringify(_jsonLd).replace(/</g, "\\u003c") %></script>
+
+<% if (_site.gaId) { %>
+<!-- Google Analytics 4 (ID dari Identitas Website) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=<%= encodeURIComponent(_site.gaId) %>"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag("js", new Date());
+  gtag("config", "<%= _site.gaId %>");
+</script>
+<% } %>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
   href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap"
   rel="stylesheet"

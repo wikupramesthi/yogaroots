@@ -16,29 +16,19 @@
             ← Back to Classes
         </a>
 
-        <div class="grid lg:grid-cols-2 gap-10 mt-6">
+        <div class="grid gap-10 mt-6 <%= cls.image ? 'lg:grid-cols-2' : '' %>">
 
-            <!-- IMAGE -->
+            <!-- IMAGE (hanya dari API; kosong/rusak = tidak tampil sama sekali) -->
+            <% if (cls.image) { %>
             <div>
-                <% if (cls.image) { %>
-
                     <img
                         src="<%= cls.image %>"
                         alt="<%= cls.name %>"
-                        data-fallback="/img/yogaroots_about1.jpg"
+                        onerror="this.closest('.grid').classList.remove('lg:grid-cols-2');this.parentElement.remove();"
                         class="w-full h-[420px] object-cover rounded-[24px]"
                     >
-
-                <% } else { %>
-
-                    <img
-                        src="/img/yogaroots_about1.jpg"
-                        alt="<%= cls.name %>"
-                        class="w-full h-[420px] object-cover rounded-[24px]"
-                    >
-
-                <% } %>
             </div>
+            <% } %>
 
 
             <!-- CONTENT -->
@@ -169,7 +159,7 @@
 
     <%- include('../partials/footer') %>
 
-    <script src="/js/main.js?v=<%= assetV %>"></script>
+    <!-- main.js dimuat sekali via partials/footer -->
 
 </body>
 

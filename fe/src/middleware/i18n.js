@@ -1,4 +1,4 @@
-import { translations } from "../../data/translations.js";
+import { translations } from "../data/translations.js";
 import { env } from "../config/env.js";
 
 const SUPPORTED = ["en", "id", "ja", "ko", "zh"];

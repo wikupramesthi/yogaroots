@@ -1,13 +1,16 @@
 <% const isHome = currentPath === '/'; %>
-<% const isHeroPage = currentPath === '/' || currentPath === '/about'; %>
+<% const _heroNav = typeof heroNav !== "undefined" && heroNav === true; %>
+<% const isHeroPage = currentPath === '/' || currentPath === '/about' || _heroNav; %>
 <header id="navbar" class="<%= isHeroPage ? 'fixed inset-x-0 top-0 z-50' : 'sticky top-0 z-50 scrolled' %> transition-all" data-home="true" <%- isHeroPage ? '' : 'data-static="true"' %>>
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
     <nav class="rounded-2xl px-4 lg:px-6 py-3 flex items-center justify-between <%= isHeroPage ? '' : 'glass-panel-strong' %>">
-      <!-- Logo -->
-      <a href="/" class="flex-shrink-0">
+      <!-- Logo (dinamis dari Identitas Website) -->
+      <a href="/" class="flex-shrink-0" aria-label="<%= site.name %> — Home">
         <img
-          src="/img/logo.png"
-          alt="Yoga Roots"
+          src="<%= site.logoUrl || "/img/logo.png" %>"
+          alt="<%= site.name %>"
+          width="160"
+          height="40"
           class="logo-main h-10 w-auto object-contain"
         >
       </a>

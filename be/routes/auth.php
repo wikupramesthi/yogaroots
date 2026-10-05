@@ -12,26 +12,30 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
+    Route::post('register', [RegisteredUserController::class, 'store'])
+        ->middleware('throttle:3,10');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
-
+    // Login - Rate Limit: Max 5 login attempts per menit (Anti Brute Force)
     Route::get('auth/login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
-    Route::post('auth/login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('auth/login', [AuthenticatedSessionController::class, 'store'])
+        ->middleware('throttle:5,1');
 
+    // Forgot Password - Rate Limit: Max 3 requests per 10 menit (Anti Email Flooding)
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
 
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
+        ->middleware('throttle:3,10')
         ->name('password.email');
 
+    // Reset Password - Rate Limit: Max 5 attempts per menit
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
         ->name('password.reset');
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
+        ->middleware('throttle:5,1')
         ->name('password.store');
 });
 

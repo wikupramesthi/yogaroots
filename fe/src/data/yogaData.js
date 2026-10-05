@@ -19,6 +19,7 @@ export const yogaData = {
   nav: [
     { key: "about", label: "About", href: "/about" },
     { key: "classes", label: "Classes", href: "/classes" },
+    { key: "schedules", label: "Schedules", href: "/schedules" },
     { key: "packages", label: "Packages", href: "/packages" },
     { key: "instructors", label: "Instructors", href: "/instructors" },
     { key: "events", label: "Events", href: "/event" },

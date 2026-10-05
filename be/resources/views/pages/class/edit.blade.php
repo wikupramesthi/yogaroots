@@ -159,7 +159,7 @@
 
                     @if(
                     auth()->user()->hasRole('admin') ||
-                    auth()->user()->hasRole('superadmin')
+                    auth()->user()->hasRole('super-admin')
                     )
 
                     <select

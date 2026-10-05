@@ -28,6 +28,10 @@ export const env = {
 
   GOOGLE_AUTH_URL: optional("GOOGLE_AUTH_URL", `${rawApiUrl.replace(/\/api$/, "")}/auth/google`),
   WHATSAPP_NUMBER: optional("WHATSAPP_NUMBER", "6281321221270"),
+  // Cache-busting untuk /css/* dan /js/* (?v=) — naikkan tiap rilis statis
+  ASSET_V: optional("ASSET_V", "20261005b"),
+  // "0" = matikan HTML minify (view-source readable saat debug)
+  HTML_MINIFY: optional("HTML_MINIFY", "1"),
 };
 
 export const siteContact = {

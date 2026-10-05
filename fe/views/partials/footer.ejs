@@ -1,61 +1,83 @@
 <footer class="bg-sand-900 text-sand-300 relative overflow-hidden">
   <div class="absolute inset-0 pointer-events-none" style="opacity:0.055; background-image:url(&quot;data:image/svg+xml,%3Csvg width='36' height='36' viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-10 46 46 -10' stroke='%23ffffff' stroke-width='1' fill='none'/%3E%3C/svg%3E&quot;)"></div>
 
-  <div class="relative max-w-6xl mx-auto px-6 py-16">
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8 md:gap-8">
 
-      <!-- Brand -->
+      <!-- Brand (dinamis dari Identitas Website) -->
       <div class="col-span-2 md:col-span-1">
         <div class="mb-4">
-          <img src="/img/logo-white.png" alt="Yoga Roots" class="h-10 w-auto object-contain">
+          <img src="<%= site.logoWhiteUrl || "/img/logo-white.png" %>" alt="<%= site.name %>" width="160" height="40" class="h-10 w-auto object-contain" loading="lazy">
         </div>
-        <p class="text-sm text-sand-400 leading-relaxed"><%= t.siteDesc %></p>
+        <p class="text-sm text-sand-400 leading-relaxed"><%= site.tagline %><% if (site.description) { %> — <%= site.description.length > 140 ? site.description.slice(0, 140) + "…" : site.description %><% } %></p>
+        <% if (site.facebookHref || site.youtubeHref || site.tiktokHref) { %>
+        <div class="flex items-center gap-3 mt-4">
+          <% if (site.facebookHref) { %>
+          <a href="<%= site.facebookHref %>" target="_blank" rel="noopener noreferrer" aria-label="<%= site.name %> on Facebook" class="hover:text-sand-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <% } %>
+          <% if (site.youtubeHref) { %>
+          <a href="<%= site.youtubeHref %>" target="_blank" rel="noopener noreferrer" aria-label="<%= site.name %> on YouTube" class="hover:text-sand-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
+          </a>
+          <% } %>
+          <% if (site.tiktokHref) { %>
+          <a href="<%= site.tiktokHref %>" target="_blank" rel="noopener noreferrer" aria-label="<%= site.name %> on TikTok" class="hover:text-sand-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+          </a>
+          <% } %>
+        </div>
+        <% } %>
       </div>
 
       <!-- Explore -->
-      <div>
+      <nav aria-label="Explore">
         <h4 class="font-sans text-xs uppercase tracking-[0.15em] text-sand-500 mb-4"><%= t.footerExplore %></h4>
         <div class="flex flex-col gap-2.5">
           <a href="/about" class="text-sm hover:text-sand-100 transition-colors"><%= t.footerAbout %></a>
           <a href="/classes" class="text-sm hover:text-sand-100 transition-colors"><%= t.footerOurClasses %></a>
+          <a href="/schedules" class="text-sm hover:text-sand-100 transition-colors"><%= (t.nav && t.nav.schedules) || 'Schedules' %></a>
           <a href="/instructors" class="text-sm hover:text-sand-100 transition-colors"><%= t.footerInstructors %></a>
           <a href="/packages" class="text-sm hover:text-sand-100 transition-colors"><%= t.footerPackages %></a>
         </div>
-      </div>
+      </nav>
 
       <!-- Get in Touch -->
-      <div>
+      <address class="not-italic">
         <h4 class="font-sans text-xs uppercase tracking-[0.15em] text-sand-500 mb-4"><%= t.footerGetInTouch %></h4>
         <div class="flex flex-col gap-3">
-          <a href="#map" class="flex items-center gap-2.5 text-sm hover:text-sand-100 transition-colors">
+          <span class="flex items-center gap-2.5 text-sm">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-sand-500 flex-shrink-0"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
             <span><%= site.address %></span>
-          </a>
-          <a href="tel:+6281321221270" class="flex items-center gap-2.5 text-sm hover:text-sand-100 transition-colors">
+          </span>
+          <a href="<%= contactLinks.whatsappLink %>" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 text-sm hover:text-sand-100 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-sand-500 flex-shrink-0"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            <span>+62 813-2122-1270</span>
+            <span><%= site.phone %></span>
           </a>
-          <a href="<%= contactLinks.whatsappShortLink %>" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 text-sm hover:text-sand-100 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-sand-500 flex-shrink-0"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
-            <span><%= t.whatsappAdmin %></span>
+          <% if (site.email) { %>
+          <a href="mailto:<%= site.email %>" class="flex items-center gap-2.5 text-sm hover:text-sand-100 transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-sand-500 flex-shrink-0"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+            <span><%= site.email %></span>
           </a>
-          <a href="https://www.instagram.com/yogaroot.id/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 text-sm hover:text-sand-100 transition-colors">
+          <% } %>
+          <a href="<%= site.instagramHref %>" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 text-sm hover:text-sand-100 transition-colors">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 text-sand-500 flex-shrink-0"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-            <span>@<%= site.instagram %></span>
+            <span>@<%= site.instagramHandle %></span>
           </a>
         </div>
-      </div>
+      </address>
 
       <!-- Community -->
       <div class="col-span-2 md:col-span-1">
         <h4 class="font-sans text-xs uppercase tracking-[0.15em] text-sand-500 mb-4"><%= t.footerCommunity %></h4>
-        <img src="/img/artofliving-white.png" alt="Art of Living" class="h-10 w-auto object-contain">
+        <img src="/img/artofliving-white.png" alt="Art of Living" width="160" height="40" class="h-10 w-auto object-contain" loading="lazy">
       </div>
 
     </div>
 
     <div class="mt-16 pt-8 border-t border-sand-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-xs text-sand-600">© <%= site.year %> Yoga Roots.<br class="sm:hidden"> <%= t.copyright %></p>
+      <p class="text-xs text-sand-600">© <%= site.year %> <%= site.name %>.<br class="sm:hidden"> <%= t.copyright %></p>
       <div class="flex flex-col sm:flex-row items-center gap-4 text-xs text-sand-600">
         <a href="/pages/privacy-policy" class="hover:text-sand-100 transition-colors"><%= t.privacyPolicy %></a>
         <a href="/pages/terms-conditions" class="hover:text-sand-100 transition-colors"><%= t.termsConditions %></a>
@@ -66,3 +88,4 @@
 
 <%- include('./whatsapp-float') %>
 <%- include('./booking-modal') %>
+<script src="/js/main.js?v=<%= assetV %>"></script>

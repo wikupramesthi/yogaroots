@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { sendContact } from "../../services/contactService.js";
-import { getClasses } from "../../services/classService.js";
-import { getClassSchedules } from "../../services/classScheduleService.js";
+import { sendContact } from "../services/contactService.js";
+import { getClasses } from "../services/classService.js";
+import { getClassSchedules } from "../services/classScheduleService.js";
+import { env } from "../config/env.js";
 import {
   validateBooking,
   validateContact,
@@ -36,11 +37,11 @@ router.get("/class-schedules", async (req, res, next) => {
   }
 });
 
-// Dummy theme booking — server log only, strict validation
+// Dummy theme booking — no PII in logs, strict validation
 router.post("/booking", (req, res) => {
   try {
     const { name, email, kelas, date } = validateBooking(req.body);
-    console.log("[BOOKING]", { name, email, kelas, date, at: new Date().toISOString() });
+    if (!env.IS_PROD) console.debug("[BOOKING]", { kelas, date, at: new Date().toISOString() });
     res.json({
       success: true,
       message: `Thank you ${name}! Your booking for ${kelas} was successful. We've sent a confirmation to ${email}.`,

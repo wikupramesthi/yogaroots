@@ -15,6 +15,8 @@ use App\Http\Controllers\Api\ClassScheduleController;
 use App\Http\Controllers\Api\ClassController;
 use App\Http\Controllers\Api\InstructorController;
 use App\Http\Controllers\Api\PackageController;
+use App\Http\Controllers\Api\WebsiteIdentityController;
+use App\Http\Controllers\Api\SiteStatsController;
 
 
 
@@ -35,6 +37,12 @@ Route::get('/categories', [ArticleController::class, 'category']);
 Route::get('/contact/captcha', [ContactController::class, 'captcha']);
 Route::post('/contact', [ContactController::class, 'store']);
 Route::get('/banners', [BannerController::class, 'index']);
+
+// Identitas website publik (nama, kontak, sosmed, SEO, branding) — untuk frontend
+Route::get('/website-identity', [WebsiteIdentityController::class, 'index']);
+
+// Statistik publik (agregat member/instruktur/kelas) — untuk frontend
+Route::get('/site-stats', [SiteStatsController::class, 'index']);
 
 // Articles
 Route::prefix('articles')->group(function () {

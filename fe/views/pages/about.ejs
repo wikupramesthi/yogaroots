@@ -34,19 +34,19 @@
     <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
       <div class="reveal relative">
         <div class="absolute -top-6 -left-6 w-32 h-32 rounded-full bg-gold/10 blur-2xl"></div>
-        <img src="/img/yogaroots_about1.jpg" alt="YogaRoots studio" class="relative w-full aspect-[4/5] object-cover rounded-[2rem] shadow-xl ring-1 ring-sand-900/5">
-        <img src="/img/yogaroots_about2.jpg" alt="YogaRoots practice" class="hidden sm:block absolute -bottom-10 -right-6 w-44 lg:w-52 aspect-square object-cover rounded-2xl border-4 border-sand-50 shadow-lg">
+        <img src="/img/yogaroots_about1.jpg" alt="YogaRoots studio" loading="lazy" decoding="async" class="relative w-full aspect-[4/5] object-cover rounded-[2rem] shadow-xl ring-1 ring-sand-900/5">
+        <img src="/img/yogaroots_about2.jpg" alt="YogaRoots practice" loading="lazy" decoding="async" class="hidden sm:block absolute -bottom-10 -right-6 w-44 lg:w-52 aspect-square object-cover rounded-2xl border-4 border-sand-50 shadow-lg">
         <div class="absolute -bottom-6 -left-4 rounded-2xl bg-sand-900 text-sand-50 px-5 py-3 shadow-lg">
-          <div class="font-display text-2xl text-gold-light leading-none"><%= t.about.heroBadge.replace(/[^0-9]/g, '') || '2016' %></div>
+          <div class="font-display text-2xl text-gold-light leading-none"><%= t.about.heroBadge.replace(/[^0-9]/g, '') || '2023' %></div>
           <div class="text-[10px] uppercase tracking-[0.2em] text-sand-400 mt-1">YogaRoots</div>
         </div>
       </div>
 
       <div class="reveal" data-delay="120">
-        <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.about.storyEyebrow %></p>
-        <h2 class="font-display text-3xl sm:text-4xl text-sand-900 leading-tight mb-6"><%= t.about.storyTitle %></h2>
-        <p class="text-sand-600 leading-relaxed mb-4"><%= t.about.storyP1 %></p>
-        <p class="text-sand-600 leading-relaxed"><%= t.about.storyP2 %></p>
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-3"><%= t.about.storyEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sage-900 leading-tight mb-6"><%= t.about.storyTitle %></h2>
+        <p class="text-stone-warm leading-relaxed mb-4"><%= t.about.storyP1 %></p>
+        <p class="text-stone-warm leading-relaxed"><%= t.about.storyP2 %></p>
         <a href="/classes" class="btn-primary group mt-8 py-3">
           <%= t.viewAllClasses %>
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
@@ -60,14 +60,14 @@
     const valueVariants = [
       { tile: 'bg-lotus-100 text-lotus-700', icon: 'M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z' },
       { tile: 'bg-sage-100 text-sage-700', icon: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z' },
-      { tile: 'bg-clay-100 text-clay-700', icon: 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z' },
+      { tile: 'bg-stone-100 text-stone-warm', icon: 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z' },
     ];
   %>
   <section class="py-16 px-6 bg-sand-100/60">
     <div class="max-w-6xl mx-auto">
       <div class="reveal text-center mb-14">
-        <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.about.valuesEyebrow %></p>
-        <h2 class="font-display text-3xl sm:text-4xl text-sand-900 leading-tight"><%= t.about.valuesTitle %> <span class="italic text-gold-dark"><%= t.about.valuesTitleItalic %></span></h2>
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-3"><%= t.about.valuesEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sage-900 leading-tight"><%= t.about.valuesTitle %> <span class="italic text-terracotta-600"><%= t.about.valuesTitleItalic %></span></h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -77,8 +77,8 @@
             <div class="icon-tile w-12 h-12 rounded-2xl <%= variant.tile %> flex items-center justify-center mb-5">
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="<%= variant.icon %>"></path></svg>
             </div>
-            <h3 class="font-display text-xl text-sand-900 mb-2"><%= v.title %></h3>
-            <p class="text-sm text-sand-500 leading-relaxed"><%= v.desc %></p>
+            <h3 class="font-display text-xl text-sage-900 mb-2"><%= v.title %></h3>
+            <p class="text-sm text-stone-warm leading-relaxed"><%= v.desc %></p>
           </div>
         <% }) %>
       </div>
@@ -87,10 +87,20 @@
 
   <!-- ======================= STATS ======================= -->
   <section class="bg-sand-900 text-sand-50 py-16 px-6">
+  <!-- Angka live dari backend (members, instructors, classes); index ke-3+ tetap statis -->
+  <% const statKeys = ["members", "instructors", "classes"]; %>
     <div class="max-w-6xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
       <% (t.about.stats || []).forEach((s, i) => { %>
         <div class="reveal" data-delay="<%= i * 90 %>">
-          <div class="font-display text-4xl sm:text-5xl text-gold-light mb-2"><%= s.value %></div>
+          <%
+            let statValue = s.value;
+            const liveKey = statKeys[i];
+            if (typeof liveStats !== "undefined" && liveStats && liveKey && liveStats[liveKey] !== null && liveStats[liveKey] !== undefined && typeof formatStat !== "undefined") {
+              const formatted = formatStat(liveStats[liveKey]);
+              if (formatted) statValue = formatted;
+            }
+          %>
+          <div class="font-display text-4xl sm:text-5xl text-gold-light mb-2"><%= statValue %></div>
           <div class="font-sans text-xs uppercase tracking-[0.15em] text-sand-400"><%= s.label %></div>
         </div>
       <% }) %>
@@ -101,8 +111,8 @@
   <section class="py-16 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="reveal text-center mb-16">
-        <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.about.journeyEyebrow %></p>
-        <h2 class="font-display text-3xl sm:text-4xl text-sand-900 leading-tight"><%= t.about.journeyTitle %> <span class="italic text-gold-dark"><%= t.about.journeyTitleItalic %></span></h2>
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-3"><%= t.about.journeyEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sage-900 leading-tight"><%= t.about.journeyTitle %> <span class="italic text-terracotta-600"><%= t.about.journeyTitleItalic %></span></h2>
       </div>
 
       <div class="relative">
@@ -113,9 +123,9 @@
               <div class="flex md:block items-start gap-4">
                 <span class="relative z-10 block w-3.5 h-3.5 rounded-full bg-gold ring-4 ring-sand-50 shrink-0 md:mb-6"></span>
                 <div>
-                  <div class="font-display text-2xl text-gold-dark mb-1"><%= m.year %></div>
-                  <h3 class="font-semibold text-sand-900 mb-2"><%= m.title %></h3>
-                  <p class="text-sm text-sand-500 leading-relaxed"><%= m.desc %></p>
+                  <div class="font-display text-2xl text-terracotta-600 mb-1"><%= m.year %></div>
+                  <h3 class="font-semibold text-sage-900 mb-2"><%= m.title %></h3>
+                  <p class="text-sm text-stone-warm leading-relaxed"><%= m.desc %></p>
                 </div>
               </div>
             </div>
@@ -130,8 +140,8 @@
     const whyVariants = [
       'bg-lotus-100 text-lotus-700',
       'bg-sage-100 text-sage-700',
-      'bg-clay-100 text-clay-700',
-      'bg-sand-200 text-sand-700',
+      'bg-stone-100 text-stone-warm',
+      'bg-sage-100 text-sage-700',
     ];
     const whyIcons = [
       '<path d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"></path><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"></path>',
@@ -143,9 +153,9 @@
   <section class="py-16 px-6 bg-sand-100/60">
     <div class="max-w-6xl mx-auto grid lg:grid-cols-[0.85fr_1.15fr] gap-14 lg:gap-20 items-center">
       <div class="reveal">
-        <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.about.whyEyebrow %></p>
-        <h2 class="font-display text-3xl sm:text-4xl text-sand-900 leading-tight mb-5"><%= t.about.whyTitle %> <span class="italic text-gold-dark"><%= t.about.whyTitleItalic %></span></h2>
-        <p class="text-sand-600 leading-relaxed max-w-md"><%= t.about.whyDesc %></p>
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-3"><%= t.about.whyEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sage-900 leading-tight mb-5"><%= t.about.whyTitle %> <span class="italic text-terracotta-600"><%= t.about.whyTitleItalic %></span></h2>
+        <p class="text-stone-warm leading-relaxed max-w-md"><%= t.about.whyDesc %></p>
       </div>
 
       <div class="grid sm:grid-cols-2 gap-6">
@@ -155,8 +165,8 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><%- whyIcons[i % whyIcons.length] %></svg>
             </div>
             <div>
-              <h3 class="font-semibold text-sand-900 mb-1"><%= f.title %></h3>
-              <p class="text-sm text-sand-500 leading-relaxed"><%= f.desc %></p>
+              <h3 class="font-semibold text-sage-900 mb-1"><%= f.title %></h3>
+              <p class="text-sm text-stone-warm leading-relaxed"><%= f.desc %></p>
             </div>
           </div>
         <% }) %>
@@ -175,13 +185,58 @@
     </div>
   </section>
 
+  <!-- ======================= ARTICLES ======================= -->
+  <% if (typeof posts !== "undefined" && posts && posts.length) { %>
+  <section class="py-16 px-6 bg-sand-100/60">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
+        <div>
+          <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-3"><%= t.about.articlesEyebrow %></p>
+          <h2 class="font-display text-3xl sm:text-4xl text-sage-900 leading-tight"><%= t.about.articlesTitle %> <span class="italic text-terracotta-600"><%= t.about.articlesTitleItalic %></span></h2>
+        </div>
+        <a href="/blog" class="btn-secondary group py-2.5 self-start sm:self-auto">
+          <%= t.about.articlesCta %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% posts.forEach((p, i) => { %>
+          <a href="/blog/<%= p.slug %>" class="reveal group bg-white border border-sage-100 rounded-[24px] overflow-hidden hover:shadow-lg transition" data-delay="<%= i * 100 %>">
+            <% if (p.image) { %>
+              <img
+                src="<%= p.image %>"
+                alt="<%= p.title %>"
+                loading="lazy"
+                decoding="async"
+                onerror="this.remove();"
+                class="h-[180px] w-full object-cover group-hover:scale-[1.02] transition"
+              >
+            <% } %>
+            <div class="p-5">
+              <div class="flex items-center gap-2 text-xs">
+                <% if (p.category) { %>
+                  <span class="bg-sage-700 text-white px-2.5 py-1 rounded-full font-semibold"><%= p.category %></span>
+                <% } %>
+                <span class="text-stone-warm"><%= p.date %></span>
+              </div>
+              <h3 class="font-semibold text-sage-900 mt-3 leading-tight"><%= p.title %></h3>
+              <p class="text-sm text-stone-warm mt-1 line-clamp-2"><%= p.excerpt %></p>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+  <% } %>
+
   <!-- ======================= GALLERY ======================= -->
   <section class="py-16 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="reveal flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
         <div>
-          <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.about.galleryEyebrow %></p>
-          <h2 class="font-display text-3xl sm:text-4xl text-sand-900 leading-tight"><%= t.about.galleryTitle %> <span class="italic text-gold-dark"><%= t.about.galleryTitleItalic %></span></h2>
+          <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-3"><%= t.about.galleryEyebrow %></p>
+          <h2 class="font-display text-3xl sm:text-4xl text-sage-900 leading-tight"><%= t.about.galleryTitle %> <span class="italic text-terracotta-600"><%= t.about.galleryTitleItalic %></span></h2>
         </div>
         <a href="/gallery" class="btn-secondary group py-2.5 self-start sm:self-auto">
           <%= t.about.galleryCta %>
@@ -191,15 +246,15 @@
 
       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
         <a href="/gallery" class="reveal group relative overflow-hidden rounded-2xl aspect-[4/5] col-span-2 md:col-span-1 row-span-1 md:row-span-2">
-          <img src="/img/sita-manwani.jpg" alt="YogaRoots moment" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <img src="/img/sita-manwani.jpg" alt="YogaRoots moment" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <span class="absolute inset-0 bg-gradient-to-t from-sand-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
         </a>
         <a href="/gallery" class="reveal group relative overflow-hidden rounded-2xl aspect-square" data-delay="100">
-          <img src="/img/yogaroots_about1.jpg" alt="YogaRoots moment" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <img src="/img/yogaroots_about1.jpg" alt="YogaRoots moment" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <span class="absolute inset-0 bg-gradient-to-t from-sand-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
         </a>
         <a href="/gallery" class="reveal group relative overflow-hidden rounded-2xl aspect-square" data-delay="180">
-          <img src="/img/yogaroots_about2.jpg" alt="YogaRoots moment" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+          <img src="/img/yogaroots_about2.jpg" alt="YogaRoots moment" loading="lazy" decoding="async" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
           <span class="absolute inset-0 bg-gradient-to-t from-sand-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></span>
         </a>
       </div>
@@ -209,12 +264,12 @@
   <!-- ======================= FINAL CTA ======================= -->
   <section class="py-16 px-6 bg-sand-200/40">
     <div class="reveal max-w-3xl mx-auto text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-gold mx-auto mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-terracotta-600 mx-auto mb-6">
         <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
         <path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path>
       </svg>
-      <h2 class="font-display text-3xl sm:text-4xl text-sand-900 mb-4"><%= t.readyTitle %> <span class="italic"><%= t.readyTitleItalic %></span>?</h2>
-      <p class="text-sand-600 mb-8 max-w-lg mx-auto"><%= t.ctaDesc %></p>
+      <h2 class="font-display text-3xl sm:text-4xl text-sage-900 mb-4"><%= t.readyTitle %> <span class="italic"><%= t.readyTitleItalic %></span>?</h2>
+      <p class="text-stone-warm mb-8 max-w-lg mx-auto"><%= t.ctaDesc %></p>
       <div class="flex flex-wrap items-center justify-center gap-4">
         <a href="<%= contactLinks.whatsappShortLink %>" target="_blank" rel="noopener noreferrer" class="btn-primary group text-base px-8 py-3.5">
           <%= t.chatWhatsApp %>
@@ -231,6 +286,6 @@
 </main>
 
 <%- include('../partials/footer') %>
-<script src="/js/main.js?v=<%= assetV %>"></script>
+<!-- main.js dimuat sekali via partials/footer -->
 </body>
 </html>

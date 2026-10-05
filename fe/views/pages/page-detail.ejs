@@ -9,31 +9,161 @@
 
   <%- include('../partials/navbar') %>
 
-  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
 
-    <article>
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-8 text-xs sm:text-sm text-stone-warm">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li>
+          <a href="/" class="hover:text-sage-700 transition-colors"><%= (t.nav && t.nav.home) || 'Home' %></a>
+        </li>
+        <li aria-hidden="true" class="opacity-60">/</li>
+        <li aria-current="page" class="text-sage-900 font-medium truncate max-w-[60vw]"><%= page.title %></li>
+      </ol>
+    </nav>
 
-      <h1 class="font-display text-4xl font-bold text-sage-900">
-        <%= page.title %>
-      </h1>
+    <div class="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12 items-start">
 
-      <% if (page.excerpt) { %>
-        <p class="mt-3 text-stone-warm text-lg">
-          <%= page.excerpt %>
-        </p>
-      <% } %>
+      <!-- Table of contents (dibangun otomatis dari h2/h3 konten) -->
+      <aside class="hidden lg:block sticky top-28" aria-label="<%= t.tableOfContents %>">
+        <div class="bg-white rounded-[20px] border border-sage-100 p-5">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-stone-warm mb-4"><%= t.tableOfContents %></h2>
+          <ol id="tocList" class="flex flex-col gap-1 text-sm"></ol>
+        </div>
+      </aside>
 
-      <div class="page-content mt-8">
-        <%- page.content %>
-      </div>
+      <article class="min-w-0">
 
-    </article>
+        <h1 class="font-display text-4xl font-bold text-sage-900">
+          <%= page.title %>
+        </h1>
+
+        <% if (page.excerpt) { %>
+          <p class="mt-3 text-stone-warm text-lg">
+            <%= page.excerpt %>
+          </p>
+        <% } %>
+
+        <% if (page.published_at) { %>
+          <p class="mt-4 text-xs uppercase tracking-[0.15em] text-stone-warm">
+            Last updated — <%= new Date(page.published_at.replace(" ", "T")).toLocaleDateString(
+              ({ en: "en-US", id: "id-ID", ja: "ja-JP", ko: "ko-KR", zh: "zh-CN" })[(typeof lang !== "undefined" && lang) || "en"] || "en-US",
+              { day: "numeric", month: "long", year: "numeric" }
+            ) %>
+          </p>
+        <% } %>
+
+        <hr class="my-8 border-sage-100">
+
+        <% if (page.featured_image) { %>
+          <figure class="mb-8 overflow-hidden rounded-[24px] border border-sage-100">
+            <img
+              src="<%= page.featured_image %>"
+              alt="<%= page.title %>"
+              loading="lazy"
+              decoding="async"
+              onerror="this.closest('figure').remove();"
+              class="w-full h-64 sm:h-80 object-cover"
+            >
+          </figure>
+        <% } %>
+
+        <div class="page-content mt-8" id="legalContent">
+          <%- page.content %>
+        </div>
+
+        <!-- CTA kontak -->
+        <div class="mt-12 bg-sage-50 border border-sage-100 rounded-[24px] p-6 sm:p-8 text-center">
+          <h2 class="font-display text-xl sm:text-2xl text-sage-900"><%= t.ctaQuestions %></h2>
+          <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+            <a href="<%= contactLinks.whatsappLink %>" target="_blank" rel="noopener noreferrer" class="btn-primary group text-sm px-6 py-3">
+              <%= t.chatWhatsApp %>
+            </a>
+            <a href="/contact" class="inline-flex items-center gap-2 text-sm font-medium text-sage-700 hover:text-sage-900 transition-colors px-6 py-3">
+              <%= t.contactUs %>
+            </a>
+          </div>
+        </div>
+
+      </article>
+    </div>
 
   </main>
 
   <%- include('../partials/footer') %>
 
-  <script src="/js/main.js?v=<%= assetV %>"></script>
+  <!-- main.js dimuat sekali via partials/footer -->
+  <script>
+    (function () {
+      "use strict";
+
+      /* Daftar isi otomatis dari h2/h3 + penanda posisi baca */
+      var content = document.getElementById("legalContent");
+      var toc = document.getElementById("tocList");
+      if (!content || !toc) return;
+
+      var headings = content.querySelectorAll("h2, h3");
+      if (!headings.length) {
+        var aside = toc.closest("aside");
+        if (aside) aside.style.display = "none";
+        return;
+      }
+
+      function slugify(text) {
+        return text.toLowerCase().trim()
+          .replace(/[^\w\s-]/g, "")
+          .replace(/[\s_]+/g, "-")
+          .replace(/-+/g, "-") || "section";
+      }
+
+      var used = {};
+      var links = [];
+      headings.forEach(function (h, i) {
+        var base = slugify(h.textContent) || ("section-" + (i + 1));
+        var n = used[base] || 0;
+        used[base] = n + 1;
+        var id = n ? base + "-" + (n + 1) : base;
+        h.id = id;
+
+        var li = document.createElement("li");
+        var a = document.createElement("a");
+        a.href = "#" + id;
+        a.textContent = h.textContent.trim();
+        a.className = "toc-link block rounded-lg px-3 py-1.5 text-stone-warm hover:bg-sage-50 hover:text-sage-800 transition-colors line-clamp-2";
+        a.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.getElementById(id).scrollIntoView({ behavior: "smooth", block: "start" });
+          history.replaceState(null, "", "#" + id);
+        });
+        li.appendChild(a);
+        toc.appendChild(li);
+        links.push(a);
+      });
+
+      /* Sorot pasal yang sedang dibaca */
+      function spy() {
+        var current = null;
+        headings.forEach(function (h) {
+          if (h.getBoundingClientRect().top <= 140) current = h.id;
+        });
+        links.forEach(function (a) {
+          var on = current && a.getAttribute("href") === "#" + current;
+          a.classList.toggle("bg-sage-700", !!on);
+          a.classList.toggle("text-white", !!on);
+          a.classList.toggle("text-stone-warm", !on);
+        });
+      }
+      var ticking = false;
+      window.addEventListener("scroll", function () {
+        if (!ticking) {
+          window.requestAnimationFrame(function () { spy(); ticking = false; });
+          ticking = true;
+        }
+      }, { passive: true });
+      spy();
+    })();
+  </script>
 
 </body>
+
 </html>

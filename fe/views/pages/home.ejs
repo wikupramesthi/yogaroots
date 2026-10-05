@@ -53,20 +53,20 @@
   <%
     const classCards = (classes && classes.length) ? classes.slice(0, 4) : (t.fallbackClasses || []);
     const cardVariants = [
-      { tile: 'bg-lotus-100 text-lotus-700', icon: 'M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z' },
-      { tile: 'bg-sage-100 text-sage-700', icon: 'M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2' },
-      { tile: 'bg-sand-200 text-sand-700', icon: 'M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z' },
-      { tile: 'bg-clay-100 text-clay-700', icon: 'M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z' },
+      { tile: 'bg-pink-100', svg: '<path d="M12 3.5c1.3 2.2 1.3 5 0 7.5-1.3-2.5-1.3-5.3 0-7.5Z" fill="#ec4899"/><path d="M6.2 6.2c2.4.5 4.2 2.1 5 4.7-2.6.4-4.7-.8-5-4.7Z" fill="#f472b6"/><path d="M17.8 6.2c-.3 3.9-2.4 5.1-5 4.7.8-2.6 2.6-4.2 5-4.7Z" fill="#f472b6"/><path d="M3.5 13.5c2.2-1.1 5-1.3 8.5-1.3s6.3.2 8.5 1.3c-2.2 3.6-5.2 5.2-8.5 5.2s-6.3-1.6-8.5-5.2Z" fill="#db2777"/><circle cx="12" cy="13.8" r="1.6" fill="#fde047"/>' },
+      { tile: 'bg-amber-100', svg: '<circle cx="12" cy="12" r="4.5" fill="#f59e0b"/><g stroke="#f97316" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5 5l1.8 1.8M17.2 17.2 19 19M19 5l-1.8 1.8M6.8 17.2 5 19"/></g>' },
+      { tile: 'bg-emerald-100', svg: '<path d="M5 19C5 10 10 5 20 4c-1 10-6 15-15 15Z" fill="#22c55e"/><path d="M5 19c3-5 7-9 12-11" stroke="#15803d" stroke-width="1.6" stroke-linecap="round" fill="none"/><circle cx="17" cy="7" r="1.4" fill="#a7f3d0"/>' },
+      { tile: 'bg-indigo-100', svg: '<path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z" fill="#6366f1"/><circle cx="17" cy="6" r="1.5" fill="#fde047"/><circle cx="20" cy="9.5" r="1" fill="#c7d2fe"/>' },
     ];
   %>
   <section class="py-16 px-6">
     <div class="max-w-6xl mx-auto">
       <div class="reveal flex items-end justify-between mb-12">
         <div>
-          <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-2"><%= t.whatWeOffer %></p>
-          <h2 class="font-display text-3xl sm:text-4xl text-sand-900"><%= t.homeClassesTitle %> <span class="italic"><%= t.homeClassesTitleItalic %></span></h2>
+          <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-2"><%= t.whatWeOffer %></p>
+          <h2 class="font-display text-3xl sm:text-4xl text-sage-900"><%= t.homeClassesTitle %> <span class="italic"><%= t.homeClassesTitleItalic %></span></h2>
         </div>
-        <a href="/classes" class="hidden sm:flex items-center gap-2 text-sm text-sand-600 hover:text-sand-800 transition-colors group">
+        <a href="/classes" class="hidden sm:flex items-center gap-2 text-sm text-sage-700 hover:text-sage-900 transition-colors group">
           <%= t.viewAllClasses %>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
         </a>
@@ -76,13 +76,13 @@
         <% classCards.forEach((c, i) => { const v = cardVariants[i % cardVariants.length]; %>
           <a href="<%= c.slug ? '/classes/' + c.slug : '/classes' %>" class="card-earthy p-6 group cursor-pointer block h-full reveal" data-delay="<%= i * 90 %>">
             <div class="icon-tile w-10 h-10 rounded-xl <%= v.tile %> flex items-center justify-center mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="<%= v.icon %>"></path>
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+                <%- v.svg %>
               </svg>
             </div>
-            <h3 class="font-display text-lg text-sand-900 mb-1"><%= c.name %></h3>
-            <p class="text-sm text-sand-500 leading-relaxed"><%= c.description || 'Explore a mindful class designed to support your journey.' %></p>
-            <div class="mt-4 flex items-center gap-1 text-xs text-gold opacity-0 group-hover:opacity-100 transition-opacity">
+            <h3 class="font-display text-lg text-sage-900 mb-1"><%= c.name %></h3>
+            <p class="text-sm text-stone-warm leading-relaxed line-clamp-3 min-h-[4.27rem]"><%= c.description || 'Explore a mindful class designed to support your journey.' %></p>
+            <div class="mt-4 flex items-center gap-1 text-xs text-sage-700 opacity-0 group-hover:opacity-100 transition-opacity">
               <%= t.learnMore %>
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
             </div>
@@ -90,7 +90,7 @@
         <% }) %>
       </div>
 
-      <a href="/classes" class="sm:hidden flex items-center justify-center gap-2 mt-6 text-sm text-sand-600">
+      <a href="/classes" class="sm:hidden flex items-center justify-center gap-2 mt-6 text-sm text-sage-700">
         <%= t.viewAllClasses %>
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
       </a>
@@ -105,8 +105,8 @@
   <section class="py-16 px-6 bg-sand-100/50 relative">
     <div class="max-w-6xl mx-auto">
       <div class="reveal text-center mb-16">
-        <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-3"><%= t.ourApproach %></p>
-        <h2 class="font-display text-4xl sm:text-5xl text-sand-900 leading-tight"><%= t.moreThanJust %> <span class="italic text-gold-dark"><%= t.moreThanJustItalic %></span></h2>
+          <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-3"><%= t.ourApproach %></p>
+        <h2 class="font-display text-4xl sm:text-5xl text-sage-900 leading-tight"><%= t.moreThanJust %> <span class="italic text-terracotta-600"><%= t.moreThanJustItalic %></span></h2>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -129,8 +129,8 @@
     <div class="max-w-6xl mx-auto">
       <div class="reveal flex items-end justify-between mb-12">
         <div>
-          <p class="font-sans text-xs uppercase tracking-[0.2em] text-gold mb-2"><%= t.upcoming %></p>
-          <h2 class="font-display text-3xl sm:text-4xl text-sand-900"><%= t.eventsTitle %> <span class="italic"><%= t.eventsTitleItalic %></span></h2>
+          <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-2"><%= t.upcoming %></p>
+          <h2 class="font-display text-3xl sm:text-4xl text-sage-900"><%= t.eventsTitle %> <span class="italic"><%= t.eventsTitleItalic %></span></h2>
         </div>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -174,14 +174,14 @@
       <div id="eventModal" class="fixed inset-0 z-[70] hidden">
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeEvent()"></div>
         <div class="relative max-w-lg mx-auto mt-[6vh] mb-6 bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <button onclick="closeEvent()" class="absolute right-4 top-4 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm grid place-items-center text-sand-700 hover:bg-white transition" aria-label="Close">
+          <button onclick="closeEvent()" class="absolute right-4 top-4 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm grid place-items-center text-sage-700 hover:bg-white transition" aria-label="Close">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
           </button>
           <div class="p-6 sm:p-8">
-            <span class="px-2.5 py-1 rounded-full bg-sand-100 text-[9px] font-bold tracking-[0.15em] text-sand-600">EVENT</span>
-            <h3 id="eventTitle" class="font-display text-2xl text-sand-900 mt-3 leading-snug"></h3>
-            <div id="eventMeta" class="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-sm text-sand-600"></div>
-            <div id="eventDesc" class="mt-5 pt-5 border-t border-sand-100 text-sm text-sand-600 leading-relaxed [&_p]:m-0 [&_p]:mb-3"></div>
+            <span class="px-2.5 py-1 rounded-full bg-sage-50 text-[9px] font-bold tracking-[0.15em] text-sage-700">EVENT</span>
+            <h3 id="eventTitle" class="font-display text-2xl text-sage-900 mt-3 leading-snug"></h3>
+            <div id="eventMeta" class="flex flex-wrap gap-x-5 gap-y-2 mt-4 text-sm text-stone-warm"></div>
+            <div id="eventDesc" class="mt-5 pt-5 border-t border-sage-100 text-sm text-stone-warm leading-relaxed [&_p]:m-0 [&_p]:mb-3"></div>
             <a href="#" id="eventWhatsApp" data-wa-base="<%= contactLinks.whatsappShortLink %>" target="_blank" rel="noopener noreferrer" class="btn-primary group w-full mt-6 py-3 justify-center">
               <%= t.eventReserve %>
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="ms-2"><path d="M12.04 2a9.91 9.91 0 0 0-8.5 15.03L2 22l5.06-1.5A9.9 9.9 0 1 0 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.94 1.35-.52.05-1.17.24-3.9-.81-3.28-1.31-5.34-4.72-5.5-4.94-.16-.22-1.32-1.75-1.32-3.34s.84-2.37 1.13-2.7c.3-.32.64-.4.86-.4h.62c.2 0 .46-.07.72.55.27.64.92 2.23.99 2.39.08.16.13.35.02.57-.1.22-.16.35-.31.54-.15.19-.32.43-.46.57-.15.16-.31.33-.13.64.18.31.8 1.32 1.72 2.14 1.18 1.05 2.18 1.38 2.49 1.53.31.16.49.13.67-.08.18-.2.77-.9.98-1.2.2-.31.4-.26.68-.16.28.11 1.76.83 2.06.98.3.15.5.23.57.35.08.13.08.72-.16 1.42Z"/></svg>
@@ -195,12 +195,12 @@
   <!-- ======================= FINAL CTA ======================= -->
   <section class="py-16 px-6 bg-sand-200/40">
     <div class="reveal max-w-3xl mx-auto text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-gold mx-auto mb-6">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-terracotta-600 mx-auto mb-6">
         <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
         <path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path>
       </svg>
-      <h2 class="font-display text-3xl sm:text-4xl text-sand-900 mb-4"><%= t.readyTitle %> <span class="italic"><%= t.readyTitleItalic %></span>?</h2>
-      <p class="text-sand-600 mb-8 max-w-lg mx-auto"><%= t.ctaDesc %></p>
+      <h2 class="font-display text-3xl sm:text-4xl text-sage-900 mb-4"><%= t.readyTitle %> <span class="italic"><%= t.readyTitleItalic %></span>?</h2>
+      <p class="text-stone-warm mb-8 max-w-lg mx-auto"><%= t.ctaDesc %></p>
       <div class="flex flex-wrap items-center justify-center gap-4">
         <a href="<%= contactLinks.whatsappShortLink %>" target="_blank" rel="noopener noreferrer" class="btn-primary group text-base px-8 py-3.5">
           <%= t.chatWhatsApp %>
@@ -217,6 +217,6 @@
 </main>
 
 <%- include('../partials/footer') %>
-<script src="/js/main.js?v=<%= assetV %>"></script>
+<!-- main.js dimuat sekali via partials/footer -->
 </body>
 </html>

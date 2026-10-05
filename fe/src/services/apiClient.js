@@ -1,4 +1,4 @@
-import { env } from "../src/config/env.js";
+import { env } from "../config/env.js";
 
 const TIMEOUT_MS = 10_000;
 
@@ -46,6 +46,22 @@ async function apiRequest(endpoint, options = {}) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+/**
+ * Build a query string from whitelisted keys only.
+ * Skips empty values to keep URLs clean.
+ */
+export function buildQuery(params = {}, allowedKeys = []) {
+  const query = new URLSearchParams();
+  for (const key of allowedKeys) {
+    const value = params[key];
+    if (value !== undefined && value !== null && value !== "") {
+      query.append(key, String(value));
+    }
+  }
+  const qs = query.toString();
+  return qs ? `?${qs}` : "";
 }
 
 export default apiRequest;

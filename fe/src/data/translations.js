@@ -4,6 +4,7 @@ export const translations = {
       home: "Home",
       about: "About",
       classes: "Classes",
+      schedules: "Schedules",
       packages: "Packages",
       instructors: "Instructors",
       events: "Events",
@@ -91,6 +92,22 @@ export const translations = {
     classesTitle: "Find your flow",
     classesDesc:
       "Choose a class, pick your preferred time, and book your next practice at YogaRoots.",
+    classGuideEyebrow: "OUR CLASSES",
+    classGuideTitle: "Class",
+    classGuideTitleItalic: "Guide",
+    classGuideDesc:
+      "All classes are led by certified instructors with personalized attention.",
+    classSearchPlaceholder: "Search classes...",
+    classFilterLevel: "Level:",
+    classFilterAll: "All Levels",
+    classFilterFoundation: "Foundation",
+    classFilterIntermediate: "Intermediate",
+    classFilterAdvance: "Advance",
+    classJoinTitle: "Interested in joining?",
+    classJoinDesc: "Contact us for packages and pricing",
+    classWhatsappUs: "WhatsApp Us",
+    tableOfContents: "On this page",
+    ctaQuestions: "Questions about these terms?",
     instructorsTitleA: "Meet Our",
     instructorsTitleB: "Instructors",
     instructorsDesc:
@@ -116,6 +133,10 @@ export const translations = {
     blogDesc:
       "Discover helpful tips, inspiring ideas, and simple practices to support a healthier body, a calmer mind, and a more balanced life.",
     contactTitle: "Connect With Us",
+    shareArticle: "Share this article",
+    copiedLink: "Link copied!",
+    relatedArticles: "Related articles",
+    latestClasses: "Latest classes",
     contactDesc:
       "Have a question? We're here to listen, guide, and help you find what feels right for your journey.",
     galleryTitle: "Our Gallery",
@@ -158,29 +179,29 @@ export const translations = {
       stats: [
         { value: "12K+", label: "Active Members" },
         { value: "18", label: "Certified Instructors" },
-        { value: "500+", label: "Classes per Month" },
+        { value: "500+", label: "Total Classes" },
         { value: "4.8★", label: "Google Rating" },
       ],
       quote:
         "You don't have to live with stress and pain. Living can be a joyful adventure instead.",
       quoteAuthor: "— The YogaRoots Team",
-      heroBadge: "Est. 2016",
+      heroBadge: "Est. 2023",
       journeyEyebrow: "Our journey",
       journeyTitle: "Milestones",
       journeyTitleItalic: "along the way",
       milestones: [
         {
-          year: "2016",
+          year: "2023",
           title: "A small beginning",
           desc: "YogaRoots opens as a single room studio with a handful of mats and a big intention.",
         },
         {
-          year: "2019",
+          year: "2024",
           title: "Growing together",
           desc: "Our community reaches a thousand members who share the same love for mindful movement.",
         },
         {
-          year: "2022",
+          year: "2025",
           title: "A home in South Jakarta",
           desc: "We open our dedicated studio space, designed to feel calm, warm, and welcoming.",
         },
@@ -217,6 +238,10 @@ export const translations = {
       galleryTitle: "Moments",
       galleryTitleItalic: "worth keeping",
       galleryCta: "View Gallery",
+      articlesEyebrow: "Stories & tips",
+      articlesTitle: "From the",
+      articlesTitleItalic: "blog",
+      articlesCta: "View all articles",
     },
 
     // Footer
@@ -249,6 +274,7 @@ export const translations = {
       home: "Beranda",
       about: "Tentang",
       classes: "Kelas",
+      schedules: "Jadwal",
       packages: "Paket",
       instructors: "Instruktur",
       events: "Acara",
@@ -336,6 +362,22 @@ export const translations = {
     classesTitle: "Temukan ritme",
     classesDesc:
       "Pilih kelas, tentukan waktu favoritmu, dan pesan latihanmu berikutnya di YogaRoots.",
+    classGuideEyebrow: "KELAS KAMI",
+    classGuideTitle: "Panduan",
+    classGuideTitleItalic: "Kelas",
+    classGuideDesc:
+      "Semua kelas dipandu instruktur tersertifikasi dengan perhatian personal.",
+    classSearchPlaceholder: "Cari kelas...",
+    classFilterLevel: "Level:",
+    classFilterAll: "Semua Level",
+    classFilterFoundation: "Foundation",
+    classFilterIntermediate: "Intermediate",
+    classFilterAdvance: "Advance",
+    classJoinTitle: "Tertarik bergabung?",
+    classJoinDesc: "Hubungi kami untuk info paket dan harga",
+    classWhatsappUs: "WhatsApp Kami",
+    tableOfContents: "Di halaman ini",
+    ctaQuestions: "Ada pertanyaan tentang ketentuan ini?",
     instructorsTitleA: "Kenali",
     instructorsTitleB: "Instruktur Kami",
     instructorsDesc:
@@ -361,6 +403,10 @@ export const translations = {
     blogDesc:
       "Temukan tips bermanfaat, ide inspiratif, dan praktik sederhana untuk mendukung tubuh yang lebih sehat, pikiran yang lebih tenang, dan hidup yang lebih seimbang.",
     contactTitle: "Terhubung Dengan Kami",
+    shareArticle: "Bagikan artikel ini",
+    copiedLink: "Tautan tersalin!",
+    relatedArticles: "Artikel terkait",
+    latestClasses: "Kelas terbaru",
     contactDesc:
       "Punya pertanyaan? Kami di sini untuk mendengarkan, membimbing, dan membantu menemukan apa yang terasa cocok bagi perjalananmu.",
     galleryTitle: "Galeri Kami",
@@ -404,29 +450,29 @@ export const translations = {
       stats: [
         { value: "12K+", label: "Member Aktif" },
         { value: "18", label: "Instruktur Bersertifikat" },
-        { value: "500+", label: "Kelas per Bulan" },
+        { value: "500+", label: "Total Kelas" },
         { value: "4.8★", label: "Rating Google" },
       ],
       quote:
         "Anda tidak harus hidup dengan stres dan rasa sakit. Hidup bisa menjadi petualangan yang menyenangkan.",
       quoteAuthor: "— Tim YogaRoots",
-      heroBadge: "Berdiri 2016",
+      heroBadge: "Berdiri 2023",
       journeyEyebrow: "Perjalanan kami",
       journeyTitle: "Tonggak",
       journeyTitleItalic: "sepanjang jalan",
       milestones: [
         {
-          year: "2016",
+          year: "2023",
           title: "Awal yang kecil",
           desc: "YogaRoots dibuka sebagai studio satu ruangan dengan beberapa matras dan niat yang besar.",
         },
         {
-          year: "2019",
+          year: "2024",
           title: "Bertumbuh bersama",
           desc: "Komunitas kami mencapai seribu member yang berbagi kecintaan pada gerakan sadar.",
         },
         {
-          year: "2022",
+          year: "2025",
           title: "Rumah di Jakarta Selatan",
           desc: "Kami membuka studio khusus, dirancang agar terasa tenang, hangat, dan ramah.",
         },
@@ -463,6 +509,10 @@ export const translations = {
       galleryTitle: "Momen",
       galleryTitleItalic: "yang layak dikenang",
       galleryCta: "Lihat Galeri",
+      articlesEyebrow: "Cerita & tips",
+      articlesTitle: "Dari",
+      articlesTitleItalic: "blog",
+      articlesCta: "Lihat semua artikel",
     },
 
     // Footer
@@ -495,6 +545,7 @@ export const translations = {
       home: "ホーム",
       about: "私たちについて",
       classes: "クラス",
+      schedules: "スケジュール",
       packages: "プラン",
       instructors: "インストラクター",
       events: "イベント",
@@ -582,6 +633,22 @@ export const translations = {
     classesTitle: "自分に合ったフローを見つける",
     classesDesc:
       "クラスを選び、希望の時間を決めて、YogaRootsでの次のプラクティスを予約しましょう。",
+    classGuideEyebrow: "クラス紹介",
+    classGuideTitle: "クラス",
+    classGuideTitleItalic: "ガイド",
+    classGuideDesc:
+      "すべてのクラスは認定インストラクターによるきめ細やかな指導付きです。",
+    classSearchPlaceholder: "クラスを検索...",
+    classFilterLevel: "レベル:",
+    classFilterAll: "すべてのレベル",
+    classFilterFoundation: "ファンデーション",
+    classFilterIntermediate: "インターミディエイト",
+    classFilterAdvance: "アドバンス",
+    classJoinTitle: "参加にご興味がありますか?",
+    classJoinDesc: "パッケージと料金についてはお問い合わせください",
+    classWhatsappUs: "WhatsAppで相談",
+    tableOfContents: "このページの内容",
+    ctaQuestions: "ご質問がありますか?",
     instructorsTitleA: "私たちの",
     instructorsTitleB: "インストラクター",
     instructorsDesc:
@@ -607,6 +674,10 @@ export const translations = {
     blogDesc:
       "健康なカラダ、穏やかな心、バランスの取れた生活を支える役立つヒントやアイデア、シンプルなプラクティスをお届けします。",
     contactTitle: "お気軽にご連絡ください",
+    shareArticle: "この記事を共有する",
+    copiedLink: "リンクをコピーしました!",
+    relatedArticles: "関連記事",
+    latestClasses: "最新のクラス",
     contactDesc:
       "ご質問はありますか?あなたの旅に合ったものを見つけられるよう、耳を傾け、ご案内します。",
     galleryTitle: "ギャラリー",
@@ -650,29 +721,29 @@ export const translations = {
       stats: [
         { value: "12K+", label: "アクティブメンバー" },
         { value: "18", label: "認定インストラクター" },
-        { value: "500+", label: "月間クラス数" },
+        { value: "500+", label: "総クラス数" },
         { value: "4.8★", label: "Google評価" },
       ],
       quote:
         "ストレスや痛みと共に生きる必要はありません。人生はむしろ喜びに満ちた冒険になり得ます。",
       quoteAuthor: "— YogaRootsチーム",
-      heroBadge: "2016年設立",
+      heroBadge: "2023年設立",
       journeyEyebrow: "私たちの歩み",
       journeyTitle: "道のりの",
       journeyTitleItalic: "マイルストーン",
       milestones: [
         {
-          year: "2016",
+          year: "2023",
           title: "小さな始まり",
           desc: "数枚のマットと大きな想いを胸に、小さな一室のスタジオとしてYogaRootsがオープンしました。",
         },
         {
-          year: "2019",
+          year: "2024",
           title: "共に成長",
           desc: "マインドフルなムーブメントを愛する千人の仲間からなるコミュニティへと成長しました。",
         },
         {
-          year: "2022",
+          year: "2025",
           title: "南ジャカルタに我が家を",
           desc: "穏やかで温かく、誰もが歓迎される空間を目指した専用スタジオをオープンしました。",
         },
@@ -709,6 +780,10 @@ export const translations = {
       galleryTitle: "心に残る",
       galleryTitleItalic: "瞬間",
       galleryCta: "ギャラリーを見る",
+      articlesEyebrow: "ストーリーとヒント",
+      articlesTitle: "ブログ",
+      articlesTitleItalic: "より",
+      articlesCta: "すべての記事を見る",
     },
 
     // Footer
@@ -741,6 +816,7 @@ export const translations = {
       home: "홈",
       about: "소개",
       classes: "클래스",
+      schedules: "일정",
       packages: "멤버십",
       instructors: "강사",
       events: "이벤트",
@@ -827,6 +903,22 @@ export const translations = {
     classesTitle: "나만의 플로우를 찾아보세요",
     classesDesc:
       "클래스를 고르고 원하는 시간을 정한 뒤 YogaRoots에서의 다음 수련을 예약해 보세요.",
+    classGuideEyebrow: "클래스 소개",
+    classGuideTitle: "클래스",
+    classGuideTitleItalic: "가이드",
+    classGuideDesc:
+      "모든 클래스는 인증된 강사가 세심하게 지도해요.",
+    classSearchPlaceholder: "클래스 검색...",
+    classFilterLevel: "레벨:",
+    classFilterAll: "전체 레벨",
+    classFilterFoundation: "파운데이션",
+    classFilterIntermediate: "인터미디엇",
+    classFilterAdvance: "어드밴스",
+    classJoinTitle: "함께하고 싶으신가요?",
+    classJoinDesc: "패키지와 가격은 문의해 주세요",
+    classWhatsappUs: "WhatsApp 문의",
+    tableOfContents: "페이지 내용",
+    ctaQuestions: "문의 사항이 있으신가요?",
     instructorsTitleA: "우리의",
     instructorsTitleB: "강사",
     instructorsDesc:
@@ -852,6 +944,10 @@ export const translations = {
     blogDesc:
       "더 건강한 몸과 차분한 마음, 균형 잡힌 삶을 위한 유용한 팁과 영감, 간단한 수련법을 전해 드려요.",
     contactTitle: "편하게 연락해 주세요",
+    shareArticle: "이 글 공유하기",
+    copiedLink: "링크가 복사됐어요!",
+    relatedArticles: "관련 아티클",
+    latestClasses: "최신 클래스",
     contactDesc:
       "궁금한 점이 있으신가요? 여러분의 여정에 맞는 답을 찾을 수 있도록 귀 기울이고 안내해 드릴게요.",
     galleryTitle: "갤러리",
@@ -895,29 +991,29 @@ export const translations = {
       stats: [
         { value: "12K+", label: "활성 회원" },
         { value: "18", label: "인증 강사" },
-        { value: "500+", label: "월간 클래스" },
+        { value: "500+", label: "전체 클래스" },
         { value: "4.8★", label: "Google 평점" },
       ],
       quote:
         "스트레스와 통증 속에 살 필요는 없어요. 삶은 오히려 즐거운 모험이 될 수 있어요.",
       quoteAuthor: "— YogaRoots 팀",
-      heroBadge: "2016년 설립",
+      heroBadge: "2023년 설립",
       journeyEyebrow: "우리의 여정",
       journeyTitle: "걸어온 길의",
       journeyTitleItalic: "발자취",
       milestones: [
         {
-          year: "2016",
+          year: "2023",
           title: "작은 시작",
           desc: "몇 장의 매트와 큰 다짐을 안고 작은 방 한 칸의 스튜디오로 YogaRoots가 문을 열었어요.",
         },
         {
-          year: "2019",
+          year: "2024",
           title: "함께 성장",
           desc: "마음챙김 움직임을 사랑하는 천 명의 회원이 함께하는 커뮤니티로 자랐어요.",
         },
         {
-          year: "2022",
+          year: "2025",
           title: "자카르타 남부의 보금자리",
           desc: "고요하고 따뜻하며 누구나 환영받는 느낌의 전용 스튜디오 공간을 열었어요.",
         },
@@ -954,6 +1050,10 @@ export const translations = {
       galleryTitle: "간직하고 싶은",
       galleryTitleItalic: "순간들",
       galleryCta: "갤러리 보기",
+      articlesEyebrow: "스토리와 팁",
+      articlesTitle: "블로그",
+      articlesTitleItalic: "이야기",
+      articlesCta: "모든 아티클 보기",
     },
 
     // Footer
@@ -986,6 +1086,7 @@ export const translations = {
       home: "首页",
       about: "关于我们",
       classes: "课程",
+      schedules: "课表",
       packages: "会员套餐",
       instructors: "导师",
       events: "活动",
@@ -1073,6 +1174,22 @@ export const translations = {
     classesTitle: "找到属于你的练习节奏",
     classesDesc:
       "选择课程、挑选心仪的时间,预约你在 YogaRoots 的下一次练习。",
+    classGuideEyebrow: "我们的课程",
+    classGuideTitle: "课程",
+    classGuideTitleItalic: "指南",
+    classGuideDesc:
+      "所有课程均由认证导师授课,并给予个性化关注。",
+    classSearchPlaceholder: "搜索课程...",
+    classFilterLevel: "难度:",
+    classFilterAll: "全部难度",
+    classFilterFoundation: "基础",
+    classFilterIntermediate: "中级",
+    classFilterAdvance: "高级",
+    classJoinTitle: "想加入我们吗?",
+    classJoinDesc: "欢迎咨询套餐与价格",
+    classWhatsappUs: "WhatsApp 咨询",
+    tableOfContents: "本页目录",
+    ctaQuestions: "对本条款有疑问?",
     instructorsTitleA: "认识我们的",
     instructorsTitleB: "导师",
     instructorsDesc:
@@ -1098,6 +1215,10 @@ export const translations = {
     blogDesc:
       "发现实用技巧、启发灵感与简单练习,陪伴你拥有更健康的身体、更平静的心与更平衡的生活。",
     contactTitle: "与我们联系",
+    shareArticle: "分享本文",
+    copiedLink: "链接已复制!",
+    relatedArticles: "相关文章",
+    latestClasses: "最新课程",
     contactDesc:
       "有任何问题吗?我们愿意倾听、指引,帮你找到最适合自己的旅程。",
     galleryTitle: "精彩瞬间",
@@ -1141,29 +1262,29 @@ export const translations = {
       stats: [
         { value: "12K+", label: "活跃会员" },
         { value: "18", label: "认证导师" },
-        { value: "500+", label: "每月课程" },
+        { value: "500+", label: "课程总数" },
         { value: "4.8★", label: "Google 评分" },
       ],
       quote:
         "你不必与压力和疼痛共存。生活本可以是一场充满喜悦的冒险。",
       quoteAuthor: "— YogaRoots 团队",
-      heroBadge: "创立于 2016 年",
+      heroBadge: "创立于 2023 年",
       journeyEyebrow: "我们的历程",
       journeyTitle: "一路走来的",
       journeyTitleItalic: "里程碑",
       milestones: [
         {
-          year: "2016",
+          year: "2023",
           title: "微小的开始",
           desc: "YogaRoots 从一间只有几张瑜伽垫的小房间起步,怀揣着大大的初心开业了。",
         },
         {
-          year: "2019",
+          year: "2024",
           title: "共同成长",
           desc: "我们的社群拥有了一千名同样热爱正念运动的成员。",
         },
         {
-          year: "2022",
+          year: "2025",
           title: "在南雅加达安家",
           desc: "我们开设了专属的瑜伽馆空间,安静、温暖、令人心安。",
         },
@@ -1200,6 +1321,10 @@ export const translations = {
       galleryTitle: "值得珍藏的",
       galleryTitleItalic: "瞬间",
       galleryCta: "查看全部",
+      articlesEyebrow: "故事与贴士",
+      articlesTitle: "博客",
+      articlesTitleItalic: "精选",
+      articlesCta: "查看全部文章",
     },
 
     // Footer

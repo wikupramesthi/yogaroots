@@ -6,22 +6,27 @@
  *   src/middleware/security.js helmet CSP + rate limit + origin check
  *   src/middleware/locals.js   site/nav/contactLinks/currentUrl aman
  *   src/middleware/i18n.js     ?lang=en|id|ja|ko|zh + cookie HttpOnly
+ *   src/middleware/minify.js   HTML minify (view-source ringkas)
  *   src/middleware/errors.js   404 + error handler
  *   src/routes/pages.js        semua GET halaman
  *   src/routes/api.js          /api/* (validasi + limit)
+ *   src/routes/sitemap.js      /sitemap.xml dinamis + /robots.txt
  *   src/utils/validate.js      validasi input
  *   src/utils/sanitize.js      sanitasi HTML CMS
  */
 import express from "express";
+import compression from "compression";
 import path from "path";
 import { fileURLToPath } from "url";
 import { env } from "./src/config/env.js";
 import { securityHeaders, writeLimiter, sameOriginOnly } from "./src/middleware/security.js";
 import { appLocals } from "./src/middleware/locals.js";
 import { i18n } from "./src/middleware/i18n.js";
+import { minifyHtml } from "./src/middleware/minify.js";
 import { notFound, errorHandler } from "./src/middleware/errors.js";
 import pageRoutes from "./src/routes/pages.js";
 import apiRoutes from "./src/routes/api.js";
+import sitemapRoutes from "./src/routes/sitemap.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,15 +39,31 @@ app.set("trust proxy", false); // host header tidak dipercaya untuk URL publik
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Security + parsing
+// Security + kompresi + parsing
 app.use(securityHeaders());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(compression());
+app.use(
+  express.static(path.join(__dirname, "public"), {
+    // CSS/JS sudah cache-busting (?v=ASSET_V): cache lama + immutable.
+    // Gambar tanpa versi: 7 hari agar update logo tidak nyangkut lama.
+    maxAge: "7d",
+    setHeaders: (res, filePath) => {
+      if (/\.(css|js)$/i.test(filePath)) {
+        res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+      }
+    },
+  }),
+);
 app.use(express.urlencoded({ extended: true, limit: "100kb" }));
 app.use(express.json({ limit: "100kb" }));
 
-// Context global views + bahasa
+// Context global views + bahasa + HTML minify (view-source ringkas)
 app.use(appLocals);
 app.use(i18n);
+app.use(minifyHtml());
+
+// Sitemap XML dinamis + robots.txt (sebelum halaman, tanpa minify HTML)
+app.use("/", sitemapRoutes);
 
 // Halaman
 app.use("/", pageRoutes);

@@ -1,6 +1,7 @@
 /** 404 for unknown pages. */
 export function notFound(req, res) {
-  res.status(404).render("pages/404", { title: "Page Not Found — 404" });
+  // Halaman error jangan diindeks Google.
+  res.status(404).render("pages/404", { title: "Page Not Found — 404", robots: "noindex, nofollow", heroNav: true });
 }
 
 /** Last error handler: hide details in production. */
@@ -17,6 +18,6 @@ export function errorHandler(err, req, res, next) {
       message: status === 500 ? "An internal server error occurred." : err.message,
     });
   }
-  if (status === 404) return res.status(404).render("pages/404", { title: "Page Not Found — 404" });
-  return res.status(status).render("pages/404", { title: "Something Went Wrong — YogaRoots" });
+  if (status === 404) return res.status(404).render("pages/404", { title: "Page Not Found — 404", robots: "noindex, nofollow", heroNav: true });
+  return res.status(status).render("pages/404", { title: "Something Went Wrong — YogaRoots", robots: "noindex, nofollow", heroNav: true });
 }
