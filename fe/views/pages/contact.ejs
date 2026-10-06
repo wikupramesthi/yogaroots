@@ -4,193 +4,266 @@
     <%- include('../partials/head') %>
   </head>
 
-  <body class="antialiased">
+  <body class="min-h-screen bg-sand-50 antialiased">
     <%- include('../partials/navbar') %>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20">
-      <div class="grid lg:grid-cols-2 gap-10">
-        <!-- LEFT -->
-        <div>
-<h1 class="font-display text-4xl font-bold"><%= t.contactTitle %></h1>
+<%
+  const isID = (typeof lang !== "undefined" && lang === 'id');
+  const L = {
+    badge: isID ? 'Respon < 1×24 jam' : 'Replies within 24 hours',
+    titleA: isID ? 'Mari' : "Let's",
+    titleB: isID ? 'terhubung' : 'connect',
+    heroDesc: isID
+      ? 'Ada pertanyaan soal kelas, paket, atau jadwal? Ceritakan kebutuhanmu — tim kami siap mendengarkan dan membantumu menemukan praktik yang pas.'
+      : 'Questions about classes, packages, or schedules? Tell us what you need — our team is here to listen and help you find the right practice.',
+    waCta: isID ? 'Chat WhatsApp' : 'Chat on WhatsApp',
+    mailCta: 'Email',
+    infoTitle: isID ? 'Info Kontak' : 'Contact Info',
+    infoDesc: isID
+      ? 'Atau hubungi kami langsung lewat kanal di bawah ini.'
+      : 'Or reach us directly through any channel below.',
+    addressLabel: isID ? 'Alamat Studio' : 'Studio Address',
+    directions: isID ? 'Petunjuk arah' : 'Get directions',
+    formTitle: isID ? 'Kirim Pesan' : 'Send Us a Message',
+    namePh: isID ? 'Nama lengkap' : 'Full Name',
+    emailPh: isID ? 'Alamat email' : 'Email Address',
+    phonePh: isID ? 'Nomor WhatsApp aktif' : 'Active WhatsApp Number',
+    msgPh: isID ? 'Ceritakan kebutuhanmu...' : 'Tell us how we can help...',
+    captchaPh: isID ? 'Masukkan jawaban' : 'Enter your answer',
+    sendBtn: isID ? 'Kirim Pesan' : 'Send Message',
+    sendingBtn: isID ? 'Mengirim...' : 'Sending...',
+    mapCardTitle: isID ? 'YogaRoots Studio' : 'YogaRoots Studio',
+    faqEyebrow: 'FAQ',
+    faqTitle: isID ? 'Sering ditanyakan' : 'Frequently asked',
+    faqEmpty: isID ? 'Belum ada FAQ.' : 'No FAQs available.',
+  };
+%>
 
-          <p class="text-stone-warm mt-2">
-            <%= t.contactDesc %>
-          </p>
+    <main>
+      <!-- ======================= HERO ======================= -->
+      <section class="relative overflow-hidden text-sand-50">
+        <div class="absolute inset-0" style="background:
+          radial-gradient(ellipse 70% 55% at 18% 12%, #a6814f 0%, transparent 62%),
+          radial-gradient(ellipse 60% 60% at 88% 95%, #382a16 0%, transparent 65%),
+          linear-gradient(135deg, #75542b 0%, #543d22 55%, #3b2b17 100%)"></div>
+        <div class="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none" style="background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+        <div class="hero-shimmer"></div>
 
-          <!-- CONTACT INFO -->
-          <div class="mt-6 space-y-4">
-            <div
-              class="flex gap-3 bg-cream border border-sage-100 rounded-2xl p-4"
-            >
-              <span
-                class="w-10 h-10 rounded-xl bg-white border border-sage-100 grid place-items-center"
-              >
-                📍
-              </span>
+        <div class="relative max-w-3xl mx-auto px-6 pt-36 pb-32 lg:pt-44 lg:pb-40 text-center">
+          <span class="inline-flex items-center gap-2 rounded-full border border-sand-100/25 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-sand-100 anim-fade-in">
+            <span class="w-1.5 h-1.5 rounded-full bg-gold-light"></span>
+            <%= L.badge %>
+          </span>
+          <h1 class="mt-8 font-display tracking-tight anim-slide-up" style="font-size:clamp(2.5rem, min(9vw, 11vh), 4.5rem); line-height:1.06">
+            <%= L.titleA %>
+            <span class="italic font-light text-gold-light"><%= L.titleB %></span>
+          </h1>
+          <p class="mt-6 font-sans text-base sm:text-lg text-sand-100/85 max-w-xl mx-auto leading-relaxed anim-fade-in" style="animation-delay:.3s"><%= L.heroDesc %></p>
+          <div class="mt-10 flex flex-wrap items-center justify-center gap-4 anim-fade-in" style="animation-delay:.45s">
+            <a href="<%= contactLinks.whatsappLink %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 rounded-full bg-sand-50 px-7 py-3 text-sm font-medium tracking-wide text-sand-900 transition-all hover:bg-white">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <%= L.waCta %>
+            </a>
+            <% if (site.email) { %>
+            <a href="mailto:<%= site.email %>" class="inline-flex items-center gap-2.5 rounded-full border border-sand-50/40 px-7 py-3 text-sm tracking-wide text-sand-50 transition-all hover:border-sand-50 hover:bg-sand-50/10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+              <%= L.mailCta %>
+            </a>
+            <% } %>
+          </div>
+        </div>
+      </section>
 
-              <div>
-                <div class="font-semibold text-sm">Studio Address</div>
+      <!-- ======================= INFO + FORM (overlap card) ======================= -->
+      <section class="px-6">
+        <div class="max-w-6xl mx-auto -mt-20 lg:-mt-24 relative z-10 rounded-[2rem] bg-white shadow-2xl ring-1 ring-sand-900/10 overflow-hidden">
+          <div class="grid lg:grid-cols-[0.9fr_1.1fr]">
+            <!-- LEFT: info panel -->
+            <div class="bg-sand-900 text-sand-100 p-8 sm:p-10 lg:p-12">
+              <h2 class="font-display text-2xl sm:text-3xl text-sand-50"><%= L.infoTitle %></h2>
+              <p class="text-sm text-sand-100/70 leading-relaxed mt-3 mb-8"><%= L.infoDesc %></p>
 
-                <div class="text-sm text-stone-warm">
-                  <%= contact.address || site.address %>
+              <div class="space-y-6">
+                <div class="flex gap-4">
+                  <span class="w-11 h-11 rounded-xl bg-white/10 text-gold-light grid place-items-center shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="text-xs uppercase tracking-[0.18em] text-sand-100/50"><%= L.addressLabel %></div>
+                    <div class="text-sm leading-relaxed mt-1.5 text-sand-50/90"><%= contact.address || site.address %></div>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Yoga+Roots+Jakarta" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-medium text-gold-light hover:text-sand-50 transition-colors mt-2">
+                      <%= L.directions %>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+                    </a>
+                  </div>
                 </div>
+
+                <span class="block h-px bg-white/10"></span>
+
+                <a href="<%= contactLinks.whatsappLink %>" target="_blank" rel="noopener noreferrer" class="flex gap-4 group">
+                  <span class="w-11 h-11 rounded-xl bg-white/10 text-gold-light grid place-items-center shrink-0 group-hover:bg-white/15 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="text-xs uppercase tracking-[0.18em] text-sand-100/50">WhatsApp</div>
+                    <div class="text-sm mt-1.5 text-sand-50/90 group-hover:text-white transition-colors"><%= site.phone %></div>
+                  </div>
+                </a>
+
+                <% if (site.email) { %>
+                <a href="mailto:<%= site.email %>" class="flex gap-4 group">
+                  <span class="w-11 h-11 rounded-xl bg-white/10 text-gold-light grid place-items-center shrink-0 group-hover:bg-white/15 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="text-xs uppercase tracking-[0.18em] text-sand-100/50">Email</div>
+                    <div class="text-sm mt-1.5 text-sand-50/90 break-all group-hover:text-white transition-colors"><%= site.email %></div>
+                  </div>
+                </a>
+                <% } %>
+
+                <a href="<%= site.instagramHref %>" target="_blank" rel="noopener noreferrer" class="flex gap-4 group">
+                  <span class="w-11 h-11 rounded-xl bg-white/10 text-gold-light grid place-items-center shrink-0 group-hover:bg-white/15 transition">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                  </span>
+                  <div class="min-w-0">
+                    <div class="text-xs uppercase tracking-[0.18em] text-sand-100/50">Instagram</div>
+                    <div class="text-sm mt-1.5 text-sand-50/90 group-hover:text-white transition-colors">@<%= site.instagramHandle %></div>
+                  </div>
+                </a>
               </div>
             </div>
 
-            <div
-              class="flex gap-3 bg-cream border border-sage-100 rounded-2xl p-4"
-            >
-              <span
-                class="w-10 h-10 rounded-xl bg-white border border-sage-100 grid place-items-center"
-              >
-                📞
-              </span>
+            <!-- RIGHT: form -->
+            <div class="p-8 sm:p-10 lg:p-12">
+              <h2 class="font-display text-2xl sm:text-3xl text-sage-900"><%= L.formTitle %></h2>
 
-              <div>
-                <div class="font-semibold text-sm">WhatsApp Us</div>
+              <form action="" id="contactForm" class="mt-8 space-y-4" data-sending="<%= L.sendingBtn %>">
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <input
+                    name="nama"
+                    placeholder="<%= L.namePh %>"
+                    required
+                    autocomplete="name"
+                    class="w-full px-5 py-3.5 rounded-2xl border border-sage-200 bg-sand-50/60 outline-none focus:border-sage-500 focus:bg-white focus:ring-4 focus:ring-sage-500/10 transition placeholder:text-stone-warm/60 text-sm"
+                  />
+                  <input
+                    name="email"
+                    type="email"
+                    placeholder="<%= L.emailPh %>"
+                    required
+                    autocomplete="email"
+                    class="w-full px-5 py-3.5 rounded-2xl border border-sage-200 bg-sand-50/60 outline-none focus:border-sage-500 focus:bg-white focus:ring-4 focus:ring-sage-500/10 transition placeholder:text-stone-warm/60 text-sm"
+                  />
+                </div>
 
-                <div class="text-sm text-stone-warm"><%= site.phone %></div>
-              </div>
+                <input
+                  name="no_telp"
+                  type="tel"
+                  inputmode="numeric"
+                  pattern="[0-9]+"
+                  placeholder="<%= L.phonePh %>"
+                  required
+                  autocomplete="tel"
+                  class="w-full px-5 py-3.5 rounded-2xl border border-sage-200 bg-sand-50/60 outline-none focus:border-sage-500 focus:bg-white focus:ring-4 focus:ring-sage-500/10 transition placeholder:text-stone-warm/60 text-sm"
+                />
+
+                <textarea
+                  name="isi"
+                  rows="5"
+                  placeholder="<%= L.msgPh %>"
+                  required
+                  class="w-full px-5 py-3.5 rounded-2xl border border-sage-200 bg-sand-50/60 outline-none focus:border-sage-500 focus:bg-white focus:ring-4 focus:ring-sage-500/10 transition placeholder:text-stone-warm/60 text-sm resize-y"
+                ></textarea>
+
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 rounded-2xl bg-sand-100/60 border border-sand-200/60 p-4">
+                  <label for="captchaAnswer" class="sm:flex-1 text-sm font-medium text-sage-900 leading-snug">
+                    <%= captcha?.question || "Verification unavailable" %>
+                  </label>
+                  <input
+                    name="captcha_answer"
+                    id="captchaAnswer"
+                    type="number"
+                    placeholder="<%= L.captchaPh %>"
+                    required
+                    class="sm:w-44 px-4 py-3 rounded-xl border border-sage-200 bg-white outline-none focus:border-sage-500 transition placeholder:text-stone-warm/60 text-sm"
+                  />
+                  <input
+                    type="hidden"
+                    name="captcha_id"
+                    value="<%= captcha?.captcha_id || '' %>"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  class="group w-full inline-flex items-center justify-center gap-2 py-4 rounded-full bg-sage-700 text-white text-sm font-semibold tracking-wide hover:bg-sage-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <%= L.sendBtn %>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </button>
+
+                <p id="contactMsg" class="hidden text-sm p-3 rounded-xl"></p>
+              </form>
             </div>
           </div>
-
-          <!-- CONTACT FORM -->
-          <form
-            action=""
-            id="contactForm"
-            class="mt-6 bg-white border border-sage-100 rounded-[24px] p-6 space-y-3"
-          >
-            <h3 class="font-semibold">Send Us a Message</h3>
-
-            <!-- NAME -->
-            <input
-              name="nama"
-              placeholder="Full Name"
-              required
-              class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
-            />
-
-            <!-- EMAIL -->
-            <input
-              name="email"
-              type="email"
-              placeholder="Email Address"
-              required
-              class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
-            />
-
-            <!-- PHONE -->
-            <input
-              name="no_telp"
-              type="tel"
-              inputmode="numeric"
-              pattern="[0-9]+"
-              placeholder="Active WhatsApp Number"
-              required
-              class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
-            />
-
-            <!-- MESSAGE -->
-            <textarea
-              name="isi"
-              rows="4"
-              placeholder="Tell us how we can help..."
-              required
-              class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
-            ></textarea>
-
-            <!-- CAPTCHA -->
-            <div>
-              <label class="block text-sm font-medium mb-2">
-                <%= captcha?.question || "Verification unavailable" %>
-              </label>
-
-              <input
-                name="captcha_answer"
-                id="captchaAnswer"
-                type="number"
-                placeholder="Enter your answer"
-                required
-                class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none focus:border-sage-400"
-              />
-
-              <!-- CAPTCHA ID -->
-              <input
-                type="hidden"
-                name="captcha_id"
-                value="<%= captcha?.captcha_id || '' %>"
-              />
-            </div>
-
-            <!-- BUTTON -->
-            <button
-              type="submit"
-              class="w-full py-3 rounded-full bg-sage-700 text-white font-semibold hover:bg-sage-600 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Send Message →
-            </button>
-
-            <!-- MESSAGE -->
-            <p id="contactMsg" class="hidden text-sm p-3 rounded-xl"></p>
-          </form>
         </div>
+      </section>
 
-        <!-- RIGHT -->
-        <div class="space-y-4">
-          <!-- MAP -->
-          <div
-            class="rounded-[24px] overflow-hidden border border-sage-100 h-[360px] bg-sage-50"
-          >
-            <iframe
-              src="<%= contact.mapEmbed %>"
-              class="w-full h-full border-0"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            ></iframe>
+      <!-- ======================= MAP ======================= -->
+      <section class="max-w-6xl mx-auto px-6 pt-16 lg:pt-20 pb-16">
+        <div class="reveal relative rounded-[2rem] overflow-hidden border border-sage-100 shadow-xl ring-1 ring-sand-900/5 h-[420px] md:h-[500px] bg-sage-50">
+          <iframe
+            title="YogaRoots Studio Map"
+            src="<%= contact.mapEmbed %>"
+            class="absolute inset-0 w-full h-full border-0"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="strict-origin-when-cross-origin"
+          ></iframe>
+          <div class="absolute left-4 right-4 bottom-4 sm:left-8 sm:right-auto sm:bottom-8 sm:max-w-sm rounded-2xl bg-sand-900/95 backdrop-blur text-sand-50 p-5 sm:p-6 shadow-2xl">
+            <div class="text-[11px] uppercase tracking-[0.2em] text-gold-light"><%= L.mapCardTitle %></div>
+            <p class="text-sm leading-relaxed mt-2 text-sand-100/90"><%= contact.address || site.address %></p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Yoga+Roots+Jakarta" target="_blank" rel="noopener noreferrer" class="group mt-4 inline-flex items-center gap-2 rounded-full bg-sand-50 px-5 py-2.5 text-xs font-semibold tracking-wide text-sand-900 transition-all hover:bg-white">
+              <%= L.directions %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"><path d="M7 7h10v10"></path><path d="M7 17 17 7"></path></svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= FAQ ======================= -->
+      <section class="bg-sand-100/60 px-6 py-16 lg:py-20">
+        <div class="max-w-3xl mx-auto">
+          <div class="reveal text-center mb-10">
+            <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-4"><%= L.faqEyebrow %></p>
+            <h2 class="font-display text-3xl sm:text-4xl text-sage-900 leading-tight"><%= L.faqTitle %></h2>
           </div>
 
-           <!-- FAQ -->
-
-
-                   <div class="max-w-3xl mx-auto mt-10 space-y-3">
-    <h2 class="font-display text-2xl font-bold text-center">FAQ & Answers</h2>
-      
-  <% if (faqs && faqs.length) { %>
-
-    <% faqs.forEach(f => { %>
-
-        <div class="bg-white border border-sage-100 rounded-2xl overflow-hidden">
-            <button
-                type="button"
-                data-faq
-                class="w-full text-left px-5 py-4 font-semibold text-sm flex justify-between items-center"
-            >
-                <%= f.question %>
-                <span>+</span>
-            </button>
-
-            <div class="hidden px-5 pb-4 text-sm text-stone-warm leading-relaxed">
-                <%= f.answer %>
+          <% if (faqs && faqs.length) { %>
+            <div class="space-y-3">
+              <% faqs.forEach((f, i) => { %>
+                <div class="reveal bg-white border border-sage-100 rounded-2xl overflow-hidden" data-delay="<%= (i % 4) * 80 %>">
+                  <button
+                    type="button"
+                    data-faq
+                    class="w-full text-left px-6 py-5 font-semibold text-sm text-sage-900 flex justify-between items-center gap-4"
+                  >
+                    <span><%= f.question %></span>
+                    <span class="w-8 h-8 rounded-full bg-sand-100 text-sand-700 grid place-items-center text-lg leading-none shrink-0">+</span>
+                  </button>
+                  <div class="hidden px-6 pb-6 text-sm text-stone-warm leading-relaxed">
+                    <%= f.answer %>
+                  </div>
+                </div>
+              <% }) %>
             </div>
+          <% } else { %>
+            <p class="text-center text-sm text-stone-warm"><%= L.faqEmpty %></p>
+          <% } %>
         </div>
-
-    <% }) %>
-
-<% } else { %>
-
-    <p class="text-center text-sm text-stone-500">
-        No FAQs available.
-    </p>
-    
-
-<% } %>
-
-                   </div>
-              
-          
-        </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
     <%- include('../partials/footer') %>
 

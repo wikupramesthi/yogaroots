@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="<%= lang || 'en' %>">
+<head><%- include('../partials/head') %></head>
+<body class="min-h-screen bg-sand-50 antialiased">
+<%- include('../partials/navbar') %>
+
+<%
+  const isID = (typeof lang !== "undefined" && lang === 'id');
+  const L = {
+    badge: isID ? 'Pendiri — Art of Living' : 'Founder — Art of Living',
+    titleA: 'Gurudev Sri Sri',
+    titleB: 'Ravi Shankar',
+    subtitle: isID ? 'Duta Perdamaian & Pemimpin Kemanusiaan Global' : 'Ambassador of Peace & Global Humanitarian Leader',
+    heroDesc: isID
+      ? 'Transformasi kearifan kuno menjadi pesan sederhana untuk kehidupan sehari-hari. Visinya tentang masyarakat bebas stres dan bebas kekerasan telah menginspirasi jutaan orang di 180 negara.'
+      : 'His transformation of age-old wisdom into simple messages for everyday life — and his vision of a stress-free, violence-free society — has inspired millions across 180 countries.',
+    learnMore: isID ? 'Pelajari lebih lanjut' : 'Learn more',
+    follow: isID ? 'Ikuti Gurudev' : 'Follow Gurudev',
+    stats: isID
+      ? [{ v: '800M+', l: 'Jiwa tersentuh' }, { v: '180', l: 'Negara' }, { v: '1981', l: 'Art of Living lahir' }]
+      : [{ v: '800M+', l: 'Lives touched' }, { v: '180', l: 'Countries' }, { v: '1981', l: 'AoL founded' }],
+    aboutEyebrow: isID ? 'Tentang Gurudev' : 'About Gurudev',
+    aboutTitle: isID ? 'Guru, pemimpin & duta perdamaian' : 'Guru, leader & ambassador of peace',
+    aboutP1: isID
+      ? 'Gurudev Sri Sri Ravi Shankar adalah pemimpin spiritual dan kemanusiaan yang diakui dunia. Melalui jaringan organisasi seperti Art of Living dan International Association for Human Values, ia memimpin gerakan global untuk masyarakat bebas stres dan bebas kekerasan — menjangkau lebih dari 800 juta orang.'
+      : 'Gurudev Sri Sri Ravi Shankar is a globally revered spiritual and humanitarian leader. Through a network of organizations including the Art of Living and the International Association for Human Values, he has spearheaded a worldwide movement for a stress-free, violence-free society — reaching an estimated 800+ million people.',
+    aboutP2: isID
+      ? 'Lahir pada tahun 1956 di India Selatan, ia adalah anak berbakat yang sudah hafal Bhagavad Gita di usia empat tahun dan sering bermeditasi. Ia meraih gelar di bidang literatur Veda dan fisika. Pada tahun 1982, setelah sepuluh hari hening di Shimoga, lahirlah Sudarshan Kriya™ — teknik pernapasan dahsyat yang menjadi inti program Art of Living.'
+      : 'Born in 1956 in Southern India, Gurudev was a gifted child — reciting the Bhagavad Gita by age four and often found in meditation. He holds degrees in both Vedic literature and physics. In 1982, after a ten-day period of silence in Shimoga, the Sudarshan Kriya™ was born — a powerful breathing technique that became the centerpiece of Art of Living courses.',
+    honorsEyebrow: isID ? 'Penghargaan' : 'Honors & recognitions',
+    honorsTitle: isID ? 'Diakui' : 'Honors and',
+    honorsTitleItalic: isID ? 'dunia' : 'Recognitions',
+    bioEyebrow: isID ? 'Biografi' : 'Biography',
+    bioTitle: isID ? 'Perjalanan' : 'A journey of',
+    bioTitleItalic: isID ? 'yang menggerakkan dunia' : 'service & wisdom',
+    kriyaTitle: isID ? 'Sudarshan Kriya™ (SKY)' : 'Sudarshan Kriya™ (SKY)',
+    kriyaDesc: isID
+      ? 'Teknik pernapasan khas Gurudev yang terbukti membantu meredakan stres, menenangkan pikiran, dan memperkuat daya tahan tubuh — didokumentasikan oleh riset medis independen dari institusi ternama.'
+      : 'Gurudev’s signature breathing technique — documented by independent medical research to ease stress, calm the mind, and strengthen immunity.',
+    quote: isID
+      ? 'Kegembiraan adalah tujuan hidup. Pelayanan adalah ekspresinya, dan pengetahuan adalah jalannya.'
+      : 'Joy is the goal of life. Service is its expression, and knowledge is the way.',
+    quoteAuthor: '— Gurudev Sri Sri Ravi Shankar',
+    engage: isID ? 'Kenali lebih dekat Gurudev' : 'Engage with Gurudev Sri Sri Ravi Shankar',
+  };
+  const honors = isID ? [
+    { t: 'Warga Kehormatan', d: 'Penghargaan sipil tertinggi di Kolombia, Mongolia, Paraguay, dan Suriname.' },
+    { t: 'Padma Vibhushan', d: 'Penghargaan tahunan tertinggi bagi warga sipil di Republik India.' },
+    { t: 'Mediator Perdamaian', d: 'Diakui pemerintah Sri Lanka, Irak, Kolombia, Venezuela, Pantai Gading, Kamerun, dan India.' },
+    { t: 'Doktor Honoris Causa', d: 'Dari 26 institusi internasional di seluruh dunia.' },
+    { t: 'Penghargaan Institusi', d: 'Penghormatan dari 43 institusi lainnya di berbagai negara.' },
+    { t: 'Hari Sri Sri Ravi Shankar', d: 'Ditetapkan di berbagai kota dan negara sebagai bentuk penghormatan.' },
+  ] : [
+    { t: 'Distinguished Citizen', d: 'The highest civilian recognition in Colombia, Mongolia, Paraguay and Suriname.' },
+    { t: 'Padma Vibhushan', d: 'The highest annual civilian recognition in the Republic of India.' },
+    { t: 'Peace Mediator', d: 'Government recognitions in Sri Lanka, Iraq, Colombia, Venezuela, Ivory Coast, Cameroon and India.' },
+    { t: 'Honorary Doctorates', d: 'From 26 international institutions worldwide.' },
+    { t: 'Honors by Institutions', d: 'Honors from 43 other institutions across the globe.' },
+    { t: 'Sri Sri Ravi Shankar Days', d: 'Proclaimed in multiple cities and countries.' },
+  ];
+  const honorStyles = [
+    { tile: 'bg-gold/15 text-[#8a6a3e]', icon: '<circle cx="12" cy="15" r="5"></circle><path d="M9.5 10.5 6 3h4l2 3.5L14 3h4l-3.5 7.5"></path>' },
+    { tile: 'bg-sage-100 text-sage-700', icon: '<path d="M3 22h18"></path><path d="M6 18v-8M10 18v-8M14 18v-8M18 18v-8"></path><path d="m12 2 8 5H4l8-5Z"></path>' },
+    { tile: 'bg-lotus-100 text-lotus-700', icon: '<circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path>' },
+    { tile: 'bg-sage-100 text-sage-700', icon: '<path d="m22 9-10-5L2 9l10 5 10-5Z"></path><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"></path><path d="M22 9v5"></path>' },
+    { tile: 'bg-lotus-100 text-lotus-700', icon: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>' },
+    { tile: 'bg-gold/15 text-[#8a6a3e]', icon: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" x2="4" y1="22" y2="15"></line>' },
+  ];
+  const milestones = isID ? [
+    { y: '1956', t: 'Lahir di India Selatan', d: 'Anak berbakat yang hafal Bhagavad Gita di usia 4 tahun dan gemar bermeditasi.' },
+    { y: '1981', t: 'Art of Living lahir', d: 'Gerakan pendidikan dan kemanusiaan dimulai, bertumbuh ke 180 negara.' },
+    { y: '1982', t: 'Sudarshan Kriya™ ditemukan', d: 'Setelah 10 hari hening di Shimoga — menjadi inti seluruh program.' },
+    { y: 'Kini', t: '800 juta+ tersentuh', d: 'Program pengembangan diri, mediasi perdamaian, dan aksi kemanusiaan global.' },
+  ] : [
+    { y: '1956', t: 'Born in Southern India', d: 'A gifted child reciting the Bhagavad Gita by age four, often in meditation.' },
+    { y: '1981', t: 'Art of Living founded', d: 'An educational and humanitarian movement growing across 180 countries.' },
+    { y: '1982', t: 'Sudarshan Kriya™ born', d: 'After ten days of silence in Shimoga — the centerpiece of all courses.' },
+    { y: 'Today', t: '800M+ lives touched', d: 'Self-development programs, peace mediation, and global humanitarian service.' },
+  ];
+  const peacePoints = isID ? [
+    { t: 'Mediasi konflik bersenjata', d: 'Dari Kashmir, Assam, dan Bihar hingga Kolombia, Kosovo, Irak, Suriah, dan Pantai Gading — programnya terbukti mengarahkan pelaku konflik ke jalan damai.' },
+    { t: 'Relawan global', d: 'Pesan kedamaian dari dalam diri melahirkan gelombang pelayanan oleh korps relawan raksasa di seluruh dunia.' },
+    { t: 'Berbasis riset', d: 'Teknik Yoga kuno yang disesuaikan untuk kebutuhan modern — meredakan depresi, menurunkan kortisol, dan memperkuat imun.' },
+  ] : [
+    { t: 'Mediating armed conflict', d: 'From Kashmir, Assam and Bihar to Colombia, Kosovo, Iraq, Syria and Côte d’Ivoire — his programs moved people in conflict toward peace.' },
+    { t: 'A global volunteer wave', d: 'His message of inner peace sparked a surge of service through a huge corps of volunteers worldwide.' },
+    { t: 'Research-backed', d: 'Ancient Yoga techniques adapted for modern life — easing depression, lowering cortisol, strengthening immunity.' },
+  ];
+%>
+
+<main>
+
+  <!-- ======================= HERO ======================= -->
+  <section class="relative overflow-hidden text-sand-50">
+    <div class="absolute inset-0" style="background:
+      radial-gradient(ellipse 70% 55% at 18% 12%, #a6814f 0%, transparent 62%),
+      radial-gradient(ellipse 60% 60% at 88% 95%, #382a16 0%, transparent 65%),
+      linear-gradient(135deg, #75542b 0%, #543d22 55%, #3b2b17 100%)"></div>
+    <div class="absolute inset-0 opacity-[0.08] mix-blend-overlay pointer-events-none" style="background-image:url(&quot;data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;)"></div>
+    <div class="hero-shimmer"></div>
+
+    <div class="relative max-w-6xl mx-auto px-6 pt-36 pb-20 lg:pt-48 lg:pb-28 grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+      <div class="text-center lg:text-left">
+        <span class="inline-flex items-center gap-2 rounded-full border border-sand-100/25 bg-white/5 backdrop-blur-sm px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-sand-100 anim-fade-in">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold-light"></span>
+          <%= L.badge %>
+        </span>
+        <h1 class="mt-8 font-display tracking-tight anim-slide-up" style="font-size:clamp(2.5rem, min(8vw, 10vh), 4.25rem); line-height:1.06">
+          <%= L.titleA %>
+          <span class="italic font-light text-gold-light"><%= L.titleB %></span>
+        </h1>
+        <p class="mt-5 font-sans text-xs sm:text-sm uppercase tracking-[0.25em] text-gold-light/90 anim-fade-in" style="animation-delay:.25s"><%= L.subtitle %></p>
+        <p class="mt-6 font-sans text-base sm:text-lg text-sand-100/85 max-w-xl mx-auto lg:mx-0 leading-relaxed anim-fade-in" style="animation-delay:.35s"><%= L.heroDesc %></p>
+        <div class="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4 anim-fade-in" style="animation-delay:.5s">
+          <a href="#founder" class="inline-flex items-center gap-3 text-sand-900 bg-sand-50 hover:bg-white rounded-full px-8 py-3.5 text-sm font-medium tracking-wide transition-all">
+            <%= L.learnMore %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"></path><path d="m19 12-7 7-7-7"></path></svg>
+          </a>
+          <a href="https://www.artofliving.org/id-en/about-us/gurudev" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 text-sand-50 border border-sand-50/40 hover:border-sand-50 hover:bg-sand-50/10 rounded-full px-8 py-3.5 text-sm tracking-wide transition-all">
+            artofliving.org
+          </a>
+        </div>
+        <div class="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-4 text-sand-100/70">
+          <span class="text-xs uppercase tracking-[0.2em]"><%= L.follow %></span>
+          <span class="hidden sm:block h-px w-10 bg-sand-100/25"></span>
+          <a href="https://www.facebook.com/gurudev" target="_blank" rel="noopener noreferrer" aria-label="Facebook Gurudev" class="w-9 h-9 rounded-full border border-sand-100/25 grid place-items-center hover:bg-sand-50/10 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+          <a href="https://x.com/gurudev" target="_blank" rel="noopener noreferrer" aria-label="X Gurudev" class="w-9 h-9 rounded-full border border-sand-100/25 grid place-items-center hover:bg-sand-50/10 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23.3 22h-6.3l-4.9-6.4L6.5 22H3.4l7.3-8.3L1.5 2h6.4l4.4 5.9L18.9 2Zm-1.1 17.8h1.7L7 3.9H5.2l12.6 15.9Z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/gurudev" target="_blank" rel="noopener noreferrer" aria-label="Instagram Gurudev" class="w-9 h-9 rounded-full border border-sand-100/25 grid place-items-center hover:bg-sand-50/10 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+          </a>
+          <a href="https://www.youtube.com/srisri" target="_blank" rel="noopener noreferrer" aria-label="YouTube Gurudev" class="w-9 h-9 rounded-full border border-sand-100/25 grid place-items-center hover:bg-sand-50/10 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/srisriravishankar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Gurudev" class="w-9 h-9 rounded-full border border-sand-100/25 grid place-items-center hover:bg-sand-50/10 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="mx-auto w-full max-w-md lg:max-w-none anim-fade-in" style="animation-delay:.55s">
+        <img src="/img/art-of-living/gurudev-main.webp" alt="Gurudev Sri Sri Ravi Shankar" fetchpriority="high" decoding="async" class="w-full aspect-[4/3] object-cover rounded-[2rem] shadow-2xl ring-1 ring-white/20">
+        <div class="mt-5 grid grid-cols-3 gap-4">
+          <% L.stats.forEach((s) => { %>
+            <div class="rounded-2xl bg-white/5 border border-sand-100/15 backdrop-blur-sm px-3 py-5 text-center">
+              <div class="font-display text-xl sm:text-2xl text-gold-light leading-none"><%= s.v %></div>
+              <div class="text-[10px] uppercase tracking-[0.15em] text-sand-100/70 mt-2 leading-snug"><%= s.l %></div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= ABOUT ======================= -->
+  <section id="founder" class="py-20 lg:py-28 px-6 scroll-mt-24">
+    <div class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+      <div class="reveal order-2 lg:order-1">
+        <div class="grid grid-cols-2 gap-5">
+          <img src="/img/art-of-living/gurudev-1.webp" alt="Gurudev Sri Sri Ravi Shankar" loading="lazy" decoding="async" class="w-full aspect-[3/2] object-cover rounded-2xl shadow-md ring-1 ring-sand-900/5">
+          <img src="/img/art-of-living/gurudev-2.webp" alt="Gurudev giving a lecture" loading="lazy" decoding="async" class="w-full aspect-[3/2] object-cover rounded-2xl shadow-md ring-1 ring-sand-900/5">
+          <img src="/img/art-of-living/gurudev-3.webp" alt="Gurudev speaking on yoga and meditation" loading="lazy" decoding="async" class="w-full aspect-[3/2] object-cover rounded-2xl shadow-md ring-1 ring-sand-900/5">
+          <img src="/img/art-of-living/gurudev-4.webp" alt="Gurudev guiding a meditation session" loading="lazy" decoding="async" class="w-full aspect-[3/2] object-cover rounded-2xl shadow-md ring-1 ring-sand-900/5">
+        </div>
+        <div class="mt-6 flex justify-center">
+          <span class="inline-flex items-center gap-2.5 rounded-full bg-sand-900 text-sand-50 pl-2 pr-5 py-1.5 shadow-md">
+            <img src="/img/artofliving-white.png" alt="" loading="lazy" class="h-7 w-auto object-contain">
+            <span class="text-[11px] uppercase tracking-[0.2em] text-sand-200">Art of Living</span>
+          </span>
+        </div>
+      </div>
+      <div class="reveal order-1 lg:order-2" data-delay="120">
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-4"><%= L.aboutEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sage-900 leading-tight mb-7"><%= L.aboutTitle %></h2>
+        <p class="text-stone-warm leading-relaxed mb-5"><%= L.aboutP1 %></p>
+        <p class="text-stone-warm leading-relaxed"><%= L.aboutP2 %></p>
+        <div class="mt-10 rounded-2xl bg-sand-100/70 border border-sand-200/70 p-6 flex gap-5">
+          <div class="w-11 h-11 rounded-xl bg-sage-700 text-sand-50 flex items-center justify-center shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a6 6 0 1 0 0-12 6 6 0 0 0 0 12Z"></path><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"></path></svg>
+          </div>
+          <div>
+            <h3 class="font-semibold text-sage-900"><%= L.kriyaTitle %></h3>
+            <p class="text-sm text-stone-warm leading-relaxed mt-1"><%= L.kriyaDesc %></p>
+            <a href="/classes" class="inline-flex items-center gap-1.5 text-sm font-medium text-terracotta-600 hover:text-terracotta-700 mt-2">
+              <%= isID ? 'Lihat kelas YogaRoots' : 'Explore YogaRoots classes' %>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= HONORS ======================= -->
+  <section class="py-20 lg:py-28 px-6 bg-sand-100/60">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center mb-14 lg:mb-16">
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-4"><%= L.honorsEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sage-900 leading-tight"><%= L.honorsTitle %> <span class="italic text-terracotta-600"><%= L.honorsTitleItalic %></span></h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <% honors.forEach((h, i) => { const st = honorStyles[i % honorStyles.length]; %>
+          <div class="relative card-earthy p-8 reveal overflow-hidden group" data-delay="<%= (i % 3) * 110 %>">
+            <span class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-gold/0 via-gold/60 to-gold/0 scale-x-0 group-hover:scale-x-100 origin-center transition-transform duration-500"></span>
+            <div class="icon-tile w-12 h-12 rounded-2xl <%= st.tile %> flex items-center justify-center mb-6">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><%- st.icon %></svg>
+            </div>
+            <h3 class="font-display text-xl text-sage-900 mb-3 leading-snug"><%= h.t %></h3>
+            <p class="text-sm text-stone-warm leading-relaxed"><%= h.d %></p>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= BIOGRAPHY / TIMELINE ======================= -->
+  <section class="pt-20 lg:pt-28 pb-14 lg:pb-16 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal text-center mb-16">
+        <p class="font-sans text-xs uppercase tracking-[0.2em] text-terracotta-600 mb-4"><%= L.bioEyebrow %></p>
+        <h2 class="font-display text-3xl sm:text-4xl text-sage-900 leading-tight"><%= L.bioTitle %> <span class="italic text-terracotta-600"><%= L.bioTitleItalic %></span></h2>
+      </div>
+      <div class="relative">
+        <div class="hidden md:block absolute top-[7px] left-0 right-0 h-px bg-gradient-to-r from-transparent via-sand-300 to-transparent"></div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-10">
+          <% milestones.forEach((m, i) => { %>
+            <div class="relative reveal" data-delay="<%= i * 110 %>">
+              <div class="flex md:block items-start gap-4">
+                <span class="relative z-10 block w-3.5 h-3.5 rounded-full bg-gold ring-4 ring-sand-50 shrink-0 md:mb-6"></span>
+                <div>
+                  <div class="font-display text-2xl text-terracotta-600 mb-1"><%= m.y %></div>
+                  <h3 class="font-semibold text-sage-900 mb-2"><%= m.t %></h3>
+                  <p class="text-sm text-stone-warm leading-relaxed"><%= m.d %></p>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="mt-16 lg:mt-20 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="reveal">
+          <img src="/img/art-of-living/gurudev-5.webp" alt="Gurudev Sri Sri Ravi Shankar giving a talk" loading="lazy" decoding="async" class="w-full aspect-[3/2] object-cover rounded-[2rem] shadow-xl ring-1 ring-sand-900/5">
+        </div>
+        <div class="space-y-8">
+          <% peacePoints.forEach((p, i) => { %>
+            <div class="flex gap-5 reveal" data-delay="<%= i * 100 %>">
+              <div class="w-11 h-11 rounded-xl <%= i % 2 === 0 ? 'bg-sage-100 text-sage-700' : 'bg-lotus-100 text-lotus-700' %> flex items-center justify-center shrink-0">
+                <% if (i === 0) { %>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path><path d="M2 21c0-3 1.85-5.36 5.08-6"></path></svg>
+                <% } else if (i === 1) { %>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <% } else { %>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7 13.5 15.5 8.5 10.5 2 17"></path><path d="M16 7h6v6"></path></svg>
+                <% } %>
+              </div>
+              <div>
+                <h3 class="font-semibold text-sage-900 mb-1"><%= p.t %></h3>
+                <p class="text-sm text-stone-warm leading-relaxed"><%= p.d %></p>
+              </div>
+            </div>
+          <% }) %>
+          <a href="https://gurudev.artofliving.org/life/biography/" target="_blank" rel="noopener noreferrer" class="reveal inline-flex items-center gap-2 mt-2 text-sm font-medium text-sage-700 hover:text-sage-900 transition-colors group">
+            <%= L.engage %>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= PANORAMA DIVIDER ======================= -->
+  <section class="px-6 pb-20 lg:pb-28">
+    <div class="reveal max-w-6xl mx-auto overflow-hidden rounded-[2rem] shadow-xl ring-1 ring-sand-900/10">
+      <img src="/img/art-of-living/gurudev-hero.webp" alt="Gurudev Sri Sri Ravi Shankar" loading="lazy" decoding="async" class="w-full aspect-[1200/344] sm:aspect-auto sm:h-64 md:h-80 object-cover">
+    </div>
+  </section>
+
+  <!-- ======================= QUOTE ======================= -->
+  <section class="py-20 lg:py-24 px-6 bg-sand-900 text-sand-50 relative overflow-hidden">
+    <div class="absolute -top-16 -right-16 w-64 h-64 rounded-full bg-gold/10 blur-3xl"></div>
+    <div class="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-lotus-600/10 blur-3xl"></div>
+    <div class="reveal relative max-w-3xl mx-auto text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-9 h-9 text-gold-light mx-auto mb-8"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"></path><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"></path></svg>
+      <blockquote class="font-display text-2xl sm:text-3xl italic text-sand-100 leading-relaxed">"<%= L.quote %>"</blockquote>
+      <p class="mt-8 font-sans text-xs uppercase tracking-[0.25em] text-sand-400"><%= L.quoteAuthor %></p>
+    </div>
+  </section>
+
+  <!-- ======================= FINAL CTA ======================= -->
+  <section class="py-20 lg:py-24 px-6 bg-sand-200/40">
+    <div class="reveal max-w-3xl mx-auto text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-terracotta-600 mx-auto mb-8">
+        <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
+        <path d="M20 3v4"></path><path d="M22 5h-4"></path><path d="M4 17v2"></path><path d="M5 18H3"></path>
+      </svg>
+      <h2 class="font-display text-3xl sm:text-4xl text-sage-900 mb-5"><%= t.readyTitle %> <span class="italic"><%= t.readyTitleItalic %></span>?</h2>
+      <p class="text-stone-warm mb-10 max-w-lg mx-auto"><%= t.ctaDesc %></p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="<%= contactLinks.whatsappShortLink %>" target="_blank" rel="noopener noreferrer" class="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-sand-800 px-8 py-3.5 text-sm font-medium tracking-wide text-sand-50 transition-all hover:bg-sand-900">
+          <%= t.chatWhatsApp %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </a>
+        <button onclick="openBooking()" class="group inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-sand-800/25 px-8 py-3.5 text-sm font-medium tracking-wide text-sand-800 transition-all hover:border-sand-800 hover:bg-sand-800/5">
+          <%= t.bookClassCta %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 group-hover:translate-x-1"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<%- include('../partials/footer') %>
+</body>
+</html>

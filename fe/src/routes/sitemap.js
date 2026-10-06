@@ -16,6 +16,7 @@ const router = Router();
 const STATIC_URLS = [
   { path: "/", changefreq: "daily", priority: "1.0" },
   { path: "/about", changefreq: "monthly", priority: "0.8" },
+  { path: "/art-of-living", changefreq: "monthly", priority: "0.8" },
   { path: "/classes", changefreq: "weekly", priority: "0.9" },
   { path: "/schedules", changefreq: "daily", priority: "0.9" },
   { path: "/instructors", changefreq: "weekly", priority: "0.7" },

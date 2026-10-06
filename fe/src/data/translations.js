@@ -3,6 +3,7 @@ export const translations = {
     nav: {
       home: "Home",
       about: "About",
+      artofliving: "Art of Living",
       classes: "Classes",
       schedules: "Schedules",
       packages: "Packages",
@@ -273,6 +274,7 @@ export const translations = {
     nav: {
       home: "Beranda",
       about: "Tentang",
+      artofliving: "Art of Living",
       classes: "Kelas",
       schedules: "Jadwal",
       packages: "Paket",
@@ -544,6 +546,7 @@ export const translations = {
     nav: {
       home: "ホーム",
       about: "私たちについて",
+      artofliving: "アート・オブ・リビング",
       classes: "クラス",
       schedules: "スケジュール",
       packages: "プラン",
@@ -815,6 +818,7 @@ export const translations = {
     nav: {
       home: "홈",
       about: "소개",
+      artofliving: "아트 오브 리빙",
       classes: "클래스",
       schedules: "일정",
       packages: "멤버십",
@@ -1085,6 +1089,7 @@ export const translations = {
     nav: {
       home: "首页",
       about: "关于我们",
+      artofliving: "生活的艺术",
       classes: "课程",
       schedules: "课表",
       packages: "会员套餐",

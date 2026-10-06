@@ -181,7 +181,7 @@ document.addEventListener("keydown", (ev) => {
     e.preventDefault();
     if (button) {
       button.disabled = true;
-      button.textContent = "Sending...";
+      button.textContent = form.dataset.sending || "Sending...";
     }
     try {
       const result = await postJSON(

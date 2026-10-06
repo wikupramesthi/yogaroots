@@ -78,6 +78,20 @@ router.get("/schedules", (req, res) => {
   });
 });
 
+// ---------- Art of Living (Gurudev) ----------
+router.get("/art-of-living", (req, res) => {
+  const isID = res.locals.lang === "id";
+  res.render("pages/art-of-living", {
+    title: isID
+      ? "Art of Living — Gurudev Sri Sri Ravi Shankar | YogaRoots"
+      : "Art of Living — Gurudev Sri Sri Ravi Shankar | YogaRoots",
+    metaDescription: isID
+      ? "Mengenal Gurudev Sri Sri Ravi Shankar, pendiri Art of Living — duta perdamaian, pencipta Sudarshan Kriya, menjangkau 800 juta+ jiwa di 180 negara."
+      : "Meet Gurudev Sri Sri Ravi Shankar, founder of Art of Living — ambassador of peace, creator of Sudarshan Kriya, reaching 800M+ lives across 180 countries.",
+    heroNav: true,
+  });
+});
+
 // ---------- Class detail ----------
 router.get("/classes/:slug", async (req, res, next) => {
   try {

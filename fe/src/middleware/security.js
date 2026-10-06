@@ -26,6 +26,8 @@ export function securityHeaders() {
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
         // 'http:' REQUIRED for local backend (http://127.0.0.1:8000/storage/...)
         imgSrc: ["'self'", "data:", "https:", "http:"],
+        // Google Maps embed (contact page)
+        frameSrc: ["'self'", "https://www.google.com", "https://maps.google.com"],
         connectSrc: ["'self'", env.API_URL],
         formAction: ["'self'"],
         ...(env.IS_PROD ? { upgradeInsecureRequests: [] } : {}),
