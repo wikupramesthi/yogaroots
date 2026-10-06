@@ -3,13 +3,16 @@
   "version": "1.10",
   "description": "Tema Yoga lengkap — Tailwind CSS v4 + EJS + Express. Fitur lengkap siap pakai untuk studio yoga, wellness & meditation.",
   "type": "module",
-  "main": "server.js",
+  "main": "server.ts",
   "scripts": {
-    "dev": "node server.js",
-    "start": "node server.js",
+    "dev": "tsx server.ts",
+    "start": "tsx server.ts",
     "build:css": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --minify",
     "watch:css": "npx @tailwindcss/cli -i ./public/css/input.css -o ./public/css/output.css --watch",
-    "dev:all": "concurrently \"npm run watch:css\" \"node --watch server.js\""
+    "build:js": "tsc -p tsconfig.browser.json",
+    "watch:js": "tsc -p tsconfig.browser.json --watch",
+    "typecheck": "tsc --noEmit",
+    "dev:all": "concurrently \"npm run watch:css\" \"npm run watch:js\" \"tsx watch server.ts\""
   },
   "keywords": [
     "yoga",
@@ -33,7 +36,14 @@
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.0",
+    "@types/compression": "^1.8.1",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.4",
+    "@types/sanitize-html": "^2.16.2",
     "concurrently": "^9.1.2",
-    "tailwindcss": "^4.1.0"
+    "tailwindcss": "^4.1.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   }
 }

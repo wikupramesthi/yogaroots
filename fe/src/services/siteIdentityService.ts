@@ -1,5 +1,6 @@
 import { env } from "../config/env.js";
 import { yogaData } from "../data/yogaData.js";
+import type { BackendPayload, SiteIdentity } from "../types/index.js";
 
 /**
  * Identitas website dari backend (dikelola via /backend/website-identity).
@@ -9,7 +10,7 @@ import { yogaData } from "../data/yogaData.js";
  */
 
 // Bentuk default — kunci sama persis dengan yang dipakai views (site.*).
-const FALLBACK = {
+const FALLBACK: SiteIdentity = {
   name: yogaData.site.name,
   title: yogaData.site.name,
   tagline: yogaData.site.tagline,
@@ -36,22 +37,22 @@ const FALLBACK = {
 };
 
 const TTL_MS = 10 * 60 * 1000;
-let cache = { data: null, expiresAt: 0 };
-let inflight = null;
+let cache: { data: SiteIdentity; expiresAt: number } = { data: FALLBACK, expiresAt: 0 };
+let inflight: Promise<SiteIdentity> | null = null;
 
-function text(value, fallback = "") {
+function text(value: unknown, fallback = ""): string {
   const s = String(value ?? "").trim();
   return s || fallback;
 }
 
 /** Ambil handle @user dari URL instagram penuh untuk tampilan "@user". */
-function instagramHandleFrom(url, fallback) {
+function instagramHandleFrom(url: string, fallback: string): string {
   const m = String(url || "").match(/instagram\.com\/([A-Za-z0-9._]+)/i);
   return m ? m[1] : fallback;
 }
 
 /** Normalisasi payload API -> bentuk siap pakai views (anti null/undefined). */
-export function normalizeIdentity(api = {}) {
+export function normalizeIdentity(api: Record<string, unknown> = {}): SiteIdentity {
   const fallback = FALLBACK;
   const instagramHref = text(api.instagram_url);
   return {
@@ -84,7 +85,7 @@ export function normalizeIdentity(api = {}) {
 }
 
 /** Bentuk default saat backend tidak terjangkau (halaman tetap render & SEO aman). */
-export function defaultSite() {
+export function defaultSite(): SiteIdentity {
   return { ...FALLBACK };
 }
 
@@ -92,11 +93,11 @@ export function defaultSite() {
  * Ambil identitas (pakai cache). Melempar error bila backend gagal —
  * gunakan resolveSite() bila ingin fallback otomatis.
  */
-export async function getSiteIdentity() {
-  if (cache.data && Date.now() < cache.expiresAt) return cache.data;
+export async function getSiteIdentity(): Promise<SiteIdentity> {
+  if (cache.expiresAt > Date.now()) return cache.data;
   if (!inflight) {
     inflight = fetchIdentity()
-      .then((payload) => {
+      .then((payload: BackendPayload) => {
         const normalized = normalizeIdentity(payload ?? {});
         cache = { data: normalized, expiresAt: Date.now() + TTL_MS };
         return normalized;
@@ -112,7 +113,7 @@ export async function getSiteIdentity() {
  * Fetch ringan khusus identitas: timeout 3,5 dtk (jangan ikut antrean
  * apiClient 10 dtk) agar halaman tetap cepat saat backend lambat/mati.
  */
-async function fetchIdentity() {
+async function fetchIdentity(): Promise<unknown> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 3_500);
   try {
@@ -129,7 +130,7 @@ async function fetchIdentity() {
 }
 
 /** Resolve aman untuk middleware: gagal -> fallback, halaman/SEO tetap jalan. */
-export async function resolveSite() {
+export async function resolveSite(): Promise<SiteIdentity> {
   try {
     return await getSiteIdentity();
   } catch {

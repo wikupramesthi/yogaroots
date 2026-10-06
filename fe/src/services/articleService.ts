@@ -1,6 +1,7 @@
 import apiRequest from "./apiClient.js";
+import type { Article, BackendPayload } from "../types/index.js";
 
-const DATE_LOCALES = {
+const DATE_LOCALES: Record<string, string> = {
   en: "en-US",
   id: "id-ID",
   ja: "ja-JP",
@@ -8,7 +9,7 @@ const DATE_LOCALES = {
   zh: "zh-CN",
 };
 
-const READ_TIME = {
+const READ_TIME: Record<string, string> = {
   en: "5 min read",
   id: "5 mnt baca",
   ja: "5分で読めます",
@@ -16,7 +17,7 @@ const READ_TIME = {
   zh: "阅读约 5 分钟",
 };
 
-function formatArticle(article, lang = "en") {
+function formatArticle(article: Record<string, any>, lang = "en"): Article {
   const locale = DATE_LOCALES[lang] || DATE_LOCALES.en;
   return {
     id: article.uuid,
@@ -43,13 +44,15 @@ function formatArticle(article, lang = "en") {
   };
 }
 
-export async function getArticles(lang = "en") {
-  const articles = await apiRequest("/articles");
-  return articles.map((article) => formatArticle(article, lang));
+export async function getArticles(lang = "en"): Promise<Article[]> {
+  const articles: BackendPayload = await apiRequest("/articles");
+  return (Array.isArray(articles) ? articles : []).map((article) =>
+    formatArticle(article, lang),
+  );
 }
 
-export async function getArticle(slug, lang = "en") {
-  const article = await apiRequest(`/articles/${slug}`);
+export async function getArticle(slug: string, lang = "en"): Promise<Article | null> {
+  const article: BackendPayload = await apiRequest(`/articles/${slug}`);
   if (!article) return null;
   return formatArticle(article, lang);
 }

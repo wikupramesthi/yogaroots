@@ -1,5 +1,6 @@
 import { minify } from "html-minifier-terser";
 import { env } from "../config/env.js";
+import type { Request, Response, NextFunction } from "../types/index.js";
 
 /**
  * Minify HTML sebelum dikirim ke browser — view-source jadi ringkas
@@ -28,10 +29,12 @@ const OPTIONS = {
 };
 
 export function minifyHtml() {
-  return (req, res, next) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     if (env.HTML_MINIFY === "0") return next();
     const originalSend = res.send.bind(res);
-    res.send = (body) => {
+    // Patch res.send: minify hanya body HTML halaman (lihat komentar di atas).
+    // Return type aslinya Response; promise dari minify() di-cast balik.
+    res.send = ((body: unknown) => {
       const type = res.getHeader("content-type");
       const isJson = typeof type === "string" && type.includes("application/json");
       if (typeof body === "string" && !isJson && body.includes("<html")) {
@@ -41,7 +44,7 @@ export function minifyHtml() {
         );
       }
       return originalSend(body);
-    };
+    }) as typeof res.send;
     next();
   };
 }

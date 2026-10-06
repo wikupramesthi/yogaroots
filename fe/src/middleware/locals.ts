@@ -1,6 +1,7 @@
 import { yogaData } from "../data/yogaData.js";
 import { siteContact, env } from "../config/env.js";
 import { resolveSite } from "../services/siteIdentityService.js";
+import type { Request, Response, NextFunction, SiteIdentity } from "../types/index.js";
 
 /**
  * Data global untuk semua views: site (dinamis dari API identitas),
@@ -8,10 +9,10 @@ import { resolveSite } from "../services/siteIdentityService.js";
  * Mencegah host-header injection: canonical dibangun dari SITE_URL + path,
  * bukan dari header Host mentah.
  */
-export async function appLocals(req, res, next) {
+export async function appLocals(req: Request, res: Response, next: NextFunction) {
   try {
     // Identitas dinamis (cache 10 mnt di service, fallback statis bila BE mati).
-    const site = await resolveSite();
+    const site: SiteIdentity = await resolveSite();
 
     res.locals.site = site;
     res.locals.nav = yogaData.nav;

@@ -2,17 +2,17 @@
  * YogaRoots FE — thin bootstrap.
  * Route/middleware/config tinggal di src/ agar server.js tetap ramping:
  *
- *   src/config/env.js          env tervalidasi (API_URL, SITE_URL, WA, OAuth)
- *   src/middleware/security.js helmet CSP + rate limit + origin check
- *   src/middleware/locals.js   site/nav/contactLinks/currentUrl aman
- *   src/middleware/i18n.js     ?lang=en|id|ja|ko|zh + cookie HttpOnly
- *   src/middleware/minify.js   HTML minify (view-source ringkas)
- *   src/middleware/errors.js   404 + error handler
- *   src/routes/pages.js        semua GET halaman
- *   src/routes/api.js          /api/* (validasi + limit)
- *   src/routes/sitemap.js      /sitemap.xml dinamis + /robots.txt
- *   src/utils/validate.js      validasi input
- *   src/utils/sanitize.js      sanitasi HTML CMS
+ *   src/config/env.ts          env tervalidasi (API_URL, SITE_URL, WA, OAuth)
+ *   src/middleware/security.ts helmet CSP + rate limit + origin check
+ *   src/middleware/locals.ts   site/nav/contactLinks/currentUrl aman
+ *   src/middleware/i18n.ts     ?lang=en|id|ja|ko|zh + cookie HttpOnly
+ *   src/middleware/minify.ts   HTML minify (view-source ringkas)
+ *   src/middleware/errors.ts   404 + error handler
+ *   src/routes/pages.ts        semua GET halaman
+ *   src/routes/api.ts          /api/* (validasi + limit)
+ *   src/routes/sitemap.ts      /sitemap.xml dinamis + /robots.txt
+ *   src/utils/validate.ts      validasi input
+ *   src/utils/sanitize.ts      sanitasi HTML CMS
  */
 import express from "express";
 import compression from "compression";

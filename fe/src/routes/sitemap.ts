@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { env } from "../config/env.js";
 import apiRequest from "../services/apiClient.js";
+import type { Request, Response } from "../types/index.js";
 
 /**
  * Sitemap XML dinamis + robots.txt.
@@ -36,7 +37,7 @@ const DYNAMIC_SOURCES = [
 ];
 
 const TTL_MS = 60 * 60 * 1000; // 1 jam
-let cache = { xml: null, expiresAt: 0 };
+let cache: { xml: string; expiresAt: number } = { xml: "", expiresAt: 0 };
 
 /** Escape untuk isi XML (loc). */
 function escapeXml(value) {
@@ -100,7 +101,7 @@ async function buildSitemap() {
   return xml;
 }
 
-router.get("/sitemap.xml", async (req, res) => {
+router.get("/sitemap.xml", async (req: Request, res: Response) => {
   try {
     if (!cache.xml || Date.now() > cache.expiresAt) {
       cache = { xml: await buildSitemap(), expiresAt: Date.now() + TTL_MS };
@@ -126,7 +127,7 @@ router.get("/sitemap.xml", async (req, res) => {
 });
 
 // robots.txt dinamis: Sitemap absolut mengikuti SITE_URL per environment.
-router.get("/robots.txt", (req, res) => {
+router.get("/robots.txt", (req: Request, res: Response) => {
   const base = env.SITE_URL.replace(/\/+$/, "");
   res.type("text/plain").send(
     `User-agent: *\nAllow: /\n\nSitemap: ${base}/sitemap.xml\n`,

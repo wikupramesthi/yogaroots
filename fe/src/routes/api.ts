@@ -8,11 +8,12 @@ import {
   validateContact,
   validateNewsletter,
 } from "../utils/validate.js";
+import type { Request, Response, NextFunction } from "../types/index.js";
 
 const router = Router();
 
 // Class list (clean proxy to backend, not undefined yogaData)
-router.get("/classes", async (req, res, next) => {
+router.get("/classes", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = await getClasses({ per_page: 50 });
     res.json(data?.data || data || []);
@@ -22,14 +23,18 @@ router.get("/classes", async (req, res, next) => {
 });
 
 // Class schedules (clean proxy: forwards date/level/time/studio filters)
-router.get("/class-schedules", async (req, res, next) => {
+router.get("/class-schedules", async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const params = {};
+    const params: Record<string, any> = {};
     if (req.query.date) params.date = req.query.date;
     if (req.query.level) params.level = req.query.level;
     if (req.query.time) params.time = req.query.time;
     if (req.query.studio_uuid) params.studio_uuid = req.query.studio_uuid;
-    params.per_page = Math.min(parseInt(req.query.per_page, 10) || 50, 50);
+    const perPage =
+      typeof req.query.per_page === "string"
+        ? parseInt(req.query.per_page, 10) || 50
+        : 50;
+    params.per_page = Math.min(perPage, 50);
     const data = await getClassSchedules(params);
     res.json(Array.isArray(data) ? data : data?.data || []);
   } catch (err) {
@@ -38,7 +43,7 @@ router.get("/class-schedules", async (req, res, next) => {
 });
 
 // Dummy theme booking — no PII in logs, strict validation
-router.post("/booking", (req, res) => {
+router.post("/booking", (req: Request, res: Response) => {
   try {
     const { name, email, kelas, date } = validateBooking(req.body);
     if (!env.IS_PROD) console.debug("[BOOKING]", { kelas, date, at: new Date().toISOString() });
@@ -52,7 +57,7 @@ router.post("/booking", (req, res) => {
 });
 
 // Forward contact messages to backend
-router.post("/contact", async (req, res) => {
+router.post("/contact", async (req: Request, res: Response) => {
   try {
     const result = await sendContact(validateContact(req.body));
     res.status(200).json({ success: true, message: result.message || "Message sent successfully." });
@@ -66,7 +71,7 @@ router.post("/contact", async (req, res) => {
 });
 
 // Dummy theme newsletter
-router.post("/newsletter", (req, res) => {
+router.post("/newsletter", (req: Request, res: Response) => {
   try {
     validateNewsletter(req.body);
     res.json({ success: true, message: "You're subscribed to our newsletter!" });

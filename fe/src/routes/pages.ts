@@ -13,11 +13,12 @@ import { getSiteStats, formatStatCount } from "../services/siteStatsService.js";
 import { getPage } from "../services/pageService.js";
 import { cleanSlug, cleanText, cleanPage, cleanDate } from "../utils/validate.js";
 import { sanitizeRichHtml } from "../utils/sanitize.js";
+import type { Request, Response, NextFunction } from "../types/index.js";
 
 const router = Router();
 
 // ---------- Home ----------
-router.get("/", async (req, res, next) => {
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const [testimonials, classes, packages, events] = await Promise.all([
       getTestimonials().catch(() => []),
@@ -39,7 +40,7 @@ router.get("/", async (req, res, next) => {
 });
 
 // ---------- Static ----------
-router.get("/about", async (req, res, next) => {
+router.get("/about", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const [stats, posts] = await Promise.all([
       getSiteStats().catch(() => null),
@@ -56,7 +57,7 @@ router.get("/about", async (req, res, next) => {
   }
 });
 
-router.get("/classes", async (req, res, next) => {
+router.get("/classes", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const response = await getClasses({ per_page: 50 }).catch(() => []);
     const classes = Array.isArray(response) ? response : response?.data || [];
@@ -71,7 +72,7 @@ router.get("/classes", async (req, res, next) => {
 });
 
 // ---------- Schedules (weekly timetable) ----------
-router.get("/schedules", (req, res) => {
+router.get("/schedules", (req: Request, res: Response) => {
   res.render("pages/schedules", {
     title: "YogaRoots — Class Schedules",
     metaDescription: res.locals.t.classesDesc,
@@ -79,7 +80,7 @@ router.get("/schedules", (req, res) => {
 });
 
 // ---------- Art of Living (Gurudev) ----------
-router.get("/art-of-living", (req, res) => {
+router.get("/art-of-living", (req: Request, res: Response) => {
   const isID = res.locals.lang === "id";
   res.render("pages/art-of-living", {
     title: isID
@@ -93,7 +94,7 @@ router.get("/art-of-living", (req, res) => {
 });
 
 // ---------- Class detail ----------
-router.get("/classes/:slug", async (req, res, next) => {
+router.get("/classes/:slug", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const cls = await getClass(cleanSlug(req.params.slug, "class"));
     if (!cls) return res.status(404).render("pages/404", { title: "Class Not Found", robots: "noindex, nofollow", heroNav: true });
@@ -107,7 +108,7 @@ router.get("/classes/:slug", async (req, res, next) => {
 });
 
 // ---------- CMS page ----------
-router.get("/pages/:slug", async (req, res, next) => {
+router.get("/pages/:slug", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const page = await getPage(cleanSlug(req.params.slug, "page"));
     res.render("pages/page-detail", {
@@ -120,7 +121,7 @@ router.get("/pages/:slug", async (req, res, next) => {
 });
 
 // ---------- Instructors ----------
-router.get("/instructors", async (req, res, next) => {
+router.get("/instructors", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const instructors = await getInstructors({ per_page: 20 });
     res.render("pages/instructors", { title: "Our Instructors — YogaRoots", instructors });
@@ -130,7 +131,7 @@ router.get("/instructors", async (req, res, next) => {
 });
 
 // ---------- Blog ----------
-router.get("/blog", async (req, res, next) => {
+router.get("/blog", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const posts = await getArticles(res.locals.lang);
     res.render("pages/blog", {
@@ -143,7 +144,7 @@ router.get("/blog", async (req, res, next) => {
   }
 });
 
-router.get("/blog/:slug", async (req, res, next) => {
+router.get("/blog/:slug", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const slug = cleanSlug(req.params.slug, "article");
     const [post, all] = await Promise.all([
@@ -175,7 +176,7 @@ router.get("/blog/:slug", async (req, res, next) => {
 });
 
 // ---------- Packages ----------
-router.get("/packages", async (req, res, next) => {
+router.get("/packages", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const params = {
       search: cleanText(req.query.search, { max: 80, label: "Search" }),
@@ -202,7 +203,7 @@ router.get("/packages", async (req, res, next) => {
   }
 });
 
-router.get("/packages/:slug", async (req, res) => {
+router.get("/packages/:slug", async (req: Request, res: Response) => {
   try {
     const packageDetail = await getPackage(cleanSlug(req.params.slug, "package"));
     res.render("pages/packages-detail", {
@@ -220,7 +221,7 @@ router.get("/packages/:slug", async (req, res) => {
 });
 
 // ---------- Events ----------
-router.get("/event", async (req, res, next) => {
+router.get("/event", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const params = {
       search: cleanText(req.query.search, { max: 80, label: "Search" }),
@@ -245,7 +246,7 @@ router.get("/event", async (req, res, next) => {
 });
 
 // ---------- Gallery (hanya foto asli API; tanpa placeholder) ----------
-router.get("/gallery", async (req, res, next) => {
+router.get("/gallery", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const response = await getBanners("galeri").catch(() => []);
     const list = Array.isArray(response) ? response : response?.data || [];
@@ -257,7 +258,7 @@ router.get("/gallery", async (req, res, next) => {
 });
 
 // ---------- Contact ----------
-router.get("/contact", async (req, res) => {
+router.get("/contact", async (req: Request, res: Response) => {
   const [captcha, faqs] = await Promise.all([
     getContactCaptcha().then((r) => r?.data ?? r).catch(() => null),
     getFaqs().then((r) => (Array.isArray(r) ? r : r?.data || [])).catch(() => []),

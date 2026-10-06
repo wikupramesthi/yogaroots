@@ -1,6 +1,7 @@
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { env } from "../config/env.js";
+import type { Request, Response, NextFunction } from "../types/index.js";
 
 /**
  * Security headers for EJS + Tailwind + Google Fonts theme.
@@ -50,7 +51,7 @@ export function writeLimiter() {
 }
 
 /** Reject cross-origin POSTs (simple CSRF for JSON fetch). */
-export function sameOriginOnly(req, res, next) {
+export function sameOriginOnly(req: Request, res: Response, next: NextFunction) {
   const origin = req.get("origin");
   if (origin && req.method !== "GET" && req.method !== "HEAD") {
     try {

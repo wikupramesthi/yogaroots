@@ -1,10 +1,11 @@
 import apiRequest from "./apiClient.js";
+import type { BackendPayload, ContactPayload } from "../types/index.js";
 
-export async function getContactCaptcha() {
+export async function getContactCaptcha(): Promise<BackendPayload> {
   return await apiRequest("/contact/captcha");
 }
 
-export async function sendContact(data) {
+export async function sendContact(data: ContactPayload): Promise<BackendPayload> {
   return await apiRequest("/contact", {
     method: "POST",
     headers: {
