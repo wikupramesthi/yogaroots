@@ -308,6 +308,34 @@ class ClassBookingController extends Controller
     }
 
     /**
+     * Member can rate a class they attended.
+     */
+    public function rate(Request $request, string $booking)
+    {
+        $user = Auth::user();
+        abort_unless($user->hasRole('user'), 403);
+
+        $bookingModel = ClassBooking::where('uuid', $booking)
+            ->where('user_uuid', $user->uuid)
+            ->firstOrFail();
+
+        abort_unless($bookingModel->status === 'attended', 403, 'You can only rate classes you attended.');
+        abort_if(!is_null($bookingModel->rating), 403, 'You have already rated this class.');
+
+        $validated = $request->validate([
+            'rating' => ['required', 'integer', 'min:1', 'max:5'],
+            'rating_comment' => ['nullable', 'string', 'max:500'],
+        ]);
+
+        $bookingModel->update([
+            'rating' => $validated['rating'],
+            'rating_comment' => $validated['rating_comment'] ?? null,
+        ]);
+
+        return back()->with('success', 'Thanks for rating the class.');
+    }
+
+    /**
      * Admin direct check-in for a member (e.g. member attended
      * but did not check in via the system). Consumes quota so
      * records stay in sync. Past dates (up to 90 days back)

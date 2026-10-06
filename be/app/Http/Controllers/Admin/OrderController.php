@@ -64,10 +64,31 @@ class OrderController extends Controller
             ->paginate(10)
             ->withQueryString();
 
+        $isAdmin = $user->hasAnyRole(['super-admin', 'admin']);
+        $isMobile = preg_match(
+            '/Mobile|Android|iPhone|iPad|iPod/i',
+            request()->userAgent() ?: ''
+        );
+
+        if (!$isAdmin && $isMobile) {
+            return view('pages.mobile.orders', [
+                'orders' => $orders,
+                'stats' => $stats,
+                'filters' => [
+                    'search' => $request->input('search'),
+                    'type' => $request->input('type'),
+                    'status' => $request->input('status'),
+                    'proof' => $request->input('proof'),
+                    'start_date' => $request->input('start_date'),
+                    'end_date' => $request->input('end_date'),
+                ],
+            ]);
+        }
+
         return view('pages.orders.index', [
             'orders' => $orders,
             'stats' => $stats,
-            'isAdmin' => $user->hasAnyRole(['super-admin', 'admin']),
+            'isAdmin' => $isAdmin,
             'filters' => [
                 'search' => $request->input('search'),
                 'type' => $request->input('type'),
@@ -114,6 +135,18 @@ class OrderController extends Controller
         $userPackage = UserPackage::where('order_uuid', $order->uuid)
             ->with('package')
             ->first();
+
+        $isMobile = preg_match(
+            '/Mobile|Android|iPhone|iPad|iPod/i',
+            request()->userAgent() ?: ''
+        );
+
+        if (!$isAdmin && $isMobile) {
+            return view(
+                'pages.mobile.order-show',
+                compact('order', 'isAdmin', 'userPackage')
+            );
+        }
 
         return view(
             'pages.orders.show',

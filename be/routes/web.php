@@ -132,6 +132,10 @@ Route::resource('classes', ClassController::class)->except(['show']);
         \App\Http\Controllers\Admin\MemberScheduleController::class,
         'index'
     ])->name('schedules.index');
+    Route::get('/my-bookings', [
+        \App\Http\Controllers\Admin\MemberScheduleController::class,
+        'bookings'
+    ])->name('bookings.my');
 
     Route::resource('class-schedules', ClassScheduleController::class);
     Route::get('orders/report', [OrderController::class, 'report'])->name('orders.report');

@@ -280,8 +280,7 @@
 
             <div class="flex-fill">
 
-                <p class="mb-1 text-muted2"
-                    style="font-size:9px;letter-spacing:.08em">
+                <p class="mb-1 text-muted2 m-tiny" style="letter-spacing:.08em;">
                     TOTAL
                 </p>
 

@@ -169,6 +169,11 @@ class DashboardController extends Controller
 
         $data['activePackage'] = $activePackage;
 
+        $attendedCount = ClassBooking::where('user_uuid', $user->uuid)
+            ->where('status', 'attended')
+            ->count();
+        $data['attendedCount'] = $attendedCount;
+
         // =========================
         // ACTIVE BANNER
         // =========================

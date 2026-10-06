@@ -88,26 +88,94 @@
             </div>
         </div>
 
-        <div class="app-card d-flex align-items-center gap-3 p-3 mt-4">
-            <div
-                class="grad-sage d-flex align-items-center justify-content-center"
-                style="height: 48px; width: 48px; border-radius: 18px">
-                <i class="bi bi-fire"></i>
-            </div>
-            <div class="flex-fill">
-                <p class="mb-0 small fw-semibold">12-day streak</p>
-                <p class="mb-1 text-muted2 text-small">
-                    3 more sessions to earn the Lotus badge
-                </p>
+        @if ($activePackage)
+            <a data-bs-toggle="modal" data-bs-target="#activePackageModal" href="#"
+                class="text-decoration-none d-block"
+                style="cursor:pointer;">
+        @endif
+            <div class="app-card d-flex align-items-center gap-3 p-3 mt-4">
                 <div
-                    class="progress"
-                    style="height: 6px; background: var(--sage-soft)">
-                    <div
-                        class="progress-bar"
-                        style="width: 72%; background-image: var(--grad-sage)"></div>
+                    class="grad-sage d-flex align-items-center justify-content-center"
+                    style="height: 48px; width: 48px; border-radius: 18px">
+                    <i class="bi bi-flower1"></i>
+                </div>
+                <div class="flex-fill">
+                    @if ($activePackage)
+                        <p class="mb-0 small fw-semibold text-dark">{{ $activePackage->package?->name ?? 'Membership' }}</p>
+                    <p class="mb-1 text-muted2 text-small">
+                        @if ($activePackage->quota === null)
+                            Unlimited classes
+                        @else
+                            {{ $activePackage->quota }} class{{ $activePackage->quota == 1 ? '' : 'es' }} left
+                        @endif
+                        @if ($activePackage->expired_at)
+                            · until {{ $activePackage->expired_at->format('d M Y') }}
+                        @endif
+                    </p>
+                    @if ($activePackage->expired_at && $activePackage->started_at)
+                        @php
+                            $total = max(1, $activePackage->started_at->diffInSeconds($activePackage->expired_at));
+                            $remaining = max(0, now()->diffInSeconds($activePackage->expired_at, false));
+                            $pct = min(100, max(0, $remaining / $total * 100));
+                        @endphp
+                        <div
+                            class="progress"
+                            style="height: 6px; background: var(--sage-soft)">
+                            <div
+                                class="progress-bar"
+                                style="width: {{ $pct }}%; background-image: var(--grad-sage)"></div>
+                        </div>
+                    @endif
+                @else
+                    <p class="mb-0 small fw-semibold">No active package</p>
+                    <p class="mb-1 text-muted2 text-small">Pick a membership to start booking classes.</p>
+                    <a href="{{ route('packages.member') }}"
+                        class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">
+                        Browse packages →
+                    </a>
+                @endif
+            </div>
+            </div>
+        @if ($activePackage)
+            </a>
+
+            {{-- Active Package Detail Modal --}}
+            <div class="modal fade" id="activePackageModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border-0 rounded-4 overflow-hidden">
+                        <div class="modal-body p-4">
+                            <span class="chip bg-sage-soft text-sage text-uppercase m-micro">Active Package</span>
+                            <h5 class="fw-bold mt-2 mb-1">{{ $activePackage->package?->name }}</h5>
+
+                            @if ($activePackage->package?->description)
+                                <p class="text-muted2 mb-3" style="font-size:13px;line-height:1.6">
+                                    {{ $activePackage->package->description }}
+                                </p>
+                            @endif
+
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <span class="text-muted2 text-small">Quota</span>
+                                <span class="small fw-semibold">
+                                    {{ $activePackage->quota === null ? 'Unlimited' : $activePackage->quota . ' classes' }}
+                                </span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <span class="text-muted2 text-small">Started</span>
+                                <span class="small fw-semibold">{{ $activePackage->started_at?->format('d M Y') ?? '-' }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
+                                <span class="text-muted2" style="font-size:12px">Expires</span>
+                                <span class="small fw-semibold">{{ $activePackage->expired_at?->format('d M Y') ?? '-' }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center py-2">
+                                <span class="text-muted2" style="font-size:12px">Attended sessions</span>
+                                <span class="small fw-semibold">{{ $attendedCount ?? 0 }}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
 
         <div class="d-flex justify-content-between align-items-end mt-4">
             <h3 class="h5 fw-semibold mb-0">Today’s Schedule</h3>
@@ -362,7 +430,7 @@
                 Art of Living
             </h3>
 
-            <span class="badge bg-primary-subtle text-primary">
+            <span class="badge bg-sage-soft text-sage">
                 {{ count($courses) }} Courses
             </span>
         </div>
@@ -393,6 +461,19 @@
             $isFull = ($course['is_event_capacity_full'] ?? '0') == '1';
 
             $isClosed = !empty($course['is_registration_closed']);
+
+            $endDate = !empty($course['end_date'])
+            ? \Carbon\Carbon::parse($course['end_date'])
+            : null;
+
+            $timing = $course['course_complex_timing']
+            ?? $course['complex_timings']
+            ?? $course['weekday_timings']
+            ?? null;
+
+            if ($timing) {
+            $timing = strip_tags(str_ireplace(['<br>', '<br />', '<br/>'], ' · ', $timing));
+            }
             @endphp
 
 
@@ -436,85 +517,90 @@
 
                         {{-- TITLE --}}
                         <div
-                            class="fw-semibold text-truncate small"
-                            title="{{ $title }}">
+                            class="fw-semibold small"
+                            style="word-break:break-word">
                             {{ $title }}
                         </div>
 
 
-                        {{-- LOCATION + TEACHER --}}
-                        <div
-                            class="text-muted2 text-truncate mt-1 m-meta">
-                            <i class="bi bi-geo-alt me-1"></i>
-                            {{ $city }}
-
-                            @if ($teacher)
-                            · {{ $teacher }}
-                            @endif
+                        {{-- LOCATION --}}
+                        <div class="d-flex align-items-start gap-2 mt-1 m-meta text-muted2">
+                            <i class="bi bi-geo-alt flex-shrink-0" style="width:14px"></i>
+                            <span class="text-truncate">{{ $city }}</span>
                         </div>
 
+                        {{-- TEACHER --}}
+                        @if ($teacher)
+                        <div class="d-flex align-items-start gap-2 mt-1 m-meta text-muted2">
+                            <i class="bi bi-person flex-shrink-0" style="width:14px"></i>
+                            <span class="text-truncate">{{ $teacher }}</span>
+                        </div>
+                        @endif
 
-                        {{-- BOTTOM --}}
-                        <div
-                            class="d-flex align-items-center justify-content-between mt-2">
-
-                            {{-- DATE --}}
-                            <span
-                                class="text-muted2 m-micro">
+                        {{-- DATE --}}
+                        <div class="d-flex align-items-start gap-2 mt-1 m-meta text-muted2">
+                            <i class="bi bi-calendar3 flex-shrink-0" style="width:14px"></i>
+                            <span>
                                 @if ($startDate)
                                 {{ $startDate->format('d M Y') }}
+                                @if ($endDate && $startDate->format('Y-m-d') !== $endDate->format('Y-m-d'))
+                                – {{ $endDate->format('d M Y') }}
+                                @endif
                                 @endif
                             </span>
+                        </div>
 
+                        @if ($timing)
+                        <div class="d-flex align-items-start gap-2 mt-1 m-meta text-muted2">
+                            <i class="bi bi-clock flex-shrink-0" style="width:14px"></i>
+                            <span style="word-break:break-word">{{ $timing }}</span>
+                        </div>
+                        @endif
 
-                            <div class="d-flex align-items-center gap-2">
+                        {{-- PRICE + REGISTER --}}
+                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-2" style="margin-left:22px">
 
-                                {{-- PRICE --}}
-                                @if ($isFull)
+                            @if ($isFull)
 
-                                <span
-                                    class="badge rounded-pill bg-danger-subtle text-danger-emphasis m-tiny">
-                                    Full
-                                </span>
+                            <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis m-tiny">
+                                Full
+                            </span>
 
-                                @elseif ($isClosed)
+                            @elseif ($isClosed)
 
-                                <span
-                                    class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis m-tiny">
-                                    Closed
-                                </span>
+                            <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis m-tiny">
+                                Closed
+                            </span>
 
-                                @elseif ($fee > 0)
+                            @elseif ($fee > 0)
 
-                                <span
-                                    class="text-muted2 m-micro">
-                                    Rp {{ number_format($fee, 0, ',', '.') }}
-                                </span>
+                            <span class="fw-semibold text-small">
+                                Rp {{ number_format($fee, 0, ',', '.') }}
+                            </span>
 
-                                @else
+                            @else
 
-                                <span
-                                    class="text-success m-micro">
-                                    Free
-                                </span>
+                            <span class="badge rounded-pill bg-success-subtle text-success-emphasis m-tiny">
+                                Free
+                            </span>
 
-                                @endif
+                            @endif
 
+                            @if ($registerUrl && !$isFull && !$isClosed)
 
-                                {{-- REGISTER --}}
-                                @if ($registerUrl && !$isFull && !$isClosed)
+                            <a
+                                href="{{ $registerUrl }}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn btn-sm btn-success rounded-pill px-3 py-1 m-micro text-nowrap flex-shrink-0">
+                                Register
+                            </a>
 
-                                <a
-                                    href="{{ $registerUrl }}"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="btn btn-sm btn-success rounded-pill px-3 py-1 m-micro">
-                                    Register
-                                </a>
+                            @else
 
-                                @endif
+                            <span></span>
 
-                            </div>
+                            @endif
 
                         </div>
 
@@ -572,7 +658,7 @@
                         {{ $event->judul }}
                     </p>
 
-                    <p class="mb-0 text-muted2 text-truncate" style="font-size:11px">
+                    <p class="mb-0 text-muted2 text-truncate m-meta">
                         <i class="bi bi-calendar3"></i>
                         {{ \Carbon\Carbon::parse($event->tanggal)->translatedFormat('d M Y') }}
                     </p>

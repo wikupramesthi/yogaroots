@@ -24,8 +24,15 @@ class ProfileController extends Controller
         );
 
         if ($user->hasRole('user') && $isMobile) {
+            $orders = \App\Models\Payment\Order::where('user_uuid', $user->uuid)
+                ->with(['package', 'packageOption'])
+                ->latest()
+                ->take(3)
+                ->get();
+
             return view('pages.mobile.profile', [
                 'user' => $user,
+                'orders' => $orders,
             ]);
         }
 

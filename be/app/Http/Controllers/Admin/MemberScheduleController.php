@@ -67,9 +67,9 @@ class MemberScheduleController extends Controller
             ]);
         }
 
-        // Upcoming: 7 hari ke depan (besok + 6 hari).
-        $dates = collect(range(1, 7))
-            ->map(fn ($i) => now()->addDays($i)->format('Y-m-d'));
+        // Upcoming: tampilkan data besok saja.
+        $date = now()->addDay()->format('Y-m-d');
+        $dates = collect([$date]);
 
         $byDay = (clone $base)->get()->groupBy('day');
 
@@ -91,8 +91,54 @@ class MemberScheduleController extends Controller
 
         return view('pages.mobile.schedules', [
             'tab' => $tab,
+            'date' => $date,
             'groups' => $groups,
             'myBookings' => $myBookings,
+            'activePackage' => $activePackage,
+            'unreadCount' => $user->unreadNotifications()->count(),
+        ]);
+    }
+
+    /**
+     * My Bookings (mobile): riwayat & booking yang akan datang.
+     */
+    public function bookings(Request $request)
+    {
+        $user = Auth::user();
+        abort_unless($user->hasRole('user'), 403);
+
+        $tab = $request->query('tab', 'upcoming');
+        if (! in_array($tab, ['upcoming', 'past'], true)) {
+            $tab = 'upcoming';
+        }
+
+        $activePackage = $user->userPackages()
+            ->with('package')
+            ->where('status', 'active')
+            ->where(function ($q) {
+                $q->whereNull('expired_at')->orWhere('expired_at', '>=', now());
+            })
+            ->latest('started_at')
+            ->first();
+
+        $query = ClassBooking::with(['schedule.class.instructor', 'package'])
+            ->where('user_uuid', $user->uuid)
+            ->where('status', '!=', 'cancelled');
+
+        if ($tab === 'upcoming') {
+            $query->where('booking_date', '>=', now()->toDateString())
+                ->orderBy('booking_date')
+                ->orderBy('booked_at');
+        } else {
+            $query->where('booking_date', '<', now()->toDateString())
+                ->orderByDesc('booking_date');
+        }
+
+        $bookings = $query->paginate(12)->withQueryString();
+
+        return view('pages.mobile.bookings', [
+            'tab' => $tab,
+            'bookings' => $bookings,
             'activePackage' => $activePackage,
             'unreadCount' => $user->unreadNotifications()->count(),
         ]);

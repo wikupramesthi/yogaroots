@@ -28,12 +28,15 @@ class ClassBooking extends Model
         'status',
         'booked_at',
         'attended_at',
+        'rating',
+        'rating_comment',
         'package_uuid',
         'order_uuid',
     ];
 
     protected $casts = [
         'quota_used' => 'integer',
+        'rating' => 'integer',
         'booking_date' => 'date',
         'booked_at' => 'datetime',
         'attended_at' => 'datetime',

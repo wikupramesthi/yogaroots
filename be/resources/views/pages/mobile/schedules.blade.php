@@ -34,7 +34,7 @@
                 @if ($tab === 'today')
                     {{ \Carbon\Carbon::parse($date)->translatedFormat('l, j F Y') }}
                 @else
-                    Next 7 days
+                    {{ \Carbon\Carbon::parse($date)->translatedFormat('l, j F Y') }} · Tomorrow
                 @endif
             </p>
         </div>
@@ -51,23 +51,6 @@
             </a>
         </div>
 
-        {{-- FLASH --}}
-        @if (session('success'))
-            <div class="alert alert-success py-2 px-3 small mt-3 mb-0" role="alert">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger py-2 px-3 small mt-3 mb-0" role="alert">
-                {{ session('error') }}
-            </div>
-        @endif
-        @if ($errors->any())
-            <div class="alert alert-danger py-2 px-3 small mt-3 mb-0" role="alert">
-                {{ $errors->first() }}
-            </div>
-        @endif
-
         {{-- TODAY LIST --}}
         @if ($tab === 'today')
             <div class="d-grid gap-3 mt-3">
@@ -81,7 +64,7 @@
                     <div class="app-card text-center p-4">
                         <i class="bi bi-calendar2-week text-muted2 fs-3"></i>
                         <p class="mb-1 small fw-semibold">No Classes Today</p>
-                        <p class="mb-0 text-muted2" style="font-size:12px">
+                        <p class="mb-0 text-muted2 text-small">
                             There are no classes scheduled for today.
                         </p>
                     </div>
@@ -104,7 +87,7 @@
                         ])
                     @empty
                         <div class="app-card text-center p-3">
-                            <p class="mb-0 text-muted2" style="font-size:12px">No classes that day.</p>
+                            <p class="mb-0 text-muted2 text-small">No classes that day.</p>
                         </div>
                     @endforelse
                 </div>

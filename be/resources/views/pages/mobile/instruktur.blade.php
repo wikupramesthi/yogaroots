@@ -104,16 +104,14 @@
                         @forelse ($instructor->specializations as $specialization)
 
                         <span
-                            class="chip bg-sage-soft text-sage"
-                            style="font-size:10px">
+                            class="chip bg-sage-soft text-sage m-micro">
                             {{ $specialization->name }}
                         </span>
 
                         @empty
 
                         <span
-                            class="chip bg-sage-soft text-sage"
-                            style="font-size:10px">
+                            class="chip bg-sage-soft text-sage m-micro">
                             Yoga Instructor
                         </span>
 
@@ -139,8 +137,7 @@
 
                     {{-- Experience --}}
                     <p
-                        class="mb-0 text-muted2"
-                        style="font-size:12px">
+                        class="mb-0 text-muted2 text-small">
 
                         <i class="bi bi-award"></i>
 
@@ -518,8 +515,7 @@
 
             specializationContainer.innerHTML = `
             <span
-                class="chip bg-sage-soft text-sage"
-                style="font-size:10px">
+                class="chip bg-sage-soft text-sage m-micro">
                 Yoga Instructor
             </span>
         `;

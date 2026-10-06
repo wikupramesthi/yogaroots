@@ -39,28 +39,15 @@
             @if ($unreadCount > 0)
                 <form action="{{ route('notifications.readAll') }}" method="POST" class="m-0">
                     @csrf
-                    <button type="submit" class="btn btn-link p-0 text-terra fw-semibold text-decoration-none"
-                        style="font-size: 12px">
+                    <button type="submit" class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">
                         Mark all read
                     </button>
                 </form>
             @endif
         </div>
 
-        {{-- FLASH --}}
-        @if (session('success'))
-            <div class="alert alert-success py-2 px-3 small mt-3 mb-0" role="alert">
-                {{ session('success') }}
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger py-2 px-3 small mt-3 mb-0" role="alert">
-                {{ session('error') }}
-            </div>
-        @endif
-
         {{-- LIST --}}
-        <div class="d-grid gap-3 mt-3">
+        <div class="d-grid gap-3 mt-3" style="max-height: calc(100vh - 310px); overflow-y: auto; padding-right: 2px;">
             @forelse ($notifications as $notif)
                 @php
                     $payload = $notif->data ?? [];
@@ -88,10 +75,10 @@
                                         style="height: 8px; width: 8px; background: var(--terra);"></span>
                                 @endif
                             </div>
-                            <p class="mb-1 text-muted2" style="font-size:12px;line-height:1.5;">
+                            <p class="mb-1 text-muted2 text-small" style="line-height:1.5;">
                                 {{ $payload['message'] ?? '-' }}
                             </p>
-                            <p class="mb-0 text-muted2" style="font-size:11px;">
+                            <p class="mb-0 text-muted2 m-meta">
                                 {{ $notif->created_at?->diffForHumans() }}
                                 @if ($path)
                                     <span class="mx-1">•</span>
@@ -107,7 +94,7 @@
                     <p class="mb-1 mt-2 small fw-semibold">
                         {{ $filter === 'unread' ? 'No unread notifications' : 'No notifications yet' }}
                     </p>
-                    <p class="mb-0 text-muted2" style="font-size:12px">
+                    <p class="mb-0 text-muted2 text-small">
                         Booking confirmations, payments, and check-ins will appear here.
                     </p>
                 </div>
@@ -123,7 +110,7 @@
                     <a href="{{ $notifications->previousPageUrl() }}"
                         class="filter d-inline-block text-decoration-none">← Newer</a>
                 @endif
-                <span class="text-muted2" style="font-size:12px">
+                <span class="text-muted2 text-small">
                     Page {{ $notifications->currentPage() }} of {{ $notifications->lastPage() }}
                 </span>
                 @if ($notifications->hasMorePages())

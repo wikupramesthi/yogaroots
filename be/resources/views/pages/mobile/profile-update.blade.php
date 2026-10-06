@@ -8,46 +8,6 @@
     class="screen {{ request()->routeIs('account.index') ? 'active' : '' }}"
     id="profil">
 
-    {{-- SUCCESS ALERT --}}
-    @if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
-
-        <i class="bi bi-check-circle-fill me-2"></i>
-
-        <span>
-            {{ session('success') }}
-        </span>
-
-        <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close">
-        </button>
-
-    </div>
-    @endif
-
-
-    {{-- ERROR ALERT --}}
-    @if (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
-
-        <i class="bi bi-exclamation-circle-fill me-2"></i>
-
-        <span>
-            {{ session('error') }}
-        </span>
-
-        <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="alert"
-            aria-label="Close">
-        </button>
-
-    </div>
-    @endif
 
     <div class="px-4 pt-4 pb-5">
 

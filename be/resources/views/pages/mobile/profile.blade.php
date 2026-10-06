@@ -81,287 +81,108 @@
 
         <div class="d-flex justify-content-between align-items-end mt-4">
             <h3 class="h5 fw-semibold mb-0">My Orders</h3>
-            <button
-                class="btn btn-link p-0 text-terra fw-semibold text-small"
-                data-go="jadwal">
+            <a href="{{ route('orders.index') }}"
+                class="btn btn-link p-0 text-terra fw-semibold text-small text-decoration-none">
                 View all
-            </button>
+            </a>
         </div>
 
         <div class="app-card overflow-hidden gap-3 mt-3">
 
-            {{-- Order 1 --}}
-            <div class="px-4 py-3 border-bottom">
+            @forelse ($orders as $order)
 
-                <div class="d-flex align-items-start gap-3">
+                @php
+                    $badge = match ($order->status) {
+                        'paid' => 'bg-success-subtle text-success',
+                        'pending' => 'bg-warning-subtle text-warning',
+                        'failed' => 'bg-danger-subtle text-danger',
+                        default => 'bg-secondary-subtle text-secondary',
+                    };
+                @endphp
 
-                    <div
-                        class="
-                            rounded-3
-                            d-flex
-                            align-items-center
-                            justify-content-center
-                            bg-sage-soft
-                            text-sage
-                            flex-shrink-0
-                        "
-                        style="
-                            width:42px;
-                            height:42px;
-                        ">
+                <a href="{{ route('orders.show', $order->uuid) }}"
+                    class="px-4 py-3 {{ !$loop->last ? 'border-bottom' : '' }} d-block text-decoration-none text-dark">
 
-                        <i class="bi bi-flower1"></i>
-
-                    </div>
-
-
-                    <div class="flex-fill">
+                    <div class="d-flex align-items-start gap-3">
 
                         <div
-                            class="
-                                d-flex
-                                justify-content-between
-                                align-items-start
-                                gap-2
-                            ">
+                            class="rounded-3 d-flex align-items-center justify-content-center bg-sage-soft text-sage flex-shrink-0"
+                            style="width:42px;height:42px;">
+                            <i class="bi {{ $order->type === 'package' ? 'bi-flower1' : 'bi-calendar-event' }}"></i>
+                        </div>
 
-                            <div>
+                        <div class="flex-fill">
 
-                                <p class="small fw-semibold mb-1">
-                                    Lotus Membership
-                                </p>
+                            <div class="d-flex justify-content-between align-items-start gap-2">
+                                <div>
+                                    <p class="small fw-semibold mb-1">
+                                        {{ $order->package?->name ?? 'Single Class' }}
+                                        @if ($order->packageOption?->name)
+                                            <small class="d-block text-muted2 fw-normal">{{ $order->packageOption->name }}</small>
+                                        @endif
+                                    </p>
+                                    <p class="text-muted2 mb-0 m-meta">
+                                        #{{ $order->order_number }}
+                                    </p>
+                                </div>
 
-                                <p
-                                    class="text-muted2 mb-0 m-meta">
-                                    #ORD-20260901
-                                </p>
-
+                                <span class="badge rounded-pill {{ $badge }}">
+                                    {{ ucfirst($order->status) }}
+                                </span>
                             </div>
 
-
-                            <span
-                                class="
-                                    badge
-                                    rounded-pill
-                                    bg-success-subtle
-                                    text-success
-                                ">
-                                Paid
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="
-                                d-flex
-                                justify-content-between
-                                align-items-center
-                                gap-2
-                                mt-2
-                            ">
-
-                            <p
-                                class="small text-muted2 mb-0">
-                                01 Sep 2026
-                            </p>
-
-                            <p
-                                class="small fw-semibold mb-0">
-                                Rp 850.000
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            {{-- Order 2 --}}
-            <div class="px-4 py-3 border-bottom">
-
-                <div class="d-flex align-items-start gap-3">
-
-                    <div
-                        class="
-                            rounded-3
-                            d-flex
-                            align-items-center
-                            justify-content-center
-                            bg-sage-soft
-                            text-sage
-                            flex-shrink-0
-                        "
-                        style="
-                            width:42px;
-                            height:42px;
-                        ">
-
-                        <i class="bi bi-calendar-check"></i>
-
-                    </div>
-
-
-                    <div class="flex-fill">
-
-                        <div
-                            class="
-                                d-flex
-                                justify-content-between
-                                align-items-start
-                                gap-2
-                            ">
-
-                            <div>
-
-                                <p class="small fw-semibold mb-1">
-                                    Morning Yoga
+                            <div class="d-flex justify-content-between align-items-center gap-2 mt-2">
+                                <p class="small text-muted2 mb-0">
+                                    {{ $order->created_at?->format('d M Y') }}
                                 </p>
-
-                                <p
-                                    class="text-muted2 mb-0 m-meta">
-                                    #ORD-20260825
+                                <p class="small fw-semibold mb-0">
+                                    Rp {{ number_format($order->amount, 0, ',', '.') }}
                                 </p>
-
                             </div>
 
-
-                            <span
-                                class="
-                                    badge
-                                    rounded-pill
-                                    bg-success-subtle
-                                    text-success
-                                ">
-                                Paid
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="
-                                d-flex
-                                justify-content-between
-                                align-items-center
-                                gap-2
-                                mt-2
-                            ">
-
-                            <p
-                                class="small text-muted2 mb-0">
-                                25 Aug 2026
-                            </p>
-
-                            <p
-                                class="small fw-semibold mb-0">
-                                Rp 120.000
-                            </p>
-
                         </div>
 
                     </div>
 
+                </a>
+
+            @empty
+
+                <div class="px-4 py-4 text-center">
+                    <i class="bi bi-bag-x text-muted2 fs-3"></i>
+                    <p class="small fw-semibold mt-2 mb-0">No orders yet</p>
+                    <p class="text-muted2 mb-0 text-small">
+                        Your membership orders will appear here.
+                    </p>
                 </div>
 
-            </div>
-
-
-            {{-- Order 3 --}}
-            <div class="px-4 py-3">
-
-                <div class="d-flex align-items-start gap-3">
-
-                    <div
-                        class="
-                            rounded-3
-                            d-flex
-                            align-items-center
-                            justify-content-center
-                            bg-sage-soft
-                            text-sage
-                            flex-shrink-0
-                        "
-                        style="
-                            width:42px;
-                            height:42px;
-                        ">
-
-                        <i class="bi bi-flower1"></i>
-
-                    </div>
-
-
-                    <div class="flex-fill">
-
-                        <div
-                            class="
-                                d-flex
-                                justify-content-between
-                                align-items-start
-                                gap-2
-                            ">
-
-                            <div>
-
-                                <p class="small fw-semibold mb-1">
-                                    Harmony Membership
-                                </p>
-
-                                <p
-                                    class="text-muted2 mb-0 m-meta">
-                                    #ORD-20260810
-                                </p>
-
-                            </div>
-
-
-                            <span
-                                class="
-                                    badge
-                                    rounded-pill
-                                    bg-secondary-subtle
-                                    text-secondary
-                                ">
-                                Expired
-                            </span>
-
-                        </div>
-
-
-                        <div
-                            class="
-                                d-flex
-                                justify-content-between
-                                align-items-center
-                                gap-2
-                                mt-2
-                            ">
-
-                            <p
-                                class="small text-muted2 mb-0">
-                                10 Aug 2026
-                            </p>
-
-                            <p
-                                class="small fw-semibold mb-0">
-                                Rp 500.000
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
+            @endforelse
 
         </div>
 
+        {{-- ================================================= --}}
+        {{-- MY BOOKINGS --}}
+        {{-- ================================================= --}}
 
+        <div class="d-flex justify-content-between align-items-end mt-4">
+            <h3 class="h5 fw-semibold mb-0">My Bookings</h3>
+            <a href="{{ route('bookings.my') }}"
+                class="btn btn-link p-0 text-terra fw-semibold text-small text-decoration-none">
+                View all
+            </a>
+        </div>
+
+        <div class="app-card overflow-hidden gap-3 mt-3">
+            <a href="{{ route('bookings.my') }}"
+                class="d-flex align-items-center gap-3 px-4 py-3 text-decoration-none text-dark">
+                <i class="bi bi-calendar-check text-sage"></i>
+                <div class="flex-fill">
+                    <p class="small fw-semibold mb-0">Manage your class bookings</p>
+                    <p class="mb-0 m-micro text-muted2">Check-in, cancel, view past classes</p>
+                </div>
+                <i class="bi bi-chevron-right text-muted2"></i>
+            </a>
+        </div>
 
         {{-- ================================================= --}}
         {{-- PERSONAL INFORMATION --}}
@@ -532,42 +353,6 @@
                         -
 
                         @endif
-
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-
-        {{-- ================================================= --}}
-        {{-- ADDRESS --}}
-        {{-- ================================================= --}}
-
-        <div class="d-flex justify-content-between align-items-end mt-4">
-            <h3 class="h5 fw-semibold mb-0">Address</h3>
-        </div>
-
-        <div class="app-card overflow-hidden gap-3 mt-3">
-
-            <div class="d-flex align-items-center gap-3 px-4 py-3 border-bottom">
-
-                <i class="bi bi-geo-alt text-sage mt-1"></i>
-
-                <div>
-
-                    <p class="small text-muted2 mb-1">
-                        Address
-                    </p>
-
-                    <p
-                        class="small fw-medium mb-0"
-                        style="line-height:1.6">
-
-                        {{ $user->alamat ?: 'No address added yet.' }}
 
                     </p>
 
