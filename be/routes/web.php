@@ -128,6 +128,10 @@ Route::resource('classes', ClassController::class)->except(['show']);
         CheckoutController::class,
         'package'
     ])->name('checkout.package');
+    Route::get('/schedules', [
+        \App\Http\Controllers\Admin\MemberScheduleController::class,
+        'index'
+    ])->name('schedules.index');
 
     Route::resource('class-schedules', ClassScheduleController::class);
     Route::get('orders/report', [OrderController::class, 'report'])->name('orders.report');

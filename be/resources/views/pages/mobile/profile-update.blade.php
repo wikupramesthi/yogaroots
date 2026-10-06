@@ -67,8 +67,7 @@
             </p>
 
             <h1
-                class="fw-semibold"
-                style="font-size:28px">
+                class="fw-semibold m-h1">
                 Edit Profile
             </h1>
 

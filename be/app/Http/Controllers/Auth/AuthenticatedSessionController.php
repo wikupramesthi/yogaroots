@@ -15,6 +15,9 @@ class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
+     *
+     * HP (User-Agent mobile) mendapat versi mobile phone-frame agar tampilannya
+     * sama dengan halaman member mobile; desktop/admin tetap versi penuh.
      */
     public function create(): View
     {
@@ -23,6 +26,10 @@ class AuthenticatedSessionController extends Controller
             ->get();
         $jumlahInstruktur       = User::role('instruktur')->count();
         $jumlahMembers       = User::role('user')->count();
+
+        if ($this->isMobile()) {
+            return view('auth.login-mobile');
+        }
 
         return view('auth.login', compact('faqs', 'jumlahInstruktur', 'jumlahMembers'));
     }
@@ -35,9 +42,13 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
+        $welcome = $request->user()->hasRole('user')
+            ? 'Welcome back! Happy practicing.'
+            : 'Welcome to the admin page!';
+
         return redirect()
             ->intended(route('dashboard.index', absolute: false))
-            ->with('success', 'Welcome to the admin page!');
+            ->with('success', $welcome);
     }
     /**
      * Destroy an authenticated session.
@@ -55,5 +66,17 @@ class AuthenticatedSessionController extends Controller
         }
 
         return redirect('auth/login');
+    }
+
+    /**
+     * Deteksi HP dengan pola yang sama seperti controller member mobile
+     * (Dashboard, Profile, Package, Instruktur, Checkout).
+     */
+    private function isMobile(): bool
+    {
+        return (bool) preg_match(
+            '/Mobile|Android|iPhone|iPad|iPod/i',
+            (string) request()->header('User-Agent')
+        );
     }
 }

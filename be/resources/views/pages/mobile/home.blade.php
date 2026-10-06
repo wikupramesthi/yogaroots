@@ -14,10 +14,12 @@
                     Hi, {{ auth()->user()->name }}
                 </h1>
             </div>
-            <button
-                class="app-card border-0 rounded-circle position-relative d-flex align-items-center justify-content-center"
-                style="height: 44px; width: 44px; border-radius: 50% !important">
+            <a href="{{ route('notifications.index') }}"
+                class="app-card border-0 rounded-circle position-relative d-flex align-items-center justify-content-center text-dark text-decoration-none"
+                style="height: 44px; width: 44px; border-radius: 50% !important"
+                aria-label="Notifications">
                 <i class="bi bi-bell"></i>
+                @if (!empty($unreadCount))
                 <span
                     class="position-absolute rounded-circle"
                     style="
@@ -27,7 +29,8 @@
                     top: 10px;
                     right: 10px;
                   "></span>
-            </button>
+                @endif
+            </a>
         </div>
 
         @if ($banner)
@@ -46,8 +49,8 @@
 
                 @if ($banner->deskripsi)
                 <h2
-                    class="fw-semibold text-white mt-3"
-                    style="font-size:30px;line-height:1.1;max-width:90%;">
+                    class="fw-semibold text-white mt-3 m-h1"
+                    style="line-height:1.1;max-width:90%;">
                     {{ $banner->deskripsi }}
                 </h2>
                 @endif
@@ -93,7 +96,7 @@
             </div>
             <div class="flex-fill">
                 <p class="mb-0 small fw-semibold">12-day streak</p>
-                <p class="mb-1 text-muted2" style="font-size: 12px">
+                <p class="mb-1 text-muted2 text-small">
                     3 more sessions to earn the Lotus badge
                 </p>
                 <div
@@ -108,12 +111,10 @@
 
         <div class="d-flex justify-content-between align-items-end mt-4">
             <h3 class="h5 fw-semibold mb-0">Today’s Schedule</h3>
-            <button
-                class="btn btn-link p-0 text-terra fw-semibold"
-                style="font-size: 12px"
-                data-go="jadwal">
+            <a href="{{ route('schedules.index', ['tab' => 'today']) }}"
+                class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">
                 View all
-            </button>
+            </a>
         </div>
 
         <div class="d-grid gap-3 mt-3" id="todayList">
@@ -156,12 +157,12 @@
                 </div>
 
                 {{-- Class Info --}}
-                <div class="flex-fill min-w-0">
+                <div class="flex-fill" style="min-width:0">
 
                     <p class="mb-1 small fw-semibold text-truncate">
                         {{ $className }}
                     </p>
-                    <div class="d-flex align-items-center gap-2 text-muted2 text-truncate" style="font-size:12px">
+                    <div class="d-flex align-items-center gap-2 text-muted2 text-truncate text-small">
 
                         <span class="text-truncate">
                             <i class="bi bi-person"></i>
@@ -178,16 +179,17 @@
 
                 </div>
 
+                <div class="d-flex flex-column align-items-end gap-2 flex-shrink-0">
                 @if ($remaining <= 0)
-                    <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis">
+                    <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis text-nowrap">
                     Full
                     </span>
                     @elseif ($remaining <= 3)
-                        <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis">
+                        <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis text-nowrap">
                         {{ $remaining }} Slots
                         </span>
                         @else
-                        <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis">
+                        <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis text-nowrap">
                             {{ $remaining }} Slots
                         </span>
                         @endif
@@ -195,28 +197,29 @@
                 @php $myBooking = ($myBookings ?? collect())->get($schedule->uuid . '|' . ($todayDate ?? now()->format('Y-m-d'))); @endphp
 
                 @if ($myBooking && $myBooking->status === 'attended')
-                    <span class="badge rounded-pill bg-success-subtle text-success-emphasis flex-shrink-0">
+                    <span class="badge rounded-pill bg-success-subtle text-success-emphasis">
                         Done
                     </span>
                 @elseif ($myBooking && $myBooking->status === 'waiting_list')
-                    <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis flex-shrink-0">
+                    <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis">
                         Waiting
                     </span>
                 @elseif ($myBooking && $myBooking->status === 'confirmed')
-                    <form action="{{ route('class-bookings.checkin', $myBooking->uuid) }}" method="POST" class="m-0 flex-shrink-0">
+                    <form action="{{ route('class-bookings.checkin', $myBooking->uuid) }}" method="POST" class="m-0">
                         @csrf
-                        <button type="submit" class="btn btn-warm btn-sm">Check In</button>
+                        <button type="submit" class="btn btn-warm btn-sm text-nowrap">Check In</button>
                     </form>
                 @elseif (!empty($activePackage))
-                    <form action="{{ route('class-bookings.store') }}" method="POST" class="m-0 flex-shrink-0">
+                    <form action="{{ route('class-bookings.store') }}" method="POST" class="m-0">
                         @csrf
                         <input type="hidden" name="class_schedule_uuid" value="{{ $schedule->uuid }}">
                         <input type="hidden" name="booking_date" value="{{ $todayDate ?? now()->format('Y-m-d') }}">
-                        <button type="submit" class="btn btn-warm btn-sm">{{ $remaining <= 0 ? 'Waitlist' : 'Book' }}</button>
+                        <button type="submit" class="btn btn-warm btn-sm text-nowrap">{{ $remaining <= 0 ? 'Waitlist' : 'Book' }}</button>
                     </form>
                 @else
-                    <a href="{{ route('packages.member') }}" class="btn btn-sm btn-outline-secondary flex-shrink-0">Join</a>
+                    <a href="{{ route('packages.member') }}" class="btn btn-sm btn-outline-secondary text-nowrap">Join</a>
                 @endif
+                </div>
 
             </div>
 
@@ -228,7 +231,7 @@
                     No Classes Today
                 </p>
 
-                <p class="mb-0 text-muted2" style="font-size:12px">
+                <p class="mb-0 text-muted2 text-small">
                     There are no classes scheduled for today.
                 </p>
             </div>
@@ -240,12 +243,10 @@
 
         <div class="d-flex justify-content-between align-items-end mt-4">
             <h3 class="h5 fw-semibold mb-0">Upcoming Classes</h3>
-            <button
-                class="btn btn-link p-0 text-terra fw-semibold"
-                style="font-size: 12px"
-                data-go="jadwal">
+            <a href="{{ route('schedules.index', ['tab' => 'upcoming']) }}"
+                class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">
                 View all
-            </button>
+            </a>
         </div>
         <div class="d-grid gap-3 mt-3" id="todayList">
 
@@ -275,7 +276,7 @@
                     </div>
 
                     {{-- Class Info --}}
-                    <div class="flex-fill min-w-0">
+                    <div class="flex-fill" style="min-width:0">
 
                         <p class="mb-1 small fw-semibold text-truncate">
                             {{ $class?->name ?? 'Class unavailable' }}
@@ -416,8 +417,7 @@
                         </span>
 
                         <span
-                            class="text-muted2 text-uppercase mt-1"
-                            style="font-size:9px;">
+                            class="text-muted2 text-uppercase mt-1 m-tiny">
                             {{ $startDate->format('M') }}
                         </span>
 
@@ -432,12 +432,11 @@
 
 
                     {{-- CONTENT --}}
-                    <div class="flex-fill min-w-0">
+                    <div class="flex-fill" style="min-width:0">
 
                         {{-- TITLE --}}
                         <div
-                            class="fw-semibold text-truncate"
-                            style="font-size:13px;"
+                            class="fw-semibold text-truncate small"
                             title="{{ $title }}">
                             {{ $title }}
                         </div>
@@ -445,8 +444,7 @@
 
                         {{-- LOCATION + TEACHER --}}
                         <div
-                            class="text-muted2 text-truncate mt-1"
-                            style="font-size:11px;">
+                            class="text-muted2 text-truncate mt-1 m-meta">
                             <i class="bi bi-geo-alt me-1"></i>
                             {{ $city }}
 
@@ -462,8 +460,7 @@
 
                             {{-- DATE --}}
                             <span
-                                class="text-muted2"
-                                style="font-size:10px;">
+                                class="text-muted2 m-micro">
                                 @if ($startDate)
                                 {{ $startDate->format('d M Y') }}
                                 @endif
@@ -476,32 +473,28 @@
                                 @if ($isFull)
 
                                 <span
-                                    class="badge rounded-pill bg-danger-subtle text-danger-emphasis"
-                                    style="font-size:9px;">
+                                    class="badge rounded-pill bg-danger-subtle text-danger-emphasis m-tiny">
                                     Full
                                 </span>
 
                                 @elseif ($isClosed)
 
                                 <span
-                                    class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis"
-                                    style="font-size:9px;">
+                                    class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis m-tiny">
                                     Closed
                                 </span>
 
                                 @elseif ($fee > 0)
 
                                 <span
-                                    class="text-muted2"
-                                    style="font-size:10px;">
+                                    class="text-muted2 m-micro">
                                     Rp {{ number_format($fee, 0, ',', '.') }}
                                 </span>
 
                                 @else
 
                                 <span
-                                    class="text-success"
-                                    style="font-size:10px;">
+                                    class="text-success m-micro">
                                     Free
                                 </span>
 
@@ -515,8 +508,7 @@
                                     href="{{ $registerUrl }}"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="btn btn-sm btn-success rounded-pill px-3 py-1"
-                                    style="font-size:10px;">
+                                    class="btn btn-sm btn-success rounded-pill px-3 py-1 m-micro">
                                     Register
                                 </a>
 
@@ -572,8 +564,7 @@
 
                 <div class="p-3">
 
-                    <span class="chip bg-terra-soft text-terra text-uppercase"
-                        style="font-size:10px">
+                    <span class="chip bg-terra-soft text-terra text-uppercase m-micro">
                         Event
                     </span>
 
@@ -610,8 +601,7 @@
 
                         <div class="modal-body p-4">
 
-                            <span class="chip bg-terra-soft text-terra text-uppercase"
-                                style="font-size:10px">
+                            <span class="chip bg-terra-soft text-terra text-uppercase m-micro">
                                 Event
                             </span>
 

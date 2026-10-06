@@ -62,6 +62,7 @@ class DashboardController extends Controller
             'jumlahMembers' => $jumlahMembers,
             'totalClasses' => $totalClasses,
             'totalEvents' => $totalEvents,
+            'unreadCount' => $user->unreadNotifications()->count(),
         ];
 
         // =========================

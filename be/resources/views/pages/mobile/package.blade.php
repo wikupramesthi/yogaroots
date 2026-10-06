@@ -23,7 +23,7 @@
         padding: 10px 12px;
         border-radius: 12px;
         background: rgba(107, 143, 111, .08);
-        color: #5d745f;
+        color: var(--sage);
         font-size: 11px;
         font-weight: 600;
     }
@@ -54,9 +54,9 @@
         gap: 6px;
         padding: 8px 13px;
         border-radius: 30px;
-        border: 1px solid #e7e3d9;
-        background: #fffdf8;
-        color: #737a70;
+        border: 1px solid var(--line);
+        background: var(--card);
+        color: var(--muted);
         text-decoration: none;
         font-size: 11px;
         font-weight: 600;
@@ -74,7 +74,7 @@
     .mobile-package-card {
         position: relative;
         background: var(--card, #fffdf8);
-        border: 1px solid #ebe7dd;
+        border: 1px solid var(--line);
         border-radius: 22px;
         padding: 20px;
         margin-bottom: 16px;
@@ -116,7 +116,7 @@
     .package-description {
         font-size: 12px;
         line-height: 1.6;
-        color: #7d857b;
+        color: var(--muted);
     }
 
     /* PRICE */
@@ -134,12 +134,12 @@
         text-transform: uppercase;
         letter-spacing: .1em;
         font-weight: 700;
-        color: #7c877b;
+        color: var(--muted);
         margin-bottom: 3px;
     }
 
     .package-price span {
-        color: #9b9f97;
+        color: var(--muted);
         font-size: 16px;
         margin: 0 2px;
     }
@@ -161,7 +161,7 @@
 
     .options-heading span:last-child {
         font-size: 10px;
-        color: #9a9e96;
+        color: var(--muted);
     }
 
     .package-option {
@@ -192,7 +192,7 @@
         padding: 5px 8px;
         border-radius: 8px;
         background: #f7f5ef;
-        color: #737a70;
+        color: var(--muted);
         font-size: 9px;
         font-weight: 600;
     }
@@ -221,7 +221,7 @@
         align-items: flex-start;
         gap: 8px;
         margin-bottom: 7px;
-        color: #6f766c;
+        color: var(--muted);
         font-size: 11px;
         line-height: 1.4;
     }
@@ -259,13 +259,13 @@
         text-align: center;
         padding: 45px 20px;
         background: var(--card, #fffdf8);
-        border: 1px solid #ebe7dd;
+        border: 1px solid var(--line);
         border-radius: 20px;
     }
 
     .package-empty i {
         font-size: 30px;
-        color: #a1a69e;
+        color: var(--muted);
         margin-bottom: 10px;
     }
 
@@ -277,7 +277,7 @@
 
     .package-empty p {
         font-size: 11px;
-        color: #858b82;
+        color: var(--muted);
         margin: 0;
     }
 
@@ -298,7 +298,7 @@
         {{-- Header --}}
         <p class="eyebrow mb-1">Membership</p>
 
-        <h1 class="fw-semibold" style="font-size: 28px">
+        <h1 class="fw-semibold m-h1">
             Your yoga journey starts here.
         </h1>
 

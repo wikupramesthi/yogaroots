@@ -285,8 +285,8 @@ main {
 }
 
 .form-control {
-    border: 1px solid #e5e2d9;
-    background: #fffdf8;
+    border: 1px solid var(--line);
+    background: var(--card);
     color: var(--fg);
     border-radius: 14px;
     padding: 12px 14px;
@@ -296,12 +296,13 @@ main {
 }
 
 .form-control::placeholder {
-    color: #aaa79f;
+    color: var(--muted);
+    opacity: 0.7;
 }
 
 .form-control:focus {
-    border-color: #6b8f6f;
-    background: #fffdf8;
+    border-color: var(--sage2);
+    background: var(--card);
     color: var(--fg);
     box-shadow: 0 0 0 3px rgba(75, 107, 82, 0.08);
 }
@@ -313,7 +314,7 @@ main {
 
 .mobile-package-card.popular {
     background: linear-gradient(145deg, #fffaf3 0%, #f7eee4 100%);
-    border: 1px solid #c4703c;
+    border: 1px solid var(--terra);
     box-shadow: 0 12px 30px rgba(196, 112, 60, 0.14);
 }
 
@@ -321,7 +322,7 @@ main {
     margin: 20px 0;
     padding: 18px;
     border-radius: 18px;
-    background: #faf8f2;
+    background: var(--bg);
     border: 1px solid rgba(75, 107, 82, 0.1);
 }
 
@@ -339,7 +340,7 @@ main {
 }
 
 .package-old-price {
-    color: #9b9b95;
+    color: var(--muted);
     font-size: 12px;
     font-weight: 500;
     text-decoration: line-through;
@@ -355,7 +356,29 @@ main {
 }
 
 .package-price span {
-    color: #a7aaa3;
+    color: var(--muted);
     font-size: 16px;
     margin: 0 3px;
+}
+
+/* =========================================================
+   PRECISION TOKENS — single source for type scale.
+   Pakai class ini, jangan inline font-size di blade:
+   .m-h1 28px judul halaman | .text-small 12px (sudah ada)
+   .m-meta 11px | .m-micro 10px | .m-tiny 9px
+========================================================= */
+.m-h1 {
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+.m-meta {
+    font-size: 11px;
+}
+.m-micro {
+    font-size: 10px;
+}
+.m-tiny {
+    font-size: 9px;
 }

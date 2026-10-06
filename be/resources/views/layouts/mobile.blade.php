@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>@yield('title')</title>
 
     <link rel="shortcut icon" href="{{ asset('img/fav.png') }}" type="image/x-icon">
@@ -34,7 +35,7 @@
             @yield('content')
         </main>
 
-        <nav class="tabbar d-flex {{ request()->routeIs('checkout.package') ? 'd-none' : '' }}">
+        <nav class="tabbar d-flex {{ request()->routeIs('checkout.package', 'login') ? 'd-none' : '' }}">
 
             <button type="button"
                 class="tab-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}"
@@ -50,7 +51,9 @@
                 <span>Plans</span>
             </button>
 
-            <button class=" tab-item tab-booking" data-tab="bookings">
+            <button type="button"
+                class="tab-item tab-booking {{ request()->routeIs('schedules.index') ? 'active' : '' }}"
+                onclick="window.location.href='{{ route('schedules.index') }}'">
                 <span class="ico"><i class="bi bi-calendar-plus"></i></span>
                 <span>Book</span>
             </button>

@@ -9,6 +9,8 @@ class NotificationController extends Controller
 {
     /**
      * View all own notifications.
+     *
+     * Role user mendapat versi mobile phone-frame; admin tetap versi desktop.
      */
     public function index(Request $request)
     {
@@ -22,11 +24,17 @@ class NotificationController extends Controller
 
         $notifications = $query->paginate(15)->withQueryString();
 
-        return view('pages.notifications.index', [
+        $data = [
             'notifications' => $notifications,
             'filter' => $filter,
             'unreadCount' => $request->user()->unreadNotifications()->count(),
-        ]);
+        ];
+
+        if ($request->user()->hasRole('user')) {
+            return view('pages.mobile.notifications', $data);
+        }
+
+        return view('pages.notifications.index', $data);
     }
 
     /**

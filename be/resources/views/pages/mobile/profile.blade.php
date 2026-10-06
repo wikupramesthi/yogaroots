@@ -11,7 +11,7 @@
         {{-- Header --}}
         <p class="eyebrow mb-1">My Account</p>
 
-        <h1 class="fw-semibold" style="font-size: 28px">
+        <h1 class="fw-semibold m-h1">
             Profile
         </h1>
 
@@ -82,8 +82,7 @@
         <div class="d-flex justify-content-between align-items-end mt-4">
             <h3 class="h5 fw-semibold mb-0">My Orders</h3>
             <button
-                class="btn btn-link p-0 text-terra fw-semibold"
-                style="font-size: 12px"
+                class="btn btn-link p-0 text-terra fw-semibold text-small"
                 data-go="jadwal">
                 View all
             </button>
@@ -133,8 +132,7 @@
                                 </p>
 
                                 <p
-                                    class="text-muted2 mb-0"
-                                    style="font-size:11px">
+                                    class="text-muted2 mb-0 m-meta">
                                     #ORD-20260901
                                 </p>
 
@@ -224,8 +222,7 @@
                                 </p>
 
                                 <p
-                                    class="text-muted2 mb-0"
-                                    style="font-size:11px">
+                                    class="text-muted2 mb-0 m-meta">
                                     #ORD-20260825
                                 </p>
 
@@ -315,8 +312,7 @@
                                 </p>
 
                                 <p
-                                    class="text-muted2 mb-0"
-                                    style="font-size:11px">
+                                    class="text-muted2 mb-0 m-meta">
                                     #ORD-20260810
                                 </p>
 
