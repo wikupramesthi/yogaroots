@@ -51,6 +51,28 @@ class EventsController extends Controller
             ->orderBy('tanggal', 'DESC')
             ->get();
 
+        // Member: versi mobile phone-frame — hanya event published mendatang.
+        if (! auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+            $searchMobile = trim((string) $request->get('search', ''));
+
+            $mobileQuery = Event::where('status', 'published')
+                ->whereDate('tanggal', '>=', now()->toDateString());
+
+            if ($searchMobile !== '') {
+                $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $searchMobile) . '%';
+                $mobileQuery->where('judul', 'like', $like);
+            }
+
+            $events = $mobileQuery->orderBy('tanggal')->orderBy('waktu_mulai')
+                ->paginate(10)->withQueryString();
+
+            return view('pages.mobile.events', [
+                'events' => $events,
+                'search' => $searchMobile,
+                'unreadCount' => auth()->user()->unreadNotifications()->count(),
+            ]);
+        }
+
         // Stats follow the active filter so numbers stay in sync with the data.
         $stats = [
             'total' => (clone $query)->count(),
@@ -100,6 +122,9 @@ class EventsController extends Controller
         try {
             $path = $request->file('gambar')->store('events', 'public');
 
+            // Maks 1024px: hero & kartu event di HP hanya tampil <= 200px.
+            \App\Support\ImageShrinker::shrink(storage_path('app/public/' . $path), 1024);
+
             Event::create([
                 'uuid'          => Str::uuid(),
                 'judul'         => $request->judul,
@@ -135,7 +160,14 @@ class EventsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Member: detail event mobile (hanya yang published).
+        if (! auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+            $event = Event::where('uuid', $id)->where('status', 'published')->firstOrFail();
+
+            return view('pages.mobile.event-show', compact('event'));
+        }
+
+        return redirect()->route('events.index');
     }
 
     /**
@@ -190,6 +222,7 @@ class EventsController extends Controller
 
                 // Save the new image
                 $data['gambar'] = $request->file('gambar')->store('events', 'public');
+                \App\Support\ImageShrinker::shrink(storage_path('app/public/' . $data['gambar']), 1024);
             }
 
             $item->update($data);

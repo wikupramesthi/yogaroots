@@ -9,3 +9,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 Schedule::command('records:expire')->hourly();
+Schedule::command('bookings:remind')->everyThirtyMinutes();
+Schedule::command('bookings:mark-noshow')->hourly();

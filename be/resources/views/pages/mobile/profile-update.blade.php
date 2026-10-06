@@ -1,11 +1,11 @@
 @extends('layouts.mobile')
 
-@section('title', 'Edit Profile')
+@section('title', __('mobile.edit_profile'))
 
 @section('content')
 
 <section
-    class="screen {{ request()->routeIs('account.index') ? 'active' : '' }}"
+    class="screen active"
     id="profil">
 
 
@@ -16,20 +16,15 @@
 
             <a
                 href="{{ route('profile.edit') }}"
-                class="text-dark text-decoration-none d-inline-flex align-items-center mb-3">
-
+                class="text-dark text-decoration-none d-inline-flex align-items-center mb-3" onclick="if (window.history.length > 1) { window.history.back(); return false; }">
                 <i class="bi bi-arrow-left fs-5"></i>
-
+                <span class="ms-2 small fw-semibold">{{ __('mobile.back') }}</span>
             </a>
 
-            <p class="eyebrow mb-1">
-                My Account
-            </p>
+            <p class="eyebrow mb-1">{{ __('mobile.my_account') }}</p>
 
             <h1
-                class="fw-semibold m-h1">
-                Edit Profile
-            </h1>
+                class="fw-semibold m-h1">{{ __('mobile.edit_profile') }}</h1>
 
         </div>
 
@@ -61,6 +56,7 @@
                         alt="{{ $user->name }}"
                         id="profilePreview"
                         class="rounded-circle"
+                        decoding="async"
                         style="
                             width:96px;
                             height:96px;
@@ -93,7 +89,7 @@
                 </div>
 
                 <p class="small text-muted2 mb-0 mt-2">
-                    Tap the camera icon to change your photo
+                    {{ __('mobile.change_photo') }}
                 </p>
 
             </div>
@@ -122,7 +118,7 @@
 
             {{-- PERSONAL INFORMATION --}}
             <div class="d-flex justify-content-between align-items-end mt-4">
-                <h3 class="h5 fw-semibold mb-0">Personal Information</h3>
+                <h3 class="h5 fw-semibold mb-0">{{ __('mobile.personal_info') }}</h3>
             </div>
 
             <div class="app-card overflow-hidden gap-3 p-4 mt-3">
@@ -132,9 +128,7 @@
 
                     <label
                         for="name"
-                        class="form-label small fw-semibold">
-                        Full Name
-                    </label>
+                        class="form-label small fw-semibold">{{ __('mobile.full_name') }}</label>
 
                     <input
                         type="text"
@@ -142,7 +136,7 @@
                         id="name"
                         name="name"
                         value="{{ old('name', $user->name) }}"
-                        placeholder="Enter your full name"
+                        placeholder="{{ __('mobile.name_placeholder') }}"
                         required>
 
                     @error('name')
@@ -159,9 +153,7 @@
 
                     <label
                         for="email"
-                        class="form-label small fw-semibold">
-                        Email
-                    </label>
+                        class="form-label small fw-semibold">{{ __('mobile.email') }}</label>
 
                     <input
                         type="email"
@@ -179,9 +171,7 @@
 
                     <label
                         for="no_hp"
-                        class="form-label small fw-semibold">
-                        Phone Number
-                    </label>
+                        class="form-label small fw-semibold">{{ __('mobile.phone') }}</label>
 
                     <input
                         type="text"
@@ -189,7 +179,7 @@
                         id="no_hp"
                         name="no_hp"
                         value="{{ old('no_hp', $user->no_hp) }}"
-                        placeholder="Enter your phone number">
+                        placeholder="{{ __('mobile.phone_placeholder') }}">
 
                     @error('no_hp')
                     <div class="text-danger small mt-1">
@@ -205,9 +195,7 @@
 
                     <label
                         for="tempat_lahir"
-                        class="form-label small fw-semibold">
-                        Place of Birth
-                    </label>
+                        class="form-label small fw-semibold">{{ __('mobile.birth_place') }}</label>
 
                     <input
                         type="text"
@@ -215,7 +203,7 @@
                         id="tempat_lahir"
                         name="tempat_lahir"
                         value="{{ old('tempat_lahir', $user->tempat_lahir) }}"
-                        placeholder="Enter your place of birth">
+                        placeholder="{{ __('mobile.birth_place_placeholder') }}">
 
                     @error('tempat_lahir')
                     <div class="text-danger small mt-1">
@@ -231,9 +219,7 @@
 
                     <label
                         for="tanggal_lahir"
-                        class="form-label small fw-semibold">
-                        Date of Birth
-                    </label>
+                        class="form-label small fw-semibold">{{ __('mobile.birth_date') }}</label>
 
                     <input
                         type="date"
@@ -256,30 +242,22 @@
 
                     <label
                         for="jenis_kelamin"
-                        class="form-label small fw-semibold">
-                        Gender
-                    </label>
+                        class="form-label small fw-semibold">{{ __('mobile.gender') }}</label>
 
                     <select
                         class="form-control"
                         id="jenis_kelamin"
                         name="jenis_kelamin">
 
-                        <option value="">
-                            Select gender
-                        </option>
+                        <option value="">{{ __('mobile.select_gender') }}</option>
 
                         <option
                             value="L"
-                            @selected(old('jenis_kelamin', $user->jenis_kelamin) === 'L')>
-                            Male
-                        </option>
+                            @selected(old('jenis_kelamin', $user->jenis_kelamin) === 'L')>{{ __('mobile.male') }}</option>
 
                         <option
                             value="P"
-                            @selected(old('jenis_kelamin', $user->jenis_kelamin) === 'P')>
-                            Female
-                        </option>
+                            @selected(old('jenis_kelamin', $user->jenis_kelamin) === 'P')>{{ __('mobile.female') }}</option>
 
                     </select>
 
@@ -297,9 +275,7 @@
 
                     <label
                         for="agama"
-                        class="form-label small fw-semibold">
-                        Religion
-                    </label>
+                        class="form-label small fw-semibold">{{ __('mobile.religion') }}</label>
 
                     <input
                         type="text"
@@ -307,7 +283,7 @@
                         id="agama"
                         name="agama"
                         value="{{ old('agama', $user->agama) }}"
-                        placeholder="Enter your religion">
+                        placeholder="{{ __('mobile.religion_placeholder') }}">
 
                     @error('agama')
                     <div class="text-danger small mt-1">
@@ -323,7 +299,7 @@
             {{-- ADDRESS --}}
 
             <div class="d-flex justify-content-between align-items-end mt-4">
-                <h3 class="h5 fw-semibold mb-0">Address</h3>
+                <h3 class="h5 fw-semibold mb-0">{{ __('mobile.address') }}</h3>
             </div>
 
             <div class="app-card overflow-hidden gap-3 p-4 mt-3">
@@ -332,16 +308,14 @@
 
                     <label
                         for="alamat"
-                        class="form-label small fw-semibold">
-                        Address
-                    </label>
+                        class="form-label small fw-semibold">{{ __('mobile.address') }}</label>
 
                     <textarea
                         class="form-control"
                         id="alamat"
                         name="alamat"
                         rows="4"
-                        placeholder="Enter your address">{{ old('alamat', $user->alamat) }}</textarea>
+                        placeholder="{{ __('mobile.address_placeholder') }}">{{ old('alamat', $user->alamat) }}</textarea>
 
                     @error('alamat')
                     <div class="text-danger small mt-1">
@@ -356,7 +330,7 @@
 
             {{-- SOCIAL MEDIA --}}
             <div class="d-flex justify-content-between align-items-end mt-4">
-                <h3 class="h5 fw-semibold mb-0">Social Media</h3>
+                <h3 class="h5 fw-semibold mb-0">{{ __('mobile.social_media') }}</h3>
             </div>
 
             <div class="app-card overflow-hidden gap-3 p-4 mt-3">
@@ -366,9 +340,7 @@
 
                     <label
                         for="instagram"
-                        class="form-label small fw-semibold">
-                        Instagram
-                    </label>
+                        class="form-label small fw-semibold">Instagram</label>
 
                     <div class="input-group">
 
@@ -505,10 +477,7 @@
                     type="submit"
                     class="btn btn-warm w-100 py-2">
 
-                    <i class="bi bi-check2 me-1"></i>
-                    Save Changes
-
-                </button>
+                    <i class="bi bi-check2 me-1"></i>{{ __('mobile.save_changes') }}</button>
 
             </div>
 

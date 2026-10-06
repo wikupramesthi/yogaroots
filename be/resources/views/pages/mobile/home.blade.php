@@ -1,5 +1,5 @@
 @extends('layouts.mobile')
-@section('title', 'Dashboard')
+@section('title', __('mobile.home'))
 @section('content')
 
 <section class="screen {{ request()->routeIs('dashboard.index') ? 'active' : '' }}" id="home">
@@ -11,13 +11,13 @@
                 </p>
 
                 <h1 class="h3 fw-semibold mb-0">
-                    Hi, {{ auth()->user()->name }}
+                    {{ __('mobile.greeting_hi', ['name' => auth()->user()->name]) }}
                 </h1>
             </div>
             <a href="{{ route('notifications.index') }}"
                 class="app-card border-0 rounded-circle position-relative d-flex align-items-center justify-content-center text-dark text-decoration-none"
                 style="height: 44px; width: 44px; border-radius: 50% !important"
-                aria-label="Notifications">
+                aria-label="{{ __('mobile.notifications') }}">
                 <i class="bi bi-bell"></i>
                 @if (!empty($unreadCount))
                 <span
@@ -38,13 +38,15 @@
 
             <img
                 src="{{ asset('storage/' . $banner->gambar) }}"
-                alt="{{ $banner->nama }}">
+                alt="{{ $banner->nama }}"
+                fetchpriority="high"
+                decoding="async">
 
             <div class="veil"></div>
             <div class="position-absolute bottom-0 start-0 end-0 p-4">
                 <span class="chip bg-light text-dark">
                     <i class="bi bi-heart-fill text-terra"></i>
-                    Wellness & Mindfulness
+                    {{ __('mobile.wellness') }}
                 </span>
 
                 @if ($banner->deskripsi)
@@ -56,7 +58,7 @@
                 @endif
 
                 <a href="{{ route('packages.member') }}" class="btn btn-warm px-4 py-2 mt-3">
-                    Book Your Class →
+                    {{ __('mobile.book_your_class') }} →
                 </a>
 
             </div>
@@ -67,23 +69,19 @@
             <div class="col-4">
                 <div class="app-card py-3">
                     <p class="mb-0 fw-semibold text-sage">{{ $jumlahInstruktur }}</p>
-                    <p class="mb-0 text-muted2 text-small">Instructors</p>
+                    <p class="mb-0 text-muted2 text-small">{{ __('mobile.instructors') }}</p>
                 </div>
             </div>
             <div class=" col-4">
                 <div class="app-card py-3">
                     <p class="mb-0 fw-semibold text-sage">{{ $totalClasses }}</p>
-                    <p class="mb-0 text-muted2 text-small">
-                        Classes
-                    </p>
+                    <p class="mb-0 text-muted2 text-small">{{ __('mobile.classes') }}</p>
                 </div>
             </div>
             <div class="col-4">
                 <div class="app-card py-3">
                     <p class="mb-0 fw-semibold text-sage">{{ $totalEvents }}</p>
-                    <p class="mb-0 text-muted2 text-small">
-                        Events
-                    </p>
+                    <p class="mb-0 text-muted2 text-small">{{ __('mobile.events') }}</p>
                 </div>
             </div>
         </div>
@@ -101,15 +99,15 @@
                 </div>
                 <div class="flex-fill">
                     @if ($activePackage)
-                        <p class="mb-0 small fw-semibold text-dark">{{ $activePackage->package?->name ?? 'Membership' }}</p>
+                        <p class="mb-0 small fw-semibold text-dark">{{ $activePackage->package?->name ?? __('mobile.membership') }}</p>
                     <p class="mb-1 text-muted2 text-small">
                         @if ($activePackage->quota === null)
-                            Unlimited classes
+                            {{ __('mobile.unlimited_classes') }}
                         @else
-                            {{ $activePackage->quota }} class{{ $activePackage->quota == 1 ? '' : 'es' }} left
+                            {{ $activePackage->quota == 1 ? __('mobile.class_left', ['count' => $activePackage->quota]) : __('mobile.classes_left', ['count' => $activePackage->quota]) }}
                         @endif
                         @if ($activePackage->expired_at)
-                            · until {{ $activePackage->expired_at->format('d M Y') }}
+                            · {{ __('mobile.until', ['date' => $activePackage->expired_at->format('d M Y')]) }}
                         @endif
                     </p>
                     @if ($activePackage->expired_at && $activePackage->started_at)
@@ -127,11 +125,11 @@
                         </div>
                     @endif
                 @else
-                    <p class="mb-0 small fw-semibold">No active package</p>
-                    <p class="mb-1 text-muted2 text-small">Pick a membership to start booking classes.</p>
+                    <p class="mb-0 small fw-semibold">{{ __('mobile.no_active_package') }}</p>
+                    <p class="mb-1 text-muted2 text-small">{{ __('mobile.pick_membership') }}</p>
                     <a href="{{ route('packages.member') }}"
                         class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">
-                        Browse packages →
+                        {{ __('mobile.browse_packages') }} →
                     </a>
                 @endif
             </div>
@@ -144,7 +142,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content border-0 rounded-4 overflow-hidden">
                         <div class="modal-body p-4">
-                            <span class="chip bg-sage-soft text-sage text-uppercase m-micro">Active Package</span>
+                            <span class="chip bg-sage-soft text-sage text-uppercase m-micro">{{ __('mobile.active_package') }}</span>
                             <h5 class="fw-bold mt-2 mb-1">{{ $activePackage->package?->name }}</h5>
 
                             @if ($activePackage->package?->description)
@@ -154,21 +152,21 @@
                             @endif
 
                             <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                                <span class="text-muted2 text-small">Quota</span>
+                                <span class="text-muted2 text-small">{{ __('mobile.quota') }}</span>
                                 <span class="small fw-semibold">
-                                    {{ $activePackage->quota === null ? 'Unlimited' : $activePackage->quota . ' classes' }}
+                                    {{ $activePackage->quota === null ? __('mobile.unlimited') : __('mobile.classes_left', ['count' => $activePackage->quota]) }}
                                 </span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                                <span class="text-muted2 text-small">Started</span>
+                                <span class="text-muted2 text-small">{{ __('mobile.started') }}</span>
                                 <span class="small fw-semibold">{{ $activePackage->started_at?->format('d M Y') ?? '-' }}</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center py-2 border-bottom">
-                                <span class="text-muted2" style="font-size:12px">Expires</span>
+                                <span class="text-muted2" style="font-size:12px">{{ __('mobile.expires') }}</span>
                                 <span class="small fw-semibold">{{ $activePackage->expired_at?->format('d M Y') ?? '-' }}</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center py-2">
-                                <span class="text-muted2" style="font-size:12px">Attended sessions</span>
+                                <span class="text-muted2" style="font-size:12px">{{ __('mobile.attended_sessions') }}</span>
                                 <span class="small fw-semibold">{{ $attendedCount ?? 0 }}</span>
                             </div>
                         </div>
@@ -178,11 +176,9 @@
         @endif
 
         <div class="d-flex justify-content-between align-items-end mt-4">
-            <h3 class="h5 fw-semibold mb-0">Today’s Schedule</h3>
+            <h3 class="h5 fw-semibold mb-0">{{ __('mobile.today_schedule') }}</h3>
             <a href="{{ route('schedules.index', ['tab' => 'today']) }}"
-                class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">
-                View all
-            </a>
+                class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">{{ __('mobile.view_all') }}</a>
         </div>
 
         <div class="d-grid gap-3 mt-3" id="todayList">
@@ -196,7 +192,7 @@
             $startTime = \Carbon\Carbon::parse($schedule->start_time)->format('H:i');
             $endTime = \Carbon\Carbon::parse($schedule->end_time)->format('H:i');
 
-            $level = ucfirst($schedule->class?->level ?? '-');
+            $level = ($lvl = $schedule->class?->level) ? __('mobile.level.' . $lvl) : '-';
             $className = $schedule->class?->name ?? '-';
             $instructor = $schedule->class?->instructor?->name ?? '-';
             @endphp
@@ -218,9 +214,7 @@
                         {{ $durationMinutes }}
                     </span>
 
-                    <span class="text-muted2 text-small">
-                        min
-                    </span>
+                    <span class="text-muted2 text-small">{{ __('mobile.minutes_short') }}</span>
 
                 </div>
 
@@ -249,43 +243,38 @@
 
                 <div class="d-flex flex-column align-items-end gap-2 flex-shrink-0">
                 @if ($remaining <= 0)
-                    <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis text-nowrap">
-                    Full
-                    </span>
+                    <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis text-nowrap">{{ __('mobile.full') }}</span>
                     @elseif ($remaining <= 3)
                         <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis text-nowrap">
-                        {{ $remaining }} Slots
+                        {{ __('mobile.slots_left', ['count' => $remaining]) }}
                         </span>
                         @else
                         <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis text-nowrap">
-                            {{ $remaining }} Slots
+                            {{ __('mobile.slots_left', ['count' => $remaining]) }}
                         </span>
                         @endif
 
                 @php $myBooking = ($myBookings ?? collect())->get($schedule->uuid . '|' . ($todayDate ?? now()->format('Y-m-d'))); @endphp
 
                 @if ($myBooking && $myBooking->status === 'attended')
-                    <span class="badge rounded-pill bg-success-subtle text-success-emphasis">
-                        Done
-                    </span>
+                    <span class="badge rounded-pill bg-success-subtle text-success-emphasis">{{ __('mobile.done') }}</span>
                 @elseif ($myBooking && $myBooking->status === 'waiting_list')
-                    <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis">
-                        Waiting
-                    </span>
+                    <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis">{{ __('mobile.waiting') }}</span>
                 @elseif ($myBooking && $myBooking->status === 'confirmed')
                     <form action="{{ route('class-bookings.checkin', $myBooking->uuid) }}" method="POST" class="m-0">
                         @csrf
-                        <button type="submit" class="btn btn-warm btn-sm text-nowrap">Check In</button>
+                        <button type="submit" class="btn btn-warm btn-sm text-nowrap">{{ __('mobile.check_in') }}</button>
                     </form>
                 @elseif (!empty($activePackage))
                     <form action="{{ route('class-bookings.store') }}" method="POST" class="m-0">
                         @csrf
                         <input type="hidden" name="class_schedule_uuid" value="{{ $schedule->uuid }}">
                         <input type="hidden" name="booking_date" value="{{ $todayDate ?? now()->format('Y-m-d') }}">
-                        <button type="submit" class="btn btn-warm btn-sm text-nowrap">{{ $remaining <= 0 ? 'Waitlist' : 'Book' }}</button>
+                        <input type="hidden" name="checkin" value="1">
+                        <button type="submit" class="btn btn-warm btn-sm text-nowrap">{{ $remaining <= 0 ? __('mobile.waitlist') : __('mobile.book_and_in') }}</button>
                     </form>
                 @else
-                    <a href="{{ route('packages.member') }}" class="btn btn-sm btn-outline-secondary text-nowrap">Join</a>
+                    <a href="{{ route('packages.member') }}" class="btn btn-sm btn-outline-secondary text-nowrap">{{ __('mobile.join') }}</a>
                 @endif
                 </div>
 
@@ -296,11 +285,11 @@
             <div class="app-card text-center p-4">
                 <i class="bi bi-calendar2-week text-muted2 fs-3"></i>
                 <p class="mb-1 small fw-semibold">
-                    No Classes Today
+                    {{ __('mobile.no_classes_today') }}
                 </p>
 
                 <p class="mb-0 text-muted2 text-small">
-                    There are no classes scheduled for today.
+                    {{ __('mobile.no_classes_today_desc') }}
                 </p>
             </div>
 
@@ -310,11 +299,9 @@
 
 
         <div class="d-flex justify-content-between align-items-end mt-4">
-            <h3 class="h5 fw-semibold mb-0">Upcoming Classes</h3>
+            <h3 class="h5 fw-semibold mb-0">{{ __('mobile.upcoming_classes') }}</h3>
             <a href="{{ route('schedules.index', ['tab' => 'upcoming']) }}"
-                class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">
-                View all
-            </a>
+                class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">{{ __('mobile.view_all') }}</a>
         </div>
         <div class="d-grid gap-3 mt-3" id="todayList">
 
@@ -340,6 +327,8 @@
         : asset('dist/assets/images/avatar.jpg') }}"
                             alt="{{ $instructor?->name ?? 'Instructor' }}"
                             class="rounded-circle"
+                            loading="lazy"
+                            decoding="async"
                             style="width:56px;height:56px;object-fit:cover;">
                     </div>
 
@@ -357,13 +346,13 @@
                             @if ($class?->level)
                             <span class="mx-1">•</span>
                             <i class="bi bi-bar-chart me-1"></i>
-                            {{ ucfirst($class->level) }}
+                            {{ __('mobile.level.' . $class->level) }}
                             @endif
                         </p>
 
                         <p class="mb-0 text-muted2 text-truncate text-small">
                             <i class="bi bi-calendar3 me-1"></i>
-                            {{ ucfirst($schedule->day) }}
+                            {{ __('mobile.day.' . strtolower($schedule->day)) }}
 
                             <span class="mx-1">•</span>
 
@@ -377,26 +366,20 @@
                     @php $upBooking = ($myBookings ?? collect())->get($schedule->uuid . '|' . ($tomorrowDate ?? now()->addDay()->format('Y-m-d'))); @endphp
 
                     @if ($upBooking && $upBooking->status === 'attended')
-                        <span class="badge rounded-pill bg-success-subtle text-success-emphasis flex-shrink-0">
-                            Done
-                        </span>
+                        <span class="badge rounded-pill bg-success-subtle text-success-emphasis flex-shrink-0">{{ __('mobile.done') }}</span>
                     @elseif ($upBooking && $upBooking->status === 'waiting_list')
-                        <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis flex-shrink-0">
-                            Waiting
-                        </span>
+                        <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis flex-shrink-0">{{ __('mobile.waiting') }}</span>
                     @elseif ($upBooking && $upBooking->status === 'confirmed')
-                        <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis flex-shrink-0">
-                            Booked
-                        </span>
+                        <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis flex-shrink-0">{{ __('mobile.booked') }}</span>
                     @elseif (!empty($activePackage))
                         <form action="{{ route('class-bookings.store') }}" method="POST" class="m-0 flex-shrink-0">
                             @csrf
                             <input type="hidden" name="class_schedule_uuid" value="{{ $schedule->uuid }}">
                             <input type="hidden" name="booking_date" value="{{ $tomorrowDate ?? now()->addDay()->format('Y-m-d') }}">
-                            <button type="submit" class="btn-pill flex-shrink-0">Join</button>
+                            <button type="submit" class="btn-pill flex-shrink-0">{{ __('mobile.join') }}</button>
                         </form>
                     @else
-                        <a href="{{ route('packages.member') }}" class="btn-pill flex-shrink-0 text-decoration-none text-center">Join</a>
+                        <a href="{{ route('packages.member') }}" class="btn-pill flex-shrink-0 text-decoration-none text-center">{{ __('mobile.join') }}</a>
                     @endif
 
                 </div>
@@ -431,7 +414,7 @@
             </h3>
 
             <span class="badge bg-sage-soft text-sage">
-                {{ count($courses) }} Courses
+                {{ __('mobile.courses_count', ['count' => count($courses)]) }}
             </span>
         </div>
 
@@ -440,7 +423,7 @@
             @forelse ($courses as $course)
 
             @php
-            $title = $course['title'] ?? 'Art of Living Course';
+            $title = $course['title'] ?? __('mobile.aol_course');
 
             $startDate = !empty($course['start_date'])
             ? \Carbon\Carbon::parse($course['start_date'])
@@ -562,15 +545,11 @@
 
                             @if ($isFull)
 
-                            <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis m-tiny">
-                                Full
-                            </span>
+                            <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis m-tiny">{{ __('mobile.full') }}</span>
 
                             @elseif ($isClosed)
 
-                            <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis m-tiny">
-                                Closed
-                            </span>
+                            <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis m-tiny">{{ __('mobile.closed') }}</span>
 
                             @elseif ($fee > 0)
 
@@ -580,9 +559,7 @@
 
                             @else
 
-                            <span class="badge rounded-pill bg-success-subtle text-success-emphasis m-tiny">
-                                Free
-                            </span>
+                            <span class="badge rounded-pill bg-success-subtle text-success-emphasis m-tiny">{{ __('mobile.free') }}</span>
 
                             @endif
 
@@ -592,9 +569,7 @@
                                 href="{{ $registerUrl }}"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="btn btn-sm btn-success rounded-pill px-3 py-1 m-micro text-nowrap flex-shrink-0">
-                                Register
-                            </a>
+                                class="btn btn-sm btn-success rounded-pill px-3 py-1 m-micro text-nowrap flex-shrink-0">{{ __('mobile.register') }}</a>
 
                             @else
 
@@ -617,7 +592,7 @@
                 <i class="bi bi-calendar2-week text-muted2 fs-4"></i>
 
                 <p class="mb-0 mt-1 small fw-semibold">
-                    No Courses Available
+                    {{ __('mobile.no_courses') }}
                 </p>
 
             </div>
@@ -627,7 +602,9 @@
         </div>
 
         <div class="d-flex justify-content-between align-items-end mt-4">
-            <h3 class="h5 fw-semibold mb-0">Upcoming Events</h3>
+            <h3 class="h5 fw-semibold mb-0">{{ __('mobile.upcoming_events') }}</h3>
+            <a href="{{ route('events.index') }}"
+                class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">{{ __('mobile.view_all') }}</a>
         </div>
 
         <div class="d-flex gap-3 no-scrollbar mt-3 pb-1" id="eventList">
@@ -650,9 +627,7 @@
 
                 <div class="p-3">
 
-                    <span class="chip bg-terra-soft text-terra text-uppercase m-micro">
-                        Event
-                    </span>
+                    <span class="chip bg-terra-soft text-terra text-uppercase m-micro">{{ __('mobile.event') }}</span>
 
                     <p class="mb-1 mt-2 small fw-semibold lh-sm text-truncate">
                         {{ $event->judul }}
@@ -682,14 +657,14 @@
                             : asset('storage/' . $event->gambar) }}"
                             alt="{{ $event->judul }}"
                             class="w-100"
+                            loading="lazy"
+                            decoding="async"
                             style="height:200px;object-fit:cover">
                         @endif
 
                         <div class="modal-body p-4">
 
-                            <span class="chip bg-terra-soft text-terra text-uppercase m-micro">
-                                Event
-                            </span>
+                            <span class="chip bg-terra-soft text-terra text-uppercase m-micro">{{ __('mobile.event') }}</span>
 
                             <h5 class="fw-bold mt-2 mb-3">
                                 {{ $event->judul }}
@@ -723,7 +698,7 @@
                             @if($event->kapasitas)
                             <p class="small text-muted2 mb-3">
                                 <i class="bi bi-people me-2"></i>
-                                Capacity: {{ $event->kapasitas }}
+                                {{ __('mobile.capacity', ['count' => $event->kapasitas]) }}
                             </p>
                             @endif
 
@@ -744,9 +719,7 @@
                         <div class="modal-footer border-0 px-4 pb-4">
                             <button type="button"
                                 class="btn btn-sage w-100"
-                                data-bs-dismiss="modal">
-                                Close
-                            </button>
+                                data-bs-dismiss="modal">{{ __('mobile.close') }}</button>
                         </div>
 
                     </div>
@@ -759,10 +732,10 @@
                 <i class="bi bi-calendar2-week text-muted2 fs-3"></i>
 
                 <p class="mb-1 mt-2 fw-semibold">
-                    No Upcoming Events
+                    {{ __('mobile.no_upcoming_events') }}
                 </p>
                 <p class="mb-0 text-muted2 small">
-                    There are no upcoming events available at the moment.
+                    {{ __('mobile.no_upcoming_events_desc') }}
                 </p>
             </div>
 
@@ -949,7 +922,7 @@
                         type="submit"
                         class="btn btn-warm w-100 py-2">
                         <i class="bi bi-check2 me-1"></i>
-                        Save & Continue
+                        Save & {{ __('mobile.continue') }}
                     </button>
                 </div>
 

@@ -89,6 +89,15 @@
             {{-- Actions --}}
             <div class="d-flex flex-column flex-sm-row gap-2">
 
+                @role('user')
+                <a href="{{ route('member-view', 'mobile') }}" class="btn btn-success px-4">
+
+                    <i class="bi bi-phone me-1"></i>
+                    Mobile view
+
+                </a>
+                @endrole
+
                 <a href="{{ route('account.index') }}" class="btn btn-primary px-4">
 
                     <i class="bi bi-pencil-square me-1"></i>

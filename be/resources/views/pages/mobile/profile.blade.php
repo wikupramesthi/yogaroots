@@ -1,5 +1,5 @@
 @extends('layouts.mobile')
-@section('title', 'Profile')
+@section('title', __('mobile.profile'))
 @section('content')
 
 <section
@@ -9,11 +9,9 @@
     <div class="px-4 pt-4">
 
         {{-- Header --}}
-        <p class="eyebrow mb-1">My Account</p>
+        <p class="eyebrow mb-1">{{ __('mobile.my_account') }}</p>
 
-        <h1 class="fw-semibold m-h1">
-            Profile
-        </h1>
+        <h1 class="fw-semibold m-h1">{{ __('mobile.profile') }}</h1>
 
         {{-- ================================================= --}}
         {{-- PROFILE CARD --}}
@@ -43,6 +41,8 @@
                     src="{{ $avatar }}"
                     alt="{{ $user->name }}"
                     class="rounded-circle flex-shrink-0"
+                    loading="lazy"
+                    decoding="async"
                     style="
                         width:72px;
                         height:72px;
@@ -68,10 +68,7 @@
                 href="{{ route('account.index') }}"
                 class="btn btn-warm w-100 py-2 mt-4">
 
-                <i class="bi bi-pencil-square me-1"></i>
-                Edit Profile
-
-            </a>
+                <i class="bi bi-pencil-square me-1"></i>{{ __('mobile.edit_profile') }}</a>
 
         </div>
 
@@ -80,11 +77,9 @@
         {{-- ================================================= --}}
 
         <div class="d-flex justify-content-between align-items-end mt-4">
-            <h3 class="h5 fw-semibold mb-0">My Orders</h3>
+            <h3 class="h5 fw-semibold mb-0">{{ __('mobile.my_orders') }}</h3>
             <a href="{{ route('orders.index') }}"
-                class="btn btn-link p-0 text-terra fw-semibold text-small text-decoration-none">
-                View all
-            </a>
+                class="btn btn-link p-0 text-terra fw-semibold text-small text-decoration-none">{{ __('mobile.view_all') }}</a>
         </div>
 
         <div class="app-card overflow-hidden gap-3 mt-3">
@@ -127,7 +122,7 @@
                                 </div>
 
                                 <span class="badge rounded-pill {{ $badge }}">
-                                    {{ ucfirst($order->status) }}
+                                    {{ __('mobile.order_status.' . $order->status) }}
                                 </span>
                             </div>
 
@@ -150,9 +145,9 @@
 
                 <div class="px-4 py-4 text-center">
                     <i class="bi bi-bag-x text-muted2 fs-3"></i>
-                    <p class="small fw-semibold mt-2 mb-0">No orders yet</p>
+                    <p class="small fw-semibold mt-2 mb-0">{{ __('mobile.no_orders') }}</p>
                     <p class="text-muted2 mb-0 text-small">
-                        Your membership orders will appear here.
+                        {{ __('mobile.no_orders_desc') }}
                     </p>
                 </div>
 
@@ -165,11 +160,9 @@
         {{-- ================================================= --}}
 
         <div class="d-flex justify-content-between align-items-end mt-4">
-            <h3 class="h5 fw-semibold mb-0">My Bookings</h3>
+            <h3 class="h5 fw-semibold mb-0">{{ __('mobile.my_bookings') }}</h3>
             <a href="{{ route('bookings.my') }}"
-                class="btn btn-link p-0 text-terra fw-semibold text-small text-decoration-none">
-                View all
-            </a>
+                class="btn btn-link p-0 text-terra fw-semibold text-small text-decoration-none">{{ __('mobile.view_all') }}</a>
         </div>
 
         <div class="app-card overflow-hidden gap-3 mt-3">
@@ -177,8 +170,30 @@
                 class="d-flex align-items-center gap-3 px-4 py-3 text-decoration-none text-dark">
                 <i class="bi bi-calendar-check text-sage"></i>
                 <div class="flex-fill">
-                    <p class="small fw-semibold mb-0">Manage your class bookings</p>
-                    <p class="mb-0 m-micro text-muted2">Check-in, cancel, view past classes</p>
+                    <p class="small fw-semibold mb-0">{{ __('mobile.manage_bookings') }}</p>
+                    <p class="mb-0 m-micro text-muted2">{{ __('mobile.manage_bookings_desc') }}</p>
+                </div>
+                <i class="bi bi-chevron-right text-muted2"></i>
+            </a>
+        </div>
+
+        {{-- ================================================= --}}
+        {{-- TEACHER --}}
+        {{-- ================================================= --}}
+
+        <div class="d-flex justify-content-between align-items-end mt-4">
+            <h3 class="h5 fw-semibold mb-0">{{ __('mobile.teacher') }}</h3>
+            <a href="{{ route('instruktur.mobile') }}"
+                class="btn btn-link p-0 text-terra fw-semibold text-small text-decoration-none">{{ __('mobile.view_all') }}</a>
+        </div>
+
+        <div class="app-card overflow-hidden gap-3 mt-3">
+            <a href="{{ route('instruktur.mobile') }}"
+                class="d-flex align-items-center gap-3 px-4 py-3 text-decoration-none text-dark">
+                <i class="bi bi-easel2 text-sage"></i>
+                <div class="flex-fill">
+                    <p class="small fw-semibold mb-0">{{ __('mobile.meet_teachers') }}</p>
+                    <p class="mb-0 m-micro text-muted2">{{ __('mobile.meet_teachers_desc') }}</p>
                 </div>
                 <i class="bi bi-chevron-right text-muted2"></i>
             </a>
@@ -189,7 +204,7 @@
         {{-- ================================================= --}}
 
         <div class="d-flex justify-content-between align-items-end mt-4">
-            <h3 class="h5 fw-semibold mb-0">Personal Information</h3>
+            <h3 class="h5 fw-semibold mb-0">{{ __('mobile.personal_info') }}</h3>
         </div>
 
         <div class="app-card overflow-hidden gap-3 mt-3">
@@ -210,7 +225,7 @@
                 <div class="flex-fill">
 
                     <p class="small text-muted2 mb-1">
-                        Full Name
+                        {{ __('mobile.full_name') }}
                     </p>
 
                     <p class="small fw-medium mb-0">
@@ -238,9 +253,7 @@
 
                 <div class="flex-fill">
 
-                    <p class="small text-muted2 mb-1">
-                        Email
-                    </p>
+                    <p class="small text-muted2 mb-1">{{ __('mobile.email') }}</p>
 
                     <p class="small fw-medium mb-0">
                         {{ $user->email ?: '-' }}
@@ -268,7 +281,7 @@
                 <div class="flex-fill">
 
                     <p class="small text-muted2 mb-1">
-                        Phone Number
+                        {{ __('mobile.phone') }}
                     </p>
 
                     <p class="small fw-medium mb-0">
@@ -280,7 +293,7 @@
             </div>
 
 
-            {{-- Date of Birth --}}
+            {{-- {{ __('mobile.birth_date') }} --}}
 
             <div
                 class="
@@ -297,7 +310,7 @@
                 <div class="flex-fill">
 
                     <p class="small text-muted2 mb-1">
-                        Date of Birth
+                        {{ __('mobile.birth_date') }}
                     </p>
 
                     <p class="small fw-medium mb-0">
@@ -376,7 +389,7 @@
         )
 
         <div class="d-flex justify-content-between align-items-end mt-4">
-            <h3 class="h5 fw-semibold mb-0">Social Media</h3>
+            <h3 class="h5 fw-semibold mb-0">{{ __('mobile.social_media') }}</h3>
         </div>
 
         <div class="app-card overflow-hidden gap-3 mt-3">
@@ -466,12 +479,101 @@
 
 
         <div class="d-flex justify-content-between align-items-end mt-4">
-            <h3 class="h5 fw-semibold mb-0">Account</h3>
+            <h3 class="h5 fw-semibold mb-0">{{ __('mobile.account') }}</h3>
         </div>
 
         <div class="app-card overflow-hidden gap-3 mt-3">
 
+            {{-- My Membership --}}
+
+            <a
+                href="{{ route('memberships.index') }}"
+                class="
+        text-decoration-none
+        text-dark
+        d-flex
+        align-items-center
+        gap-3
+        px-4
+        py-3
+        border-bottom
+    ">
+                <i class="bi bi-award text-sage"></i>
+
+                <span class="small fw-medium flex-fill">{{ __('mobile.my_membership') }}</span>
+
+                <i class="bi bi-chevron-right text-muted2"></i>
+            </a>
+
+            <a
+                href="{{ route('orders.index') }}"
+                class="
+        text-decoration-none
+        text-dark
+        d-flex
+        align-items-center
+        gap-3
+        px-4
+        py-3
+        border-bottom
+    ">
+                <i class="bi bi-receipt text-sage"></i>
+
+                <span class="small fw-medium flex-fill">{{ __('mobile.my_orders') }}</span>
+
+                <i class="bi bi-chevron-right text-muted2"></i>
+            </a>
+
+            <button
+                type="button"
+                id="pwa-install"
+                class="
+        d-none
+        w-100
+        text-start
+        d-flex
+        align-items-center
+        gap-3
+        px-4
+        py-3
+        border-bottom
+        btn
+    ">
+                <i class="bi bi-phone-download text-sage"></i>
+
+                <span class="small fw-medium flex-fill text-dark">
+                    Install App
+                </span>
+
+                <i class="bi bi-chevron-right text-muted2"></i>
+            </button>
+
             {{-- Change Password --}}
+
+            <div
+                class="
+        text-decoration-none
+        text-dark
+        d-flex
+        align-items-center
+        gap-3
+        px-4
+        py-3
+        border-bottom
+    ">
+                <i class="bi bi-translate text-sage"></i>
+
+                <span class="small fw-medium flex-fill">
+                    {{ __('mobile.language') }}
+                </span>
+
+                <span class="d-flex gap-1">
+                    <a href="{{ route('locale', 'id') }}"
+                        class="btn btn-sm rounded-pill px-3 {{ app()->getLocale() === 'id' ? 'btn-sage text-white' : 'btn-light border' }}">ID</a>
+                    <a href="{{ route('locale', 'en') }}"
+                        class="btn btn-sm rounded-pill px-3 {{ app()->getLocale() !== 'id' ? 'btn-sage text-white' : 'btn-light border' }}">EN</a>
+                </span>
+            </div>
 
             <a
                 href="{{ route('packages.member') }}"
@@ -487,9 +589,7 @@
     ">
                 <i class="bi bi-box-seam text-sage"></i>
 
-                <span class="small fw-medium flex-fill">
-                    Choose Package
-                </span>
+                <span class="small fw-medium flex-fill">{{ __('mobile.choose_package') }}</span>
 
                 <i class="bi bi-chevron-right text-muted2"></i>
             </a>
@@ -511,9 +611,7 @@
 
                 <i class="bi bi-shield-lock text-sage"></i>
 
-                <span class="small fw-medium flex-fill">
-                    Change Password
-                </span>
+                <span class="small fw-medium flex-fill">{{ __('mobile.change_password') }}</span>
 
                 <i class="bi bi-chevron-right text-muted2"></i>
 
@@ -549,9 +647,7 @@
                             fw-medium
                             flex-fill
                             text-danger
-                        ">
-                        Logout
-                    </span>
+                        ">{{ __('mobile.logout') }}</span>
 
                     <i class="bi bi-chevron-right text-muted2"></i>
 
@@ -579,13 +675,11 @@
             {{-- HEADER --}}
             <div class="modal-header border-0 px-4 pt-4 pb-2">
                 <div>
-                    <p class="eyebrow mb-1">Security</p>
+                    <p class="eyebrow mb-1">{{ __('mobile.security') }}</p>
 
                     <h5
                         class="modal-title fw-semibold"
-                        id="changePasswordModalLabel">
-                        Change Password
-                    </h5>
+                        id="changePasswordModalLabel">{{ __('mobile.change_password') }}</h5>
                 </div>
 
                 <button
@@ -600,7 +694,7 @@
             <div class="modal-body px-4 pb-4">
 
                 <p class="small text-muted2 mb-4">
-                    Update your password to keep your account secure.
+                    {{ __('mobile.change_password_desc') }}
                 </p>
 
                 <form
@@ -614,16 +708,14 @@
                     <div class="mb-3">
                         <label
                             for="current_password"
-                            class="form-label small fw-semibold">
-                            Current Password
-                        </label>
+                            class="form-label small fw-semibold">{{ __('mobile.current_password') }}</label>
 
                         <input
                             type="password"
                             class="form-control"
                             id="current_password"
                             name="current_password"
-                            placeholder="Enter current password"
+                            placeholder="{{ __('mobile.current_password_placeholder') }}"
                             required>
                     </div>
 
@@ -631,16 +723,14 @@
                     <div class="mb-3">
                         <label
                             for="password"
-                            class="form-label small fw-semibold">
-                            New Password
-                        </label>
+                            class="form-label small fw-semibold">{{ __('mobile.new_password') }}</label>
 
                         <input
                             type="password"
                             class="form-control"
                             id="password"
                             name="password"
-                            placeholder="Enter new password"
+                            placeholder="{{ __('mobile.new_password_placeholder') }}"
                             required>
                     </div>
 
@@ -648,16 +738,14 @@
                     <div class="mb-4">
                         <label
                             for="password_confirmation"
-                            class="form-label small fw-semibold">
-                            Confirm New Password
-                        </label>
+                            class="form-label small fw-semibold">{{ __('mobile.confirm_password') }}</label>
 
                         <input
                             type="password"
                             class="form-control"
                             id="password_confirmation"
                             name="password_confirmation"
-                            placeholder="Confirm new password"
+                            placeholder="{{ __('mobile.confirm_password_placeholder') }}"
                             required>
                     </div>
 
@@ -667,15 +755,11 @@
                         <button
                             type="button"
                             class="btn btn-light border flex-fill"
-                            data-bs-dismiss="modal">
-                            Cancel
-                        </button>
+                            data-bs-dismiss="modal">{{ __('mobile.cancel') }}</button>
 
                         <button
                             type="submit"
-                            class="btn btn-warm flex-fill">
-                            Update Password
-                        </button>
+                            class="btn btn-warm flex-fill">{{ __('mobile.update_password') }}</button>
 
                     </div>
 

@@ -313,18 +313,12 @@ class InstrukturController extends Controller
     {
         $user = auth()->user();
 
-        $isMobile = preg_match(
-            '/Mobile|Android|iPhone|iPad|iPod/i',
-            request()->header('User-Agent')
-        );
-
-        if ($user->hasRole('user') && $isMobile) {
+        // Berbasis role saja agar konsisten di semua ukuran layar.
+        if ($user->hasRole('user')) {
 
             $instructors = User::role('instruktur')
-                ->with([
-                    'specializations',
-                    'classes'
-                ])
+                ->with('specializations')
+                ->select(['uuid', 'name', 'avatar', 'biografi', 'pengalaman'])
                 ->get();
 
             $specializations = Specializaty::where('is_active', 'active')

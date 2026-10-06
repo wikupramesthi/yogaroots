@@ -151,6 +151,11 @@
                 <span class="badge bg-primary-subtle text-primary">{{ number_format($bookings->total()) }}
                     bookings</span>
             </div>
+            @if ($isAdmin)
+                <a href="{{ route('class-bookings.scan') }}" class="btn btn-success btn-sm">
+                    <i class="bi bi-qr-code-scan me-1"></i> Scan Check-in
+                </a>
+            @endif
         </div>
 
         <div class="card-body">

@@ -1,5 +1,5 @@
 @extends('layouts.mobile')
-@section('title', 'Notifications')
+@section('title', __('mobile.notifications'))
 @section('content')
 
 <section class="screen active" id="notifications">
@@ -8,18 +8,17 @@
         {{-- HEADER --}}
         <div class="mb-1">
             <a href="{{ route('dashboard.index') }}"
-                class="text-dark text-decoration-none d-inline-flex align-items-center mb-3">
+                class="text-dark text-decoration-none d-inline-flex align-items-center mb-3" onclick="if (window.history.length > 1) { window.history.back(); return false; }">
                 <i class="bi bi-arrow-left fs-5"></i>
+                <span class="ms-2 small fw-semibold">{{ __('mobile.back') }}</span>
             </a>
-            <p class="eyebrow mb-1">Inbox</p>
-            <h1 class="fw-semibold mb-0" style="font-size: 28px;">
-                Notifications
-            </h1>
+            <p class="eyebrow mb-1">{{ __('mobile.inbox') }}</p>
+            <h1 class="fw-semibold mb-0" style="font-size: 28px;">{{ __('mobile.notifications') }}</h1>
             <p class="small text-muted2 mb-0 mt-1">
                 @if ($unreadCount > 0)
-                    You have {{ $unreadCount }} unread message{{ $unreadCount > 1 ? 's' : '' }}.
+                    {{ trans_choice('mobile.unread_line', $unreadCount, ['count' => $unreadCount]) }}
                 @else
-                    You're all caught up.
+                    {{ __('mobile.all_caught_up') }}
                 @endif
             </p>
         </div>
@@ -28,19 +27,17 @@
         <div class="d-flex align-items-center justify-content-between gap-2 mt-4">
             <div class="d-flex gap-2">
                 <a href="{{ route('notifications.index', ['filter' => 'all']) }}"
-                    class="filter d-inline-block text-decoration-none {{ $filter !== 'unread' ? 'active' : '' }}">
-                    All
-                </a>
+                    class="filter d-inline-block text-decoration-none {{ $filter !== 'unread' ? 'active' : '' }}">{{ __('mobile.all') }}</a>
                 <a href="{{ route('notifications.index', ['filter' => 'unread']) }}"
                     class="filter d-inline-block text-decoration-none {{ $filter === 'unread' ? 'active' : '' }}">
-                    Unread{{ $unreadCount > 0 ? ' (' . $unreadCount . ')' : '' }}
+                    {{ __('mobile.unread') }}{{ $unreadCount > 0 ? ' (' . $unreadCount . ')' : '' }}
                 </a>
             </div>
             @if ($unreadCount > 0)
                 <form action="{{ route('notifications.readAll') }}" method="POST" class="m-0">
                     @csrf
                     <button type="submit" class="btn btn-link p-0 text-terra fw-semibold text-decoration-none text-small">
-                        Mark all read
+                        {{ __('mobile.mark_all_read') }}
                     </button>
                 </form>
             @endif
@@ -82,7 +79,7 @@
                                 {{ $notif->created_at?->diffForHumans() }}
                                 @if ($path)
                                     <span class="mx-1">•</span>
-                                    <span class="text-sage fw-semibold">Tap to view</span>
+                                    <span class="text-sage fw-semibold">{{ __('mobile.tap_to_view') }}</span>
                                 @endif
                             </p>
                         </div>
@@ -92,10 +89,10 @@
                 <div class="app-card text-center p-4">
                     <i class="bi bi-bell-slash text-muted2 fs-3"></i>
                     <p class="mb-1 mt-2 small fw-semibold">
-                        {{ $filter === 'unread' ? 'No unread notifications' : 'No notifications yet' }}
+                        {{ $filter === 'unread' ? __('mobile.no_unread') : __('mobile.no_notifications') }}
                     </p>
                     <p class="mb-0 text-muted2 text-small">
-                        Booking confirmations, payments, and check-ins will appear here.
+                        {{ __('mobile.notif_empty_desc') }}
                     </p>
                 </div>
             @endforelse
@@ -108,14 +105,14 @@
                     <span></span>
                 @else
                     <a href="{{ $notifications->previousPageUrl() }}"
-                        class="filter d-inline-block text-decoration-none">← Newer</a>
+                        class="filter d-inline-block text-decoration-none">{{ __('mobile.newer') }}</a>
                 @endif
                 <span class="text-muted2 text-small">
-                    Page {{ $notifications->currentPage() }} of {{ $notifications->lastPage() }}
+                    {{ __('mobile.page_of', ['current' => $notifications->currentPage(), 'last' => $notifications->lastPage()]) }}
                 </span>
                 @if ($notifications->hasMorePages())
                     <a href="{{ $notifications->nextPageUrl() }}"
-                        class="filter d-inline-block text-decoration-none">Older →</a>
+                        class="filter d-inline-block text-decoration-none">{{ __('mobile.older') }}</a>
                 @else
                     <span></span>
                 @endif

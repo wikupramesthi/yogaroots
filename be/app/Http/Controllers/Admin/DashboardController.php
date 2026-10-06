@@ -238,6 +238,11 @@ class DashboardController extends Controller
         $upcomingClasses = ClassSchedule::with([
             'class.instructor'
         ])
+            ->withCount([
+                'bookings as bookings_count' => function ($q) {
+                    $q->whereIn('status', ['confirmed', 'attended']);
+                },
+            ])
             ->where('status', 'active')
             ->where('day', $nextDay)
             ->orderBy('start_time')
@@ -260,20 +265,11 @@ class DashboardController extends Controller
         ];
 
         // =========================
-        // DETECT MOBILE
+        // MEMBER: laptop/desktop = view desktop, HP = phone-frame mobile.
+        // Bisa dioverride manual via session `member_view`.
         // =========================
 
-        $isMobile = preg_match(
-            '/Mobile|Android|iPhone|iPad|iPod/i',
-            request()->userAgent()
-        );
-
-
-        // =========================
-        // MOBILE MEMBER
-        // =========================
-
-        if ($isMember && $isMobile) {
+        if ($isMember && \App\Support\MemberView::isMobile()) {
 
             $todayDate = now()->format('Y-m-d');
             $tomorrowDate = now()->addDay()->format('Y-m-d');
@@ -286,6 +282,7 @@ class DashboardController extends Controller
                 ->keyBy(fn ($b) => $b->class_schedule_uuid . '|' . $b->booking_date?->format('Y-m-d'));
 
             return view('pages.mobile.home', $data + [
+                'courses' => array_slice($courses, 0, 6),
                 'myBookings' => $myBookings,
                 'todayDate' => $todayDate,
                 'tomorrowDate' => $tomorrowDate,
@@ -398,7 +395,7 @@ class DashboardController extends Controller
             ->route('dashboard.index')
             ->with(
                 'success',
-                'Thank you! Your WhatsApp number and information source have been successfully saved.'
+                __('flash.sumber_ok')
             );
     }
 }

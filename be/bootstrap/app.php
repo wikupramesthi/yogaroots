@@ -24,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         // "Tetap Login / Logout" ada di layouts/app.blade.php (@auth).
         $middleware->appendToGroup('web', 'route.permission');
         $middleware->appendToGroup('web', \App\Http\Middleware\AutoLogoutInactive::class);
+        $middleware->appendToGroup('web', \App\Http\Middleware\SetLocale::class);
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -27,6 +27,13 @@ class MemberScheduleController extends Controller
             $tab = 'today';
         }
 
+        $search = trim((string) $request->query('search', ''));
+        $studioUuid = $request->query('studio', '');
+        $level = $request->query('level', '');
+        if (! in_array($level, ['foundation', 'intermediate', 'advance'], true)) {
+            $level = '';
+        }
+
         $activePackage = $user->userPackages()
             ->with('package')
             ->where('status', 'active')
@@ -36,7 +43,7 @@ class MemberScheduleController extends Controller
             ->latest('started_at')
             ->first();
 
-        $base = ClassSchedule::with(['class.instructor'])
+        $base = ClassSchedule::with(['class.instructor', 'studio'])
             ->withCount([
                 'bookings as bookings_count' => function ($q) {
                     $q->whereIn('status', ['confirmed', 'attended']);
@@ -44,6 +51,38 @@ class MemberScheduleController extends Controller
             ])
             ->where('status', 'active')
             ->orderBy('start_time');
+
+        if ($search !== '') {
+            $like = '%' . str_replace(['\\', '%', '_'], ['\\\\', '\\%', '\\_'], $search) . '%';
+            $base->where(function ($q) use ($like) {
+                $q->whereHas('class', function ($cq) use ($like) {
+                    $cq->where('name', 'like', $like);
+                })->orWhereHas('class.instructor', function ($iq) use ($like) {
+                    $iq->where('name', 'like', $like);
+                });
+            });
+        }
+
+        if ($studioUuid !== '' && \App\Models\Studio::where('uuid', $studioUuid)->exists()) {
+            $base->where('studio_uuid', $studioUuid);
+        } else {
+            $studioUuid = '';
+        }
+
+        if ($level !== '') {
+            $base->whereHas('class', function ($q) use ($level) {
+                $q->where('level', $level);
+            });
+        }
+
+        $studios = \App\Models\Studio::orderBy('name')->get(['uuid', 'name']);
+
+        $filterView = [
+            'search' => $search,
+            'studioUuid' => $studioUuid,
+            'level' => $level,
+            'studios' => $studios,
+        ];
 
         if ($tab === 'today') {
             $date = now()->format('Y-m-d');
@@ -57,19 +96,19 @@ class MemberScheduleController extends Controller
                 ->get()
                 ->keyBy(fn ($b) => $b->class_schedule_uuid . '|' . $b->booking_date?->format('Y-m-d'));
 
-            return view('pages.mobile.schedules', [
+            return view('pages.mobile.schedules', array_merge($filterView, [
                 'tab' => $tab,
                 'date' => $date,
                 'schedules' => $schedules,
                 'myBookings' => $myBookings,
                 'activePackage' => $activePackage,
                 'unreadCount' => $user->unreadNotifications()->count(),
-            ]);
+            ]));
         }
 
-        // Upcoming: tampilkan data besok saja.
-        $date = now()->addDay()->format('Y-m-d');
-        $dates = collect([$date]);
+        // Upcoming: 7 hari ke depan (mulai besok), dikelompokkan per tanggal.
+        $dates = collect(range(1, 7))->map(fn ($i) => now()->addDays($i)->format('Y-m-d'));
+        $date = $dates->first();
 
         $byDay = (clone $base)->get()->groupBy('day');
 
@@ -89,14 +128,14 @@ class MemberScheduleController extends Controller
             ->get()
             ->keyBy(fn ($b) => $b->class_schedule_uuid . '|' . $b->booking_date?->format('Y-m-d'));
 
-        return view('pages.mobile.schedules', [
+        return view('pages.mobile.schedules', array_merge($filterView, [
             'tab' => $tab,
             'date' => $date,
             'groups' => $groups,
             'myBookings' => $myBookings,
             'activePackage' => $activePackage,
             'unreadCount' => $user->unreadNotifications()->count(),
-        ]);
+        ]));
     }
 
     /**
@@ -136,9 +175,20 @@ class MemberScheduleController extends Controller
 
         $bookings = $query->paginate(12)->withQueryString();
 
+        // Global queue position for waiting-list rows on this page.
+        $waitingPositions = [];
+        foreach ($bookings->getCollection()->where('status', 'waiting_list') as $b) {
+            $waitingPositions[$b->uuid] = ClassBooking::where('class_schedule_uuid', $b->class_schedule_uuid)
+                ->whereDate('booking_date', $b->booking_date)
+                ->where('status', 'waiting_list')
+                ->where('booked_at', '<=', $b->booked_at)
+                ->count();
+        }
+
         return view('pages.mobile.bookings', [
             'tab' => $tab,
             'bookings' => $bookings,
+            'waitingPositions' => $waitingPositions,
             'activePackage' => $activePackage,
             'unreadCount' => $user->unreadNotifications()->count(),
         ]);

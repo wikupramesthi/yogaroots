@@ -1,6 +1,6 @@
 @extends('layouts.mobile')
 
-@section('title', 'Instructor')
+@section('title', __('mobile.instructor'))
 
 @section('content')
 
@@ -9,10 +9,16 @@
     <div class="px-4 pt-4">
 
         {{-- Header --}}
-        <p class="eyebrow mb-1">Our Team</p>
+        <a href="{{ route('profile.edit') }}"
+            class="text-dark text-decoration-none d-inline-flex align-items-center mb-3" onclick="if (window.history.length > 1) { window.history.back(); return false; }">
+                <i class="bi bi-arrow-left fs-5"></i>
+                <span class="ms-2 small fw-semibold">{{ __('mobile.back') }}</span>
+            </a>
+
+        <p class="eyebrow mb-1">{{ __('mobile.our_team') }}</p>
 
         <h1 class="fw-semibold" style="font-size: 28px">
-            Meet Our Instructors
+            {{ __('mobile.meet_instructors') }}
         </h1>
 
 
@@ -24,7 +30,7 @@
                 id="search"
                 class="border-0 bg-transparent w-100 small"
                 style="outline: none"
-                placeholder="Find Your Instructor"
+                placeholder="{{ __('mobile.find_instructor') }}"
                 autocomplete="off">
         </div>
 
@@ -35,9 +41,7 @@
             <button
                 type="button"
                 class="filter active"
-                data-f="Semua">
-                All
-            </button>
+                data-f="Semua">{{ __('mobile.all') }}</button>
 
             @foreach($specializations as $specialization)
 
@@ -85,15 +89,16 @@
                 data-name="{{ strtolower($instructor->name) }}"
                 data-instructor-name="{{ $instructor->name }}"
                 data-avatar="{{ $avatar }}"
-                data-bio="{{ $instructor->biografi ?? 'Yoga instructor at Yogaroots.' }}"
-                data-experience="{{ $instructor->pengalaman ?? 'Experienced Yoga Instructor' }}"
+                data-bio="{{ $instructor->biografi ?? __('mobile.default_bio') }}"
+                data-experience="{{ $instructor->pengalaman ?? __('mobile.default_experience') }}"
                 data-specializations="{{ strtolower($specializationNames) }}">
 
                 <img
                     class="img-teacher"
                     src="{{ $avatar }}"
                     alt="{{ $instructor->name }}"
-                    loading="lazy">
+                    loading="lazy"
+                    decoding="async">
 
 
                 <div class="p-3">
@@ -129,7 +134,7 @@
                     {{-- Bio --}}
                     <p class="small text-muted2 mb-2 instructor-bio">
                         {{ Str::limit(
-                                $instructor->biografi ?? 'Yoga instructor at Yogaroots.',
+                                $instructor->biografi ?? __('mobile.default_bio'),
                                 120
                             ) }}
                     </p>
@@ -141,7 +146,7 @@
 
                         <i class="bi bi-award"></i>
 
-                        {{ $instructor->pengalaman ?? 'Experienced Yoga Instructor' }}
+                        {{ $instructor->pengalaman ?? __('mobile.default_experience') }}
 
                     </p>
 
@@ -152,7 +157,7 @@
                         class="btn btn-warm w-100 py-2 mt-3"
                         onclick="showInstructor('{{ $instructor->uuid }}')">
 
-                        View Profile
+                        {{ __('mobile.view_profile') }}
 
                     </button>
 
@@ -165,11 +170,11 @@
             <div class="app-card p-4 text-center">
 
                 <p class="mb-1 fw-semibold">
-                    No Instructors Available
+                    {{ __('mobile.no_instructors') }}
                 </p>
 
                 <p class="small text-muted2 mb-0">
-                    There are no instructors available at the moment.
+                    {{ __('mobile.no_instructors_desc') }}
                 </p>
 
             </div>
@@ -187,11 +192,11 @@
                 <i class="bi bi-person-x fs-2 text-muted2"></i>
 
                 <p class="mb-1 mt-2 fw-semibold">
-                    No Instructors Found
+                    {{ __('mobile.no_instructors_found') }}
                 </p>
 
                 <p class="small text-muted2 mb-0">
-                    Try another name or specialization.
+                    {{ __('mobile.try_another') }}
                 </p>
 
             </div>
@@ -276,9 +281,7 @@
                 <button
                     type="button"
                     class="btn btn-warm border w-100 py-2"
-                    data-bs-dismiss="modal">
-                    Close
-                </button>
+                    data-bs-dismiss="modal">{{ __('mobile.close') }}</button>
             </div>
 
         </div>
@@ -433,11 +436,11 @@
 
         const bio =
             instructor.dataset.bio ||
-            'Yoga instructor at Yogaroots.';
+            {{ __('mobile.default_bio') }};
 
         const experience =
             instructor.dataset.experience ||
-            'Experienced Yoga Instructor';
+            {{ __('mobile.default_experience') }};
 
         const specializations =
             instructor.dataset.specializations || '';

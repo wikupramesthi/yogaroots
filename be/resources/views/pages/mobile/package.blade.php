@@ -1,6 +1,6 @@
 @extends('layouts.mobile')
 
-@section('title', 'Membership')
+@section('title', __('mobile.membership'))
 
 @section('content')
 
@@ -296,15 +296,15 @@
     <div class="membership-top">
 
         {{-- Header --}}
-        <p class="eyebrow mb-1">Membership</p>
+        <p class="eyebrow mb-1">{{ __('mobile.membership') }}</p>
 
         <h1 class="fw-semibold m-h1">
-            Your yoga journey starts here.
+            {{ __('mobile.journey_title') }}
         </h1>
 
         <div class="membership-note">
             <i class="bi bi-stars"></i>
-            <span>All packages can be used for Yogaroots classes</span>
+            <span>{{ __('mobile.packages_note') }}</span>
         </div>
 
     </div>
@@ -315,18 +315,14 @@
 
         <a href="{{ route('packages.member') }}"
             class="mobile-filter-btn {{ !request('filter') ? 'active' : '' }}">
-            <i class="bi bi-grid"></i>
-            All
-        </a>
+            <i class="bi bi-grid"></i>{{ __('mobile.all') }}</a>
 
         <a href="{{ route('packages.member', [
                 'filter' => 'popular',
                 'sort' => request('sort')
             ]) }}"
             class="mobile-filter-btn {{ request('filter') === 'popular' ? 'active' : '' }}">
-            <i class="bi bi-star-fill"></i>
-            Popular
-        </a>
+            <i class="bi bi-star-fill"></i>{{ __('mobile.popular') }}</a>
 
         @if (request('filter') === 'unlimited')
         <a href="{{ route('packages.member', [
@@ -334,9 +330,7 @@
                     'sort' => request('sort')
                 ]) }}"
             class="mobile-filter-btn active">
-            <i class="bi bi-infinity"></i>
-            Unlimited
-        </a>
+            <i class="bi bi-infinity"></i>{{ __('mobile.unlimited') }}</a>
         @endif
 
     </div>
@@ -379,7 +373,7 @@
             </div>
 
             <div class="package-description">
-                {{ $package->description ?: 'Start your yoga journey with Yogaroots.' }}
+                {{ $package->description ?: __('mobile.package_fallback_desc') }}
             </div>
 
         </div>
@@ -389,7 +383,7 @@
         <div class="package-price-box">
 
             <div class="package-price-label">
-                Membership from
+                {{ __('mobile.membership_from') }}
             </div>
 
             @php
@@ -418,7 +412,7 @@
 
                         @if ($hasDiscount)
                         <div class="package-price-badge">
-                            SPECIAL PRICE
+                            {{ __('mobile.special_price') }}
                         </div>
 
                         <div class="package-old-price">
@@ -450,12 +444,12 @@
         <div class="options-heading">
 
             <span>
-                Membership Options
+                {{ __('mobile.membership_options') }}
             </span>
 
             <span>
                 {{ $package->options->count() }}
-                {{ $package->options->count() > 1 ? 'options' : 'option' }}
+                {{ trans_choice('mobile.options_count', $package->options->count(), ['count' => $package->options->count()]) }}
             </span>
 
         </div>
@@ -489,9 +483,7 @@
                     @if ($option->quota === null)
 
                     <span>
-                        <i class="bi bi-infinity"></i>
-                        Unlimited
-                    </span>
+                        <i class="bi bi-infinity"></i>{{ __('mobile.unlimited') }}</span>
 
                     @else
 
@@ -505,8 +497,7 @@
                     <span>
                         <i class="bi bi-clock"></i>
 
-                        {{ $option->duration }}
-                        {{ ucfirst($option->duration_unit) }}
+                        {{ $option->duration }} {{ __('mobile.duration_unit.' . $option->duration_unit) }}
                     </span>
 
                 </div>
@@ -519,9 +510,7 @@
 
 
             {{-- FEATURES --}}
-            <div class="features-heading">
-                What's included
-            </div>
+            <div class="features-heading">{{ __('mobile.whats_included') }}</div>
 
             <ul class="package-features">
 
@@ -539,7 +528,7 @@
                 <li>
                     <i class="bi bi-check-circle-fill"></i>
                     <span>
-                        Access to Yogaroots classes
+                        {{ __('mobile.default_feature') }}
                     </span>
                 </li>
 
@@ -554,7 +543,7 @@
                 class="choose-package"
                 onclick="window.location.href='{{ route('checkout.package', $package->uuid) }}'">
 
-                Choose Package
+                {{ __('mobile.choose_package') }}
                 <i class="bi bi-arrow-right"></i>
 
             </button>
@@ -568,11 +557,11 @@
         <i class="bi bi-box-seam"></i>
 
         <h6>
-            No Packages Available
+            {{ __('mobile.no_packages') }}
         </h6>
 
         <p>
-            Membership packages are currently unavailable.
+            {{ __('mobile.no_packages_desc') }}
         </p>
 
     </div>

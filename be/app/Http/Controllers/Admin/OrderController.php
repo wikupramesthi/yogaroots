@@ -65,12 +65,9 @@ class OrderController extends Controller
             ->withQueryString();
 
         $isAdmin = $user->hasAnyRole(['super-admin', 'admin']);
-        $isMobile = preg_match(
-            '/Mobile|Android|iPhone|iPad|iPod/i',
-            request()->userAgent() ?: ''
-        );
 
-        if (!$isAdmin && $isMobile) {
+        // Member: laptop/desktop = view desktop, HP = phone-frame mobile.
+        if (!$isAdmin && \App\Support\MemberView::isMobile()) {
             return view('pages.mobile.orders', [
                 'orders' => $orders,
                 'stats' => $stats,
@@ -136,10 +133,7 @@ class OrderController extends Controller
             ->with('package')
             ->first();
 
-        $isMobile = preg_match(
-            '/Mobile|Android|iPhone|iPad|iPod/i',
-            request()->userAgent() ?: ''
-        );
+        $isMobile = \App\Support\MemberView::isMobile();
 
         if (!$isAdmin && $isMobile) {
             return view(
@@ -183,13 +177,13 @@ class OrderController extends Controller
 
                 if ($order->status !== 'pending') {
                     throw ValidationException::withMessages([
-                        'order' => 'Only pending orders can be approved.',
+                        'order' => __('flash.order_only_pending_approve'),
                     ]);
                 }
 
                 if (!$order->package_option_uuid || !$order->packageOption) {
                     throw ValidationException::withMessages([
-                        'order' => 'This order has no package option to activate.',
+                        'order' => __('flash.order_no_option'),
                     ]);
                 }
 
@@ -286,7 +280,7 @@ class OrderController extends Controller
 
         return redirect()
             ->route('orders.show', $order->uuid)
-            ->with('success', 'Order marked as paid. Membership activated.');
+            ->with('success', __('flash.order_approve_ok'));
     }
 
     /**
@@ -303,7 +297,7 @@ class OrderController extends Controller
         $order = Order::where('uuid', $order)->firstOrFail();
 
         if ($order->status !== 'pending') {
-            return back()->with('error', 'Only pending orders can be rejected.');
+            return back()->with('error', __('flash.order_only_pending_reject'));
         }
 
         $validated = $request->validate([
@@ -319,7 +313,7 @@ class OrderController extends Controller
             $order->payment?->update(['status' => 'failed']);
         });
 
-        return back()->with('success', 'Order rejected.');
+        return back()->with('success', __('flash.order_rejected'));
     }
 
     /**
@@ -334,7 +328,7 @@ class OrderController extends Controller
         }
 
         if ($order->status !== 'pending') {
-            return back()->with('error', 'Proof can only be uploaded for pending orders.');
+            return back()->with('error', __('flash.proof_pending_only'));
         }
 
         $validated = $request->validate([
@@ -379,7 +373,7 @@ class OrderController extends Controller
             Log::error('Proof upload notification failed: ' . $e->getMessage());
         }
 
-        return back()->with('success', 'Transfer proof uploaded. Please wait for admin verification.');
+        return back()->with('success', __('flash.proof_ok'));
     }
 
     /**
@@ -461,7 +455,7 @@ class OrderController extends Controller
             return back()
                 ->withErrors([
                     'package_option_uuid' =>
-                    'The selected package option is not available.',
+                    __('flash.option_unavailable'),
                 ])
                 ->withInput();
         }
@@ -479,7 +473,7 @@ class OrderController extends Controller
             return back()
                 ->withErrors([
                     'package_option_uuid' =>
-                    'The selected package is not available.',
+                    __('flash.package_unavailable'),
                 ])
                 ->withInput();
         }
@@ -491,7 +485,7 @@ class OrderController extends Controller
             return back()
                 ->withErrors([
                     'package_option_uuid' =>
-                    'You still have an active package. You can only buy the same package again until it expires.',
+                    __('flash.active_package_block'),
                 ])
                 ->withInput();
         }
@@ -530,7 +524,7 @@ class OrderController extends Controller
                 )
                 ->with(
                     'success',
-                    'You already have a pending order for this option. Please complete the payment.'
+                    __('flash.order_pending_exists')
                 );
         }
 
@@ -608,8 +602,93 @@ class OrderController extends Controller
             )
             ->with(
                 'success',
-                'Order created successfully.'
+                __('flash.order_created')
             );
+    }
+
+    /**
+     * Order again from a failed/expired/cancelled order.
+     * Creates a fresh pending order with the same package option
+     * (re-validated), reusing a recent pending order if one exists.
+     */
+    public function reorder(Request $request, string $order)
+    {
+        $old = Order::where('uuid', $order)->firstOrFail();
+
+        $user = Auth::user();
+        $isAdmin = $user->hasAnyRole(['super-admin', 'admin']);
+
+        if (! $isAdmin && $old->user_uuid !== $user->uuid) {
+            abort(403);
+        }
+
+        if (! in_array($old->status, ['failed', 'expired', 'cancelled'], true)) {
+            return back()->with('error', __('flash.reorder_only_failed'));
+        }
+
+        if ($old->type !== 'package' || ! $old->package_option_uuid) {
+            return back()->with('error', __('flash.reorder_impossible'));
+        }
+
+        $option = PackageOption::with('package')
+            ->where('uuid', $old->package_option_uuid)
+            ->where('is_active', true)
+            ->first();
+
+        if (! $option || ! $option->package || $option->package->is_active !== 'active') {
+            return back()->with('error', __('flash.package_unavailable_now'));
+        }
+
+        $owner = $isAdmin ? $old->user : $user;
+        if (! $owner) {
+            return back()->with('error', __('flash.order_owner_missing'));
+        }
+
+        $activePackage = MembershipService::activePackage($owner);
+
+        if ($activePackage && $activePackage->package_uuid !== $option->package_uuid) {
+            return back()->with('error', __('flash.member_active_package_block'));
+        }
+
+        $amount = $option->discount_price !== null && $option->discount_price < $option->price
+            ? $option->discount_price
+            : $option->price;
+
+        $existingPending = Order::where('user_uuid', $owner->uuid)
+            ->where('type', 'package')
+            ->where('package_option_uuid', $option->uuid)
+            ->where('status', 'pending')
+            ->where('created_at', '>', now()->subHour())
+            ->latest()
+            ->first();
+
+        if ($existingPending) {
+            return redirect()
+                ->route('orders.show', $existingPending->uuid)
+                ->with('success', __('flash.order_pending_exists'));
+        }
+
+        $newOrder = DB::transaction(function () use ($owner, $option, $amount) {
+            return Order::create([
+                'uuid' => (string) Str::uuid(),
+                'user_uuid' => $owner->uuid,
+                'order_number' => 'ORD-' . strtoupper(Str::random(10)),
+                'type' => 'package',
+                'package_uuid' => $option->package_uuid,
+                'package_option_uuid' => $option->uuid,
+                'class_schedule_uuid' => null,
+                'amount' => $amount,
+                'status' => 'pending',
+                'expired_at' => now()->addHours(24),
+                'paid_at' => null,
+            ]);
+        });
+
+        $this->notifyAdmins($newOrder);
+
+        return redirect()
+            ->route('orders.show', $newOrder->uuid)
+            ->with('success', __('flash.reorder_created'));
     }
 
     /**

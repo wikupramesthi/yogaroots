@@ -63,6 +63,22 @@ Route::middleware('auth')->group(function () {
         return response()->json(['ok' => true]);
     })->name('keep-alive');
 
+    // Override tampilan member: /view/mobile atau /view/desktop.
+    Route::get('/view/{mode}', function (string $mode) {
+        if (in_array($mode, ['mobile', 'desktop'], true)) {
+            session(['member_view' => $mode]);
+        }
+        return back();
+    })->name('member-view');
+
+    // Bahasa tampilan: /lang/id atau /lang/en.
+    Route::get('/lang/{locale}', function (string $locale) {
+        if (in_array($locale, ['id', 'en'], true)) {
+            session(['locale' => $locale]);
+        }
+        return back();
+    })->name('locale');
+
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::post('/notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.readAll');
     Route::post('/notifications/{id}/read', [NotificationController::class, 'read'])->name('notifications.read');
@@ -148,14 +164,19 @@ Route::resource('classes', ClassController::class)->except(['show']);
         ->only(['index', 'show']);
     Route::post('orders', [OrderController::class, 'store'])
         ->name('orders.store')->middleware('throttle:30,1');
+    Route::post('orders/{order}/reorder', [OrderController::class, 'reorder'])
+        ->name('orders.reorder')->middleware('throttle:10,1');
     Route::resource('memberships', MembershipController::class)
         ->only(['index', 'show']);
     Route::resource('class-bookings', ClassBookingController::class)
         ->only(['index']);
+    Route::get('class-bookings/scan', [ClassBookingController::class, 'scan'])->name('class-bookings.scan');
+    Route::get('class-bookings/lookup', [ClassBookingController::class, 'lookup'])->name('class-bookings.lookup');
     Route::post('class-bookings', [ClassBookingController::class, 'store'])
         ->name('class-bookings.store')->middleware('throttle:120,1');
     Route::post('class-bookings/{booking}/check-in', [ClassBookingController::class, 'checkin'])->name('class-bookings.checkin')->middleware('throttle:120,1');
     Route::post('class-bookings/{booking}/cancel', [ClassBookingController::class, 'cancel'])->name('class-bookings.cancel')->middleware('throttle:120,1');
+    Route::post('class-bookings/{booking}/rate', [ClassBookingController::class, 'rate'])->name('class-bookings.rate')->middleware('throttle:30,1');
     Route::post('class-bookings/direct-check-in', [ClassBookingController::class, 'directCheckin'])->name('class-bookings.directCheckin')->middleware('throttle:120,1');
     // end payment
 

@@ -783,8 +783,7 @@ class PackageController extends Controller
         if (
             auth()->check() &&
             auth()->user()->hasRole('user') &&
-            $request->header('User-Agent') &&
-            preg_match('/Mobile|Android|iPhone|iPad/i', $request->header('User-Agent'))
+            \App\Support\MemberView::isMobile()
         ) {
             return view(
                 'pages.mobile.package',

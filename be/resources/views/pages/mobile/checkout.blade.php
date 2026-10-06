@@ -1,6 +1,6 @@
 @extends('layouts.mobile')
 
-@section('title', 'Checkout')
+@section('title', __('mobile.checkout'))
 
 @section('content')
 
@@ -13,21 +13,16 @@
 
             <a
                 href="{{ route('packages.member') }}"
-                class="text-dark text-decoration-none d-inline-flex align-items-center mb-3">
-
+                class="text-dark text-decoration-none d-inline-flex align-items-center mb-3" onclick="if (window.history.length > 1) { window.history.back(); return false; }">
                 <i class="bi bi-arrow-left fs-5"></i>
-
+                <span class="ms-2 small fw-semibold">{{ __('mobile.back') }}</span>
             </a>
 
-            <p class="eyebrow mb-1">
-                Membership
-            </p>
+            <p class="eyebrow mb-1">{{ __('mobile.membership') }}</p>
 
             <h1
                 class="fw-semibold"
-                style="font-size:28px">
-                Checkout Package
-            </h1>
+                style="font-size:28px">{{ __('mobile.checkout_package') }}</h1>
 
         </div>
 
@@ -76,12 +71,10 @@
         <div class="d-flex justify-content-between align-items-end mb-2">
 
             <div>
-                <h3 class="h5 fw-semibold mb-1">
-                    Choose your option
-                </h3>
+                <h3 class="h5 fw-semibold mb-1">{{ __('mobile.choose_option') }}</h3>
 
                 <p class="small text-muted2 mb-0">
-                    Select the option that suits your practice.
+                    {{ __('mobile.choose_option_desc') }}
                 </p>
             </div>
 
@@ -137,8 +130,7 @@
                                         <span>
                                             <i class="bi bi-calendar3"></i>
 
-                                            {{ $option->duration }}
-                                            {{ ucfirst($option->duration_unit) }}
+                                            {{ $option->duration }} {{ __('mobile.duration_unit.' . $option->duration_unit) }}
                                         </span>
 
                                         <span>
@@ -194,12 +186,10 @@
         <div class="d-flex justify-content-between align-items-end mt-4 mb-2">
 
             <div>
-                <h3 class="h5 fw-semibold mb-1">
-                    What's included
-                </h3>
+                <h3 class="h5 fw-semibold mb-1">{{ __('mobile.whats_included') }}</h3>
 
                 <p class="small text-muted2 mb-0">
-                    Your membership benefits.
+                    {{ __('mobile.membership_benefits') }}
                 </p>
             </div>
 
@@ -231,12 +221,10 @@
 
         <div class="mt-4 mb-2">
 
-            <h3 class="h5 fw-semibold mb-1">
-                Refund Policy
-            </h3>
+            <h3 class="h5 fw-semibold mb-1">{{ __('mobile.refund_policy') }}</h3>
 
             <p class="small text-muted2 mb-0">
-                Please review before payment.
+                {{ __('mobile.refund_review') }}
             </p>
 
         </div>
@@ -267,6 +255,10 @@
 
         <div style="height:100px"></div>
 
+        <p class="small text-muted2 text-center mb-2" style="font-size:11px;">
+            <i class="bi bi-shield-check me-1"></i>{{ __('mobile.bank_transfer_hint') }}
+        </p>
+
     </div>
 
 
@@ -280,9 +272,7 @@
 
             <div class="flex-fill">
 
-                <p class="mb-1 text-muted2 m-tiny" style="letter-spacing:.08em;">
-                    TOTAL
-                </p>
+                <p class="mb-1 text-muted2 m-tiny" style="letter-spacing:.08em;">{{ __('mobile.total') }}</p>
 
                 <div
                     id="summaryPrice"
@@ -343,7 +333,7 @@
                     id="continuePayment"
                     class="btn btn-warm checkout-button">
 
-                    Continue
+                    {{ __('mobile.continue') }}
 
                     <i class="bi bi-arrow-right ms-1"></i>
 
@@ -597,7 +587,7 @@
 
         transform: translateX(-50%);
 
-        padding: 12px 16px;
+        padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
 
         background: rgba(255, 253, 248, .96);
 

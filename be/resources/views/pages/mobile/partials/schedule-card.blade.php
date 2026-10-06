@@ -27,6 +27,8 @@ $myBooking = ($myBookings ?? collect())->get($schedule->uuid . '|' . $bookingDat
             <img src="{{ $avatar }}"
                 alt="{{ $instructor?->name ?? 'Instructor' }}"
                 class="rounded-circle"
+                loading="lazy"
+                decoding="async"
                 style="width:56px;height:56px;object-fit:cover;">
         </div>
 
@@ -40,7 +42,7 @@ $myBooking = ($myBookings ?? collect())->get($schedule->uuid . '|' . $bookingDat
                 @if ($class?->level)
                     <span class="mx-1">•</span>
                     <i class="bi bi-bar-chart me-1"></i>
-                    {{ ucfirst($class->level) }}
+                    {{ __('mobile.level.' . $class->level) }}
                 @endif
             </p>
             <p class="mb-0 text-muted2 text-truncate text-small">
@@ -49,7 +51,7 @@ $myBooking = ($myBookings ?? collect())->get($schedule->uuid . '|' . $bookingDat
                     {{ \Carbon\Carbon::parse($bookingDate)->translatedFormat('d M Y') }}
                     <span class="mx-1">•</span>
                 @else
-                    {{ ucfirst($schedule->day) }}
+                    {{ __('mobile.day.' . strtolower($schedule->day)) }}
                     <span class="mx-1">•</span>
                 @endif
                 <i class="bi bi-clock me-1"></i>
@@ -59,35 +61,45 @@ $myBooking = ($myBookings ?? collect())->get($schedule->uuid . '|' . $bookingDat
 
         <div class="d-flex flex-column align-items-end gap-2 flex-shrink-0">
             @if ($remaining <= 0 && empty($myBooking))
-                <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis text-nowrap">Full</span>
+                <span class="badge rounded-pill bg-danger-subtle text-danger-emphasis text-nowrap">{{ __('mobile.full') }}</span>
             @elseif ($remaining <= 3)
-                <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis text-nowrap">{{ $remaining }} Slots</span>
+                <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis text-nowrap">{{ __('mobile.slots_left', ['count' => $remaining]) }}</span>
             @else
-                <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis text-nowrap">{{ $remaining }} Slots</span>
+                <span class="badge rounded-pill bg-secondary-subtle text-secondary-emphasis text-nowrap">{{ __('mobile.slots_left', ['count' => $remaining]) }}</span>
             @endif
 
             @if ($myBooking && $myBooking->status === 'attended')
-                <span class="badge rounded-pill bg-success-subtle text-success-emphasis">Done</span>
+                <span class="badge rounded-pill bg-success-subtle text-success-emphasis">{{ __('mobile.done') }}</span>
             @elseif ($myBooking && $myBooking->status === 'waiting_list')
-                <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis">Waiting</span>
+                <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis">{{ __('mobile.waiting') }}</span>
             @elseif ($myBooking && $myBooking->status === 'confirmed')
                 @if ($bookingDate === now()->format('Y-m-d'))
                     <form action="{{ route('class-bookings.checkin', $myBooking->uuid) }}" method="POST" class="m-0">
                         @csrf
-                        <button type="submit" class="btn btn-warm btn-sm text-nowrap">Check In</button>
+                        <button type="submit" class="btn btn-warm btn-sm text-nowrap">{{ __('mobile.check_in') }}</button>
                     </form>
                 @else
-                    <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis">Booked</span>
+                    <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis">{{ __('mobile.booked') }}</span>
                 @endif
             @elseif (!empty($activePackage))
-                <form action="{{ route('class-bookings.store') }}" method="POST" class="m-0">
-                    @csrf
-                    <input type="hidden" name="class_schedule_uuid" value="{{ $schedule->uuid }}">
-                    <input type="hidden" name="booking_date" value="{{ $bookingDate }}">
-                    <button type="submit" class="btn btn-warm btn-sm text-nowrap">{{ $remaining <= 0 ? 'Waitlist' : 'Book' }}</button>
-                </form>
+                @if ($bookingDate === now()->format('Y-m-d'))
+                    <form action="{{ route('class-bookings.store') }}" method="POST" class="m-0">
+                        @csrf
+                        <input type="hidden" name="class_schedule_uuid" value="{{ $schedule->uuid }}">
+                        <input type="hidden" name="booking_date" value="{{ $bookingDate }}">
+                        <input type="hidden" name="checkin" value="1">
+                        <button type="submit" class="btn btn-warm btn-sm text-nowrap">{{ $remaining <= 0 ? __('mobile.waitlist') : __('mobile.book_and_in') }}</button>
+                    </form>
+                @else
+                    <form action="{{ route('class-bookings.store') }}" method="POST" class="m-0">
+                        @csrf
+                        <input type="hidden" name="class_schedule_uuid" value="{{ $schedule->uuid }}">
+                        <input type="hidden" name="booking_date" value="{{ $bookingDate }}">
+                        <button type="submit" class="btn btn-warm btn-sm text-nowrap">{{ $remaining <= 0 ? __('mobile.waitlist') : __('mobile.book') }}</button>
+                    </form>
+                @endif
             @else
-                <a href="{{ route('packages.member') }}" class="btn btn-sm btn-outline-secondary text-nowrap">View Plans</a>
+                <a href="{{ route('packages.member') }}" class="btn btn-sm btn-outline-secondary text-nowrap">{{ __('mobile.view_plans') }}</a>
             @endif
         </div>
     </div>

@@ -1,5 +1,5 @@
 @extends('layouts.mobile')
-@section('title', 'My Orders')
+@section('title', __('mobile.my_orders_title'))
 @section('content')
 
 <section class="screen active" id="orders">
@@ -8,25 +8,22 @@
         {{-- HEADER --}}
         <div class="mb-1">
             <a href="{{ route('dashboard.index') }}"
-                class="text-dark text-decoration-none d-inline-flex align-items-center mb-3">
+                class="text-dark text-decoration-none d-inline-flex align-items-center mb-3" onclick="if (window.history.length > 1) { window.history.back(); return false; }">
                 <i class="bi bi-arrow-left fs-5"></i>
+                <span class="ms-2 small fw-semibold">{{ __('mobile.back') }}</span>
             </a>
-            <p class="eyebrow mb-1">Membership</p>
-            <h1 class="fw-semibold mb-0" style="font-size: 28px;">
-                My Orders
-            </h1>
+            <p class="eyebrow mb-1">{{ __('mobile.membership') }}</p>
+            <h1 class="fw-semibold mb-0" style="font-size: 28px;">{{ __('mobile.my_orders_title') }}</h1>
             <p class="small text-muted2 mb-0 mt-1">
-                {{ $orders->total() }} order{{ $orders->total() === 1 ? '' : 's' }}
+                {{ trans_choice('mobile.orders_count', $orders->total(), ['count' => $orders->total()]) }}
             </p>
         </div>
 
         {{-- STATUS FILTERS --}}
         <div class="d-flex gap-2 mt-4" style="overflow-x:auto;">
             <a href="{{ route('orders.index', request()->except('status')) }}"
-                class="filter d-inline-block text-decoration-none text-nowrap {{ empty($filters['status']) ? 'active' : '' }}">
-                All
-            </a>
-            @foreach (['paid' => 'Paid', 'pending' => 'Pending', 'failed' => 'Failed', 'expired' => 'Expired', 'cancelled' => 'Cancelled'] as $st => $label)
+                class="filter d-inline-block text-decoration-none text-nowrap {{ empty($filters['status']) ? 'active' : '' }}">{{ __('mobile.all') }}</a>
+            @foreach (['paid' => __('mobile.order_status.paid'), 'pending' => __('mobile.order_status.pending'), 'failed' => __('mobile.order_status.failed'), 'expired' => __('mobile.order_status.expired'), 'cancelled' => __('mobile.order_status.cancelled')] as $st => $label)
                 <a href="{{ route('orders.index', array_merge(request()->except('status'), ['status' => $st])) }}"
                     class="filter d-inline-block text-decoration-none text-nowrap {{ ($filters['status'] ?? '') === $st ? 'active' : '' }}">
                     {{ $label }}
@@ -63,14 +60,14 @@
                                     </p>
                                     <p class="text-muted2 mb-0 m-meta">#{{ $order->order_number }}</p>
                                 </div>
-                                <span class="badge rounded-pill {{ $badge }}">{{ ucfirst($order->status) }}</span>
+                                <span class="badge rounded-pill {{ $badge }}">{{ __('mobile.order_status.' . $order->status) }}</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-center gap-2 mt-2">
                                 <p class="small text-muted2 mb-0">{{ $order->created_at?->format('d M Y') }}</p>
                                 <p class="small fw-semibold mb-0">Rp {{ number_format($order->amount, 0, ',', '.') }}</p>
                             </div>
                             <p class="mb-0 text-sage fw-semibold mt-2 m-micro">
-                                Tap to view {{ $order->status === 'pending' ? '· upload proof available' : '' }}
+                                {{ __('mobile.tap_to_view') }}{{ $order->status === 'pending' ? ' ' . __('mobile.tap_upload_suffix') : '' }}
                             </p>
                         </div>
                     </div>
@@ -78,9 +75,9 @@
             @empty
                 <div class="app-card text-center p-4">
                     <i class="bi bi-bag-x text-muted2 fs-3"></i>
-                    <p class="small fw-semibold mt-2 mb-0">No orders yet</p>
+                    <p class="small fw-semibold mt-2 mb-0">{{ __('mobile.no_orders') }}</p>
                     <p class="text-muted2 mb-0 text-small">
-                        Membership orders will appear here.
+                        {{ __('mobile.no_orders_desc') }}
                     </p>
                 </div>
             @endforelse
@@ -92,13 +89,13 @@
                 @if ($orders->onFirstPage())
                     <span></span>
                 @else
-                    <a href="{{ $orders->previousPageUrl() }}" class="filter d-inline-block text-decoration-none">← Newer</a>
+                    <a href="{{ $orders->previousPageUrl() }}" class="filter d-inline-block text-decoration-none">{{ __('mobile.newer') }}</a>
                 @endif
                 <span class="text-muted2 text-small">
-                    Page {{ $orders->currentPage() }} of {{ $orders->lastPage() }}
+                    {{ __('mobile.page_of', ['current' => $orders->currentPage(), 'last' => $orders->lastPage()]) }}
                 </span>
                 @if ($orders->hasMorePages())
-                    <a href="{{ $orders->nextPageUrl() }}" class="filter d-inline-block text-decoration-none">Older →</a>
+                    <a href="{{ $orders->nextPageUrl() }}" class="filter d-inline-block text-decoration-none">{{ __('mobile.older') }}</a>
                 @else
                     <span></span>
                 @endif

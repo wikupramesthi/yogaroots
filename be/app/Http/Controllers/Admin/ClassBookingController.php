@@ -8,6 +8,7 @@ use App\Models\Class\ClassSchedule;
 use App\Models\User;
 use App\Models\UserPackage;
 use App\Notifications\MemberCheckedInNotification;
+use App\Notifications\WaitingPromotedNotification;
 use App\Services\MembershipService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,12 +20,72 @@ use Illuminate\Validation\ValidationException;
 class ClassBookingController extends Controller
 {
     /**
+     * QR scan page for admin front-desk check-in.
+     * Member shows the QR from My Bookings; admin scans it here.
+     * Laptop = desktop view, HP = phone-frame mobile view.
+     */
+    public function scan()
+    {
+        abort_unless(Auth::user()->hasAnyRole(['super-admin', 'admin']), 403);
+
+        if (\App\Support\MemberView::isMobile()) {
+            return view('pages.mobile.scan');
+        }
+
+        return view('pages.class-bookings.scan');
+    }
+
+    /**
+     * Lookup a booking by uuid for the scan page (admin only, JSON).
+     */
+    public function lookup(Request $request)
+    {
+        abort_unless(Auth::user()->hasAnyRole(['super-admin', 'admin']), 403);
+
+        $validated = $request->validate([
+            'uuid' => ['required', 'uuid'],
+        ]);
+
+        $booking = ClassBooking::with(['user', 'schedule.class', 'schedule.studio'])
+            ->where('uuid', $validated['uuid'])
+            ->first();
+
+        if (! $booking) {
+            Log::warning('Scan lookup: booking not found', [
+                'uuid' => $validated['uuid'],
+                'by' => Auth::user()?->uuid,
+            ]);
+
+            return response()->json(['found' => false, 'uuid' => $validated['uuid']]);
+        }
+
+        return response()->json([
+            'found' => true,
+            'uuid' => $booking->uuid,
+            'member' => $booking->user?->name ?? '-',
+            'email' => $booking->user?->email ?? '-',
+            'class' => $booking->schedule?->class?->name ?? '-',
+            'day' => ucfirst($booking->schedule?->day ?? '-'),
+            'time' => substr((string) $booking->schedule?->start_time, 0, 5) . '–' . substr((string) $booking->schedule?->end_time, 0, 5),
+            'date' => $booking->booking_date?->format('d M Y') ?? '-',
+            'status' => $booking->status,
+            'is_today' => $booking->booking_date?->format('Y-m-d') === now()->format('Y-m-d'),
+            'checkin_url' => route('class-bookings.checkin', $booking->uuid),
+        ]);
+    }
+
+    /**
      * List class bookings (all for admin, own for members).
      */
     public function index(Request $request)
     {
         $user = Auth::user();
         $isAdmin = $user->hasAnyRole(['super-admin', 'admin']);
+
+        // Member selalu ke versi mobile phone-frame (satu halaman bookings).
+        if (! $isAdmin) {
+            return redirect()->route('bookings.my');
+        }
 
         $query = ClassBooking::with(['user', 'schedule.class', 'schedule.studio']);
 
@@ -102,20 +163,28 @@ class ClassBookingController extends Controller
         $validated = $request->validate([
             'class_schedule_uuid' => ['required', 'uuid', 'exists:class_schedules,uuid'],
             'booking_date' => ['required', 'date', 'after_or_equal:today', 'before_or_equal:' . now()->addDays(60)->format('Y-m-d')],
+            // 1-tap "Book & Check In" khusus jadwal hari ini.
+            'checkin' => ['nullable', 'boolean'],
         ]);
 
         $member = Auth::user();
         $date = Carbon::parse($validated['booking_date'])->format('Y-m-d');
+        $wantCheckin = !empty($validated['checkin']) && $date === now()->format('Y-m-d');
 
         try {
-            $status = DB::transaction(function () use ($member, $validated, $date) {
+            $result = DB::transaction(function () use ($member, $validated, $date, $wantCheckin) {
+                // Kunci baris member: dua request bersamaan (double-tap /
+                // dua tab) dari user yang sama diproses berurutan, sehingga
+                // tidak bisa lolos cek ganda dan tercipta booking dobel.
+                User::where('uuid', $member->uuid)->lockForUpdate()->firstOrFail();
+
                 $schedule = ClassSchedule::where('uuid', $validated['class_schedule_uuid'])
                     ->lockForUpdate()
                     ->firstOrFail();
 
                 if ($schedule->status !== 'active') {
                     throw ValidationException::withMessages([
-                        'schedule' => 'This class schedule is not available.',
+                        'schedule' => __('flash.schedule_unavailable'),
                     ]);
                 }
 
@@ -125,18 +194,36 @@ class ClassBookingController extends Controller
 
                 if (!$package) {
                     throw ValidationException::withMessages([
-                        'membership' => 'You need an active membership with remaining quota to book a class.',
+                        'membership' => __('flash.need_membership'),
                     ]);
                 }
 
                 $existing = ClassBooking::where('user_uuid', $member->uuid)
                     ->where('class_schedule_uuid', $schedule->uuid)
+                    ->whereDate('booking_date', $date)
                     ->where('status', '!=', 'cancelled')
                     ->first();
 
                 if ($existing) {
                     throw ValidationException::withMessages([
-                        'booking' => 'You already booked this class schedule.',
+                        'booking' => __('flash.already_booked_date'),
+                    ]);
+                }
+
+                // Tolak jadwal yang jamnya bentrok di tanggal yang sama
+                // (jadwal sama / jadwal lain yang waktunya tumpang tindih).
+                $overlap = ClassBooking::where('user_uuid', $member->uuid)
+                    ->whereDate('booking_date', $date)
+                    ->where('status', '!=', 'cancelled')
+                    ->whereHas('schedule', function ($q) use ($schedule) {
+                        $q->where('start_time', '<', $schedule->end_time)
+                            ->where('end_time', '>', $schedule->start_time);
+                    })
+                    ->exists();
+
+                if ($overlap) {
+                    throw ValidationException::withMessages([
+                        'booking' => __('flash.overlap_booking'),
                     ]);
                 }
 
@@ -144,29 +231,73 @@ class ClassBookingController extends Controller
                     ? 'confirmed'
                     : 'waiting_list';
 
-                ClassBooking::create([
+                // Kelas penuh tidak bisa langsung check-in.
+                if ($wantCheckin && $status !== 'confirmed') {
+                    $wantCheckin = false;
+                }
+
+                $booking = ClassBooking::create([
                     'user_uuid' => $member->uuid,
                     'class_schedule_uuid' => $schedule->uuid,
                     'booking_date' => $date,
                     'booking_type' => 'package',
-                    'quota_used' => 0,
-                    'status' => $status,
+                    'quota_used' => $wantCheckin ? 1 : 0,
+                    'status' => $wantCheckin ? 'attended' : $status,
                     'booked_at' => now(),
+                    'attended_at' => $wantCheckin ? now() : null,
                     'package_uuid' => $package->package_uuid,
                     'order_uuid' => $package->order_uuid,
                 ]);
 
-                return $status;
+                $remaining = $package->quota;
+
+                if ($wantCheckin) {
+                    // Kunci & potong kuota dalam transaksi yang sama.
+                    $lockedPackage = MembershipService::activePackage($member, true);
+                    if (!$lockedPackage) {
+                        throw ValidationException::withMessages([
+                            'membership' => __('flash.no_quota_checkin'),
+                        ]);
+                    }
+                    if (!is_null($lockedPackage->quota)) {
+                        $lockedPackage->decrement('quota');
+                        $lockedPackage->refresh();
+                    }
+                    $remaining = $lockedPackage->quota;
+                }
+
+                return ['status' => $wantCheckin ? 'attended' : $status, 'remaining' => $remaining, 'booking' => $booking];
             });
         } catch (ValidationException $e) {
             return back()->with('error', $e->getMessage())->withInput();
         }
 
+        if ($result['status'] === 'attended') {
+            try {
+                $result['booking']->loadMissing(['schedule.class', 'user']);
+                $result['booking']->user?->notify(new MemberCheckedInNotification(
+                    $result['booking']->schedule?->class?->name ?? 'Class',
+                    trim(ucfirst($result['booking']->schedule?->day ?? '') . ' ' . substr((string) $result['booking']->schedule?->start_time, 0, 5)),
+                    $result['remaining'],
+                    false,
+                ));
+            } catch (\Throwable $e) {
+                Log::error('Check-in notification failed: ' . $e->getMessage());
+            }
+
+            return back()->with(
+                'success',
+                is_null($result['remaining'])
+                    ? __('flash.booked_in')
+                    : __('flash.booked_in_remain', ['count' => $result['remaining']])
+            );
+        }
+
         return back()->with(
             'success',
-            $status === 'confirmed'
-                ? 'Class booked successfully.'
-                : 'Class is full. You are on the waiting list.'
+            $result['status'] === 'confirmed'
+                ? __('flash.booked_ok')
+                : __('flash.booked_waiting')
         );
     }
 
@@ -191,19 +322,19 @@ class ClassBookingController extends Controller
         }
 
         if ($booking->status === 'attended') {
-            return back()->with('error', 'This booking is already checked in.');
+            return back()->with('error', __('flash.already_checked_in'));
         }
 
         if ($booking->status !== 'confirmed') {
-            return back()->with('error', 'Only confirmed bookings can check in.');
+            return back()->with('error', __('flash.only_confirmed_checkin'));
         }
 
         if ($booking->schedule?->status !== 'active') {
-            return back()->with('error', 'This class schedule is not available.');
+            return back()->with('error', __('flash.schedule_unavailable'));
         }
 
-        if ($booking->booking_date?->format('Y-m-d') !== now()->format('Y-m-d')) {
-            return back()->with('error', 'Check-in is only available on the class day.');
+        if ($booking->booking_date?->format('Y-m-d') !== now()->format('Y-m-d') && ! $isAdmin) {
+            return back()->with('error', __('flash.checkin_day_only'));
         }
 
         try {
@@ -212,7 +343,7 @@ class ClassBookingController extends Controller
 
                 if ($fresh->status !== 'confirmed') {
                     throw ValidationException::withMessages([
-                        'booking' => 'This booking can no longer check in.',
+                        'booking' => __('flash.checkin_stale'),
                     ]);
                 }
 
@@ -221,7 +352,7 @@ class ClassBookingController extends Controller
 
                 if (!$package) {
                     throw ValidationException::withMessages([
-                        'membership' => 'No active membership with remaining quota. Check-in blocked.',
+                        'membership' => __('flash.no_quota_checkin'),
                     ]);
                 }
 
@@ -257,8 +388,9 @@ class ClassBookingController extends Controller
 
         return back()->with(
             'success',
-            'Checked in successfully.'
-                . (is_null($remaining) ? '' : ' Remaining quota: ' . $remaining . '.')
+            is_null($remaining)
+                ? __('flash.checked_in_ok')
+                : __('flash.checked_in_remain', ['count' => $remaining])
         );
     }
 
@@ -280,10 +412,30 @@ class ClassBookingController extends Controller
         }
 
         if (!in_array($booking->status, ['confirmed', 'waiting_list'], true)) {
-            return back()->with('error', 'This booking cannot be cancelled.');
+            return back()->with('error', __('flash.cannot_cancel'));
         }
 
-        DB::transaction(function () use ($booking) {
+        // Member tidak bisa cancel booking confirmed < 2 jam sebelum mulai
+        // agar slot tidak hangus mendadak. Admin bebas (koreksi).
+        if (! $isAdmin && $booking->status === 'confirmed') {
+            $booking->loadMissing('schedule');
+
+            $start = $booking->schedule?->start_time
+                ? substr((string) $booking->schedule->start_time, 0, 5)
+                : null;
+
+            if ($booking->booking_date && $start) {
+                $classAt = $booking->booking_date->copy()->setTimeFromTimeString($start);
+
+                if ($classAt->lessThanOrEqualTo(now()->addHours(2))) {
+                    return back()->with('error', __('flash.cancel_cutoff'));
+                }
+            }
+        }
+
+        $promotedUuid = null;
+
+        DB::transaction(function () use ($booking, &$promotedUuid) {
             $locked = ClassBooking::where('uuid', $booking->uuid)->lockForUpdate()->first();
 
             if (!in_array($locked->status, ['confirmed', 'waiting_list'], true)) {
@@ -294,17 +446,38 @@ class ClassBookingController extends Controller
             $locked->update(['status' => 'cancelled']);
 
             if ($wasConfirmed) {
-                ClassBooking::where('class_schedule_uuid', $locked->class_schedule_uuid)
+                $promoted = ClassBooking::where('class_schedule_uuid', $locked->class_schedule_uuid)
                     ->whereDate('booking_date', $locked->booking_date)
                     ->where('status', 'waiting_list')
                     ->orderBy('booked_at')
                     ->lockForUpdate()
-                    ->first()
-                    ?->update(['status' => 'confirmed']);
+                    ->first();
+
+                if ($promoted) {
+                    $promoted->update(['status' => 'confirmed']);
+                    $promotedUuid = $promoted->uuid;
+                }
             }
         });
 
-        return back()->with('success', 'Booking cancelled.');
+        // Notify the member promoted from the waiting list, if any.
+        if ($promotedUuid) {
+            try {
+                $promotedBooking = ClassBooking::with(['user', 'schedule.class'])
+                    ->where('uuid', $promotedUuid)
+                    ->first();
+
+                $promotedBooking?->user?->notify(new WaitingPromotedNotification(
+                    $promotedBooking->schedule?->class?->name ?? 'Class',
+                    trim(ucfirst($promotedBooking->schedule?->day ?? '') . ' ' . substr((string) $promotedBooking->schedule?->start_time, 0, 5)),
+                    $promotedBooking->booking_date?->format('d M Y') ?? '-',
+                ));
+            } catch (\Throwable $e) {
+                Log::error('Waiting promotion notification failed: ' . $e->getMessage());
+            }
+        }
+
+        return back()->with('success', __('flash.cancel_ok'));
     }
 
     /**
@@ -332,7 +505,7 @@ class ClassBookingController extends Controller
             'rating_comment' => $validated['rating_comment'] ?? null,
         ]);
 
-        return back()->with('success', 'Thanks for rating the class.');
+        return back()->with('success', __('flash.rate_ok'));
     }
 
     /**
@@ -363,7 +536,7 @@ class ClassBookingController extends Controller
         $date = Carbon::parse($validated['booking_date'])->format('Y-m-d');
 
         if ($schedule->status !== 'active') {
-            return back()->with('error', 'This class schedule is not available.');
+            return back()->with('error', __('flash.schedule_unavailable'));
         }
 
         try {
@@ -443,8 +616,9 @@ class ClassBookingController extends Controller
 
         return back()->with(
             'success',
-            $member->name . ' checked in successfully.'
-                . (is_null($remaining) ? '' : ' Remaining quota: ' . $remaining . '.')
+            is_null($remaining)
+                ? __('flash.member_checked_in', ['name' => $member->name])
+                : __('flash.member_checked_in_remain', ['name' => $member->name, 'count' => $remaining])
         );
     }
 
@@ -468,7 +642,7 @@ class ClassBookingController extends Controller
 
         if ($weekday !== strtolower((string) $schedule->day)) {
             throw ValidationException::withMessages([
-                'booking_date' => 'This class only runs on ' . ucfirst((string) $schedule->day) . 's.',
+                'booking_date' => __('flash.only_runs_on', ['day' => ucfirst(__('mobile.day.' . strtolower((string) $schedule->day)))]),
             ]);
         }
     }

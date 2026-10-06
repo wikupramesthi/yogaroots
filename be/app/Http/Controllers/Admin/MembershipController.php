@@ -59,7 +59,7 @@ class MembershipController extends Controller
             ->paginate(10)
             ->withQueryString();
 
-        return view('pages.memberships.index', [
+        $viewData = [
             'memberships' => $memberships,
             'stats' => $stats,
             'isAdmin' => $isAdmin,
@@ -68,7 +68,15 @@ class MembershipController extends Controller
                 'status' => $request->input('status'),
                 'expiring' => $request->input('expiring'),
             ],
-        ]);
+        ];
+
+        // Member: laptop/desktop = view desktop, HP = phone-frame mobile.
+        if (! $isAdmin && \App\Support\MemberView::isMobile()) {
+            $viewData['unreadCount'] = $user->unreadNotifications()->count();
+            return view('pages.mobile.memberships', $viewData);
+        }
+
+        return view('pages.memberships.index', $viewData);
     }
 
     /**
@@ -92,6 +100,10 @@ class MembershipController extends Controller
             ->latest('booked_at')
             ->limit(20)
             ->get();
+
+        if (! $isAdmin && \App\Support\MemberView::isMobile()) {
+            return view('pages.mobile.membership-show', compact('membership', 'bookings', 'isAdmin'));
+        }
 
         return view('pages.memberships.show', compact('membership', 'bookings', 'isAdmin'));
     }

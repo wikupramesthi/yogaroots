@@ -55,6 +55,6 @@ class NotificationController extends Controller
     {
         auth()->user()->unreadNotifications->markAsRead();
 
-        return back()->with('success', 'All notifications marked as read.');
+        return back()->with('success', __('flash.notif_read_all'));
     }
 }

@@ -29,12 +29,8 @@ class AccountController extends Controller
 
         $kecamatans = Kecamatan::all();
 
-        $isMobile = preg_match(
-            '/Mobile|Android|iPhone|iPad|iPod/i',
-            $request->header('User-Agent')
-        );
-
-        if ($user->hasRole('user') && $isMobile) {
+        // Member: laptop/desktop = view desktop, HP = phone-frame mobile.
+        if ($user->hasRole('user') && \App\Support\MemberView::isMobile()) {
             return view('pages.mobile.profile-update', [
                 'user' => $user,
                 'kecamatans' => $kecamatans,
@@ -100,7 +96,7 @@ class AccountController extends Controller
         $user = Auth::user();
 
         if (!$user) {
-            return back()->with('error', 'User not found.');
+            return back()->with('error', __('flash.user_not_found'));
         }
 
         /*
@@ -110,7 +106,7 @@ class AccountController extends Controller
     */
 
         $rules = [
-            'avatar'        => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'avatar'        => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'name'          => 'required|string|max:255',
             'email'         => 'nullable|email|unique:users,email,' . $user->uuid . ',uuid',
             'no_hp'         => 'required|unique:users,no_hp,' . $user->uuid . ',uuid',
@@ -184,11 +180,13 @@ class AccountController extends Controller
             }
 
 
-            // Simpan avatar baru
+            // Simpan avatar baru (diperkecil maks 512px agar ringan di HP)
             $path = $request->file('avatar')->store(
                 'avatars',
                 'public'
             );
+
+            $this->shrinkImage(storage_path('app/public/' . $path), 512);
 
             $user->avatar = $path;
         }
@@ -205,7 +203,7 @@ class AccountController extends Controller
         }
         return redirect()
             ->back()
-            ->with('success', 'Profile updated successfully.');
+            ->with('success', __('flash.profile_ok'));
     }
 
     /**
@@ -214,5 +212,59 @@ class AccountController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Perkecil gambar ke sisi terpanjang $maxPx (proporsional).
+     * Tidak pernah memperbesar; gagal diam-diam agar upload tetap jalan.
+     */
+    protected function shrinkImage(string $absolutePath, int $maxPx = 512): void
+    {
+        try {
+            $info = @getimagesize($absolutePath);
+            if (! $info) {
+                return;
+            }
+
+            [$w, $h] = $info;
+            if ($w <= $maxPx && $h <= $maxPx) {
+                return;
+            }
+
+            $mime = $info['mime'] ?? '';
+            $src = match ($mime) {
+                'image/jpeg' => @imagecreatefromjpeg($absolutePath),
+                'image/png' => @imagecreatefrompng($absolutePath),
+                'image/webp' => function_exists('imagecreatefromwebp') ? @imagecreatefromwebp($absolutePath) : false,
+                default => false,
+            };
+            if (! $src) {
+                return;
+            }
+
+            $scale = min($maxPx / $w, $maxPx / $h);
+            $nw = max(1, (int) round($w * $scale));
+            $nh = max(1, (int) round($h * $scale));
+
+            $dst = imagecreatetruecolor($nw, $nh);
+            if (in_array($mime, ['image/png', 'image/webp'], true)) {
+                imagealphablending($dst, false);
+                imagesavealpha($dst, true);
+                imagefill($dst, 0, 0, imagecolorallocatealpha($dst, 0, 0, 0, 127));
+            }
+            imagecopyresampled($dst, $src, 0, 0, 0, 0, $nw, $nh, $w, $h);
+
+            match ($mime) {
+                'image/jpeg' => imagejpeg($dst, $absolutePath, 82),
+                'image/png' => imagepng($dst, $absolutePath, 7),
+                'image/webp' => function_exists('imagewebp') ? imagewebp($dst, $absolutePath, 82) : false,
+                default => false,
+            };
+
+            imagedestroy($src);
+            imagedestroy($dst);
+        } catch (\Throwable) {
+            // Abaikan: file asli tetap dipakai.
+        }
     }
 }

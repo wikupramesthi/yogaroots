@@ -18,12 +18,8 @@ class ProfileController extends Controller
     {
         $user = $request->user();
 
-        $isMobile = preg_match(
-            '/Mobile|Android|iPhone|iPad|iPod/i',
-            $request->header('User-Agent')
-        );
-
-        if ($user->hasRole('user') && $isMobile) {
+        // Member: laptop/desktop = view desktop, HP = phone-frame mobile.
+        if ($user->hasRole('user') && \App\Support\MemberView::isMobile()) {
             $orders = \App\Models\Payment\Order::where('user_uuid', $user->uuid)
                 ->with(['package', 'packageOption'])
                 ->latest()

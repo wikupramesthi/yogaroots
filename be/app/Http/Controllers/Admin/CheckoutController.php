@@ -23,20 +23,10 @@ class CheckoutController extends Controller
 
         /*
         |--------------------------------------------------------------------------
-        | Mobile hanya untuk role user
+        | Member: laptop/desktop = view desktop, HP = phone-frame mobile.
         |--------------------------------------------------------------------------
         */
-        $isMobile = $request->header('User-Agent')
-            && preg_match(
-                '/Mobile|Android|iPhone|iPad/i',
-                $request->header('User-Agent')
-            );
-
-        if (
-            auth()->check() &&
-            auth()->user()->hasRole('user') &&
-            $isMobile
-        ) {
+        if (auth()->check() && auth()->user()->hasRole('user') && \App\Support\MemberView::isMobile()) {
             return view(
                 'pages.mobile.checkout',
                 compact('package')
