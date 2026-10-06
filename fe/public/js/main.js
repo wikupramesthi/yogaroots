@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * YogaRoots theme interactions.
  * Setiap blok dijaga oleh elemennya masing-masing — aman di semua halaman.
@@ -97,7 +96,7 @@ catch {
 const META_ICONS = {
     date: '<path d="M8 3v4m8-4v4M4 9h16M6 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path>',
     time: '<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>',
-    place: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle>',
+    place: '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a 1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle>',
 };
 function metaItem(icon, text) {
     return ('<span class="flex items-center gap-1.5">' +
@@ -199,13 +198,13 @@ window.openLightbox = (src, idx) => {
     if (!lb)
         return;
     // Cari indeks dari src (aman walau sebagian gambar gagal dimuat & terhapus)
-    let at = parseInt(idx, 10);
+    let at = parseInt(String(idx), 10);
     if (!Number.isInteger(at) || lightboxImgs[at] !== src) {
         at = lightboxImgs.indexOf(src);
     }
     lb.querySelector("img").src = src;
     lb.classList.remove("hidden");
-    lb.dataset.idx = at >= 0 ? at : 0;
+    lb.dataset.idx = String(at >= 0 ? at : 0);
 };
 window.closeLightbox = () => $("lightbox")?.classList.add("hidden");
 window.lightboxNav = (dir) => {
@@ -215,7 +214,7 @@ window.lightboxNav = (dir) => {
     let idx = (parseInt(lb.dataset.idx || "0", 10) + dir) % lightboxImgs.length;
     if (idx < 0)
         idx += lightboxImgs.length;
-    lb.dataset.idx = idx;
+    lb.dataset.idx = String(idx);
     lb.querySelector("img").src = lightboxImgs[idx];
 };
 /* ---------- 6. reveal on scroll ---------- */
@@ -229,29 +228,32 @@ window.lightboxNav = (dir) => {
         entries.forEach((ent) => {
             if (!ent.isIntersecting)
                 return;
-            ent.target.classList.remove("reveal-hide");
-            ent.target.classList.add("reveal-show");
-            const delay = parseInt(ent.target.dataset.delay || "0", 10);
+            const target = ent.target;
+            target.classList.remove("reveal-hide");
+            target.classList.add("reveal-show");
+            const delay = parseInt(target.dataset.delay || "0", 10);
             setTimeout(() => {
-                ent.target.style.transitionDelay = "";
+                target.style.transitionDelay = "";
             }, 850 + delay);
             io.unobserve(ent.target);
         });
     }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
     els.forEach((el) => {
-        el.classList.add("reveal-hide");
-        if (el.dataset.delay)
-            el.style.transitionDelay = el.dataset.delay + "ms";
+        const target = el;
+        target.classList.add("reveal-hide");
+        if (target.dataset.delay)
+            target.style.transitionDelay = target.dataset.delay + "ms";
         io.observe(el);
     });
 })();
 /* ---------- 7. fallback gambar ---------- */
 document.querySelectorAll("img[data-fallback]").forEach((img) => {
-    img.addEventListener("error", () => {
-        const fb = img.getAttribute("data-fallback");
-        if (fb && img.src !== fb && !img.dataset.fbk) {
-            img.dataset.fbk = "1";
-            img.src = fb;
+    const el = img;
+    el.addEventListener("error", () => {
+        const fb = el.getAttribute("data-fallback");
+        if (fb && el.src !== fb && !el.dataset.fbk) {
+            el.dataset.fbk = "1";
+            el.src = fb;
         }
     });
 });

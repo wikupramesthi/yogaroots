@@ -1,4 +1,3 @@
-// @ts-nocheck
 /**
  * YogaRoots theme interactions.
  * Setiap blok dijaga oleh elemennya masing-masing — aman di semua halaman.
@@ -16,9 +15,9 @@
 
 /* ---------- utils ---------- */
 
-const $ = (id) => document.getElementById(id);
+const $ = (id: string): HTMLElement | null => document.getElementById(id);
 
-function escapeHtml(s) {
+function escapeHtml(s: unknown): string {
   return String(s ?? "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -27,7 +26,7 @@ function escapeHtml(s) {
     .replace(/'/g, "&#x27;");
 }
 
-async function postJSON(url, body) {
+async function postJSON(url: string, body: unknown) {
   const res = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
@@ -44,7 +43,7 @@ function lockScroll() {
 
 function unlockScroll() {
   const anyOpen = ["bookingModal", "eventModal"].some(
-    (id) => $(id) && !$(id).classList.contains("hidden"),
+    (id) => $(id) && !$(id)!.classList.contains("hidden"),
   );
   if (!anyOpen) document.body.style.overflow = "";
 }
@@ -77,7 +76,7 @@ function unlockScroll() {
       menu.classList.toggle("hidden");
     });
     document.addEventListener("click", (e) => {
-      if (!menu.classList.contains("hidden") && !toggle.contains(e.target)) {
+      if (!menu.classList.contains("hidden") && !toggle.contains(e.target as Node)) {
         menu.classList.add("hidden");
       }
     });
@@ -86,7 +85,7 @@ function unlockScroll() {
 
 /* ---------- 2. modal ---------- */
 
-window.openBooking = () => {
+(window as any).openBooking = () => {
   const m = $("bookingModal");
   if (!m) return false;
   m.classList.remove("hidden");
@@ -94,13 +93,13 @@ window.openBooking = () => {
   return false;
 };
 
-window.closeBooking = () => {
+(window as any).closeBooking = () => {
   $("bookingModal")?.classList.add("hidden");
   unlockScroll();
 };
 
 const eventModal = $("eventModal");
-let eventsData = [];
+let eventsData: any[] = [];
 try {
   const raw = $("eventsData")?.textContent || "[]";
   const parsed = JSON.parse(raw);
@@ -109,14 +108,14 @@ try {
   eventsData = [];
 }
 
-const META_ICONS = {
+const META_ICONS: Record<string, string> = {
   date: '<path d="M8 3v4m8-4v4M4 9h16M6 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"></path>',
   time: '<circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path>',
   place:
-    '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle>',
+    '<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a 1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle>',
 };
 
-function metaItem(icon, text) {
+function metaItem(icon: string, text: string): string {
   return (
     '<span class="flex items-center gap-1.5">' +
     '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
@@ -127,7 +126,7 @@ function metaItem(icon, text) {
   );
 }
 
-window.openEvent = (i) => {
+(window as any).openEvent = (i: number) => {
   const e = eventsData[i];
   if (!e || !eventModal) return;
   $("eventTitle").textContent = e.judul || "";
@@ -146,7 +145,7 @@ window.openEvent = (i) => {
   // Deskripsi dari CMS backend (sudah disanitasi server-side bila lewat JSON ini).
   $("eventDesc").innerHTML = e.deskripsi || "";
 
-  const wa = $("eventWhatsApp");
+  const wa = $("eventWhatsApp") as HTMLAnchorElement | null;
   // No hardcoded WA number — base wajib dari server via data-wa-base (contactLinks).
   if (e.judul && wa && wa.dataset.waBase) {
     const base = wa.dataset.waBase;
@@ -157,24 +156,24 @@ window.openEvent = (i) => {
   lockScroll();
 };
 
-window.closeEvent = () => {
+(window as any).closeEvent = () => {
   eventModal?.classList.add("hidden");
   unlockScroll();
 };
 
 document.addEventListener("keydown", (ev) => {
   if (ev.key === "Escape") {
-    window.closeEvent();
-    window.closeBooking();
+    (window as any).closeEvent();
+    (window as any).closeBooking();
   }
 });
 
 /* ---------- 3. form kontak ---------- */
 
 (() => {
-  const form = $("contactForm");
+  const form = $("contactForm") as HTMLFormElement | null;
   if (!form) return;
-  const button = form.querySelector("button");
+  const button = form.querySelector("button") as HTMLButtonElement | null;
   const message = $("contactMsg");
   const idleLabel = button ? button.textContent : "";
 
@@ -195,7 +194,7 @@ document.addEventListener("keydown", (ev) => {
       form.reset();
     } catch (err) {
       message.className = "text-sm p-3 rounded-xl bg-red-50 text-red-700";
-      message.textContent = err.message;
+      message.textContent = (err as Error).message;
       message.classList.remove("hidden");
     } finally {
       if (button) {
@@ -221,33 +220,33 @@ document.querySelectorAll("[data-faq]").forEach((btn) => {
 
 /* ---------- 5. lightbox galeri ---------- */
 
-let lightboxImgs = [];
+let lightboxImgs: string[] = [];
 
-window.openLightbox = (src, idx) => {
+(window as any).openLightbox = (src: string, idx: number | string) => {
   lightboxImgs = Array.from(document.querySelectorAll("[data-gallery]")).map(
-    (img) => img.src,
+    (img) => (img as HTMLImageElement).src,
   );
   const lb = $("lightbox");
   if (!lb) return;
   // Cari indeks dari src (aman walau sebagian gambar gagal dimuat & terhapus)
-  let at = parseInt(idx, 10);
+  let at = parseInt(String(idx), 10);
   if (!Number.isInteger(at) || lightboxImgs[at] !== src) {
     at = lightboxImgs.indexOf(src);
   }
-  lb.querySelector("img").src = src;
+  (lb.querySelector("img") as HTMLImageElement).src = src;
   lb.classList.remove("hidden");
-  lb.dataset.idx = at >= 0 ? at : 0;
+  lb.dataset.idx = String(at >= 0 ? at : 0);
 };
 
-window.closeLightbox = () => $("lightbox")?.classList.add("hidden");
+(window as any).closeLightbox = () => $("lightbox")?.classList.add("hidden");
 
-window.lightboxNav = (dir) => {
+(window as any).lightboxNav = (dir: number) => {
   const lb = $("lightbox");
   if (!lb || !lightboxImgs.length) return;
   let idx = (parseInt(lb.dataset.idx || "0", 10) + dir) % lightboxImgs.length;
   if (idx < 0) idx += lightboxImgs.length;
-  lb.dataset.idx = idx;
-  lb.querySelector("img").src = lightboxImgs[idx];
+  lb.dataset.idx = String(idx);
+  (lb.querySelector("img") as HTMLImageElement).src = lightboxImgs[idx];
 };
 
 /* ---------- 6. reveal on scroll ---------- */
@@ -262,11 +261,12 @@ window.lightboxNav = (dir) => {
     (entries) => {
       entries.forEach((ent) => {
         if (!ent.isIntersecting) return;
-        ent.target.classList.remove("reveal-hide");
-        ent.target.classList.add("reveal-show");
-        const delay = parseInt(ent.target.dataset.delay || "0", 10);
+        const target = ent.target as HTMLElement;
+        target.classList.remove("reveal-hide");
+        target.classList.add("reveal-show");
+        const delay = parseInt(target.dataset.delay || "0", 10);
         setTimeout(() => {
-          ent.target.style.transitionDelay = "";
+          target.style.transitionDelay = "";
         }, 850 + delay);
         io.unobserve(ent.target);
       });
@@ -274,8 +274,9 @@ window.lightboxNav = (dir) => {
     { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
   );
   els.forEach((el) => {
-    el.classList.add("reveal-hide");
-    if (el.dataset.delay) el.style.transitionDelay = el.dataset.delay + "ms";
+    const target = el as HTMLElement;
+    target.classList.add("reveal-hide");
+    if (target.dataset.delay) target.style.transitionDelay = target.dataset.delay + "ms";
     io.observe(el);
   });
 })();
@@ -283,12 +284,12 @@ window.lightboxNav = (dir) => {
 /* ---------- 7. fallback gambar ---------- */
 
 document.querySelectorAll("img[data-fallback]").forEach((img) => {
-  img.addEventListener("error", () => {
-    const fb = img.getAttribute("data-fallback");
-    if (fb && img.src !== fb && !img.dataset.fbk) {
-      img.dataset.fbk = "1";
-      img.src = fb;
+  const el = img as HTMLImageElement;
+  el.addEventListener("error", () => {
+    const fb = el.getAttribute("data-fallback");
+    if (fb && el.src !== fb && !el.dataset.fbk) {
+      el.dataset.fbk = "1";
+      el.src = fb;
     }
   });
 });
-
