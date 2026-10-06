@@ -335,7 +335,7 @@
                             You don't have any upcoming classes yet.
                         </p>
 
-                        <a href="{{ route('class-schedules.index') }}" class="btn btn-sm btn-dark rounded-3 px-3">
+                        <a href="{{ route('schedules.index') }}" class="btn btn-sm btn-dark rounded-3 px-3">
                             <i class="bi bi-search me-1"></i>
                             Browse Classes
                         </a>
@@ -423,8 +423,12 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h6 class="fw-bold mb-0" style="color:var(--bs-heading-color);">Today’s Schedule</h6>
-                        <a href="{{ route('class-schedules.index') }}"
-                            class="small fw-semibold text-decoration-none">View All</a>
+                        <div class="d-flex gap-3">
+                            <a href="{{ route('bookings.my') }}"
+                                class="small fw-semibold text-decoration-none">My Bookings</a>
+                            <a href="{{ route('schedules.index') }}"
+                                class="small fw-semibold text-decoration-none">View All</a>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">

@@ -58,7 +58,8 @@ class ProfileTest extends TestCase
             ->assertSessionHasNoErrors()
             ->assertRedirect('/profile');
 
-        $this->assertNotNull($user->refresh()->email_verified_at);
+        // fresh() bypasses global scopes on this Laravel version, so query directly.
+        $this->assertNotNull(User::where('uuid', $user->uuid)->first()->email_verified_at);
     }
 
     public function test_user_can_delete_their_account(): void
@@ -76,7 +77,7 @@ class ProfileTest extends TestCase
             ->assertRedirect('/');
 
         $this->assertGuest();
-        $this->assertNull($user->fresh());
+        $this->assertSoftDeleted($user);
     }
 
     public function test_correct_password_must_be_provided_to_delete_account(): void

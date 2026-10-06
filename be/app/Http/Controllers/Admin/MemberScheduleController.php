@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Class\ClassBooking;
 use App\Models\Class\ClassSchedule;
+use App\Support\MemberView;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,14 +97,17 @@ class MemberScheduleController extends Controller
                 ->get()
                 ->keyBy(fn ($b) => $b->class_schedule_uuid . '|' . $b->booking_date?->format('Y-m-d'));
 
-            return view('pages.mobile.schedules', array_merge($filterView, [
-                'tab' => $tab,
-                'date' => $date,
-                'schedules' => $schedules,
-                'myBookings' => $myBookings,
-                'activePackage' => $activePackage,
-                'unreadCount' => $user->unreadNotifications()->count(),
-            ]));
+            return view(
+                MemberView::isMobile() ? 'pages.mobile.schedules' : 'pages.schedules.index',
+                array_merge($filterView, [
+                    'tab' => $tab,
+                    'date' => $date,
+                    'schedules' => $schedules,
+                    'myBookings' => $myBookings,
+                    'activePackage' => $activePackage,
+                    'unreadCount' => $user->unreadNotifications()->count(),
+                ])
+            );
         }
 
         // Upcoming: 7 hari ke depan (mulai besok), dikelompokkan per tanggal.
@@ -128,18 +132,22 @@ class MemberScheduleController extends Controller
             ->get()
             ->keyBy(fn ($b) => $b->class_schedule_uuid . '|' . $b->booking_date?->format('Y-m-d'));
 
-        return view('pages.mobile.schedules', array_merge($filterView, [
-            'tab' => $tab,
-            'date' => $date,
-            'groups' => $groups,
-            'myBookings' => $myBookings,
-            'activePackage' => $activePackage,
-            'unreadCount' => $user->unreadNotifications()->count(),
-        ]));
+        return view(
+            MemberView::isMobile() ? 'pages.mobile.schedules' : 'pages.schedules.index',
+            array_merge($filterView, [
+                'tab' => $tab,
+                'date' => $date,
+                'groups' => $groups,
+                'myBookings' => $myBookings,
+                'activePackage' => $activePackage,
+                'unreadCount' => $user->unreadNotifications()->count(),
+            ])
+        );
     }
 
     /**
-     * My Bookings (mobile): riwayat & booking yang akan datang.
+     * My Bookings: riwayat & booking yang akan datang.
+     * HP = phone-frame mobile, laptop = view desktop.
      */
     public function bookings(Request $request)
     {
@@ -185,12 +193,15 @@ class MemberScheduleController extends Controller
                 ->count();
         }
 
-        return view('pages.mobile.bookings', [
-            'tab' => $tab,
-            'bookings' => $bookings,
-            'waitingPositions' => $waitingPositions,
-            'activePackage' => $activePackage,
-            'unreadCount' => $user->unreadNotifications()->count(),
-        ]);
+        return view(
+            MemberView::isMobile() ? 'pages.mobile.bookings' : 'pages.bookings.index',
+            [
+                'tab' => $tab,
+                'bookings' => $bookings,
+                'waitingPositions' => $waitingPositions,
+                'activePackage' => $activePackage,
+                'unreadCount' => $user->unreadNotifications()->count(),
+            ]
+        );
     }
 }

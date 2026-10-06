@@ -146,6 +146,9 @@ class AccountController extends Controller
 
         $validated = $request->validate($rules);
 
+        $emailChanged = array_key_exists('email', $validated)
+            && $validated['email'] !== $user->email;
+
         $user->name = $validated['name'];
         $user->email = $validated['email'] ?? $user->email;
         $user->no_hp = $validated['no_hp'];
@@ -192,6 +195,11 @@ class AccountController extends Controller
         }
 
         $user->save();
+
+        // Email diganti = wajib verifikasi ulang seperti update profil Breeze.
+        if ($emailChanged) {
+            $user->forceFill(['email_verified_at' => null])->save();
+        }
 
 
         if (!$user->hasRole('user')) {

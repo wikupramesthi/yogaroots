@@ -24,6 +24,10 @@ class GlobalSearchController extends Controller
      */
     public function index(Request $request)
     {
+        // Command palette admin: member tidak boleh mengakses
+        // (hasilnya berisi data admin + email semua user).
+        abort_unless($request->user()->hasAnyRole(['super-admin', 'admin']), 404);
+
         $q = trim((string) $request->query('q', ''));
 
         if (mb_strlen($q) < 2 || mb_strlen($q) > 60) {

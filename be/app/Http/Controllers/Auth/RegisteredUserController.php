@@ -41,6 +41,12 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // User baru selalu role user agar tidak lolos ke halaman admin
+        // (tanpa role, whitelist member di RouteMiddleware tidak berlaku).
+        if (\Spatie\Permission\Models\Role::where('name', 'user')->exists()) {
+            $user->assignRole('user');
+        }
+
         event(new Registered($user));
 
         Auth::login($user);

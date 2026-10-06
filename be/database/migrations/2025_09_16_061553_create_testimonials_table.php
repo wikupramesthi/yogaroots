@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('isi_testimoni');       
             $table->string('foto')->nullable(); 
             $table->integer('urutan')->default(0); 
-            $table->boolean('is_active', ['active', 'inactive'])->default('active');
+            $table->string('is_active', 20)->default('active');
             $table->timestamps();
         });
     }

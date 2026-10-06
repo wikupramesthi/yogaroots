@@ -39,10 +39,8 @@ return new class extends Migration
 
             $table->timestamps();
 
-            $table->foreign('order_uuid')
-                ->references('uuid')
-                ->on('orders')
-                ->cascadeOnDelete();
+            // FK ke orders dipindah ke migrasi 2026_10_07_000002 (tabel
+            // orders dibuat belakangan, 2026_09_13).
 
             $table->index('transaction_id');
 

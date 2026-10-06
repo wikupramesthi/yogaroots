@@ -60,10 +60,8 @@ return new class extends Migration
                 ->on('packages')
                 ->nullOnDelete();
 
-            $table->foreign('order_uuid')
-                ->references('uuid')
-                ->on('orders')
-                ->nullOnDelete();
+            // FK ke orders dipindah ke migrasi 2026_10_07_000002 (tabel
+            // orders dibuat belakangan, 2026_09_13).
 
             $table->index([
                 'user_uuid',

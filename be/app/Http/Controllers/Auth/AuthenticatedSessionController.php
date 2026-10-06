@@ -24,8 +24,11 @@ class AuthenticatedSessionController extends Controller
         $faqs = Faq::where('status', 'active')
             ->orderBy('created_at', 'asc')
             ->get();
-        $jumlahInstruktur       = User::role('instruktur')->count();
-        $jumlahMembers       = User::role('user')->count();
+
+        // Tahan 500 bila role belum di-seed (mis. instalasi baru / testing).
+        $hasRoles = \Spatie\Permission\Models\Role::whereIn('name', ['instruktur', 'user'])->exists();
+        $jumlahInstruktur = $hasRoles ? User::role('instruktur')->count() : 0;
+        $jumlahMembers = $hasRoles ? User::role('user')->count() : 0;
 
         if ($this->isMobile()) {
             return view('auth.login-mobile');
