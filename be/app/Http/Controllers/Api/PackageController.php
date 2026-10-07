@@ -275,7 +275,7 @@ class PackageController extends Controller
                 'Package index error: ' . $e->getMessage(),
                 [
                     'request' =>
-                    $request->all(),
+                    $request->only(['search', 'filter', 'sort', 'page', 'per_page']),
 
                     'trace' =>
                     $e->getTraceAsString(),

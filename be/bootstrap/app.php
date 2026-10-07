@@ -25,7 +25,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->appendToGroup('web', 'route.permission');
         $middleware->appendToGroup('web', \App\Http\Middleware\AutoLogoutInactive::class);
         $middleware->appendToGroup('web', \App\Http\Middleware\SetLocale::class);
-        //
+        $middleware->throttleApi('api');
+        $middleware->prependToGroup('api', \App\Http\Middleware\ApiSecurityHeaders::class);
+        $middleware->appendToGroup('api', \App\Http\Middleware\VerifyApiKey::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (\Illuminate\Session\TokenMismatchException $e, \Illuminate\Http\Request $request) {

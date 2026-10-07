@@ -18,7 +18,7 @@ class BannerResource extends JsonResource
             'uuid'      => $this->uuid,
             'nama'      => $this->nama,
             'deskripsi' => $this->deskripsi,
-            'link'      => $this->link,
+            'link'      => $this->link && preg_match('#^(https?://|/(?!/))#i', $this->link) ? $this->link : null,
             'gambar'    => $this->gambar
                                 ? url('storage/' . $this->gambar)
                                 : url('images/default.png'),

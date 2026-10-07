@@ -20,6 +20,7 @@ class ArticleController extends Controller
     {
         try {
             $articles = Article::with(['user', 'category'])
+                ->published()
                 ->orderBy('created_at', 'desc')
                 ->get();
 
@@ -54,6 +55,7 @@ class ArticleController extends Controller
     {
         try {
             $article = Article::with(['user', 'category'])
+                ->published()
                 ->where('slug', $slug)
                 ->first();
 
@@ -136,6 +138,7 @@ class ArticleController extends Controller
 
             // Fetch articles via relation
             $articles = Article::with(['user', 'category'])
+                ->published()
                 ->whereHas('category', function ($query) use ($slug) {
                     $query->where('slug', $slug);
                 })

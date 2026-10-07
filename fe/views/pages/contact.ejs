@@ -177,7 +177,7 @@
                 ></textarea>
 
                 <div class="flex flex-col sm:flex-row sm:items-center gap-3 rounded-2xl bg-sand-100/60 border border-sand-200/60 p-4">
-                  <label for="captchaAnswer" class="sm:flex-1 text-sm font-medium text-sage-900 leading-snug">
+                  <label for="captchaAnswer" id="captchaQuestion" class="sm:flex-1 text-sm font-medium text-sage-900 leading-snug">
                     <%= captcha?.question || "Verification unavailable" %>
                   </label>
                   <input
@@ -190,6 +190,7 @@
                   />
                   <input
                     type="hidden"
+                    id="captchaId"
                     name="captcha_id"
                     value="<%= captcha?.captcha_id || '' %>"
                   />

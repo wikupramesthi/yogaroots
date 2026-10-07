@@ -99,7 +99,7 @@ const _jsonLd = {
 <% if (_site.gaId) { %>
 <!-- Google Analytics 4 (ID dari Identitas Website) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=<%= encodeURIComponent(_site.gaId) %>"></script>
-<script>
+<script nonce="<%= nonce %>">
   window.dataLayer = window.dataLayer || [];
   function gtag(){ dataLayer.push(arguments); }
   gtag("js", new Date());
@@ -113,10 +113,12 @@ const _jsonLd = {
   href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap"
   rel="stylesheet"
 />
+<link rel="preload" href="/css/output.css?v=<%= assetV %>" as="style" />
 <link rel="stylesheet" href="/css/output.css?v=<%= assetV %>" />
+<link rel="preload" href="/css/custom.css?v=<%= assetV %>" as="style" />
 <link rel="stylesheet" href="/css/custom.css?v=<%= assetV %>" />
 
-<script>
+<script nonce="<%= nonce %>">
   (function () {
     try {
       const saved = localStorage.getItem("serene-dark");

@@ -1,0 +1,1 @@
+"use strict";(()=>{var l=document.getElementById("loadMoreBtn"),o=document.querySelectorAll(".article-card"),t=9,c=9;l?.addEventListener("click",()=>{let n=t+c;for(let e=t;e<n&&e<o.length;e++)o[e].classList.remove("hidden");t=n,t>=o.length&&l.remove()});})();

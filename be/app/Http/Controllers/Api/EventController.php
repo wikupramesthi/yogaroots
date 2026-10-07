@@ -305,7 +305,7 @@ class EventController extends Controller
             Log::error(
                 'Event index error: ' . $e->getMessage(),
                 [
-                    'request' => $request->all(),
+                    'request' => $request->only(['search', 'filter', 'start_date', 'end_date', 'page', 'per_page']),
                     'trace' => $e->getTraceAsString(),
                 ]
             );

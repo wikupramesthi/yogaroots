@@ -32,7 +32,7 @@
       <p class="mt-6 font-sans text-base sm:text-lg text-sand-100/80 max-w-xl mx-auto leading-relaxed anim-fade-in" style="animation-delay:.45s"><%= t.heroSub %></p>
 
       <div class="mt-10 flex flex-wrap items-center justify-center gap-4 anim-fade-in" style="animation-delay:.65s">
-        <button onclick="openBooking()" class="group inline-flex items-center gap-3 text-sand-900 bg-sand-50 hover:bg-white rounded-full px-8 py-3.5 text-sm font-medium tracking-wide transition-all">
+        <button type="button" data-action="open-booking" class="group inline-flex items-center gap-3 text-sand-900 bg-sand-50 hover:bg-white rounded-full px-8 py-3.5 text-sm font-medium tracking-wide transition-all">
           <%= t.heroBookClass %>
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
         </button>
@@ -135,7 +135,7 @@
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <% (events || []).slice(0, 3).forEach((event, i) => { %>
-          <button type="button" onclick="openEvent(<%= i %>)" class="reveal group relative overflow-hidden rounded-2xl aspect-[4/5] text-left w-full shadow-lg ring-1 ring-sand-900/5 hover:-translate-y-1 transition-transform duration-300" data-delay="<%= i * 100 %>">
+          <button type="button" data-action="open-event" data-index="<%= i %>" class="reveal group relative overflow-hidden rounded-2xl aspect-[4/5] text-left w-full shadow-lg ring-1 ring-sand-900/5 hover:-translate-y-1 transition-transform duration-300" data-delay="<%= i * 100 %>">
             <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[1400ms] group-hover:scale-105" style="background-image:url('<%= event.gambar || '/img/yogaroots_about1.jpg' %>')"></div>
             <div class="approach-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10"></div>
             <span class="absolute top-4 left-4 z-10 px-2.5 py-1 rounded-full bg-sand-50/15 backdrop-blur-sm text-[9px] font-bold tracking-[0.15em] text-sand-50">EVENT</span>
@@ -172,9 +172,9 @@
 
       <!-- Event Modal -->
       <div id="eventModal" class="fixed inset-0 z-[70] hidden">
-        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeEvent()"></div>
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" data-action="close-event"></div>
         <div class="relative max-w-lg mx-auto mt-[6vh] mb-6 bg-white rounded-3xl shadow-2xl overflow-hidden">
-          <button onclick="closeEvent()" class="absolute right-4 top-4 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm grid place-items-center text-sage-700 hover:bg-white transition" aria-label="Close">
+          <button type="button" data-action="close-event" class="absolute right-4 top-4 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm grid place-items-center text-sage-700 hover:bg-white transition" aria-label="Close">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
           </button>
           <div class="p-6 sm:p-8">
@@ -206,7 +206,7 @@
           <%= t.chatWhatsApp %>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
         </a>
-        <button onclick="openBooking()" class="btn-secondary group text-base px-8 py-3.5">
+        <button type="button" data-action="open-booking" class="btn-secondary group text-base px-8 py-3.5">
           <%= t.bookClassCta %>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
         </button>

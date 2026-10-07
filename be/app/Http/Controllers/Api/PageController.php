@@ -14,7 +14,9 @@ class PageController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $pages = Page::orderBy('created_at', 'DESC')->get();
+            $pages = Page::where('is_published', true)
+                ->orderBy('created_at', 'DESC')
+                ->get();
 
             if ($pages->isEmpty()) {
                 return response()->json([

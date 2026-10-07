@@ -1,8 +1,8 @@
 <%# Modal booking — diekstrak dari footer agar footer hanya berisi footer %>
 <div id="bookingModal" class="fixed inset-0 z-[60] hidden">
-  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeBooking()"></div>
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" data-action="close-booking"></div>
   <div class="relative max-w-md mx-auto mt-[10vh] bg-white rounded-[24px] p-6 shadow-2xl m-4">
-    <button onclick="closeBooking()" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-sage-50 grid place-items-center">✕</button>
+    <button type="button" data-action="close-booking" class="absolute right-4 top-4 w-8 h-8 rounded-full bg-sage-50 grid place-items-center">✕</button>
     <h3 class="font-display text-2xl font-bold">Begin Your Practice</h3>
     <p class="text-sm text-stone-warm mt-1">Sign in with Google and take the first step toward a healthier body and a more balanced mind.</p>
 
@@ -28,19 +28,3 @@
     <p id="bookingMsg" class="text-sm mt-3 hidden p-3 rounded-xl"></p>
   </div>
 </div>
-<script>
-  // Fallback darurat: modal tetap bisa dibuka walau /js/main.js gagal dimuat
-  // (mis. cache korup / path salah). Versi penuh di main.js akan menimpanya.
-  window.openBooking = window.openBooking || function () {
-    var m = document.getElementById("bookingModal");
-    if (!m) return false;
-    m.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-    return false;
-  };
-  window.closeBooking = window.closeBooking || function () {
-    var m = document.getElementById("bookingModal");
-    if (m) m.classList.add("hidden");
-    document.body.style.overflow = "";
-  };
-</script>

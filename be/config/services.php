@@ -47,5 +47,9 @@ return [
         'secret' => env('NOCAPTCHA_SECRET'),
     ],
 
+    'frontend_api' => [
+        'key' => env('FRONTEND_API_KEY'),
+    ],
+
 
 ];

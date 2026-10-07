@@ -209,7 +209,7 @@
                 alt="<%= p.title %>"
                 loading="lazy"
                 decoding="async"
-                onerror="this.remove();"
+                data-img-error="remove"
                 class="h-[180px] w-full object-cover group-hover:scale-[1.02] transition"
               >
             <% } %>
@@ -275,7 +275,7 @@
           <%= t.chatWhatsApp %>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
         </a>
-        <button onclick="openBooking()" class="btn-secondary group text-base px-8 py-3.5">
+        <button type="button" data-action="open-booking" class="btn-secondary group text-base px-8 py-3.5">
           <%= t.bookClassCta %>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-arrow ms-2"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
         </button>

@@ -34,8 +34,8 @@ use App\Http\Controllers\Api\SiteStatsController;
 Route::get('/faqs', [FaqController::class, 'index']);
 Route::get('/testimonials', [TestimonialController::class, 'index']);
 Route::get('/categories', [ArticleController::class, 'category']);
-Route::get('/contact/captcha', [ContactController::class, 'captcha']);
-Route::post('/contact', [ContactController::class, 'store']);
+Route::get('/contact/captcha', [ContactController::class, 'captcha'])->middleware('throttle:api-captcha');
+Route::post('/contact', [ContactController::class, 'store'])->middleware('throttle:api-contact');
 Route::get('/banners', [BannerController::class, 'index']);
 
 // Identitas website publik (nama, kontak, sosmed, SEO, branding) — untuk frontend
@@ -54,11 +54,11 @@ Route::prefix('articles')->group(function () {
 // Staff (legacy alias 'pegawai' kept for backward compatibility)
 Route::prefix('pegawai')->group(function () {
     Route::get('/', [PegawaiController::class, 'index']);
-    Route::get('{uuid}', [PegawaiController::class, 'show']);
+    Route::get('{uuid}', [PegawaiController::class, 'show'])->whereUuid('uuid');
 });
 Route::prefix('staff')->group(function () {
     Route::get('/', [PegawaiController::class, 'index']);
-    Route::get('{uuid}', [PegawaiController::class, 'show']);
+    Route::get('{uuid}', [PegawaiController::class, 'show'])->whereUuid('uuid');
 });
 
 // Static pages

@@ -11,6 +11,7 @@
           alt="<%= site.name %>"
           width="160"
           height="40"
+          decoding="async"
           class="logo-main h-10 w-auto object-contain"
         >
       </a>
@@ -45,12 +46,12 @@
 
         <a href="/contact" rel="noopener noreferrer" class="nav-text text-sm transition-colors <%= isHeroPage ? '' : 'text-sand-600 hover:text-sand-900' %>"><%= t.contactUs %></a>
 
-        <button onclick="openBooking()" class="nav-login inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition-colors"><%= t.login %></button>
+        <button type="button" data-action="open-booking" class="nav-login inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition-colors"><%= t.login %></button>
       </div>
 
       <!-- Mobile -->
       <div class="lg:hidden flex items-center gap-2">
-        <button onclick="openBooking()" class="nav-login inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition-colors"><%= t.login %></button>
+        <button type="button" data-action="open-booking" class="nav-login inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition-colors"><%= t.login %></button>
         <button id="mobileBtn" class="nav-hamburger p-2 rounded-lg transition-colors <%= isHeroPage ? '' : 'text-sand-800 hover:bg-sand-100' %>" aria-label="Menu">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
         </button>
@@ -73,7 +74,7 @@
         <span class="<%= isHeroPage ? 'text-white/30' : 'text-sand-300' %>">|</span>
         <a href="?lang=zh" class="text-sm <%= lang === 'zh' ? 'font-bold' : '' %>">🇨🇳 中文</a>
       </div>
-      <button onclick="openBooking()" class="block w-full text-center bg-lotus-600 text-white px-4 py-3 rounded-xl font-semibold mt-2"><%= t.bookClassBtn %></button>
+      <button type="button" data-action="open-booking" class="block w-full text-center bg-lotus-600 text-white px-4 py-3 rounded-xl font-semibold mt-2"><%= t.bookClassBtn %></button>
     </div>
   </div>
 </header>

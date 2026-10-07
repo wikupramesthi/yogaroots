@@ -342,7 +342,7 @@ class ClassScheduleController extends Controller
             Log::error(
                 'Class schedule index error: ' . $e->getMessage(),
                 [
-                    'request' => $request->all(),
+                    'request' => $request->only(['date', 'level', 'time', 'studio_uuid', 'page', 'per_page']),
                     'trace' => $e->getTraceAsString(),
                 ]
             );

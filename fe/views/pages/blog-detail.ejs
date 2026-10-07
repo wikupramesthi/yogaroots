@@ -48,7 +48,7 @@
                 alt="<%= post.title %>"
                 loading="eager"
                 decoding="async"
-                onerror="this.closest('figure').remove();"
+                data-img-error="closest-figure"
                 class="w-full max-h-[420px] object-cover"
               >
             </figure>
@@ -143,9 +143,8 @@
     <%- include('../partials/footer') %>
 
     <!-- main.js dimuat sekali via partials/footer -->
-    <script>
+    <script nonce="<%= nonce %>">
       (function () {
-        "use strict";
         var btn = document.getElementById("copyLinkBtn");
         if (!btn) return;
         btn.addEventListener("click", function () {

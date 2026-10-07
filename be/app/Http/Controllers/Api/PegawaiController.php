@@ -48,7 +48,15 @@ class PegawaiController extends Controller
     public function show(string $uuid)
     {
         try {
-            $pegawai = User::where('uuid', $uuid)->firstOrFail();
+            if (! \Illuminate\Support\Str::isUuid($uuid)) {
+                throw new \Illuminate\Database\Eloquent\ModelNotFoundException();
+            }
+
+            $pegawai = User::where('uuid', $uuid)
+                ->whereHas('roles', function ($query) {
+                    $query->where('name', 'guru');
+                })
+                ->firstOrFail();
 
             return response()->json([
                 'status' => 'success',

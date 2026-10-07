@@ -62,8 +62,12 @@ class Article extends Model
     public function scopePublished($query)
     {
         return $query->where(function ($q) {
-            $q->where('scheduled_at', '<=', now())
-                ->orWhereNull('scheduled_at');
+            $q->where('status', 'published')
+                ->orWhere(function ($s) {
+                    $s->where('status', 'scheduled')
+                        ->whereNotNull('scheduled_at')
+                        ->where('scheduled_at', '<=', now());
+                });
         });
     }
 

@@ -7,12 +7,13 @@
 
   <img
     data-gallery
+    data-action="open-lightbox"
+    data-lightbox-index="<%= i %>"
+    data-remove-on-error
     src="<%= img.gambar %>"
     alt="<%= img.nama || 'Our Gallery' %>"
-    loading="lazy"
-    decoding="async"
-    onerror="this.remove()"
-    onclick="openLightbox('<%= img.gambar %>', <%= i %>)"
+    <% if (i < 4) { %>decoding="async"<% } else { %>loading="lazy" decoding="async"<% } %>
+    <% if (i === 0) { %>fetchpriority="high"<% } %>
     class="h-[200px] w-full object-cover rounded-[20px] cursor-pointer hover:opacity-90 transition"
   >
 
@@ -21,10 +22,10 @@
 </section>
 
 <div id="lightbox" class="fixed inset-0 z-[70] hidden bg-black/80 backdrop-blur-sm grid place-items-center p-4">
-  <button onclick="closeLightbox()" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/20 text-white grid place-items-center text-xl">✕</button>
-  <button onclick="lightboxNav(-1)" class="absolute left-6 w-10 h-10 rounded-full bg-white grid place-items-center">‹</button>
-  <img src="" class="max-h-[80vh] max-w-[90vw] rounded-2xl object-contain">
-  <button onclick="lightboxNav(1)" class="absolute right-6 w-10 h-10 rounded-full bg-white grid place-items-center">›</button>
+  <button type="button" data-action="close-lightbox" class="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/20 text-white grid place-items-center text-xl">✕</button>
+  <button type="button" data-action="lightbox-nav" data-dir="-1" class="absolute left-6 w-10 h-10 rounded-full bg-white grid place-items-center">‹</button>
+  <img src="" alt="" class="max-h-[80vh] max-w-[90vw] rounded-2xl object-contain">
+  <button type="button" data-action="lightbox-nav" data-dir="1" class="absolute right-6 w-10 h-10 rounded-full bg-white grid place-items-center">›</button>
 </div>
 
-<%- include('../partials/footer') %><!-- main.js dimuat sekali via partials/footer --></body></html>
+<%- include('../partials/footer', { pageScript: 'gallery' }) %></body></html>

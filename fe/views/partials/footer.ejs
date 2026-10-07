@@ -7,7 +7,7 @@
       <!-- Brand (dinamis dari Identitas Website) -->
       <div class="col-span-2 md:col-span-1">
         <div class="mb-4">
-          <img src="<%= site.logoWhiteUrl || "/img/logo-white.png" %>" alt="<%= site.name %>" width="160" height="40" class="h-10 w-auto object-contain" loading="lazy">
+          <img src="<%= site.logoWhiteUrl || "/img/logo-white.png" %>" alt="<%= site.name %>" width="160" height="40" class="h-10 w-auto object-contain" loading="lazy" decoding="async">
         </div>
         <p class="text-sm text-sand-400 leading-relaxed"><%= site.tagline %><% if (site.description) { %> — <%= site.description.length > 140 ? site.description.slice(0, 140) + "…" : site.description %><% } %></p>
         <% if (site.facebookHref || site.youtubeHref || site.tiktokHref) { %>
@@ -73,7 +73,7 @@
       <div class="col-span-2 md:col-span-1">
         <h4 class="font-sans text-xs uppercase tracking-[0.15em] text-sand-500 mb-4"><%= t.footerCommunity %></h4>
         <a href="/art-of-living" aria-label="Art of Living" class="inline-block hover:opacity-90 transition-opacity">
-          <img src="/img/artofliving-white.png" alt="Art of Living" width="160" height="40" class="h-10 w-auto object-contain" loading="lazy">
+          <img src="/img/artofliving-white.png" alt="Art of Living" width="160" height="40" class="h-10 w-auto object-contain" loading="lazy" decoding="async">
         </a>
       </div>
 
@@ -91,4 +91,5 @@
 
 <%- include('./whatsapp-float') %>
 <%- include('./booking-modal') %>
-<script src="/js/main.js?v=<%= assetV %>"></script>
+<script src="/js/main.js?v=<%= assetV %>" defer></script>
+<% if (typeof pageScript !== 'undefined' && pageScript) { %><script nonce="<%= nonce %>">import("/js/pages/<%= pageScript %>.js?v=<%= assetV %>");</script><% } %>

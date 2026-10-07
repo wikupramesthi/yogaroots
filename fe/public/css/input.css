@@ -4,147 +4,187 @@
 
 /* Serene Yoga Design Tokens */
 @theme {
-  --color-sage-50: #f6f7f4;
-  --color-sage-100: #e8ebe3;
-  --color-sage-200: #d1d7c7;
-  --color-sage-300: #b3be9f;
-  --color-sage-400: #8da074;
-  --color-sage-500: #7a8f5a;
-  --color-sage-600: #5f7246;
-  --color-sage-700: #4b5a38;
-  --color-sage-800: #3d4a2f;
-  --color-sage-900: #343e29;
+	--color-sage-50: #f6f7f4;
+	--color-sage-100: #e8ebe3;
+	--color-sage-200: #d1d7c7;
+	--color-sage-300: #b3be9f;
+	--color-sage-400: #8da074;
+	--color-sage-500: #7a8f5a;
+	--color-sage-600: #5f7246;
+	--color-sage-700: #4b5a38;
+	--color-sage-800: #3d4a2f;
+	--color-sage-900: #343e29;
 
-  --color-terracotta-400: #e49a7a;
-  --color-terracotta-500: #d67e5a;
-  --color-terracotta-600: #c86a46;
-  --color-cream: #fdfbf7;
-  --color-ink: #1a1d1a;
-  --color-stone-warm: #8c8578;
+	--color-terracotta-400: #e49a7a;
+	--color-terracotta-500: #d67e5a;
+	--color-terracotta-600: #c86a46;
+	--color-cream: #fdfbf7;
+	--color-ink: #1a1d1a;
+	--color-stone-warm: #8c8578;
 
-  /* Earthy palette */
-  --color-sand-50: #faf8f5;
-  --color-sand-100: #f5f0ea;
-  --color-sand-200: #ebe3d8;
-  --color-sand-300: #ddd2c0;
-  --color-sand-400: #c4b49a;
-  --color-sand-500: #a88f6c;
-  --color-sand-600: #8b7557;
-  --color-sand-700: #6e5b42;
-  --color-sand-800: #524330;
-  --color-sand-900: #362c1f;
+	/* Earthy palette */
+	--color-sand-50: #faf8f5;
+	--color-sand-100: #f5f0ea;
+	--color-sand-200: #ebe3d8;
+	--color-sand-300: #ddd2c0;
+	--color-sand-400: #c4b49a;
+	--color-sand-500: #a88f6c;
+	--color-sand-600: #8b7557;
+	--color-sand-700: #6e5b42;
+	--color-sand-800: #524330;
+	--color-sand-900: #362c1f;
 
-  --color-gold: #9b8454;
-  --color-gold-dark: #7a6840;
-  --color-gold-light: #b8a47a;
+	--color-gold: #9b8454;
+	--color-gold-dark: #7a6840;
+	--color-gold-light: #b8a47a;
 
-  --color-lotus-50: #fcf1ee;
-  --color-lotus-100: #fbe8e3;
-  --color-lotus-600: #c94f30;
-  --color-lotus-700: #a93f26;
+	--color-lotus-50: #fcf1ee;
+	--color-lotus-100: #fbe8e3;
+	--color-lotus-600: #c94f30;
+	--color-lotus-700: #a93f26;
 
-  --color-clay-50: #f9f3ef;
-  --color-clay-100: #f0e2d8;
-  --color-clay-200: #e2c5b0;
-  --color-clay-400: #c08260;
-  --color-clay-600: #9a553a;
-  --color-clay-700: #7d4331;
-  --color-clay-800: #66382c;
+	--color-clay-50: #f9f3ef;
+	--color-clay-100: #f0e2d8;
+	--color-clay-200: #e2c5b0;
+	--color-clay-400: #c08260;
+	--color-clay-600: #9a553a;
+	--color-clay-700: #7d4331;
+	--color-clay-800: #66382c;
 
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "DM Sans", system-ui, sans-serif;
+	--font-display: "Playfair Display", Georgia, serif;
+	--font-body: "DM Sans", system-ui, sans-serif;
 }
 
 /* Base */
-html { scroll-behavior: smooth; }
-body { font-family: var(--font-body); background: var(--color-cream); color: var(--color-ink); }
+html {
+	scroll-behavior: smooth;
+}
+body {
+	font-family: var(--font-body);
+	background: var(--color-cream);
+	color: var(--color-ink);
+}
 
 /* Custom scrollbar */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-thumb { background: var(--color-sage-300); border-radius: 999px; }
+::-webkit-scrollbar {
+	width: 8px;
+}
+::-webkit-scrollbar-thumb {
+	background: var(--color-sage-300);
+	border-radius: 999px;
+}
 
 /* Glass effect */
-.glass { backdrop-filter: blur(16px); background: rgba(253,251,247,0.8); }
-.dark .glass { background: rgba(26,29,26,0.8); border-color: rgba(255,255,255,0.08) !important; }
+.glass {
+	backdrop-filter: blur(16px);
+	background: rgba(253, 251, 247, 0.8);
+}
+.dark .glass {
+	background: rgba(26, 29, 26, 0.8);
+	border-color: rgba(255, 255, 255, 0.08) !important;
+}
 
 /* Dark mode overrides */
-.dark body { background: #121412; color: #f0ede6; }
-.dark .bg-cream { background-color: #121412 !important; }
-.dark .bg-white { background-color: #1e211e !important; }
-.dark .bg-sage-50 { background-color: #1e2520 !important; }
-.dark .bg-sage-100 { background-color: #242e24 !important; }
-.dark .border-sage-100 { border-color: rgba(255,255,255,0.08) !important; }
-.dark .border-sage-200 { border-color: rgba(255,255,255,0.12) !important; }
-.dark .text-ink { color: #f0ede6 !important; }
-.dark .text-stone-warm { color: #a8a29a !important; }
-.dark .text-sage-700 { color: #b3be9f !important; }
+.dark body {
+	background: #121412;
+	color: #f0ede6;
+}
+.dark .bg-cream {
+	background-color: #121412 !important;
+}
+.dark .bg-white {
+	background-color: #1e211e !important;
+}
+.dark .bg-sage-50 {
+	background-color: #1e2520 !important;
+}
+.dark .bg-sage-100 {
+	background-color: #242e24 !important;
+}
+.dark .border-sage-100 {
+	border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.dark .border-sage-200 {
+	border-color: rgba(255, 255, 255, 0.12) !important;
+}
+.dark .text-ink {
+	color: #f0ede6 !important;
+}
+.dark .text-stone-warm {
+	color: #a8a29a !important;
+}
+.dark .text-sage-700 {
+	color: #b3be9f !important;
+}
 
 /* Hide scrollbar for schedule */
-.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
 
 /* =========================
    THEME COMPONENTS
    ========================= */
 
 .card-earthy {
-  border-radius: 1rem;
-  border: 1px solid rgb(235 227 216 / 0.6);
-  background-color: rgb(255 255 255 / 0.8);
-  box-shadow: 0 2px 16px rgba(30, 24, 16, 0.04);
-  transition:
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
+	border-radius: 1rem;
+	border: 1px solid rgb(235 227 216 / 0.6);
+	background-color: rgb(255 255 255 / 0.8);
+	box-shadow: 0 2px 16px rgba(30, 24, 16, 0.04);
+	transition:
+		box-shadow 0.3s ease,
+		transform 0.3s ease;
 }
 
 .card-earthy:hover {
-  box-shadow: 0 8px 32px rgba(30, 24, 16, 0.08);
-  transform: translateY(-1px);
+	box-shadow: 0 8px 32px rgba(30, 24, 16, 0.08);
+	transform: translateY(-1px);
 }
 
 .btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.75rem;
-  background-color: #6b4e2b;
-  padding: 0.625rem 1.5rem;
-  font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 500;
-  color: #faf8f5;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0.75rem;
+	background-color: #6b4e2b;
+	padding: 0.625rem 1.5rem;
+	font-family: "DM Sans", system-ui, sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	font-weight: 500;
+	color: #faf8f5;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-primary:hover {
-  background-color: #4e371d;
+	background-color: #4e371d;
 }
 
 .btn-primary:active {
-  transform: scale(0.98);
+	transform: scale(0.98);
 }
 
 .btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.75rem;
-  border: 1px solid #e0d3bb;
-  background-color: transparent;
-  padding: 0.625rem 1.5rem;
-  font-family: "DM Sans", system-ui, sans-serif;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 500;
-  color: #7a5e3d;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 0.75rem;
+	border: 1px solid #e0d3bb;
+	background-color: transparent;
+	padding: 0.625rem 1.5rem;
+	font-family: "DM Sans", system-ui, sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.25rem;
+	font-weight: 500;
+	color: #7a5e3d;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-secondary:hover {
-  border-color: #c4af8d;
-  background-color: #f5efe6;
+	border-color: #c4af8d;
+	background-color: #f5efe6;
 }
 
 .btn-secondary:active {
-  transform: scale(0.98);
+	transform: scale(0.98);
 }

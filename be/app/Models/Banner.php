@@ -11,7 +11,17 @@ class Banner extends Model
     use HasFactory;
 
     protected $table = 'banner';
-    protected $guarded = [];
+    protected $fillable = [
+        'uuid',
+        'tipe',
+        'nama',
+        'deskripsi',
+        'status',
+        'link',
+        'video_url',
+        'posisi',
+        'gambar',
+    ];
 
     protected $primaryKey = 'uuid';
     public $incrementing = false;

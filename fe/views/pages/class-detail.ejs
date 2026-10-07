@@ -24,7 +24,7 @@
                     <img
                         src="<%= cls.image %>"
                         alt="<%= cls.name %>"
-                        onerror="this.closest('.grid').classList.remove('lg:grid-cols-2');this.parentElement.remove();"
+                        data-img-error="parent-remove"
                         class="w-full h-[420px] object-cover rounded-[24px]"
                     >
             </div>
@@ -82,7 +82,7 @@
                                         src="<%= cls.instructor.avatar %>"
                                         alt="<%= cls.instructor.name || 'Instructor' %>"
                                         data-fallback="/img/logo.png"
-                                        onerror="this.remove()"
+                                        data-img-error="remove"
                                         class="absolute inset-0 w-10 h-10 rounded-full object-cover bg-sage-50"
                                     >
                                 <% } %>
@@ -145,7 +145,9 @@
 
                 <!-- BOOK BUTTON -->
                 <button
-                    onclick="openBooking('<%= cls.name %>')"
+                    type="button"
+                    data-action="open-booking"
+                    data-class-name="<%= cls.name %>"
                     class="w-full mt-6 py-3.5 rounded-full bg-sage-700 text-white font-semibold hover:bg-sage-600 transition"
                 >
                     Book Now →
