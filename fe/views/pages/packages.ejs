@@ -552,6 +552,36 @@
 
             <% } %>
 
+            <!-- PAGINATION -->
+            <% const pkgQ = new URLSearchParams();
+               if (search) pkgQ.set('search', search);
+               if (filter) pkgQ.set('filter', filter);
+               if (sort) pkgQ.set('sort', sort);
+               const pkgHref = (n) => '/packages' + (pkgQ.toString() ? '?' + pkgQ.toString() + '&page=' + n : '?page=' + n); %>
+            <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+
+                <nav aria-label="Pagination" class="mt-10 flex flex-wrap items-center justify-center gap-1.5">
+
+                    <% if (currentPage > 1) { %>
+                        <a href="<%= pkgHref(currentPage - 1) %>" rel="prev" class="rounded-full border border-sage-200 px-4 py-2 text-sm font-medium text-sage-700 transition-colors hover:bg-sage-50">Previous</a>
+                    <% } %>
+
+                    <% for (let i = 1; i <= totalPages; i++) { %>
+                        <% if (i === currentPage) { %>
+                            <span aria-current="page" class="rounded-full bg-sage-700 px-4 py-2 text-sm font-semibold text-white"><%= i %></span>
+                        <% } else { %>
+                            <a href="<%= pkgHref(i) %>" class="rounded-full border border-sage-200 px-4 py-2 text-sm font-medium text-sage-700 transition-colors hover:bg-sage-50"><%= i %></a>
+                        <% } %>
+                    <% } %>
+
+                    <% if (currentPage < totalPages) { %>
+                        <a href="<%= pkgHref(currentPage + 1) %>" rel="next" class="rounded-full border border-sage-200 px-4 py-2 text-sm font-medium text-sage-700 transition-colors hover:bg-sage-50">Next</a>
+                    <% } %>
+
+                </nav>
+
+            <% } %>
+
         </section>
 
     </main>

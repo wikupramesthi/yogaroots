@@ -105,40 +105,5 @@
 
   <%- include('../partials/footer') %>
 
-  <!-- main.js dimuat sekali via partials/footer -->
-
-  <script>
-    const loadMoreBtn = document.getElementById("loadMoreBtn");
-    const articles = document.querySelectorAll(".article-card");
-
-    let visibleCount = 9;
-    const loadAmount = 9;
-
-    if (loadMoreBtn) {
-
-      loadMoreBtn.addEventListener("click", () => {
-
-        const nextCount = visibleCount + loadAmount;
-
-        for (
-          let i = visibleCount;
-          i < nextCount && i < articles.length;
-          i++
-        ) {
-          articles[i].classList.remove("hidden");
-        }
-
-        visibleCount = nextCount;
-
-        // Kalau semua artikel sudah tampil
-        if (visibleCount >= articles.length) {
-          loadMoreBtn.remove();
-        }
-
-      });
-
-    }
-  </script>
-
 </body>
 </html>

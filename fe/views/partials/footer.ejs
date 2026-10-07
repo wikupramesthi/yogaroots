@@ -9,7 +9,7 @@
         <div class="mb-4">
           <img src="<%= site.logoWhiteUrl || "/img/logo-white.png" %>" alt="<%= site.name %>" width="160" height="40" class="h-10 w-auto object-contain" loading="lazy" decoding="async">
         </div>
-        <p class="text-sm text-sand-400 leading-relaxed"><%= site.tagline %><% if (site.description) { %> — <%= site.description.length > 140 ? site.description.slice(0, 140) + "…" : site.description %><% } %></p>
+        <p class="text-sm text-sand-400 leading-relaxed"><%= site.tagline %><% if (site.description) { %> — <%= site.description %><% } %></p>
         <% if (site.facebookHref || site.youtubeHref || site.tiktokHref) { %>
         <div class="flex items-center gap-3 mt-4">
           <% if (site.facebookHref) { %>

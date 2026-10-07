@@ -637,12 +637,14 @@
           totalPages > 1
         ) { %>
 
-          <div class="flex items-center justify-center gap-2 mt-8">
+<nav aria-label="Pagination" class="flex items-center justify-center gap-2 mt-8">
 
             <% if (currentPage > 1) { %>
 
               <a
                 href="/event?page=<%= currentPage - 1 %>&search=<%= encodeURIComponent(search || '') %>&filter=<%= encodeURIComponent(filter || '') %>&date_from=<%= encodeURIComponent(date_from || '') %>&date_to=<%= encodeURIComponent(date_to || '') %>"
+                rel="prev"
+                aria-label="Previous page"
                 class="w-10 h-10 rounded-xl bg-white
                        border border-stone-200
                        flex items-center justify-center
@@ -656,18 +658,29 @@
 
             <% for (let i = 1; i <= totalPages; i++) { %>
 
+              <% if (currentPage === i) { %>
+              <span
+                aria-current="page"
+                class="w-10 h-10 rounded-xl
+                       flex items-center justify-center
+                       text-xs font-semibold
+                       bg-stone-800 text-white"
+              >
+                <%= i %>
+              </span>
+              <% } else { %>
+
               <a
                 href="/event?page=<%= i %>&search=<%= encodeURIComponent(search || '') %>&filter=<%= encodeURIComponent(filter || '') %>&date_from=<%= encodeURIComponent(date_from || '') %>&date_to=<%= encodeURIComponent(date_to || '') %>"
                 class="w-10 h-10 rounded-xl
                        flex items-center justify-center
                        text-xs font-semibold
-                       <%= currentPage === i
-                         ? 'bg-stone-800 text-white'
-                         : 'bg-white text-stone-500 border border-stone-200 hover:border-stone-300'
-                       %>"
+                       bg-white text-stone-500 border border-stone-200 hover:border-stone-300"
               >
                 <%= i %>
               </a>
+
+              <% } %>
 
             <% } %>
 
@@ -676,6 +689,8 @@
 
               <a
                 href="/event?page=<%= currentPage + 1 %>&search=<%= encodeURIComponent(search || '') %>&filter=<%= encodeURIComponent(filter || '') %>&date_from=<%= encodeURIComponent(date_from || '') %>&date_to=<%= encodeURIComponent(date_to || '') %>"
+                rel="next"
+                aria-label="Next page"
                 class="w-10 h-10 rounded-xl bg-white
                        border border-stone-200
                        flex items-center justify-center
@@ -684,9 +699,9 @@
                 →
               </a>
 
-            <% } %>
+<% } %>
 
-          </div>
+          </nav>
 
         <% } %>
 

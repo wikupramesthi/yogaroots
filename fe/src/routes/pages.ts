@@ -4,10 +4,14 @@ import { getArticle, getArticles } from "../services/articleService.js";
 import { getBanners } from "../services/bannerService.js";
 import { getClass, getClasses } from "../services/classService.js";
 import { getContactCaptcha } from "../services/contactService.js";
-import { getEvents } from "../services/eventService.js";
+import { getEvents, getEventsPaginated } from "../services/eventService.js";
 import { getFaqs } from "../services/faqService.js";
 import { getInstructors } from "../services/instructorService.js";
-import { getPackage, getPackages } from "../services/packageService.js";
+import {
+	getPackage,
+	getPackages,
+	getPackagesPaginated,
+} from "../services/packageService.js";
 import { getPage } from "../services/pageService.js";
 import { formatStatCount, getSiteStats } from "../services/siteStatsService.js";
 import { getTestimonials } from "../services/testimonialService.js";
@@ -40,6 +44,7 @@ router.get("/", async (_req: Request, res: Response, next: NextFunction) => {
 
 		res.render("pages/home", {
 			title: "YogaRoots — Find Balance in Every Breath",
+			pageScript: "home",
 			classes: classes?.data || classes || [],
 			packages: packages || [],
 			events: Array.isArray(events) ? events : events?.data || [],
@@ -82,6 +87,7 @@ router.get(
 			res.render("pages/classes", {
 				title: "YogaRoots — Class Guide",
 				metaDescription: res.locals.t.classGuideDesc,
+				pageScript: "classes",
 				classes,
 			});
 		} catch (err) {
@@ -95,6 +101,7 @@ router.get("/schedules", (_req: Request, res: Response) => {
 	res.render("pages/schedules", {
 		title: "YogaRoots — Class Schedules",
 		metaDescription: res.locals.t.classesDesc,
+		pageScript: "schedules",
 	});
 });
 
@@ -147,6 +154,7 @@ router.get(
 			const page = await getPage(cleanSlug(req.params.slug, "page"));
 			res.render("pages/page-detail", {
 				title: page.title,
+				pageScript: "page-detail",
 				page: { ...page, content: sanitizeRichHtml(page.content) },
 			});
 		} catch (e) {
@@ -184,6 +192,7 @@ router.get(
 			const posts = await getArticles(res.locals.lang);
 			res.render("pages/blog", {
 				title: "Yoga Articles & Tips",
+				pageScript: "blog",
 				posts: posts.slice(0, 9),
 				totalPosts: posts.length,
 			});
@@ -223,6 +232,7 @@ router.get(
 				.catch(() => []);
 			res.render("pages/blog-detail", {
 				title: post.title,
+				pageScript: "blog-detail",
 				post: { ...post, content: sanitizeRichHtml(post.content) },
 				related,
 				latestClasses,
@@ -253,17 +263,17 @@ router.get(
 				page: cleanPage(req.query.page),
 				per_page: 10,
 			};
-			const response = await getPackages(params);
-			const packages = Array.isArray(response) ? response : [];
+			const page = await getPackagesPaginated(params);
+			const packages = Array.isArray(page.items) ? page.items : [];
 			res.render("pages/packages", {
 				title: "Membership Packages",
 				packages,
 				search: params.search,
 				filter: params.filter,
 				sort: params.sort,
-				totalPackages: packages.length,
-				currentPage: params.page,
-				totalPages: 1,
+				totalPackages: page.total || packages.length,
+				currentPage: page.currentPage,
+				totalPages: page.lastPage,
 				error: null,
 			});
 		} catch (err) {
@@ -301,16 +311,21 @@ router.get(
 				filter: cleanText(req.query.filter, { max: 40, label: "Filter" }),
 				date_from: req.query.date_from ? cleanDate(req.query.date_from) : "",
 				date_to: req.query.date_to ? cleanDate(req.query.date_to) : "",
+				page: cleanPage(req.query.page),
+				per_page: 10,
 			};
-			const response = await getEvents(params);
-			const events = Array.isArray(response) ? response : response?.data || [];
+			const page = await getEventsPaginated(params);
+			const events = Array.isArray(page.items) ? page.items : [];
 			res.render("pages/events", {
 				title: "Event & Workshop",
 				events,
-				...params,
-				totalEvents: events.length,
-				totalPages: 1,
-				currentPage: 1,
+				search: params.search,
+				filter: params.filter,
+				date_from: params.date_from,
+				date_to: params.date_to,
+				totalEvents: page.total || events.length,
+				totalPages: page.lastPage,
+				currentPage: page.currentPage,
 				error: null,
 			});
 		} catch (err) {
@@ -349,6 +364,7 @@ router.get("/contact", async (_req: Request, res: Response) => {
 	]);
 	res.render("pages/contact", {
 		title: "Contact Us",
+		pageScript: "contact",
 		contact: yogaData.contact,
 		captcha,
 		faqs,

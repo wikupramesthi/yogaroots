@@ -8,12 +8,11 @@ import type {
 const TIMEOUT_MS = 10_000;
 
 /**
- * Centralized HTTP client to Laravel backend.
- * - Base URL from env (no hardcoding)
- * - 10s timeout so requests don't hang
- * - Does not leak raw backend body to logs
+ * Fetch mentah ke backend Laravel. Mengembalikan amplop apa adanya
+ * (`{ data, meta, ... }`) supaya pemanggil bisa membaca `meta` untuk paginasi.
+ * Melempar ApiError (status + errors) saat backend menolak.
  */
-async function apiRequest(
+async function apiEnvelope(
 	endpoint: string,
 	options: ApiRequestOptions = {},
 ): Promise<BackendPayload> {
@@ -51,7 +50,7 @@ async function apiRequest(
 			throw error;
 		}
 
-		return result.data ?? result;
+		return result;
 	} catch (err) {
 		if ((err as { name?: string }).name === "AbortError") {
 			const timeout = new Error(
@@ -64,6 +63,55 @@ async function apiRequest(
 	} finally {
 		clearTimeout(timer);
 	}
+}
+
+/**
+ * Centralized HTTP client to Laravel backend.
+ * - Base URL from env (no hardcoding)
+ * - 10s timeout so requests don't hang
+ * - Does not leak raw backend body to logs
+ * - Membuang amplop, hanya mengembalikan `data`
+ */
+async function apiRequest(
+	endpoint: string,
+	options: ApiRequestOptions = {},
+): Promise<BackendPayload> {
+	const result = await apiEnvelope(endpoint, options);
+	return result?.data ?? result;
+}
+
+export interface PaginatedResult {
+	items: BackendPayload;
+	currentPage: number;
+	lastPage: number;
+	perPage: number;
+	total: number;
+}
+
+/**
+ * Untuk endpoint yang dipaginasikan Laravel (`meta` berisi current_page dll).
+ * Falls back ke `currentPage = 1` bila backend tidak mengirim `meta`.
+ */
+export async function apiPaginated(
+	endpoint: string,
+	options: ApiRequestOptions = {},
+): Promise<PaginatedResult> {
+	const result = await apiEnvelope(endpoint, options);
+	const meta = (result?.meta || {}) as Record<string, unknown>;
+	const num = (v: unknown, fallback: number) => {
+		const n = Number(v);
+		return Number.isFinite(n) && n > 0 ? n : fallback;
+	};
+	const perPage = num(meta.per_page, 0);
+	const total = num(meta.total, 0);
+
+	return {
+		items: result?.data ?? result,
+		currentPage: num(meta.current_page, 1),
+		lastPage: num(meta.last_page, 1),
+		perPage,
+		total: total || perPage,
+	};
 }
 
 /**

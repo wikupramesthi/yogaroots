@@ -142,32 +142,5 @@
 
     <%- include('../partials/footer') %>
 
-    <!-- main.js dimuat sekali via partials/footer -->
-    <script nonce="<%= nonce %>">
-      (function () {
-        var btn = document.getElementById("copyLinkBtn");
-        if (!btn) return;
-        btn.addEventListener("click", function () {
-          var url = btn.getAttribute("data-url");
-          var done = function () {
-            var original = "Copy link";
-            btn.textContent = btn.getAttribute("data-copied") || "Copied!";
-            setTimeout(function () { btn.textContent = original; }, 2000);
-          };
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(url).then(done, done);
-          } else {
-            var ta = document.createElement("textarea");
-            ta.value = url;
-            document.body.appendChild(ta);
-            ta.select();
-            try { document.execCommand("copy"); } catch (e) {}
-            document.body.removeChild(ta);
-            done();
-          }
-        });
-      })();
-    </script>
-
   </body>
 </html>

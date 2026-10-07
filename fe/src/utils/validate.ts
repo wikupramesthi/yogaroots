@@ -10,6 +10,7 @@ import type {
 } from "../types/index.js";
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const SLUG_LOOSE_RE = /^[A-Za-z0-9_-]+$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PHONE_RE = /^[0-9+\-\s()]{6,20}$/;
 export const UUID_RE =
@@ -28,6 +29,16 @@ export function cleanSlug(value: unknown, label = "slug"): string {
 		.slice(0, 120);
 	if (!SLUG_RE.test(slug)) throw bad(`${label} is invalid`);
 	return slug;
+}
+
+/**
+ * Versi longgar untuk compose URL (sitemap, canonical): tidak pernah melempar,
+ * nilai tak valid menjadi string kosong supaya pemanggil tetap fail-open.
+ * Berbeda dari cleanSlug() yang ketat dan melempar ApiError.
+ */
+export function cleanSlugLoose(value: unknown): string {
+	const s = String(value ?? "").trim();
+	return SLUG_LOOSE_RE.test(s) ? s : "";
 }
 
 export function cleanText(

@@ -53,9 +53,25 @@ fe/
 ## API internal
 
 - `GET /api/classes` → proxy rapi ke backend
-- `POST /api/booking` `{name,email,kelas,date?}` → validasi ketat
-- `POST /api/contact` `{name,email,subject?,message,captcha?}` → teruskan ke backend
-- `POST /api/newsletter` `{email}`
+- `GET /api/class-schedules` → jadwal kelas (filter `date`, `level`, `time`, `studio_uuid`)
+- `GET /api/contact/captcha` → soal captcha + `captcha_id`
+- `POST /api/contact` `{nama,email,no_telp,isi,captcha_id,captcha_answer}` → teruskan ke backend
+- `POST /api/booking` → **501 Not Implemented** (backend belum punya endpoint booking; booking publik lewat WhatsApp)
+- `POST /api/newsletter` → **501 Not Implemented** (belum ada fitur newsletter)
+
+Keduanya sengaja membalas 501, bukan sukses palsu, supaya klien tidak
+mengira aksi tersimpan.
+
+## Testing
+
+```bash
+npm test          # vitest run (50 test: unit validate + integrasi supertest)
+npm run typecheck # tsc server + browser
+npm run lint      # biome
+```
+
+Test memakai `vitest` + `supertest` dan **memock seluruh service** agar tidak
+perlu backend MySQL.
 
 ## Halaman & route
 

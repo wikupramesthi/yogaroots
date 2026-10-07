@@ -2,6 +2,7 @@ import { Router } from "express";
 import { env } from "../config/env.js";
 import apiRequest from "../services/apiClient.js";
 import type { Request, Response } from "../types/index.js";
+import { cleanSlugLoose } from "../utils/validate.js";
 
 /**
  * Sitemap XML dinamis + robots.txt.
@@ -70,10 +71,7 @@ function escapeXml(value: unknown): string {
 }
 
 /** Slug aman untuk URL: buang selain huruf/angka/strip/underscore. */
-function cleanSlug(value: unknown): string {
-	const s = String(value ?? "").trim();
-	return /^[A-Za-z0-9_-]+$/.test(s) ? s : "";
-}
+const cleanSlug = cleanSlugLoose;
 
 function urlEntry(
 	loc: string,

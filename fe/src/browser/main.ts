@@ -6,6 +6,8 @@
  *   2. Modal booking (data-action="open-booking" / "close-booking" + Escape)
  *   3. Reveal on scroll
  *   4. Fallback gambar (data-fallback, data-remove-on-error)
+ *
+ * Modal event (data-action="open-event") ditangani pages/home.ts.
  */
 
 import { $, lockScroll, onAction, unlockScroll } from "./lib/dom";
@@ -62,35 +64,9 @@ function closeBooking() {
 	unlockScroll();
 }
 
-function openEvent(index: number) {
-	const modal = $("eventModal");
-	if (!modal) return;
-	const dataEl = $("eventsData");
-	if (!dataEl) return;
-	try {
-		const events = JSON.parse(dataEl.textContent || "[]");
-		const event = events[index];
-		if (!event) return;
-		modal.classList.remove("hidden");
-		lockScroll();
-	} catch {
-		/* ignore */
-	}
-}
-
-function closeEvent() {
-	$("eventModal")?.classList.add("hidden");
-	unlockScroll();
-}
-
 onAction({
 	"open-booking": openBooking,
 	"close-booking": closeBooking,
-	"open-event": (el) => {
-		const index = parseInt(el.dataset.index || "0", 10);
-		openEvent(index);
-	},
-	"close-event": closeEvent,
 });
 
 document.addEventListener("keydown", (ev) => {

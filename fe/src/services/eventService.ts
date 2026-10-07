@@ -1,6 +1,10 @@
 import type { BackendPayload } from "../types/index.js";
 import { sanitizeRichHtml } from "../utils/sanitize.js";
-import apiRequest, { buildQuery } from "./apiClient.js";
+import apiRequest, {
+	apiPaginated,
+	buildQuery,
+	type PaginatedResult,
+} from "./apiClient.js";
 
 function sanitizeEvent<T>(event: T): T {
 	if (!event || typeof event !== "object") return event;
@@ -28,6 +32,22 @@ export async function getEvents(
 		"per_page",
 	]);
 	return sanitizePayload(await apiRequest(`/events${qs}`));
+}
+
+/** Versi paginated: mengembalikan `meta` Laravel untuk UI pagination. */
+export async function getEventsPaginated(
+	params: Record<string, unknown> = {},
+): Promise<PaginatedResult> {
+	const qs = buildQuery(params, [
+		"search",
+		"filter",
+		"date_from",
+		"date_to",
+		"page",
+		"per_page",
+	]);
+	const page = await apiPaginated(`/events${qs}`);
+	return { ...page, items: sanitizePayload(page.items) };
 }
 
 export async function getEvent(slug: string): Promise<BackendPayload> {

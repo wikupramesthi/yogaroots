@@ -88,47 +88,5 @@
     </main>
 
     <%- include('../partials/footer') %>
-
-    <!-- main.js dimuat sekali via partials/footer -->
-    <script>
-      (function () {
-        "use strict";
-        var search = document.getElementById("classSearch");
-        var pills = Array.prototype.slice.call(document.querySelectorAll(".level-pill"));
-        var cards = Array.prototype.slice.call(document.querySelectorAll(".class-card"));
-        var empty = document.getElementById("classEmpty");
-        var activeLevel = "";
-
-        function applyFilter() {
-          var q = search.value.trim().toLowerCase();
-          var shown = 0;
-          cards.forEach(function (card) {
-            var okLevel = !activeLevel || card.getAttribute("data-level") === activeLevel;
-            var hay = (card.getAttribute("data-name") || "") + " " + (card.getAttribute("data-desc") || "");
-            var okSearch = !q || hay.indexOf(q) !== -1;
-            var show = okLevel && okSearch;
-            card.style.display = show ? "" : "none";
-            if (show) shown++;
-          });
-          empty.classList.toggle("hidden", shown > 0);
-        }
-
-        search.addEventListener("input", applyFilter);
-
-        pills.forEach(function (pill) {
-          pill.addEventListener("click", function () {
-            activeLevel = pill.getAttribute("data-level");
-            pills.forEach(function (p) {
-              var on = p === pill;
-              p.classList.toggle("bg-sage-700", on);
-              p.classList.toggle("text-white", on);
-              p.classList.toggle("bg-sage-50", !on);
-              p.classList.toggle("text-sage-700", !on);
-            });
-            applyFilter();
-          });
-        });
-      })();
-    </script>
   </body>
 </html>

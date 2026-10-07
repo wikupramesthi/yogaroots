@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { env } from "../config/env.js";
 import { getClassSchedules } from "../services/classScheduleService.js";
 import { getClasses } from "../services/classService.js";
 import { getContactCaptcha, sendContact } from "../services/contactService.js";
@@ -57,24 +56,27 @@ router.get(
 	},
 );
 
-// Dummy theme booking — no PII in logs, strict validation
+/**
+ * Booking belum punya endpoint di backend (order dibuat lewat panel
+ * /backend yang butuh session). Endpoint ini sengaja TIDAK mengembalikan
+ * sukses palsu — balas 501 supaya klien tahu belum tersedia.
+ * Booking dari situs publik saat ini lewat WhatsApp (siteContact).
+ */
 router.post("/booking", (req: Request, res: Response) => {
 	try {
-		const { name, email, kelas, date } = validateBooking(req.body);
-		if (!env.IS_PROD)
-			console.debug("[BOOKING]", { kelas, date, at: new Date().toISOString() });
-		res.json({
-			success: true,
-			message: `Thank you ${name}! Your booking for ${kelas} was successful. We've sent a confirmation to ${email}.`,
-		});
+		validateBooking(req.body);
 	} catch (e) {
 		const err = toApiError(e);
 		const status = Number(err.status) || 400;
-		res.status(status).json({
+		return res.status(status).json({
 			success: false,
 			message: status < 500 ? err.message : "Booking failed.",
 		});
 	}
+	res.status(501).json({
+		success: false,
+		message: "Online booking is not available yet. Please book via WhatsApp.",
+	});
 });
 
 router.get("/contact/captcha", async (_req: Request, res: Response) => {
@@ -116,17 +118,23 @@ router.post("/contact", async (req: Request, res: Response) => {
 	}
 });
 
-// Dummy theme newsletter
+/**
+ * Newsletter belum ada di backend maupun di UI. Balas 501, bukan sukses
+ * palsu, supaya klien tidak mengira alamat email tersimpan.
+ */
 router.post("/newsletter", (req: Request, res: Response) => {
 	try {
 		validateNewsletter(req.body);
-		res.json({
-			success: true,
-			message: "You're subscribed to our newsletter!",
-		});
 	} catch (e) {
-		res.status(400).json({ success: false, message: toApiError(e).message });
+		return res.status(400).json({
+			success: false,
+			message: toApiError(e).message,
+		});
 	}
+	res.status(501).json({
+		success: false,
+		message: "Newsletter signup is not available yet.",
+	});
 });
 
 export default router;
