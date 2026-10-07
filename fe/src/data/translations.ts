@@ -55,6 +55,9 @@ const artOfLivingEn = {
 	kriyaDesc:
 		"Gurudev’s signature breathing technique — documented by independent medical research to ease stress, calm the mind, and strengthen immunity.",
 	exploreClasses: "Explore YogaRoots classes",
+	// Teks untuk area kosong di panorama gurudev-hero.webp
+	missionEyebrow: "Our Mission",
+	mission: "Towards a stress-free, violence-free society.",
 	quote:
 		"Joy is the goal of life. Service is its expression, and knowledge is the way.",
 	quoteAuthor: "— Gurudev Sri Sri Ravi Shankar",
@@ -123,7 +126,7 @@ const artOfLivingEn = {
 	],
 };
 
-export const translations = {
+const rawTranslations = {
 	en: {
 		nav: {
 			home: "Home",
@@ -139,6 +142,74 @@ export const translations = {
 		},
 		contactUs: "Contact Us",
 		login: "Login",
+		// State setelah login (data dari backend GET /auth/me)
+		signedInAs: "Signed in as",
+		signOut: "Sign out",
+		signOutFailed: "Could not sign out. Please try again.",
+		viewSchedule: "View schedule",
+		bookingSignedInTitle: "Welcome back",
+		bookingSignedInDesc:
+			"You're signed in. Pick a class to continue with your booking.",
+		bookingSignedOutTitle: "Begin Your Practice",
+		bookingSignedOutDesc:
+			"Sign in with Google and take the first step toward a healthier body and a more balanced mind.",
+		syncedNote: "Name and email are synced automatically.",
+		loginWithGoogle: "Sign in with Google",
+		closeModal: "Close",
+
+		// --- class detail ---
+		backToClasses: "Back to Classes",
+		levelLabel: "Level",
+		levelAdvanced: "Advanced",
+		instructorLabel: "Instructor",
+		studioLabel: "Studio",
+		scheduleLabel: "Class Schedule",
+		schedulePick: "Choose your preferred schedule",
+		scheduleHint: "Available schedules will be shown when you book this class.",
+		bookNow: "Book Now →",
+		classDescFallback:
+			"Discover a mindful yoga practice designed to support your journey.",
+
+		// --- package detail ---
+		packageNotFoundTitle: "Package not found",
+		packageNotFoundDesc: "The package you are looking for is not available.",
+		backToMembership: "Back to Membership",
+		mostPopular: "Most Popular",
+		chooseYourOption: "Choose Your Option",
+		chooseYourOptionDesc: "Select the option that best fits your practice.",
+		whatsIncluded: "What's Included",
+		chooseYourPackage: "Choose Your Package",
+		chooseYourPackageDesc:
+			"Find the option that works best for your practice and make every session at YogaRoots count.",
+		quotaClasses: "classes",
+		perMonth: "/month",
+		durationDay: "day",
+		durationDays: "days",
+		durationWeek: "week",
+		durationWeeks: "weeks",
+		durationMonth: "month",
+		durationMonths: "months",
+		durationYear: "year",
+		durationYears: "years",
+
+		// --- schedules ---
+		filterTitle: "Filter",
+		filterAllLevels: "All Levels",
+		filterAllTimes: "All Times",
+		filterAllStudios: "All Studios",
+		filterMorning: "Morning",
+		filterAfternoon: "Afternoon",
+		filterEvening: "Evening",
+		prevWeek: "Previous week",
+		nextWeek: "Next week",
+		today: "Today",
+
+		// --- packages list ---
+		packagesSearchPlaceholder: "Search membership packages...",
+		pagination: "Pagination",
+		prevPage: "Previous",
+		nextPage: "Next",
+
 		bookClassBtn: "Book a Class →",
 
 		// Hero
@@ -412,6 +483,76 @@ export const translations = {
 		},
 		contactUs: "Hubungi Kami",
 		login: "Masuk",
+		// State setelah login (data dari backend GET /auth/me)
+		signedInAs: "Masuk sebagai",
+		signOut: "Keluar",
+		signOutFailed: "Gagal keluar. Silakan coba lagi.",
+		viewSchedule: "Lihat jadwal",
+		bookingSignedInTitle: "Selamat datang kembali",
+		bookingSignedInDesc:
+			"Kamu sudah masuk. Pilih kelas untuk melanjutkan booking.",
+		bookingSignedOutTitle: "Mulai Praktikmu",
+		bookingSignedOutDesc:
+			"Masuk dengan Google dan ambil langkah pertama menuju tubuh yang lebih sehat dan pikiran yang lebih seimbang.",
+		syncedNote: "Nama dan email tersinkron otomatis.",
+		loginWithGoogle: "Masuk dengan Google",
+		closeModal: "Tutup",
+
+		// --- detail kelas ---
+		backToClasses: "Kembali ke Daftar Kelas",
+		levelLabel: "Level",
+		levelAdvanced: "Lanjutan",
+		instructorLabel: "Instruktur",
+		studioLabel: "Studio",
+		scheduleLabel: "Jadwal Kelas",
+		schedulePick: "Pilih jadwal yang kamu inginkan",
+		scheduleHint:
+			"Jadwal yang tersedia akan tampil saat kamu memesan kelas ini.",
+		bookNow: "Pesan Sekarang →",
+		classDescFallback:
+			"Temukan praktik yoga yang sadar untuk menunjang perjalananmu.",
+
+		// --- detail paket ---
+		packageNotFoundTitle: "Paket tidak ditemukan",
+		packageNotFoundDesc: "Paket yang kamu cari tidak tersedia.",
+		backToMembership: "Kembali ke Membership",
+		mostPopular: "Paling Populer",
+		chooseYourOption: "Pilih Opsi",
+		chooseYourOptionDesc:
+			"Pilih opsi yang paling sesuai dengan praktikmu.",
+		whatsIncluded: "Yang Didapatkan",
+		chooseYourPackage: "Pilih Paketmu",
+		chooseYourPackageDesc:
+			"Temukan opsi yang paling cocok untuk praktikmu dan pastikan setiap sesi di YogaRoots berarti.",
+		quotaClasses: "kelas",
+		perMonth: "/bulan",
+		durationDay: "hari",
+		durationDays: "hari",
+		durationWeek: "minggu",
+		durationWeeks: "minggu",
+		durationMonth: "bulan",
+		durationMonths: "bulan",
+		durationYear: "tahun",
+		durationYears: "tahun",
+
+		// --- jadwal ---
+		filterTitle: "Filter",
+		filterAllLevels: "Semua Level",
+		filterAllTimes: "Semua Waktu",
+		filterAllStudios: "Semua Studio",
+		filterMorning: "Pagi",
+		filterAfternoon: "Siang",
+		filterEvening: "Sore",
+		prevWeek: "Minggu sebelumnya",
+		nextWeek: "Minggu berikutnya",
+		today: "Hari ini",
+
+		// --- daftar paket ---
+		packagesSearchPlaceholder: "Cari paket membership...",
+		pagination: "Navigasi halaman",
+		prevPage: "Sebelumnya",
+		nextPage: "Berikutnya",
+
 		bookClassBtn: "Daftar Kelas →",
 
 		// Hero
@@ -685,7 +826,7 @@ export const translations = {
 			phonePh: "Nomor WhatsApp aktif",
 			msgPh: "Ceritakan kebutuhanmu...",
 			captchaPh: "Masukkan jawaban",
-			captchaUnavailable: "Verification unavailable",
+			captchaUnavailable: "Verifikasi tidak tersedia",
 			sendBtn: "Kirim Pesan",
 			sendingBtn: "Mengirim...",
 			mapCardTitle: "YogaRoots Studio",
@@ -723,6 +864,9 @@ export const translations = {
 			kriyaDesc:
 				"Teknik pernapasan khas Gurudev yang terbukti membantu meredakan stres, menenangkan pikiran, dan memperkuat daya tahan tubuh — didokumentasikan oleh riset medis independen dari institusi ternama.",
 			exploreClasses: "Lihat kelas YogaRoots",
+			// Teks untuk area kosong di panorama gurudev-hero.webp
+			missionEyebrow: "Misi Kami",
+			mission: "Menuju masyarakat bebas stres dan bebas kekerasan.",
 			quote:
 				"Kegembiraan adalah tujuan hidup. Pelayanan adalah ekspresinya, dan pengetahuan adalah jalannya.",
 			quoteAuthor: "— Gurudev Sri Sri Ravi Shankar",
@@ -1607,3 +1751,50 @@ export const translations = {
 		artOfLiving: artOfLivingEn,
 	},
 };
+
+/* ---------- fallback per-key ke bahasa Inggris ---------- */
+
+type Dict = Record<string, unknown>;
+
+const LOCALES = ["en", "id", "ja", "ko", "zh"] as const;
+
+function isPlainObject(value: unknown): value is Dict {
+	return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/**
+ * Gabungkan locale dengan `en` secara rekursif: key yang hilang di locale
+ * tersebut diambil dari Inggris.
+ *
+ * Tanpa ini, menambah key baru hanya ke `en`/`id` membuat `ja`/`ko`/`zh`
+ * mencetak "undefined" di template, karena template memakai `t.x` langsung.
+ * Karena itu ketiga locale itu memakai `contactPageEn`/`artOfLivingEn` —
+ * sekarang konten yang tertinggal dipulihkan otomatis, tanpa harus menyalin manual.
+ */
+function mergeWithEnglish(locale: Dict, english: Dict): Dict {
+	const out: Dict = {};
+
+	for (const [key, value] of Object.entries(locale)) {
+		out[key] = isPlainObject(value)
+			? mergeWithEnglish(value, isPlainObject(english[key]) ? english[key] : {})
+			: value;
+	}
+
+	for (const [key, value] of Object.entries(english)) {
+		if (!(key in out)) out[key] = value;
+	}
+
+	return out;
+}
+
+type LocaleKey = (typeof LOCALES)[number];
+
+const english = (rawTranslations as Record<LocaleKey, Dict>).en;
+
+const merged = {} as Record<LocaleKey, Dict>;
+for (const locale of LOCALES) {
+	const dict = (rawTranslations as Record<LocaleKey, Dict>)[locale];
+	merged[locale] = locale === "en" ? english : mergeWithEnglish(dict, english);
+}
+
+export const translations = merged;

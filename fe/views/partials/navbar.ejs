@@ -46,11 +46,35 @@
 
         <a href="/contact" rel="noopener noreferrer" class="nav-text text-sm transition-colors <%= isHeroPage ? '' : 'text-sand-600 hover:text-sand-900' %>"><%= t.contactUs %></a>
 
-        <button type="button" data-action="open-booking" class="nav-login inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition-colors"><%= t.login %></button>
+        <% if (user) { %>
+          <div class="relative" id="userMenuWrap">
+            <button type="button" id="userMenuBtn" class="nav-login inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors" aria-haspopup="true" aria-expanded="false">
+              <% if (user.avatar) { %>
+                <img src="<%= user.avatar %>" alt="" width="22" height="22" loading="lazy" decoding="async" class="w-[22px] h-[22px] rounded-full object-cover">
+              <% } else { %>
+                <span aria-hidden="true" class="w-[22px] h-[22px] rounded-full bg-sage-700 text-white grid place-items-center text-[10px] font-semibold"><%= (user.name || user.email || '?').trim().charAt(0).toUpperCase() %></span>
+              <% } %>
+              <span class="max-w-[7rem] truncate"><%= user.name || user.email %></span>
+            </button>
+            <div id="userMenu" class="lang-dropdown hidden right-0 left-auto">
+              <div class="px-3 py-2 border-b border-sage-100">
+                <p class="text-[10px] uppercase tracking-[0.15em] text-stone-warm"><%= t.signedInAs %></p>
+                <p class="text-sm font-semibold text-sage-900 truncate"><%= user.name || user.email %></p>
+                <% if (user.email) { %><p class="text-xs text-stone-warm truncate"><%= user.email %></p><% } %>
+              </div>
+              <a href="/schedules"><%= t.viewSchedule %></a>
+              <a href="/packages"><%= t.footerPackagesPricing %></a>
+              <button type="button" data-action="logout" class="w-full text-left"><%= t.signOut %></button>
+            </div>
+          </div>
+        <% } else { %>
+          <button type="button" data-action="open-booking" class="nav-login inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition-colors"><%= t.login %></button>
+        <% } %>
       </div>
 
       <!-- Mobile -->
       <div class="lg:hidden flex items-center gap-2">
+        <%# Sama seperti desktop: modal yang discerning status, cukup satu tombol %>
         <button type="button" data-action="open-booking" class="nav-login inline-flex items-center rounded-full border px-4 py-1.5 text-sm transition-colors"><%= t.login %></button>
         <button id="mobileBtn" class="nav-hamburger p-2 rounded-lg transition-colors <%= isHeroPage ? '' : 'text-sand-800 hover:bg-sand-100' %>" aria-label="Menu">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>

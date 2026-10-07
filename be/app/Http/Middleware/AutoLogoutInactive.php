@@ -20,7 +20,8 @@ class AutoLogoutInactive
             // dicek timeout: tujuannya justru me-refresh last_activity,
             // termasuk saat user klik sedikit telat lewat batas 30 menit
             // pada saat popup warning masih tampil (race countdown JS).
-            if ($request->routeIs('keep-alive') || $request->routeIs('logout')) {
+            // 'auth.me.logout' = logout dari frontend publik (Express).
+            if ($request->routeIs('keep-alive') || $request->routeIs('logout') || $request->routeIs('auth.me.logout')) {
                 $request->session()->put('last_activity', time());
 
                 return $next($request);

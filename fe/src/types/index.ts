@@ -194,3 +194,15 @@ export interface BookingPayload {
 	kelas: string;
 	date: string;
 }
+
+/**
+ * User yang sedang login, diterjemahkan dari session Laravel oleh
+ * backend `GET /auth/me` (lihat src/services/authService.ts).
+ */
+export interface SessionUser {
+	uuid?: string;
+	name?: string;
+	email?: string;
+	avatar?: string | null;
+	roles?: string[];
+}

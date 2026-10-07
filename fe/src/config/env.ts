@@ -18,6 +18,9 @@ function optional(name: string, fallback = ""): string {
 const rawApiUrl = required("API_URL", "http://127.0.0.1:8000/api");
 const rawSiteUrl = optional("SITE_URL", "http://localhost:3000");
 
+// API_URL berakhiran /api; endpoint web backend (auth) berada di root-nya.
+const apiBase = rawApiUrl.replace(/\/+$/, "").replace(/\/api$/, "");
+
 export const env = {
 	NODE_ENV: optional("NODE_ENV", "development"),
 	IS_PROD: optional("NODE_ENV", "development") === "production",
@@ -25,6 +28,12 @@ export const env = {
 
 	// No trailing slash for consistent endpoint concat
 	API_URL: rawApiUrl.replace(/\/+$/, ""),
+	// Root backend Laravel — untuk endpoint web non-/api (mis. /auth/me)
+	API_BASE: apiBase,
+	// Nama cookie session Laravel. Hanya dipakai sebagai petunjuk cepat untuk
+	// deciding apakah perlu memanggil backend; seluruh header Cookie tetap
+	// diteruskan apa adanya supaya tidak perlu tahu nama ini di FE.
+	SESSION_COOKIE: optional("SESSION_COOKIE_NAME", "laravel_session"),
 	API_KEY: required("API_KEY"),
 	SITE_URL: rawSiteUrl.replace(/\/+$/, ""),
 
@@ -46,5 +55,9 @@ export const siteContact = {
 		`&text=${encodeURIComponent("Hi, I found you through your website and would like more information about your classes. Thank you!")}` +
 		`&app_absent=0`,
 	whatsappShortLink: `https://wa.me/${encodeURIComponent(env.WHATSAPP_NUMBER)}`,
-	googleAuthUrl: env.GOOGLE_AUTH_URL,
+	/**
+	 * Login Google. `redirect` wajib diisi: tanpa itu backend melakukan
+	 * redirect ke panel admin /backend/dashboard, bukan kembali ke situs publik.
+	 */
+	googleAuthUrl: `${env.GOOGLE_AUTH_URL}${env.GOOGLE_AUTH_URL.includes("?") ? "&" : "?"}redirect=${encodeURIComponent(env.SITE_URL)}`,
 };

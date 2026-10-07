@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { clearSessionCache } from "../middleware/locals.js";
+import { getSessionUser, logoutSession } from "../services/authService.js";
 import { getClassSchedules } from "../services/classScheduleService.js";
 import { getClasses } from "../services/classService.js";
 import { getContactCaptcha, sendContact } from "../services/contactService.js";
@@ -55,6 +57,34 @@ router.get(
 		}
 	},
 );
+
+/**
+ * Logout untuk user yang login via Google OAuth. Cookie session di-putuskan
+ * di backend; FE meneruskannya apa adanya (sudah dijaga sameOriginOnly
+ * oleh middleware di /api).
+ */
+router.post("/logout", async (req: Request, res: Response) => {
+	const ok = await logoutSession(req.headers?.cookie);
+	if (!ok) {
+		return res.status(502).json({
+			success: false,
+			message: "Could not reach the sign-in service. Please try again.",
+		});
+	}
+	// Hapus cache session supaya render berikutnya langsung anonim.
+	clearSessionCache();
+	res.json({ success: true, authenticated: false });
+});
+
+/** Status login untuk dipanggil browser bila perlu (mis. setelah redirect OAuth). */
+router.get("/session", async (req: Request, res: Response) => {
+	const user = await getSessionUser(req.headers?.cookie);
+	res.set("Cache-Control", "no-store");
+	res.status(user ? 200 : 401).json({
+		authenticated: !!user,
+		user,
+	});
+});
 
 /**
  * Booking belum punya endpoint di backend (order dibuat lewat panel

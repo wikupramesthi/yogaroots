@@ -44,6 +44,7 @@ use App\Http\Controllers\Admin\GlobalSearchController;
 use App\Http\Controllers\Admin\WebsiteIdentityController;
 use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Http\Middleware\MinifyHtml;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -52,6 +53,51 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Socialite Routes GOOGLE
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('googleAuth');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+/*
+|--------------------------------------------------------------------------
+| Integrasi frontend publik (Express)
+|--------------------------------------------------------------------------
+| Frontend di port/domain lain meneruskan cookie session browser ke
+| endpoint ini lewat server-to-server, jadi tidak ada CORS di sini.
+| Tanpa middleware 'auth' supaya selalu balik JSON 401 — bukan redirect
+| ke halaman login Blade yang tidak berguna bagi Express.
+|
+*/
+Route::get('/auth/me', function (Request $request) {
+    $user = $request->user();
+
+    if (! $user) {
+        return response()->json([
+            'authenticated' => false,
+            'user' => null,
+        ], 401);
+    }
+
+    return response()->json([
+        'authenticated' => true,
+        'user' => [
+            'uuid' => $user->uuid,
+            'name' => $user->name,
+            'email' => $user->email,
+            'avatar' => $user->avatar,
+            'roles' => $user->getRoleNames()->values()->all(),
+        ],
+    ]);
+})->name('auth.me');
+
+// Di-exempt dari CSRF di bootstrap/app.php (frontend tidak punya token).
+Route::post('/auth/me/logout', function (Request $request) {
+    Auth::guard('web')->logout();
+
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return response()->json([
+        'authenticated' => false,
+        'user' => null,
+    ]);
+})->name('auth.me.logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

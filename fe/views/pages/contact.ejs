@@ -8,35 +8,7 @@
     <%- include('../partials/navbar') %>
 
 <%
-  const isID = (typeof lang !== "undefined" && lang === 'id');
-  const L = {
-    badge: isID ? 'Respon < 1×24 jam' : 'Replies within 24 hours',
-    titleA: isID ? 'Mari' : "Let's",
-    titleB: isID ? 'terhubung' : 'connect',
-    heroDesc: isID
-      ? 'Ada pertanyaan soal kelas, paket, atau jadwal? Ceritakan kebutuhanmu — tim kami siap mendengarkan dan membantumu menemukan praktik yang pas.'
-      : 'Questions about classes, packages, or schedules? Tell us what you need — our team is here to listen and help you find the right practice.',
-    waCta: isID ? 'Chat WhatsApp' : 'Chat on WhatsApp',
-    mailCta: 'Email',
-    infoTitle: isID ? 'Info Kontak' : 'Contact Info',
-    infoDesc: isID
-      ? 'Atau hubungi kami langsung lewat kanal di bawah ini.'
-      : 'Or reach us directly through any channel below.',
-    addressLabel: isID ? 'Alamat Studio' : 'Studio Address',
-    directions: isID ? 'Petunjuk arah' : 'Get directions',
-    formTitle: isID ? 'Kirim Pesan' : 'Send Us a Message',
-    namePh: isID ? 'Nama lengkap' : 'Full Name',
-    emailPh: isID ? 'Alamat email' : 'Email Address',
-    phonePh: isID ? 'Nomor WhatsApp aktif' : 'Active WhatsApp Number',
-    msgPh: isID ? 'Ceritakan kebutuhanmu...' : 'Tell us how we can help...',
-    captchaPh: isID ? 'Masukkan jawaban' : 'Enter your answer',
-    sendBtn: isID ? 'Kirim Pesan' : 'Send Message',
-    sendingBtn: isID ? 'Mengirim...' : 'Sending...',
-    mapCardTitle: isID ? 'YogaRoots Studio' : 'YogaRoots Studio',
-    faqEyebrow: 'FAQ',
-    faqTitle: isID ? 'Sering ditanyakan' : 'Frequently asked',
-    faqEmpty: isID ? 'Belum ada FAQ.' : 'No FAQs available.',
-  };
+  const L = t.contactPage;
 %>
 
     <main>
@@ -178,7 +150,7 @@
 
                 <div class="flex flex-col sm:flex-row sm:items-center gap-3 rounded-2xl bg-sand-100/60 border border-sand-200/60 p-4">
                   <label for="captchaAnswer" id="captchaQuestion" class="sm:flex-1 text-sm font-medium text-sage-900 leading-snug">
-                    <%= captcha?.question || "Verification unavailable" %>
+                    <%= captcha?.question || L.captchaUnavailable %>
                   </label>
                   <input
                     name="captcha_answer"

@@ -48,6 +48,32 @@ import { $, lockScroll, onAction, unlockScroll } from "./lib/dom";
 			}
 		});
 	}
+
+	// Dropdown user (hanya ada saat sudah login)
+	const userToggle = $("userMenuBtn");
+	const userMenu = $("userMenu");
+	if (userToggle && userMenu) {
+		userToggle.addEventListener("click", (e) => {
+			e.stopPropagation();
+			const open = userMenu.classList.toggle("hidden") === false;
+			userToggle.setAttribute("aria-expanded", open ? "true" : "false");
+		});
+		document.addEventListener("click", (e) => {
+			if (
+				!userMenu.classList.contains("hidden") &&
+				!userMenu.contains(e.target as Node)
+			) {
+				userMenu.classList.add("hidden");
+				userToggle.setAttribute("aria-expanded", "false");
+			}
+		});
+		document.addEventListener("keydown", (e) => {
+			if (e.key === "Escape") {
+				userMenu.classList.add("hidden");
+				userToggle.setAttribute("aria-expanded", "false");
+			}
+		});
+	}
 })();
 
 /* ---------- 2. modal booking ---------- */
@@ -67,7 +93,31 @@ function closeBooking() {
 onAction({
 	"open-booking": openBooking,
 	"close-booking": closeBooking,
+	logout: () => {
+		void logout();
+	},
 });
+
+/** Panggil backend (memutus session Laravel), lalu render ulang state anonim. */
+async function logout() {
+	try {
+		const res = await fetch("/api/logout", {
+			method: "POST",
+			headers: { Accept: "application/json" },
+		});
+		if (!res.ok) throw new Error("logout failed");
+	} catch {
+		// Backend tidak terjangkau — jangan reload, user tetap login.
+		const msg = document.getElementById("bookingMsg");
+		if (msg) {
+			msg.className = "text-sm mt-3 p-3 rounded-xl bg-red-50 text-red-700";
+			msg.textContent =
+				msg.dataset.signoutError || "Could not sign out. Please try again.";
+		}
+		return;
+	}
+	window.location.reload();
+}
 
 document.addEventListener("keydown", (ev) => {
 	if (ev.key === "Escape") closeBooking();

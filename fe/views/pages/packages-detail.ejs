@@ -19,14 +19,15 @@
         );
     }
 
+    // Bentuk jamak mengikuti satuan + jumlah, diambil dari translations
     function formatDuration(duration, unit) {
         if (!duration) return '';
 
         const units = {
-            day: duration == 1 ? 'day' : 'days',
-            week: duration == 1 ? 'week' : 'weeks',
-            month: duration == 1 ? 'month' : 'months',
-            year: duration == 1 ? 'year' : 'years'
+            day: duration == 1 ? t.durationDay : t.durationDays,
+            week: duration == 1 ? t.durationWeek : t.durationWeeks,
+            month: duration == 1 ? t.durationMonth : t.durationMonths,
+            year: duration == 1 ? t.durationYear : t.durationYears
         };
 
         return `${duration} ${units[unit] || unit || ''}`;
@@ -58,7 +59,7 @@
                     <polyline points="15 18 9 12 15 6"></polyline>
                 </svg>
 
-                Back to Membership
+                <%= t.backToMembership %>
             </a>
 
             <div class="max-w-3xl">
@@ -76,7 +77,7 @@
                                mb-5"
                     >
                         <i class="bi bi-star-fill"></i>
-                        MOST POPULAR
+                        <%= t.mostPopular %>
                     </span>
                 <% } %>
 
@@ -137,11 +138,11 @@
                                    font-bold
                                    text-sage-900"
                         >
-                            Choose Your Option
+                            <%= t.chooseYourOption %>
                         </h2>
 
                         <p class="text-sm text-stone-400 mt-1">
-                            Select the option that best fits your practice.
+                            <%= t.chooseYourOptionDesc %>
                         </p>
                     </div>
 
@@ -191,7 +192,7 @@
                                             <% if (option.quota) { %>
                                                 <span class="inline-flex items-center gap-1">
                                                     <i class="bi bi-check-circle"></i>
-                                                    <%= option.quota %> classes
+                                                    <%= option.quota %> <%= t.quotaClasses %>
                                                 </span>
                                             <% } %>
 
@@ -261,7 +262,7 @@
                                    font-bold
                                    text-sage-900"
                         >
-                            What's Included
+                            <%= t.whatsIncluded %>
                         </h2>
 
                         <div
@@ -353,8 +354,7 @@
                     ></div>
 
                     <p class="text-sm text-sage-200 leading-relaxed">
-                        Find the option that works best for your practice and
-                        make every session at Yogaroots count.
+                        <%= t.chooseYourPackageDesc %>
                     </p>
 
                      <button type="button" data-action="open-booking"
@@ -373,7 +373,7 @@
                                hover:bg-sage-50
                                transition"
                     >
-                        Choose Your Package
+                        <%= t.chooseYourPackage %>
 
                         <svg xmlns="http://www.w3.org/2000/svg"
                              width="17"
@@ -399,9 +399,9 @@
     <% } else { %>
     <section class="max-w-3xl mx-auto px-4 py-20 text-center">
         <div class="text-6xl">📦</div>
-        <h1 class="font-display text-3xl font-bold mt-4 text-sage-900">Package not found</h1>
-        <p class="text-stone-warm mt-2"><%= typeof error !== 'undefined' && error ? error : 'The package you are looking for is not available.' %></p>
-        <a href="/packages" class="inline-block mt-6 bg-sage-700 text-white px-7 py-3 rounded-full font-semibold">Back to Packages →</a>
+        <h1 class="font-display text-3xl font-bold mt-4 text-sage-900"><%= t.packageNotFoundTitle %></h1>
+        <p class="text-stone-warm mt-2"><%= typeof error !== 'undefined' && error ? error : t.packageNotFoundDesc %></p>
+        <a href="/packages" class="inline-block mt-6 bg-sage-700 text-white px-7 py-3 rounded-full font-semibold"><%= t.packagesTitleA %> →</a>
     </section>
     <% } %>
 

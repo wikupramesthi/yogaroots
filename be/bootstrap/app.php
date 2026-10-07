@@ -28,6 +28,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->throttleApi('api');
         $middleware->prependToGroup('api', \App\Http\Middleware\ApiSecurityHeaders::class);
         $middleware->appendToGroup('api', \App\Http\Middleware\VerifyApiKey::class);
+        // Logout yang dipanggil frontend publik (Express) tidak mengirim
+        // token CSRF; endpoint ini tetap butuh cookie session yang valid.
+        $middleware->validateCsrfTokens(except: [
+            'auth/me/logout',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (\Illuminate\Session\TokenMismatchException $e, \Illuminate\Http\Request $request) {
